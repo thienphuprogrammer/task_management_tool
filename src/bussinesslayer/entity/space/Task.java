@@ -14,6 +14,9 @@ public class Task extends Space {
         this.status = status;
     }
 
+    public Task() {
+    }
+
     public int getMemberId() {
         return memberId;
     }
@@ -30,7 +33,7 @@ public class Task extends Space {
         this.sprintId = sprintId;
     }
 
-    public int isStatus() {
+    public int getStatus() {
         return status;
     }
 

@@ -14,6 +14,9 @@ public class SubTask extends Space {
         this.status = status;
     }
 
+    public SubTask() {
+    }
+
     public int getMemberId() {
         return memberId;
     }
@@ -30,7 +33,7 @@ public class SubTask extends Space {
         this.taskId = taskId;
     }
 
-    public int isStatus() {
+    public int getStatus() {
         return status;
     }
 

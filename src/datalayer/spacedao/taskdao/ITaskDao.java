@@ -1,4 +1,6 @@
 package datalayer.spacedao.taskdao;
 
-public interface ITaskDao {
+import datalayer.spacedao.ISpaceDao;
+
+public interface ITaskDao<Task> extends ISpaceDao<Task> {
 }

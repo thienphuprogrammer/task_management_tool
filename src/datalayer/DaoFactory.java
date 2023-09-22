@@ -22,9 +22,4 @@ public class DaoFactory implements IDaoFactory {
     public void setFileManager(IFileManager fileManager) {
         this.fileManager = fileManager;
     }
-
-    @Override
-    public IConnection getConnection() {
-        return new MySqlConnection();
-    }
 }

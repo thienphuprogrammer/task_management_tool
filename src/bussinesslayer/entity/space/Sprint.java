@@ -10,6 +10,9 @@ public class Sprint extends Space {
         this.projectId = projectId;
     }
 
+    public Sprint() {
+    }
+
     public int getProjectId() {
         return projectId;
     }
