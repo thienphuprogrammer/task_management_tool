@@ -1,4 +1,4 @@
-package application.ui;
+package application.ui.member;
 
 import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.IService;
@@ -11,11 +11,15 @@ public class MemberMenu {
     public enum CHOICE_MEMBER_MENU {
         EXIT,
         VIEW_DOCUMENT,
-        VIEW_REPORT,
-        VIEW_PROFILE,
+        View_REPORT,
+        VIEW_PROJECT,
         VIEW_INFORMATION,
-        ViEW_TASK_PROGRESS_TRACKING,
-
+        VIEW_TASK_PROGRESS_TRACKING,
+        VIEW_TASK_PROGRESS,
+        UPDATE_PROFILE,
+        SUBMIT_TASK,
+        MARKS_PROGRESS,
+        RESUBMIT_TASK,
     }
     // -------------------- Properties ------------------------
     IService<Member> service;
@@ -38,6 +42,16 @@ public class MemberMenu {
                 } else {
                     switch (CHOICE_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
+                        case VIEW_DOCUMENT -> this.viewDocument();
+                        case View_REPORT -> this.viewReport();
+                        case VIEW_PROJECT -> this.viewProject();
+                        case VIEW_INFORMATION -> this.viewInformation();
+                        case VIEW_TASK_PROGRESS_TRACKING -> this.viewTaskProgressTracking();
+                        case VIEW_TASK_PROGRESS -> this.viewTaskProgress();
+                        case UPDATE_PROFILE -> this.updateProfile();
+                        case SUBMIT_TASK -> this.submitTask();
+                        case MARKS_PROGRESS -> this.marksProgress();
+                        case RESUBMIT_TASK -> this.resubmitTask();
                         default -> {
                         }
                     }
@@ -47,20 +61,34 @@ public class MemberMenu {
             }
         }
     }
-    private void createMember() {
+    private void viewDocument() {
 
     }
-    private void updateMember() {
+    private void viewReport() {
 
     }
-    private void deleteMember() {
+    private void viewProject() {
 
     }
-    private void getAllMember() {
+    private void viewInformation() {
 
     }
-    private void getMemberById() {
+    private void viewTaskProgressTracking() {
 
     }
+    private void viewTaskProgress() {
 
+    }
+    private void updateProfile() {
+
+    }
+    private void submitTask() {
+
+    }
+    private void marksProgress() {
+
+    }
+    private void resubmitTask() {
+
+    }
 }
