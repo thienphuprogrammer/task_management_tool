@@ -14,9 +14,9 @@ public class SubtaskManagerMenu {
         CREATE_SUBTASK,
         UPDATE_SUBTASK,
         DELETE_SUBTASK,
-        ASSIGN_SUBTASK,
-        REASSIGN_SUBTASK,
-        VIEW_SUBTASK
+        VIEW_SUBTASK,
+        ASSIGN_SUBTASK_TO_MEMBER,
+        REASSIGN_SUBTASK_TO_MEMBER,
     }
     //  ------------------- Constructor ------------------------
     public SubtaskManagerMenu(IService<Manager> service) {
@@ -51,9 +51,9 @@ public class SubtaskManagerMenu {
                         case CREATE_SUBTASK -> this.createSubtask();
                         case UPDATE_SUBTASK -> this.updateSubtask();
                         case DELETE_SUBTASK -> this.deleteSubtask();
-                        case ASSIGN_SUBTASK -> this.assignSubtaskToMember();
-                        case REASSIGN_SUBTASK -> this.reassignSubtaskToMember();
                         case VIEW_SUBTASK -> this.viewSubtask();
+                        case ASSIGN_SUBTASK_TO_MEMBER -> this.assignSubtaskToMember();
+                        case REASSIGN_SUBTASK_TO_MEMBER -> this.reassignSubtaskToMember();
                     }
                 }
             } catch (Exception e) {
@@ -79,4 +79,5 @@ public class SubtaskManagerMenu {
     private void deleteSubtask() {
 
     }
+
 }

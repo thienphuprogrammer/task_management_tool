@@ -1,7 +1,7 @@
 package bussinesslayer.service.sapce;
 
 import bussinesslayer.entity.space.SubTask;
-import bussinesslayer.entity.space.Task;
+import bussinesslayer.entity.user.Manager;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
@@ -29,8 +29,20 @@ public class SubTaskService implements ISpaceService<SubTask> {
     public void setSubTaskIDao(IDao<SubTask> subTaskIDao) {
         this.subTaskIDao = subTaskIDao;
     }
-    // -------------------- Methods ------------------------
+    // -------------------- Methods -----------------------
+    public void assignMember(int subTaskId, int managerId) throws Exception {
+        SubTask subTask = subTaskIDao.getById(subTaskId);
+        subTask.setMemberId(managerId);
+        subTaskIDao.update(subTask);
+    }
 
+    public void reassignMember(int subTaskId, int newMemberId) throws Exception {
+        SubTask subTask = subTaskIDao.getById(subTaskId);
+        subTask.setMemberId(newMemberId);
+        subTaskIDao.update(subTask);
+    }
+
+    // --------------------- Override Methods ----------------------
     @Override
     public void update(SubTask SubTask) throws Exception {
         subTaskIDao.update(SubTask);

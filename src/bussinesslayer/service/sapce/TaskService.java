@@ -1,13 +1,14 @@
 package bussinesslayer.service.sapce;
 
 import bussinesslayer.entity.space.Task;
+import bussinesslayer.service.IService;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class TaskService implements ISpaceService<Task> {
+public class TaskService implements IService<Task> {
     // -------------------- Properties ------------------------
     private IDao<Task> taskIDao;
     IDaoFactory taskFactory;
@@ -27,7 +28,18 @@ public class TaskService implements ISpaceService<Task> {
         this.taskIDao = taskIDao;
     }
     // -------------------- Methods ------------------------
+    public void assignMember(int taskId, int managerId) throws Exception {
+        Task task = taskIDao.getById(taskId);
+        task.setMemberId(managerId);
+        taskIDao.update(task);
+    }
+    public void reassignMember(int taskId, int newMemberId) throws Exception {
+        Task task = taskIDao.getById(taskId);
+        task.setMemberId(newMemberId);
+        taskIDao.update(task);
+    }
 
+    // -------------------- Override Methods ----------------------
     @Override
     public void update(Task Task) throws Exception {
         taskIDao.update(Task);
@@ -53,7 +65,6 @@ public class TaskService implements ISpaceService<Task> {
         return taskIDao.getAll();
     }
 
-    @Override
     public void viewAll() throws Exception {
         try {
             List<Task> list = taskIDao.getAll();
@@ -65,7 +76,6 @@ public class TaskService implements ISpaceService<Task> {
         }
     }
 
-    @Override
     public void viewById(int id) throws Exception {
         Task task = taskIDao.getById(id);
         System.out.println("| id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");

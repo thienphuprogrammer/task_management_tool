@@ -26,10 +26,7 @@ public class ManagerMenu {
 
         // Subtask
         SUBTASK_MANAGER,
-        // Assign Task
-        ASSIGN_TASK_MANAGER,
-        // Assign Subtask
-        ASSIGN_SUBTASK_MANAGER,
+
         // Document
         DOCUMENT_MANAGER,
         //Profile
@@ -65,8 +62,6 @@ public class ManagerMenu {
                         case SPRINT_MANAGER -> this.manageSprint();
                         case TASK_MANAGER -> this.manageTask();
                         case SUBTASK_MANAGER -> this.manageSubtask();
-                        case ASSIGN_TASK_MANAGER -> this.manageAssignTaskToMember();
-                        case ASSIGN_SUBTASK_MANAGER -> this.manageAssignSubtaskToMember();
                         case DOCUMENT_MANAGER -> this.manageDocument();
                         case PROFILE_MANAGER -> this.manageProfile();
                         default -> {
@@ -103,14 +98,6 @@ public class ManagerMenu {
     private void manageSubtask() {
         SubtaskManagerMenu subtaskManagerMenu = new SubtaskManagerMenu(service);
         subtaskManagerMenu.processMenuForSubtaskManager();
-    }
-    private void manageAssignTaskToMember() {
-        AssignSubtaskManagerMenu assignSubtaskManagerMenu = new AssignSubtaskManagerMenu(service);
-        assignSubtaskManagerMenu.processMenuForAssignSubtaskManager();
-    }
-    private void manageAssignSubtaskToMember() {
-        AssignSubtaskManagerMenu assignSubtaskManagerMenu = new AssignSubtaskManagerMenu(service);
-        assignSubtaskManagerMenu.processMenuForAssignSubtaskManager();
     }
     private void manageDocument() {
         DocumentManagerMenu documentManagerMenu = new DocumentManagerMenu(service);

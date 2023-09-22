@@ -28,8 +28,19 @@ public class ProjectService implements ISpaceService<Project> {
     public void setProjectIDao(IDao<Project> projectIDao) {
         this.projectIDao = projectIDao;
     }
-    // -------------------- Methods ------------------------
+    // -------------------- Methods -----------------------
+    public void assignManager(int projectId, int managerId) throws Exception {
+        Project project = projectIDao.getById(projectId);
+        project.setManagerId(managerId);
+        projectIDao.update(project);
+    }
 
+    public void reassignManager(int projectId, int newManagerId) throws Exception {
+        Project project = projectIDao.getById(projectId);
+        project.setManagerId(newManagerId);
+    }
+
+    // --------------------- Override Methods ----------------------
     @Override
     public void update(Project project) throws Exception {
         projectIDao.update(project);
