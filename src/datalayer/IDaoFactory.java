@@ -1,17 +1,24 @@
 package datalayer;
 
-import datalayer.spacedao.backlogdao.IBacklogDao;
-import datalayer.spacedao.projectdao.IProjectDao;
-import datalayer.spacedao.sprintdao.ISprintDao;
-import datalayer.spacedao.substaskdao.ISubTaskDao;
-import datalayer.spacedao.taskdao.ITaskDao;
-
-import java.sql.Connection;
+import bussinesslayer.entity.space.*;
+import bussinesslayer.entity.user.Admin;
+import bussinesslayer.entity.user.Manager;
+import bussinesslayer.entity.user.Member;
 
 public interface IDaoFactory {
-    IBacklogDao getBacklogDao() throws Exception;
-    IProjectDao getProjectDao() throws Exception;
-    ISprintDao getSprintDao() throws Exception;
-    ITaskDao getTaskDao() throws Exception;
-    ISubTaskDao getSubTaskDao() throws Exception;
+    IDao<Backlog> getBacklogDao() throws Exception;
+
+    IDao<Project> getProjectDao() throws Exception;
+
+    IDao<Sprint> getSprintDao() throws Exception;
+
+    IDao<Task> getTaskDao() throws Exception;
+
+    IDao<SubTask> getSubTaskDao() throws Exception;
+
+    IDao<Admin> getAdminDao() throws Exception;
+
+    IDao<Member> getMemberDao() throws Exception;
+
+    IDao<Manager> getManagerDao() throws Exception;
 }

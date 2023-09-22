@@ -1,21 +1,23 @@
 package bussinesslayer.service.sapce;
 
 import bussinesslayer.entity.space.Project;
+import datalayer.DaoFactory;
 import datalayer.IDao;
+import datalayer.IDaoFactory;
 
 import java.util.List;
 
 public class ProjectService implements ISpaceService<Project> {
     // -------------------- Properties ------------------------
     private IDao<Project> projectIDao;
+    IDaoFactory projectDapFactory;
 
     // -------------------- Constructor ------------------------
-    public ProjectService() {
+    public ProjectService() throws Exception {
+        projectDapFactory = new DaoFactory();
+        this.projectIDao = projectDapFactory.getProjectDao();
     }
 
-    public ProjectService(IDao<Project> projectIDao) {
-        this.projectIDao = projectIDao;
-    }
     // -------------------- Getters and Setters ------------------------
 
 
