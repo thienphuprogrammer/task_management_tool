@@ -1,29 +1,29 @@
 package bussinesslayer.service.sapce;
 
 import bussinesslayer.entity.space.Task;
+import datalayer.DaoFactory;
 import datalayer.IDao;
+import datalayer.IDaoFactory;
 
 import java.util.List;
 
 public class TaskService implements ISpaceService<Task> {
     // -------------------- Properties ------------------------
     private IDao<Task> taskIDao;
+    IDaoFactory taskFactory;
 
     // -------------------- Constructor ------------------------
-    public TaskService() {
+    public TaskService() throws Exception {
+        taskFactory = new DaoFactory();
+        this.taskIDao = taskFactory.getTaskDao();
     }
 
-    public TaskService(IDao<Task> taskIDao) {
-        this.taskIDao = taskIDao;
-    }
     // -------------------- Getters and Setters ------------------------
-
-
-    public IDao<Task> gettaskIDao() {
+    public IDao<Task> getTaskIDao() {
         return taskIDao;
     }
 
-    public void settaskIDao(IDao<Task> taskIDao) {
+    public void setTaskIDao(IDao<Task> taskIDao) {
         this.taskIDao = taskIDao;
     }
     // -------------------- Methods ------------------------

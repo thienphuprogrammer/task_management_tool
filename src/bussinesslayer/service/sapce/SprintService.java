@@ -2,20 +2,22 @@ package bussinesslayer.service.sapce;
 
 import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.entity.space.Sprint;
+import datalayer.DaoFactory;
 import datalayer.IDao;
+import datalayer.IDaoFactory;
 
 import java.util.List;
 
 public class SprintService implements ISpaceService<Sprint> {
     // -------------------- Properties ------------------------
     private IDao<Sprint> sprintIDao;
+    IDaoFactory sprintDaoFactory;
 
     // -------------------- Constructor ------------------------
-    public SprintService(IDao<Sprint> sprintIDao) {
-        this.sprintIDao = sprintIDao;
-    }
 
-    public SprintService() {
+    public SprintService() throws Exception {
+        sprintDaoFactory = new DaoFactory();
+        this.sprintIDao = sprintDaoFactory.getSprintDao();
     }
     // -------------------- Getters and Setters ------------------------
 

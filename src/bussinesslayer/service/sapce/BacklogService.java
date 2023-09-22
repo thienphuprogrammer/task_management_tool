@@ -1,7 +1,9 @@
 package bussinesslayer.service.sapce;
 
 import bussinesslayer.entity.space.Backlog;
+import datalayer.DaoFactory;
 import datalayer.IDao;
+import datalayer.IDaoFactory;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -9,13 +11,12 @@ import java.util.List;
 public class BacklogService implements ISpaceService<Backlog> {
     // -------------------- Properties ------------------------
     private IDao<Backlog> backlogIDao;
+    IDaoFactory backlogDaoFactory;
 
     // -------------------- Constructor ------------------------
-    public BacklogService() {
-    }
-
-    public BacklogService(IDao<Backlog> backlogIDao) {
-        this.backlogIDao = backlogIDao;
+    public BacklogService() throws Exception {
+        backlogDaoFactory = new DaoFactory();
+        this.backlogIDao = backlogDaoFactory.getBacklogDao();
     }
 
     // -------------------- Getters and Setters ------------------------

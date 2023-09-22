@@ -2,29 +2,31 @@ package bussinesslayer.service.sapce;
 
 import bussinesslayer.entity.space.SubTask;
 import bussinesslayer.entity.space.Task;
+import datalayer.DaoFactory;
 import datalayer.IDao;
+import datalayer.IDaoFactory;
 
 import java.util.List;
 
 public class SubTaskService implements ISpaceService<SubTask> {
     // -------------------- Properties ------------------------
     private IDao<SubTask> subTaskIDao;
+    IDaoFactory subTaskDaoFactory;
 
     // -------------------- Constructor ------------------------
-    public SubTaskService() {
+    public SubTaskService() throws Exception {
+        subTaskDaoFactory = new DaoFactory();
+        this.subTaskIDao = subTaskDaoFactory.getSubTaskDao();
     }
 
-    public SubTaskService(IDao<SubTask> subTaskIDao) {
-        this.subTaskIDao = subTaskIDao;
-    }
     // -------------------- Getters and Setters ------------------------
 
 
-    public IDao<SubTask> getsubTaskIDao() {
+    public IDao<SubTask> getSubTaskIDao() {
         return subTaskIDao;
     }
 
-    public void setsubTaskIDao(IDao<SubTask> subTaskIDao) {
+    public void setSubTaskIDao(IDao<SubTask> subTaskIDao) {
         this.subTaskIDao = subTaskIDao;
     }
     // -------------------- Methods ------------------------
