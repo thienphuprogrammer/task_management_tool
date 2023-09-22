@@ -1,5 +1,5 @@
-package Bussinesslayer.service;
-import Bussinesslayer.entity.user.Member;
+package bussinesslayer.service;
+import bussinesslayer.entity.user.Member;
 public class MemberService implements IService<Member> {
     public MemberService() {
     }

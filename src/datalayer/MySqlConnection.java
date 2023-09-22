@@ -4,26 +4,36 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class MySqlConnection implements IConnection{
-    private static final String URL = "";
-    private static final String USERNAME = "";
-    private static final String PASSWORD = "";
+public class MySqlConnection implements IConnection {
+    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://localhost:3306/online_project_and_task_management_tool";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "123456";
 
-    @Override
-    public Connection getConnection() {
-        Connection connection = null;
+    private static MySqlConnection mySqlConnection = null;
 
+    private MySqlConnection() {
         try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        } catch (SQLException e) {
+            Class.forName(DRIVER);
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        return connection;
     }
 
     @Override
-    public void closeConnection(Connection connection) {
+    public Connection getConnection() throws SQLException {
+        Connection connection = null;
+        connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+        return connection;
+    }
+    public static MySqlConnection getInstance() {
+        if (mySqlConnection == null) {
+            mySqlConnection = new MySqlConnection();
+        }
+        return mySqlConnection;
+    }
+
+    public static void closeConnection(Connection connection) {
         if (connection != null) {
             try {
                 connection.close();

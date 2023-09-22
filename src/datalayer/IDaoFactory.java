@@ -1,5 +1,7 @@
 package datalayer;
 
+import java.sql.Connection;
+
 public interface IDaoFactory {
-    public IConnection getConnection();
+    public Connection getConnection();
 }

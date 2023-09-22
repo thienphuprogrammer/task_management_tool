@@ -1,4 +1,4 @@
-package Bussinesslayer.entity;
+package bussinesslayer.entity;
 
 public class Doc {
 }

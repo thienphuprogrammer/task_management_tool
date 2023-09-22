@@ -1,4 +1,4 @@
-package Bussinesslayer.entity.user;
+package bussinesslayer.entity.user;
 
 public class Member extends User {
     private String role;

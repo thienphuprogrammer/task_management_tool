@@ -1,4 +1,4 @@
-package Bussinesslayer.entity.user;
+package bussinesslayer.entity.user;
 
 public class Manager {
     private String role;

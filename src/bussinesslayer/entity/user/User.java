@@ -1,4 +1,4 @@
-package Bussinesslayer.entity.user;
+package bussinesslayer.entity.user;
 
 public abstract class User {
     protected int id;

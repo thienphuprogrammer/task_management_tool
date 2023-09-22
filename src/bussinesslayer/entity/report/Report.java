@@ -1,4 +1,4 @@
-package Bussinesslayer.entity.report;
+package bussinesslayer.entity.report;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

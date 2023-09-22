@@ -1,4 +1,4 @@
-package Bussinesslayer.entity.space;
+package bussinesslayer.entity.space;
 
 public class Backlog {
     private int id;

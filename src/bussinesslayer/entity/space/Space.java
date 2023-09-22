@@ -1,4 +1,4 @@
-package Bussinesslayer.entity.space;
+package bussinesslayer.entity.space;
 
 import java.time.LocalDate;
 
@@ -15,6 +15,9 @@ public abstract class Space {
         this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public Space() {
     }
 
     public int getId() {
