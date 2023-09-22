@@ -55,4 +55,25 @@ public class BacklogService implements ISpaceService<Backlog> {
     public List<Backlog> getAll() throws Exception {
         return backlogIDao.getAll();
     }
+
+    @Override
+    public void viewAll() throws Exception {
+        try {
+            List<Backlog> list = backlogIDao.getAll();
+            for (Backlog backlog : list) {
+                viewById(backlog.getId());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void viewById(int id) throws Exception {
+        Backlog backlog = backlogIDao.getById(id);
+        System.out.println("| id: " + backlog.getId() + " ".repeat(40 - String.valueOf(backlog.getId()).length()) + "|");
+        System.out.println("| Title: " + backlog.getTitle() + " ".repeat(40 - String.valueOf(backlog.getTitle()).length()) + "|");
+        System.out.println("| Description: " + backlog.getDescription() + " ".repeat(36 - String.valueOf(backlog.getDescription()).length()) + "|");
+        System.out.println("| File URL: " + backlog.getFileURL() + " ".repeat(43 - String.valueOf(backlog.getFileURL()).length()) + "|");
+    }
 }
