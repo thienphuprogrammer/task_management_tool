@@ -1,9 +1,14 @@
 package datalayer;
 
+import bussinesslayer.entity.report.ReportBacklog;
+import bussinesslayer.entity.report.ReportProject;
+import bussinesslayer.entity.report.ReportSprint;
+import bussinesslayer.entity.report.ReportTask;
 import bussinesslayer.entity.space.*;
 import bussinesslayer.entity.user.Admin;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.entity.user.Member;
+import datalayer.report.reportbacklogdao.ReportBacklogDao;
 
 public interface IDaoFactory {
     IDao<Backlog> getBacklogDao() throws Exception;
@@ -21,4 +26,12 @@ public interface IDaoFactory {
     IDao<Member> getMemberDao() throws Exception;
 
     IDao<Manager> getManagerDao() throws Exception;
+
+    IDao<ReportBacklog> getReportBacklogDao() throws Exception;
+
+    IDao<ReportProject> getReportProjectDao() throws Exception;
+
+    IDao<ReportTask> getReportTaskDao() throws Exception;
+
+    IDao<ReportSprint> getReportSprintDao() throws Exception;
 }
