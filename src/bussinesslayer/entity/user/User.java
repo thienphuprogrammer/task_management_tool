@@ -1,6 +1,7 @@
 package bussinesslayer.entity.user;
 
 public abstract class User {
+    // ---------------------- Properties ------------------------
     protected int id;
     protected String name;
     protected int age;
@@ -8,7 +9,7 @@ public abstract class User {
     protected String password;
     protected String phone_number;
     protected String address;
-
+    // ---------------------- Constructor ------------------------
     public User(int id, String name, int age, String email, String password, String phone_number, String address) {
         this.id = id;
         this.name = name;
@@ -20,6 +21,18 @@ public abstract class User {
         this.address = address;
     }
 
+    public User(String name, int age, String email, String password, String phone_number, String address) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.phone_number = phone_number;
+        this.address = address;
+    }
+
+    public User() {
+    }
+    // ---------------------- Getter and Setter ------------------------
     public int getId() {
         return id;
     }
