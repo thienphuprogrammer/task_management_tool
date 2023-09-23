@@ -8,6 +8,7 @@ import bussinesslayer.entity.user.Admin;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.IService;
+import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.OutputUtil.printValueln;
 
@@ -22,15 +23,15 @@ public class Menu {
         return number;
     }
 
-    public static void manageAdmin(IService<Admin> service) {
+    public static void manageAdmin(IUserService<Admin> service) {
         AdminMenu adminMenu = new AdminMenu(service);
         adminMenu.processMenuForAdmin();
     }
-    public static void manageMember(IService<Member> service) {
+    public static void manageMember(IUserService<Member> service) {
         MemberMenu memberMenu = new MemberMenu(service);
         memberMenu.processMenuForMember();
     }
-    public static void manageManager(IService<Manager> service) {
+    public static void manageManager(IUserService<Manager> service) {
         ManagerMenu managerMenu = new ManagerMenu(service);
         managerMenu.processMenuForManager();
     }

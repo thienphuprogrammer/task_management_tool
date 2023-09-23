@@ -2,13 +2,14 @@ package application.ui.manager;
 
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.IService;
+import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
 
 public class SubtaskManagerMenu {
     // -------------------- Properties ------------------------
-    private IService<Manager> service;
+    private IUserService<Manager> service;
     public enum CHOICE_SUBTASK_MANAGER_MENU {
         EXIT,
         CREATE_SUBTASK,
@@ -19,16 +20,16 @@ public class SubtaskManagerMenu {
         REASSIGN_SUBTASK_TO_MEMBER,
     }
     //  ------------------- Constructor ------------------------
-    public SubtaskManagerMenu(IService<Manager> service) {
+    public SubtaskManagerMenu(IUserService<Manager> service) {
         this.service = service;
     }
     // -------------------- Getters and Setters ------------------------
 
-    public IService<Manager> getService() {
+    public IUserService<Manager> getService() {
         return service;
     }
 
-    public void setService(IService<Manager> service) {
+    public void setService(IUserService<Manager> service) {
         this.service = service;
     }
     // -------------------- Methods ------------------------

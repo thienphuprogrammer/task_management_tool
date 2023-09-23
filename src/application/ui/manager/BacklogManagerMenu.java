@@ -2,15 +2,16 @@ package application.ui.manager;
 
 import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.entity.user.Manager;
-import bussinesslayer.service.IService;
+import bussinesslayer.service.sapce.ISpaceService;
+import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
 
 public class BacklogManagerMenu {
     // -------------------- Properties ------------------------
-    private IService<Manager> serviceManager;
-    private IService<Backlog> serviceBacklog;
+    private IUserService<Manager> serviceManager;
+    private ISpaceService<Backlog> serviceBacklog;
     public enum CHOICE_BACKLOG_MANAGER_MENU {
         EXIT,
         CREATE_BACKLOG,
@@ -19,16 +20,25 @@ public class BacklogManagerMenu {
         VIEW_BACKLOG
     }
     // -------------------- Constructor ------------------------
-    public BacklogManagerMenu(IService<Manager> service) {
+    public BacklogManagerMenu(IUserService<Manager> service) {
         this.serviceManager = service;
     }
     // -------------------- Getters and Setters ------------------------
-    public IService<Manager> getServiceManager() {
+    public IUserService<Manager> getServiceManager() {
         return serviceManager;
     }
 
-    public void setServiceManager(IService<Manager> serviceManager) {
+    public ISpaceService<Backlog> getServiceBacklog() {
+        return serviceBacklog;
+    }
+
+    public void setServiceBacklog(ISpaceService<Backlog> serviceBacklog) {
+        this.serviceBacklog = serviceBacklog;
+    }
+
+    public void setServiceManager(IUserService<Manager> serviceManager) {
         this.serviceManager = serviceManager;
+
     }
     // -------------------- Methods ------------------------
 

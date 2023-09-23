@@ -3,6 +3,7 @@ package application.ui.manager;
 import bussinesslayer.entity.Doc;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.IService;
+import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -31,10 +32,10 @@ public class ManagerMenu {
         PROFILE_MANAGER
     }
     // -------------------- Properties ------------------------
-    IService<Manager> service;
+    IUserService<Manager> service;
 
     // -------------------- Constructor ------------------------
-    public ManagerMenu(IService<Manager> service) {
+    public ManagerMenu(IUserService<Manager> service) {
         this.service = service;
     }
     public void processMenuForManager() {

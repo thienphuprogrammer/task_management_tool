@@ -5,6 +5,7 @@ import bussinesslayer.entity.user.Manager;
 import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.IService;
 import bussinesslayer.service.user.AdminService;
+import bussinesslayer.service.user.IUserService;
 import bussinesslayer.service.user.ManagerService;
 import bussinesslayer.service.user.MemberService;
 
@@ -20,9 +21,9 @@ public class Program {
     }
     public static void main(String[] args) throws Exception {
 
-        IService<Admin> adminService = new AdminService();
-        IService<Member> memberService = new MemberService();
-        IService<Manager> managerService = new ManagerService();
+        IUserService<Admin> adminService = new AdminService();
+        IUserService<Member> memberService = new MemberService();
+        IUserService<Manager> managerService = new ManagerService();
 
         while (true) {
             printLineSeparate("Admin Menu");

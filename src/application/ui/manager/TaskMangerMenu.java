@@ -3,7 +3,9 @@ package application.ui.manager;
 import bussinesslayer.entity.space.Task;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.IService;
+import bussinesslayer.service.sapce.ISpaceService;
 import bussinesslayer.service.sapce.TaskService;
+import bussinesslayer.service.user.IUserService;
 import bussinesslayer.service.user.ManagerService;
 
 import java.time.LocalDate;
@@ -14,8 +16,8 @@ import static application.utilities.OutputUtil.*;
 
 public class TaskMangerMenu {
     // -------------------- Properties ------------------------
-    private IService<Manager> serviceManager = new ManagerService();
-    private IService<Task> serviceTask = new TaskService();
+    private IUserService<Manager> serviceManager = new ManagerService();
+    private ISpaceService<Task> serviceTask = new TaskService();
     public enum CHOICE_BACKLOG_MANAGER_MENU {
         EXIT,
         CREATE_TASK,
@@ -27,30 +29,30 @@ public class TaskMangerMenu {
         REASSIGN_TASK_TO_MEMBER,
     }
     //  ------------------- Constructor ------------------------
-    public TaskMangerMenu(IService<Manager> service) throws Exception {
+    public TaskMangerMenu(IUserService<Manager> service) throws Exception {
         this.serviceManager = service;
     }
 
-    public TaskMangerMenu(IService<Manager> serviceManager, IService<Task> serviceTask) throws Exception {
+    public TaskMangerMenu(IUserService<Manager> serviceManager, ISpaceService<Task> serviceTask) throws Exception {
         this.serviceManager = serviceManager;
         this.serviceTask = serviceTask;
     }
 
     //  ------------------- Getters and Setters ------------------------
 
-    public IService<Manager> getServiceManager() {
+    public IUserService<Manager> getServiceManager() {
         return serviceManager;
     }
 
-    public void setServiceManager(IService<Manager> serviceManager) {
+    public void setServiceManager(IUserService<Manager> serviceManager) {
         this.serviceManager = serviceManager;
     }
 
-    public IService<Task> getServiceTask() {
+    public ISpaceService<Task> getServiceTask() {
         return serviceTask;
     }
 
-    public void setServiceTask(IService<Task> serviceTask) {
+    public void setServiceTask(ISpaceService<Task> serviceTask) {
         this.serviceTask = serviceTask;
     }
 

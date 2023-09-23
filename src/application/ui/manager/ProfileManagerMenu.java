@@ -2,13 +2,14 @@ package application.ui.manager;
 
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.IService;
+import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
 
 public class ProfileManagerMenu {
     // -------------------- Properties ------------------------
-    private IService<Manager> service;
+    private IUserService<Manager> service;
     public enum CHOICE_PROFILE_MANAGER_MENU {
         EXIT,
         UPDATE_PROFILE,
@@ -17,15 +18,15 @@ public class ProfileManagerMenu {
     // -------------------- Constructor ------------------------
 
 
-    public ProfileManagerMenu(IService<Manager> service) {
+    public ProfileManagerMenu(IUserService<Manager> service) {
         this.service = service;
     }
     // -------------------- Getters and Setters ------------------------
-    public IService<Manager> getService() {
+    public IUserService<Manager> getService() {
         return service;
     }
 
-    public void setService(IService<Manager> service) {
+    public void setService(IUserService<Manager> service) {
         this.service = service;
     }
     // -------------------- Methods ------------------------

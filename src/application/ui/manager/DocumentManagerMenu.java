@@ -2,7 +2,7 @@ package application.ui.manager;
 
 import bussinesslayer.entity.Doc;
 import bussinesslayer.entity.user.Manager;
-import bussinesslayer.service.DocsService;
+import bussinesslayer.service.IDocsService;
 import bussinesslayer.service.IService;
 
 import static application.utilities.InputUtil.*;
@@ -11,7 +11,7 @@ import static application.utilities.OutputUtil.*;
 public class DocumentManagerMenu {
     // -------------------- Properties ------------------------
     private IService<Manager> serviceDocs;
-    DocsService docsService;
+    private IDocsService docsService;
     public enum CHOICE_DOCUMENT_MANAGER_MENU {
         EXIT,
         CREATE_DOCUMENT,
@@ -31,6 +31,14 @@ public class DocumentManagerMenu {
 
     public void setServiceDocs(IService<Manager> serviceDocs) {
         this.serviceDocs = serviceDocs;
+    }
+
+    public IDocsService getDocsService() {
+        return docsService;
+    }
+
+    public void setDocsService(IDocsService docsService) {
+        this.docsService = docsService;
     }
     // -------------------- Methods ------------------------
 

@@ -3,6 +3,8 @@ package application.ui.manager;
 import bussinesslayer.entity.space.Project;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.IService;
+import bussinesslayer.service.sapce.ISpaceService;
+import bussinesslayer.service.user.IUserService;
 
 import java.time.LocalDate;
 
@@ -11,8 +13,8 @@ import static application.utilities.OutputUtil.*;
 
 public class ProjectManagerMenu {
     // -------------------- Properties ------------------------
-    private IService<Manager> serviceManager;
-    private IService<Project> serviceProject;
+    private IUserService<Manager> serviceManager;
+    private ISpaceService<Project> serviceProject;
     public enum CHOICE_PROJECT_MANAGER_MENU {
         EXIT,
         EDIT_PROJECT,
@@ -25,19 +27,28 @@ public class ProjectManagerMenu {
     }
     // -------------------- Constructor ------------------------
 
-    public ProjectManagerMenu(IService<Manager> service) {
+    public ProjectManagerMenu(IUserService<Manager> service) {
         this.serviceManager = service;
     }
     // -------------------- Getters and Setters ------------------------
 
 
-    public IService<Manager> getServiceManager() {
+    public IUserService<Manager> getServiceManager() {
         return serviceManager;
     }
 
-    public void setServiceManager(IService<Manager> serviceManager) {
+    public void setServiceManager(IUserService<Manager> serviceManager) {
         this.serviceManager = serviceManager;
     }
+
+    public ISpaceService<Project> getServiceProject() {
+        return serviceProject;
+    }
+
+    public void setServiceProject(ISpaceService<Project> serviceProject) {
+        this.serviceProject = serviceProject;
+    }
+
     // -------------------- Methods ------------------------
     public void processMenuForProjectManager() {
         boolean exit = false;

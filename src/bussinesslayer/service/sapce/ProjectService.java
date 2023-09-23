@@ -7,7 +7,7 @@ import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class ProjectService implements ISprintService<Project> {
+public class ProjectService implements ISpaceService<Project> {
     // -------------------- Properties ------------------------
     private IDao<Project> projectIDao;
     IDaoFactory projectDapFactory;
