@@ -1,14 +1,13 @@
 package bussinesslayer.service.sapce;
 
 import bussinesslayer.entity.space.Sprint;
-import bussinesslayer.entity.space.Sprint;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class SprintService implements ISpaceService<Sprint> {
+public class SprintService implements ISprintService<Sprint> {
     // -------------------- Properties ------------------------
     private IDao<Sprint> sprintIDao;
     IDaoFactory sprintDaoFactory;

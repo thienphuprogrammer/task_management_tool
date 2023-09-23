@@ -8,7 +8,7 @@ import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class TaskService implements IService<Task> {
+public class TaskService implements ITaskService<Task> {
     // -------------------- Properties ------------------------
     private IDao<Task> taskIDao;
     IDaoFactory taskFactory;
@@ -65,6 +65,7 @@ public class TaskService implements IService<Task> {
         return taskIDao.getAll();
     }
 
+    @Override
     public void viewAll() throws Exception {
         try {
             List<Task> list = taskIDao.getAll();
@@ -76,6 +77,7 @@ public class TaskService implements IService<Task> {
         }
     }
 
+    @Override
     public void viewById(int id) throws Exception {
         Task task = taskIDao.getById(id);
         System.out.println("| id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");

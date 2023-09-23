@@ -10,8 +10,6 @@ import static application.utilities.OutputUtil.*;
 public class ManagerMenu {
     public enum CHOICE_MANAGER_MENU {
         EXIT,
-        //Member
-        MEMBER_MANAGER,
 
         // Project
         PROJECT_MANAGER,
@@ -56,7 +54,6 @@ public class ManagerMenu {
                 } else {
                     switch (CHOICE_MANAGER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case MEMBER_MANAGER -> this.manageMember();
                         case PROJECT_MANAGER -> this.manageProject();
                         case BACKLOG_MANAGER -> this.manageBacklog();
                         case SPRINT_MANAGER -> this.manageSprint();
@@ -74,37 +71,33 @@ public class ManagerMenu {
         }
     }
 
-    private void manageMember() {
-        MemberManagerMenu memberManagerMenu = new MemberManagerMenu(service);
-        memberManagerMenu.processMenuForMemberManager();
-    }
-    private void manageProject() {
+    private void manageProject() throws Exception {
         ProjectManagerMenu managerProjectManagerMenu = new ProjectManagerMenu(service);
         managerProjectManagerMenu.processMenuForProjectManager();
 
     }
-    private void manageBacklog() {
+    private void manageBacklog() throws Exception {
         BacklogManagerMenu backlogManagerMenu = new BacklogManagerMenu(service);
         backlogManagerMenu.processMenuForBacklogManager();
     }
-    private void manageSprint() {
+    private void manageSprint() throws Exception {
         SprintManagerMenu sprintManagerMenu = new SprintManagerMenu(service);
         sprintManagerMenu.processMenuForSprintManager();
     }
-    private void manageTask() {
+    private void manageTask() throws Exception {
         TaskMangerMenu taskMangerMenu = new TaskMangerMenu(service);
         taskMangerMenu.processMenuForTaskManager();
     }
-    private void manageSubtask() {
+    private void manageSubtask() throws Exception {
         SubtaskManagerMenu subtaskManagerMenu = new SubtaskManagerMenu(service);
         subtaskManagerMenu.processMenuForSubtaskManager();
     }
-    private void manageDocument() {
+    private void manageDocument() throws Exception {
         DocumentManagerMenu documentManagerMenu = new DocumentManagerMenu(service);
         documentManagerMenu.processMenuForDocumentManager();
     }
-    private void manageProfile() {
-        ProjectManagerMenu managerProjectManagerMenu = new ProjectManagerMenu(service);
-        managerProjectManagerMenu.processMenuForProjectManager();
+    private void manageProfile() throws Exception {
+        ProfileManagerMenu profileManagerMenu = new ProfileManagerMenu(service);
+        profileManagerMenu.processMenuForProfileManager();
     }
 }

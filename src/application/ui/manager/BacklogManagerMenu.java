@@ -1,14 +1,16 @@
 package application.ui.manager;
 
+import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.IService;
 
-import static application.utilities.InputUtil.readInt;
+import static application.utilities.InputUtil.*
 import static application.utilities.OutputUtil.*;
 
 public class BacklogManagerMenu {
     // -------------------- Properties ------------------------
-    private IService<Manager> service;
+    private IService<Manager> serviceManager;
+    private IService<Backlog> serviceBacklog;
     public enum CHOICE_BACKLOG_MANAGER_MENU {
         EXIT,
         CREATE_BACKLOG,
@@ -18,15 +20,15 @@ public class BacklogManagerMenu {
     }
     // -------------------- Constructor ------------------------
     public BacklogManagerMenu(IService<Manager> service) {
-        this.service = service;
+        this.serviceManager = service;
     }
     // -------------------- Getters and Setters ------------------------
-    public IService<Manager> getService() {
-        return service;
+    public IService<Manager> getServiceManager() {
+        return serviceManager;
     }
 
-    public void setService(IService<Manager> service) {
-        this.service = service;
+    public void setServiceManager(IService<Manager> serviceManager) {
+        this.serviceManager = serviceManager;
     }
     // -------------------- Methods ------------------------
 
@@ -56,16 +58,25 @@ public class BacklogManagerMenu {
             }
         }
     }
-    private void createBacklog() {
-
+    private void createBacklog() throws Exception {
+        String title = readString("Title: ");
+        String description = readString("Description: ");
+        String fileUrl = readString("File URL: ");
+        Backlog backlog = new Backlog(title, description, fileUrl);
+        serviceBacklog.create(backlog);
     }
-    private void updateBacklog() {
-
+    private void updateBacklog() throws Exception {
+        int backlogId = readInt("Backlog ID: ");
+        Backlog backlog = serviceBacklog.getById(backlogId);
+        backlog.setTitle(readString("Title: "));
+        backlog.setDescription(readString("Description: "));
+        backlog.setFileURL(readString("File URL: "));
+        serviceBacklog.update(backlog);
     }
-    private void deleteBacklog() {
-
+    private void deleteBacklog() throws Exception {
+        serviceBacklog.delete(readInt("Backlog ID: "));
     }
     private void viewBacklog() {
-
+        serviceBacklog.view();
     }
 }

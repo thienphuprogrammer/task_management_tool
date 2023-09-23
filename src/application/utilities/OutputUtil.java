@@ -34,4 +34,9 @@ public class OutputUtil {
     public static void printValue(String value) {
         System.out.print(value);
     }
+    public static void printValue(String[] values) {
+        for (String value : values) {
+            printValue(value + " ");
+        }
+    }
 }

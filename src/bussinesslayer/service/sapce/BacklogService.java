@@ -8,7 +8,7 @@ import datalayer.IDaoFactory;
 import java.sql.SQLException;
 import java.util.List;
 
-public class BacklogService implements ISpaceService<Backlog> {
+public class BacklogService implements IBacklogService<Backlog> {
     // -------------------- Properties ------------------------
     private IDao<Backlog> backlogIDao;
     IDaoFactory backlogDaoFactory;

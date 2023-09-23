@@ -8,7 +8,7 @@ import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class SubTaskService implements ISpaceService<SubTask> {
+public class SubTaskService implements ISubtaskService<SubTask> {
     // -------------------- Properties ------------------------
     private IDao<SubTask> subTaskIDao;
     IDaoFactory subTaskDaoFactory;

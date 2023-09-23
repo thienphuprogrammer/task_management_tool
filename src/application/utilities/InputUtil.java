@@ -1,5 +1,6 @@
 package application.utilities;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class InputUtil {
@@ -39,5 +40,17 @@ public class InputUtil {
 
     public static void closeScanner() {
         scanner.close();
+    }
+
+    public static LocalDate readLocalDate(String message) throws Exception {
+        System.out.print(message);
+        String input = scanner.nextLine();
+        LocalDate date = null;
+        if (!input.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+            throw new Exception("Data invalid.");
+        }else {
+            date = LocalDate.parse(input);
+        }
+        return date;
     }
 }

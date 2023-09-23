@@ -13,6 +13,12 @@ public class Backlog {
         this.fileURL = fileURL;
     }
 
+    public Backlog(String title, String description, String fileURL) {
+        this.title = title;
+        this.description = description;
+        this.fileURL = fileURL;
+    }
+
     public Backlog() {
     }
 

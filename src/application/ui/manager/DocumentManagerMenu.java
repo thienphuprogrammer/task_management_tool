@@ -1,14 +1,17 @@
 package application.ui.manager;
 
+import bussinesslayer.entity.Doc;
 import bussinesslayer.entity.user.Manager;
+import bussinesslayer.service.DocsService;
 import bussinesslayer.service.IService;
 
-import static application.utilities.InputUtil.readInt;
+import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
 
 public class DocumentManagerMenu {
     // -------------------- Properties ------------------------
-    private IService<Manager> service;
+    private IService<Manager> serviceDocs;
+    DocsService docsService;
     public enum CHOICE_DOCUMENT_MANAGER_MENU {
         EXIT,
         CREATE_DOCUMENT,
@@ -19,15 +22,15 @@ public class DocumentManagerMenu {
     // -------------------- Constructor ------------------------
 
     public DocumentManagerMenu(IService<Manager> service) {
-        this.service = service;
+        this.serviceDocs = service;
     }
     // -------------------- Getters and Setters ------------------------
-    public IService<Manager> getService() {
-        return service;
+    public IService<Manager> getServiceDocs() {
+        return serviceDocs;
     }
 
-    public void setService(IService<Manager> service) {
-        this.service = service;
+    public void setServiceDocs(IService<Manager> serviceDocs) {
+        this.serviceDocs = serviceDocs;
     }
     // -------------------- Methods ------------------------
 
@@ -57,16 +60,27 @@ public class DocumentManagerMenu {
             }
         }
     }
-    private void createDocument() {
-
+    private void createDocument() throws Exception {
+        String title = readString("Title: ");
+        String description = readString("Description: ");
+        String content = readString("Content: ");
+        String projectId = readString("Project Id: ");
+        Doc doc = new Doc(title, description, content, Integer.parseInt(projectId));
+        docsService.create(doc);
     }
-    private void deleteDocument() {
-
+    private void deleteDocument() throws Exception {
+        int id = readInt("Document Id: ");
+        docsService.delete(id);
     }
-    private void updateDocument() {
-
+    private void updateDocument() throws Exception {
+        int id = readInt("Document Id: ");
+        Doc doc = docsService.getById(id);
+        doc.setTitle(readString("Title: "));
+        doc.setDescription(readString("Description: "));
+        doc.setContent(readString("Content: "));
+        docsService.update(doc);
     }
     private void viewDocument() {
-
+        docsService.view();
     }
 }
