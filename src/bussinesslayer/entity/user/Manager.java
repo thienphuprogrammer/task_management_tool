@@ -1,12 +1,16 @@
 package bussinesslayer.entity.user;
 
-public class Manager {
+public class Manager extends User {
     private String role;
     private boolean gender;
 
-    public Manager(String role, boolean gender) {
+    public Manager(String name, int age, String email, String password, String phone_number, String address, String role, boolean gender) {
+        super(name, age, email, password, phone_number, address);
         this.role = role;
         this.gender = gender;
+    }
+
+    public Manager() {
     }
 
     public String getRole() {

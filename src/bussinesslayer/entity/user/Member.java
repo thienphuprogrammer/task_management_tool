@@ -10,6 +10,16 @@ public class Member extends User {
         this.gender = gender;
     }
 
+    public Member(String name, int age, String email, String password, String phone_number, String address, String role, boolean gender) {
+        super(name, age, email, password, phone_number, address);
+        this.role = role;
+        this.gender = gender;
+    }
+    public Member() {
+
+    }
+
+
     public String getRole() {
         return role;
     }
