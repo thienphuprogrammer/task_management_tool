@@ -81,6 +81,5 @@ public class DocumentManagerMenu {
         docsService.update(doc);
     }
     private void viewDocument() {
-        docsService.view();
     }
 }

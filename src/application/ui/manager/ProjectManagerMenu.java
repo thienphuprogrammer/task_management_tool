@@ -86,7 +86,7 @@ public class ProjectManagerMenu {
         String description = readString("Enter project description: ");
         LocalDate startDate = readLocalDate("Enter project start date: ");
         LocalDate endDate = readLocalDate("Enter project end date: ");
-        Project project = new Project(name, description, startDate, endDate, serviceManager.getAll().get(0).getId());
+        //Project project = new Project(name, description, startDate, endDate, serviceManager.getAll().get(0).getId());
     }
     private void viewProject() {
 
