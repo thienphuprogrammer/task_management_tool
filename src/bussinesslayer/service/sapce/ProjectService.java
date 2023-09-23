@@ -1,21 +1,23 @@
 package bussinesslayer.service.sapce;
 
 import bussinesslayer.entity.space.Project;
+import datalayer.DaoFactory;
 import datalayer.IDao;
+import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class ProjectService implements ISpaceService<Project> {
+public class ProjectService implements ISprintService<Project> {
     // -------------------- Properties ------------------------
     private IDao<Project> projectIDao;
+    IDaoFactory projectDapFactory;
 
     // -------------------- Constructor ------------------------
-    public ProjectService() {
+    public ProjectService() throws Exception {
+        projectDapFactory = new DaoFactory();
+        this.projectIDao = projectDapFactory.getProjectDao();
     }
 
-    public ProjectService(IDao<Project> projectIDao) {
-        this.projectIDao = projectIDao;
-    }
     // -------------------- Getters and Setters ------------------------
 
 
@@ -26,8 +28,19 @@ public class ProjectService implements ISpaceService<Project> {
     public void setProjectIDao(IDao<Project> projectIDao) {
         this.projectIDao = projectIDao;
     }
-    // -------------------- Methods ------------------------
+    // -------------------- Methods -----------------------
+    public void assignManager(int projectId, int managerId) throws Exception {
+        Project project = projectIDao.getById(projectId);
+        project.setManagerId(managerId);
+        projectIDao.update(project);
+    }
 
+    public void reassignManager(int projectId, int newManagerId) throws Exception {
+        Project project = projectIDao.getById(projectId);
+        project.setManagerId(newManagerId);
+    }
+
+    // --------------------- Override Methods ----------------------
     @Override
     public void update(Project project) throws Exception {
         projectIDao.update(project);

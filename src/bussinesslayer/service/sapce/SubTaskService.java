@@ -1,34 +1,48 @@
 package bussinesslayer.service.sapce;
 
 import bussinesslayer.entity.space.SubTask;
-import bussinesslayer.entity.space.Task;
+import bussinesslayer.entity.user.Manager;
+import datalayer.DaoFactory;
 import datalayer.IDao;
+import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class SubTaskService implements ISpaceService<SubTask> {
+public class SubTaskService implements ISubtaskService<SubTask> {
     // -------------------- Properties ------------------------
     private IDao<SubTask> subTaskIDao;
+    IDaoFactory subTaskDaoFactory;
 
     // -------------------- Constructor ------------------------
-    public SubTaskService() {
+    public SubTaskService() throws Exception {
+        subTaskDaoFactory = new DaoFactory();
+        this.subTaskIDao = subTaskDaoFactory.getSubTaskDao();
     }
 
-    public SubTaskService(IDao<SubTask> subTaskIDao) {
-        this.subTaskIDao = subTaskIDao;
-    }
     // -------------------- Getters and Setters ------------------------
 
 
-    public IDao<SubTask> getsubTaskIDao() {
+    public IDao<SubTask> getSubTaskIDao() {
         return subTaskIDao;
     }
 
-    public void setsubTaskIDao(IDao<SubTask> subTaskIDao) {
+    public void setSubTaskIDao(IDao<SubTask> subTaskIDao) {
         this.subTaskIDao = subTaskIDao;
     }
-    // -------------------- Methods ------------------------
+    // -------------------- Methods -----------------------
+    public void assignMember(int subTaskId, int managerId) throws Exception {
+        SubTask subTask = subTaskIDao.getById(subTaskId);
+        subTask.setMemberId(managerId);
+        subTaskIDao.update(subTask);
+    }
 
+    public void reassignMember(int subTaskId, int newMemberId) throws Exception {
+        SubTask subTask = subTaskIDao.getById(subTaskId);
+        subTask.setMemberId(newMemberId);
+        subTaskIDao.update(subTask);
+    }
+
+    // --------------------- Override Methods ----------------------
     @Override
     public void update(SubTask SubTask) throws Exception {
         subTaskIDao.update(SubTask);

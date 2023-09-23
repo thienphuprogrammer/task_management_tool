@@ -1,33 +1,45 @@
 package bussinesslayer.service.sapce;
 
 import bussinesslayer.entity.space.Task;
+import bussinesslayer.service.IService;
+import datalayer.DaoFactory;
 import datalayer.IDao;
+import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class TaskService implements ISpaceService<Task> {
+public class TaskService implements ITaskService<Task> {
     // -------------------- Properties ------------------------
     private IDao<Task> taskIDao;
+    IDaoFactory taskFactory;
 
     // -------------------- Constructor ------------------------
-    public TaskService() {
+    public TaskService() throws Exception {
+        taskFactory = new DaoFactory();
+        this.taskIDao = taskFactory.getTaskDao();
     }
 
-    public TaskService(IDao<Task> taskIDao) {
-        this.taskIDao = taskIDao;
-    }
     // -------------------- Getters and Setters ------------------------
-
-
-    public IDao<Task> gettaskIDao() {
+    public IDao<Task> getTaskIDao() {
         return taskIDao;
     }
 
-    public void settaskIDao(IDao<Task> taskIDao) {
+    public void setTaskIDao(IDao<Task> taskIDao) {
         this.taskIDao = taskIDao;
     }
     // -------------------- Methods ------------------------
+    public void assignMember(int taskId, int managerId) throws Exception {
+        Task task = taskIDao.getById(taskId);
+        task.setMemberId(managerId);
+        taskIDao.update(task);
+    }
+    public void reassignMember(int taskId, int newMemberId) throws Exception {
+        Task task = taskIDao.getById(taskId);
+        task.setMemberId(newMemberId);
+        taskIDao.update(task);
+    }
 
+    // -------------------- Override Methods ----------------------
     @Override
     public void update(Task Task) throws Exception {
         taskIDao.update(Task);

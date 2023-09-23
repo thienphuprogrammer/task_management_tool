@@ -1,58 +1,56 @@
 package application.utilities;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class InputUtil {
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static int readInt(String message) {
+    public static int readInt(String message) throws Exception {
+        int number = 0;
         System.out.print(message);
-        int input = 0;
-        try {
-            input = scanner.nextInt();
-            scanner.nextLine(); // Xóa bộ nhớ đệm sau khi nhập số nguyên
-        } catch (Exception e) {
-            System.out.println("Lỗi: " + e.getMessage());
-            scanner.nextLine(); // Xóa bộ nhớ đệm nếu có lỗi xảy ra
+        String input = scanner.nextLine();
+        if (!input.matches("[-+]?\\d+")) {
+            throw new Exception("Data invalid.");
+        } else {
+            number = Integer.parseInt(input);
         }
-
-        return input;
+        return number;
     }
 
     public static String readString(String message) {
         System.out.print(message);
-        return scanner.nextLine();
-    }
-
-    public static double readDouble(String message) {
-        System.out.print(message);
-        double input = 0.0;
-        try {
-            input = scanner.nextDouble();
-            scanner.nextLine(); // Xóa bộ nhớ đệm sau khi nhập số thực
-        } catch (Exception e) {
-            System.out.println("Lỗi: " + e.getMessage());
-            scanner.nextLine(); // Xóa bộ nhớ đệm nếu có lỗi xảy ra
-        }
+        String input = scanner.nextLine();
         return input;
     }
 
-    public static float readFloat(String message) {
+    public static double readDouble(String message) throws Exception {
         System.out.print(message);
-        float input = 0.0f;
-        try {
-            input = scanner.nextFloat();
-            scanner.nextLine(); // Xóa bộ nhớ đệm sau khi nhập số thực
-        } catch (Exception e) {
-            System.out.println("Lỗi: " + e.getMessage());
-            scanner.nextLine(); // Xóa bộ nhớ đệm nếu có lỗi xảy ra
+        double number = 0.0;
+        String input = scanner.nextLine();
+        if (!input.matches("^[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?$")) {
+            throw new Exception("Data invalid.");
+        } else {
+            number = Double.parseDouble(input);
         }
-        return input;
+        return number;
     }
 
     // Các phương thức khác cho việc đọc các kiểu dữ liệu khác như boolean, long, vv. có thể được thêm vào
 
     public static void closeScanner() {
         scanner.close();
+    }
+
+    public static LocalDate readLocalDate(String message) throws Exception {
+        System.out.print(message);
+        String input = scanner.nextLine();
+        LocalDate date = null;
+        if (!input.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
+            throw new Exception("Data invalid.");
+        }else {
+            date = LocalDate.parse(input);
+        }
+        return date;
     }
 }
