@@ -1,32 +1,68 @@
 package bussinesslayer.service.report;
 
+import bussinesslayer.entity.report.ReportBacklog;
 import bussinesslayer.entity.report.ReportSprint;
+import datalayer.DaoFactory;
+import datalayer.IDao;
+import datalayer.IDaoFactory;
+import datalayer.report.reportbacklogdao.ReportBacklogDao;
 
 import java.util.List;
 
-public class ReportBacklogService implements IReportService<ReportSprint> {
-    @Override
-    public void update(ReportSprint reportSprint) throws Exception {
+public class ReportBacklogService implements IReportService<ReportBacklog> {
+    IDao<ReportBacklog> reportBacklogIDao;
+    IDaoFactory backlogDaoFactory;
 
+    public ReportBacklogService() throws Exception {
+        backlogDaoFactory = new DaoFactory();
+        reportBacklogIDao = backlogDaoFactory.getReportBacklogDao();
+    }
+
+    public IDao<ReportBacklog> getReportBacklogIDao() {
+        return reportBacklogIDao;
+    }
+
+    public void setReportBacklogIDao(IDao<ReportBacklog> reportBacklogIDao) {
+        this.reportBacklogIDao = reportBacklogIDao;
     }
 
     @Override
-    public void create(ReportSprint reportSprint) throws Exception {
+    public void update(ReportBacklog reportBacklog) throws Exception {
+        reportBacklogIDao.update(reportBacklog);
+    }
 
+    @Override
+    public void create(ReportBacklog reportBacklog) throws Exception {
+        reportBacklogIDao.addNew(reportBacklog);
     }
 
     @Override
     public void delete(int id) throws Exception {
-
+        reportBacklogIDao.delete(id);
     }
 
     @Override
-    public ReportSprint getById(int id) throws Exception {
-        return null;
+    public ReportBacklog getById(int id) throws Exception {
+        reportBacklogIDao.getById(id);
     }
 
     @Override
-    public List<ReportSprint> getAll() throws Exception {
-        return null;
+    public List<ReportBacklog> getAll() throws Exception {
+        reportBacklogIDao.getAll();
+    }
+
+    @Override
+    public void viewById(int id) throws Exception {
+        ReportBacklog reportBacklog = reportBacklogIDao.getById(id);
+        System.out.println("| id: " + reportBacklog.getId() + " ".repeat(40 - String.valueOf(reportBacklog.getId()).length()) + "|");
+        System.out.println("| Date: " + reportBacklog.getDate() + " ".repeat(40 - String.valueOf(reportBacklog.getDate()).length()) + "|");
+        System.out.println("| Time: " + reportBacklog.getTime() + " ".repeat(36 - String.valueOf(reportBacklog.getDescription()).length()) + "|");
+        System.out.println("| File URL: " + reportBacklog.getDescription() + " ".repeat(43 - String.valueOf(reportBacklog.getFileURL()).length()) + "|");
+    }
+    }
+
+    @Override
+    public void viewAll() throws Exception {
+        ReportBacklog reportBacklog = reportBacklogIDao.getById()
     }
 }
