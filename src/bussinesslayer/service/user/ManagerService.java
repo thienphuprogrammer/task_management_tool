@@ -33,12 +33,12 @@ public class ManagerService implements IUserService<Manager> {
 
     @Override
     public Manager getById(int id) throws Exception {
-        managerDao.getById(id);
+        return managerDao.getById(id);
     }
 
     @Override
     public List<Manager> getAll() throws Exception {
-        managerDao.getAll();
+        return managerDao.getAll();
     }
 
     @Override
