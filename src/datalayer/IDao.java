@@ -8,5 +8,4 @@ public interface IDao <T> {
     void addNew(T space) throws Exception;
     void update(T space) throws Exception;
     void delete(int id) throws Exception;
-    void save(T space) throws Exception;
 }

@@ -4,7 +4,7 @@ import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.IService;
 
-import static application.utilities.InputUtil.*
+import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
 
 public class BacklogManagerMenu {
@@ -77,6 +77,6 @@ public class BacklogManagerMenu {
         serviceBacklog.delete(readInt("Backlog ID: "));
     }
     private void viewBacklog() {
-        serviceBacklog.view();
+
     }
 }

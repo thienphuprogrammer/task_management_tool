@@ -1,9 +1,17 @@
 package datalayer;
 
+import bussinesslayer.entity.report.ReportBacklog;
+import bussinesslayer.entity.report.ReportProject;
+import bussinesslayer.entity.report.ReportSprint;
+import bussinesslayer.entity.report.ReportTask;
 import bussinesslayer.entity.space.*;
 import bussinesslayer.entity.user.Admin;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.entity.user.Member;
+import datalayer.report.reportbacklogdao.ReportBacklogDao;
+import datalayer.report.reportprojectdao.ReportProjectDao;
+import datalayer.report.reportsprintdao.ReportSprintDao;
+import datalayer.report.reporttaskdao.ReportTaskDao;
 import datalayer.spacedao.backlogdao.BacklogDao;
 import datalayer.spacedao.projectdao.ProjectDao;
 import datalayer.spacedao.sprintdao.SprintDao;
@@ -69,5 +77,25 @@ public class DaoFactory implements IDaoFactory {
     @Override
     public IDao<Manager> getManagerDao() throws Exception {
         return new ManagerDao();
+    }
+
+    @Override
+    public IDao<ReportBacklog> getReportBacklogDao() throws Exception {
+        return new ReportBacklogDao();
+    }
+
+    @Override
+    public IDao<ReportProject> getReportProjectDao() throws Exception {
+        return new ReportProjectDao();
+    }
+
+    @Override
+    public IDao<ReportTask> getReportTaskDao() throws Exception {
+        return new ReportTaskDao();
+    }
+
+    @Override
+    public IDao<ReportSprint> getReportSprintDao() throws Exception {
+        return new ReportSprintDao();
     }
 }

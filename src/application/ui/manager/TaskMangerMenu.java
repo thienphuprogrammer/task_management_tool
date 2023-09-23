@@ -109,7 +109,16 @@ public class TaskMangerMenu {
         serviceTask.delete(taskId);
     }
     private void viewTask() throws Exception {
-        serviceTask.viewAll();
+        int taskId = readInt("Enter task id: ");
+        Task task = serviceTask.getById(taskId);
+        printValue(new String[]{
+                String.valueOf(task.getId()),
+                task.getName(),
+                task.getDescription(),
+                task.getStartDate().toString(),
+                task.getEndDate().toString(),
+                String.valueOf(task.getSprintId()),
+        });
     }
     private void viewTaskProgressTracking() throws Exception {
         List<Task> list = serviceTask.getAll();
