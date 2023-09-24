@@ -2,6 +2,8 @@ package application.ui.manager;
 
 import bussinesslayer.entity.space.Task;
 import bussinesslayer.entity.user.Manager;
+import bussinesslayer.service.report.reporttask.IReportTaskService;
+import bussinesslayer.service.report.reporttask.ReportTaskService;
 import bussinesslayer.service.sapce.task.ITaskService;
 import bussinesslayer.service.sapce.task.TaskService;
 import bussinesslayer.service.user.IUserService;
@@ -15,8 +17,9 @@ import static application.utilities.OutputUtil.*;
 
 public class TaskMangerMenu {
     // -------------------- Properties ------------------------
-    private IUserService<Manager> serviceManager = new ManagerService();
-    private ITaskService serviceTask = new TaskService();
+    private final ITaskService serviceTask = new TaskService();
+    private final IReportTaskService reportTaskService = new ReportTaskService();
+    private int sprintId;
     public enum CHOICE_BACKLOG_MANAGER_MENU {
         EXIT,
         CREATE_TASK,
@@ -27,35 +30,17 @@ public class TaskMangerMenu {
         ASSIGN_TASK_TO_MEMBER,
         REASSIGN_TASK_TO_MEMBER,
         CREATE_REPORT,
-        VIEW_REPORT
+        VIEW_REPORT,
+        SUBTASK_MANAGER
     }
     //  ------------------- Constructor ------------------------
-    public TaskMangerMenu(IUserService<Manager> service) throws Exception {
-        this.serviceManager = service;
-    }
 
-    public TaskMangerMenu(IUserService<Manager> serviceManager, ITaskService serviceTask) throws Exception {
-        this.serviceManager = serviceManager;
-        this.serviceTask = serviceTask;
+
+    public TaskMangerMenu(int sprintId) throws Exception {
+        this.sprintId = sprintId;
     }
 
     //  ------------------- Getters and Setters ------------------------
-
-    public IUserService<Manager> getServiceManager() {
-        return serviceManager;
-    }
-
-    public void setServiceManager(IUserService<Manager> serviceManager) {
-        this.serviceManager = serviceManager;
-    }
-
-    public ITaskService getServiceTask() {
-        return serviceTask;
-    }
-
-    public void setServiceTask(ITaskService serviceTask) {
-        this.serviceTask = serviceTask;
-    }
 
     //  ------------------- Methods ------------------------
     public void processMenuForTaskManager() {
@@ -82,6 +67,7 @@ public class TaskMangerMenu {
                         case REASSIGN_TASK_TO_MEMBER -> this.reassignTaskToMember();
                         case CREATE_REPORT -> this.createReport();
                         case VIEW_REPORT -> this.viewReport();
+                        case SUBTASK_MANAGER -> this.processMenuForSubtaskManager();
                     }
                 }
             } catch (Exception e) {
@@ -153,5 +139,10 @@ public class TaskMangerMenu {
     }
     private void viewReport() {
 
+    }
+    private void processMenuForSubtaskManager() throws Exception {
+        int taskId = readInt("Enter task id: ");
+        SubtaskManagerMenu subtaskManagerMenu = new SubtaskManagerMenu(taskId);
+        subtaskManagerMenu.processMenuForSubtaskManager();
     }
 }

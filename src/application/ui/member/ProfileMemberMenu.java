@@ -1,17 +1,14 @@
-package application.ui.manager;
+package application.ui.member;
 
-import bussinesslayer.entity.user.Manager;
+import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.user.IUserService;
-import bussinesslayer.service.user.ManagerService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
 
-public class ProfileManagerMenu {
-    // -------------------- Properties ------------------------
-    private IUserService<Manager> serviceManager = new ManagerService();
-    private int managerId;
-    public enum CHOICE_PROFILE_MANAGER_MENU {
+public class ProfileMemberMenu {
+    private IUserService<Member> serviceMember;
+    public enum CHOICE_PROFILE_MEMBER_MENU {
         EXIT,
         UPDATE_PROFILE,
         CHANGE_PASSWORD,
@@ -21,37 +18,27 @@ public class ProfileManagerMenu {
     }
     // -------------------- Constructor ------------------------
 
-
-    public ProfileManagerMenu(int managerId) throws Exception {
-        this.managerId = managerId;
+    public ProfileMemberMenu(IUserService<Member> serviceMember) {
+        this.serviceMember = serviceMember;
     }
-
     // -------------------- Getters and Setters ------------------------
-    public IUserService<Manager> getServiceManager() {
-        return serviceManager;
-    }
-
-    public void setServiceManager(IUserService<Manager> serviceManager) {
-        this.serviceManager = serviceManager;
-    }
     // -------------------- Methods ------------------------
-
-    public void processMenuForProfileManager() {
+    public void processMenuForProfileMember() {
         boolean exit = false;
         while (!exit) {
-            printLineSeparate("Profile Manager Menu");
-            printValueMenu("Manager\\Profile");
-            for (CHOICE_PROFILE_MANAGER_MENU choice : CHOICE_PROFILE_MANAGER_MENU.values()) {
+            printLineSeparate("Profile Member Menu");
+            printValueMenu("Member\\Profile");
+            for (CHOICE_PROFILE_MEMBER_MENU choice : CHOICE_PROFILE_MEMBER_MENU.values()) {
                 printValueMenu(choice.ordinal() + " to  " + choice.name().replace("_", " ").toLowerCase());
             }
             printLineSeparate();
             try {
                 int choice = readInt("Enter your choice: ");
 
-                if (choice < 0 || choice >= CHOICE_PROFILE_MANAGER_MENU.values().length) {
+                if (choice < 0 || choice >= CHOICE_PROFILE_MEMBER_MENU.values().length) {
                     printValueln("Invalid choice.");
                 } else {
-                    switch (CHOICE_PROFILE_MANAGER_MENU.values()[choice]) {
+                    switch (CHOICE_PROFILE_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
                         case UPDATE_PROFILE -> this.updateProfile();
                         case VIEW_INFORMATION -> this.viewInformation();
@@ -67,11 +54,10 @@ public class ProfileManagerMenu {
             }
         }
     }
-
-    private void updateProfile() {
+    private void viewInformation() {
 
     }
-    private void viewInformation() {
+    private void updateProfile() {
 
     }
     private void changePassword() {

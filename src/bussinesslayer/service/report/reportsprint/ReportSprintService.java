@@ -5,7 +5,7 @@ import bussinesslayer.service.report.IReportService;
 
 import java.util.List;
 
-public class ReportSprintService implements IReportService<ReportSprint> {
+public class ReportSprintService implements IReportSprintService {
     @Override
     public void update(ReportSprint reportSprint) throws Exception {
 

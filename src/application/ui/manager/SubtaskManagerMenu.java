@@ -1,7 +1,10 @@
 package application.ui.manager;
 
 import bussinesslayer.entity.user.Manager;
-import bussinesslayer.service.IService;
+import bussinesslayer.service.report.reportsubtask.IReportSubtaskService;
+import bussinesslayer.service.report.reportsubtask.ReportSubtaskService;
+import bussinesslayer.service.sapce.subtask.ISubtaskService;
+import bussinesslayer.service.sapce.subtask.SubtaskService;
 import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.InputUtil.readInt;
@@ -9,7 +12,9 @@ import static application.utilities.OutputUtil.*;
 
 public class SubtaskManagerMenu {
     // -------------------- Properties ------------------------
-    private IUserService<Manager> service;
+    private final ISubtaskService subtaskManager = new SubtaskService();
+    private final IReportSubtaskService reportSubtaskService = new ReportSubtaskService();
+    private int taskId;
     public enum CHOICE_SUBTASK_MANAGER_MENU {
         EXIT,
         CREATE_SUBTASK,
@@ -22,18 +27,12 @@ public class SubtaskManagerMenu {
         VIEW_REPORT
     }
     //  ------------------- Constructor ------------------------
-    public SubtaskManagerMenu(IUserService<Manager> service) {
-        this.service = service;
+
+    public SubtaskManagerMenu(int taskId) throws Exception {
+        this.taskId = taskId;
     }
+
     // -------------------- Getters and Setters ------------------------
-
-    public IUserService<Manager> getService() {
-        return service;
-    }
-
-    public void setService(IUserService<Manager> service) {
-        this.service = service;
-    }
     // -------------------- Methods ------------------------
 
     public void processMenuForSubtaskManager() {

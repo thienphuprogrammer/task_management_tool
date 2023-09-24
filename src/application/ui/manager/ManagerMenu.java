@@ -13,19 +13,12 @@ public class ManagerMenu {
         EXIT,
         // Project
         PROJECT_MANAGER,
-        // Task
-        TASK_MANAGER,
-
-        // Subtask
-        SUBTASK_MANAGER,
-
-        // Document
-        DOCUMENT_MANAGER,
         //Profile
         PROFILE_MANAGER
     }
     // -------------------- Properties ------------------------
     IUserService<Manager> service;
+    private int managerId;
 
     // -------------------- Constructor ------------------------
     public ManagerMenu(IUserService <Manager> service) {
@@ -50,9 +43,6 @@ public class ManagerMenu {
                     switch (CHOICE_MANAGER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
                         case PROJECT_MANAGER -> this.manageProject();
-                        case TASK_MANAGER -> this.manageTask();
-                        case SUBTASK_MANAGER -> this.manageSubtask();
-                        case DOCUMENT_MANAGER -> this.manageDocument();
                         case PROFILE_MANAGER -> this.manageProfile();
                         default -> {
                         }
@@ -65,24 +55,12 @@ public class ManagerMenu {
     }
 
     private void manageProject() throws Exception {
-        ProjectManagerMenu managerProjectManagerMenu = new ProjectManagerMenu(service);
+        ProjectManagerMenu managerProjectManagerMenu = new ProjectManagerMenu(managerId);
         managerProjectManagerMenu.processMenuForProjectManager();
 
     }
-    private void manageTask() throws Exception {
-        TaskMangerMenu taskMangerMenu = new TaskMangerMenu(service);
-        taskMangerMenu.processMenuForTaskManager();
-    }
-    private void manageSubtask() throws Exception {
-        SubtaskManagerMenu subtaskManagerMenu = new SubtaskManagerMenu(service);
-        subtaskManagerMenu.processMenuForSubtaskManager();
-    }
-    private void manageDocument() throws Exception {
-        DocumentManagerMenu documentManagerMenu = new DocumentManagerMenu(service);
-        documentManagerMenu.processMenuForDocumentManager();
-    }
     private void manageProfile() throws Exception {
-        ProfileManagerMenu profileManagerMenu = new ProfileManagerMenu(service);
+        ProfileManagerMenu profileManagerMenu = new ProfileManagerMenu(managerId);
         profileManagerMenu.processMenuForProfileManager();
     }
 }

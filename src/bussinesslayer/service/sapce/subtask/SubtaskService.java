@@ -7,13 +7,13 @@ import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class SubTaskService implements ISubTaskService {
+public class SubtaskService implements ISubtaskService {
     // -------------------- Properties ------------------------
     private IDao<SubTask> subTaskIDao;
     IDaoFactory subTaskDaoFactory;
 
     // -------------------- Constructor ------------------------
-    public SubTaskService() throws Exception {
+    public SubtaskService() throws Exception {
         subTaskDaoFactory = new DaoFactory();
         this.subTaskIDao = subTaskDaoFactory.getSubTaskDao();
     }

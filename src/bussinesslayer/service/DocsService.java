@@ -5,7 +5,7 @@ import datalayer.IDao;
 
 import java.util.List;
 
-public class DocsService implements IService<Doc> {
+public class DocsService implements IDocsService {
     // -------------------- Properties ------------------------
     private IDao<Doc> docIDao;
     // -------------------- Constructor ------------------------

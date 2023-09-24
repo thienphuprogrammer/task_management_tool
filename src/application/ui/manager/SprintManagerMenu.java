@@ -2,6 +2,10 @@ package application.ui.manager;
 
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.IService;
+import bussinesslayer.service.report.reportsprint.IReportSprintService;
+import bussinesslayer.service.report.reportsprint.ReportSprintService;
+import bussinesslayer.service.sapce.sprint.ISprintService;
+import bussinesslayer.service.sapce.sprint.SprintService;
 import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.InputUtil.readInt;
@@ -9,7 +13,9 @@ import static application.utilities.OutputUtil.*;
 
 public class SprintManagerMenu {
     // -------------------- Properties ------------------------
-    private IUserService<Manager> service;
+    private ISprintService sprintService = new SprintService();
+    private IReportSprintService reportSprintService = new ReportSprintService();
+    private int projectId;
     public enum CHOICE_SPRINT_MANAGER_MENU {
         EXIT,
         CREATE_SPRINT,
@@ -17,26 +23,23 @@ public class SprintManagerMenu {
         DELETE_SPRINT,
         VIEW_SPRINT,
         CREATE_REPORT,
-        VIEW_REPORT
+        VIEW_REPORT,
+        TASK_MANAGER
     }
     // -------------------- Constructor ------------------------
 
-    public SprintManagerMenu(IUserService<Manager> service) {
-        this.service = service;
-    }
-    // -------------------- Getters and Setters ------------------------
-    public IUserService<Manager> getService() {
-        return service;
+    public SprintManagerMenu(int projectId) throws Exception {
+        this.projectId = projectId;
     }
 
-    public void setService(IUserService<Manager> service) {
-        this.service = service;
-    }
+    // -------------------- Getters and Setters ------------------------
+
     // -------------------- Methods ------------------------
     public void processMenuForSprintManager() {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Sprint Manager Menu");
+            printValueMenu("Manager\\Project\\Sprint");
             for (CHOICE_SPRINT_MANAGER_MENU choice : CHOICE_SPRINT_MANAGER_MENU.values()) {
                 printValueMenu(choice.ordinal() + " to  " + choice.name().replace("_", " ").toLowerCase());
             }
@@ -54,6 +57,7 @@ public class SprintManagerMenu {
                         case VIEW_SPRINT -> this.viewSprint();
                         case CREATE_REPORT -> this.createReport();
                         case VIEW_REPORT -> this.viewReport();
+                        case TASK_MANAGER -> this.processMenuForTaskManager();
                     }
                 }
             } catch (Exception e) {
@@ -78,5 +82,10 @@ public class SprintManagerMenu {
     }
     private void viewReport() {
 
+    }
+    private void processMenuForTaskManager() throws Exception {
+        int sprintId = readInt("Enter sprint id: ");
+        TaskMangerMenu taskMangerMenu = new TaskMangerMenu(sprintId);
+        taskMangerMenu.processMenuForTaskManager();
     }
 }

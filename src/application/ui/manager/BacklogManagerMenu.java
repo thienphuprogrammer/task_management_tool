@@ -3,6 +3,8 @@ package application.ui.manager;
 import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.report.reportbacklog.IReportBacklogService;
+import bussinesslayer.service.report.reportbacklog.ReportBacklogService;
+import bussinesslayer.service.sapce.backog.BacklogService;
 import bussinesslayer.service.sapce.backog.IBacklogService;
 import bussinesslayer.service.user.IUserService;
 
@@ -11,10 +13,8 @@ import static application.utilities.OutputUtil.*;
 
 public class BacklogManagerMenu {
     // -------------------- Properties ------------------------
-    private IUserService<Manager> serviceManager;
-    private IBacklogService serviceBacklog;
-    private IReportBacklogService serviceReportBacklog;
-    private int managerId;
+    private IBacklogService serviceBacklog = new BacklogService();
+    private IReportBacklogService serviceReportBacklog  = new ReportBacklogService();
     private int projectId;
     public enum CHOICE_BACKLOG_MANAGER_MENU {
         EXIT,
@@ -27,40 +27,19 @@ public class BacklogManagerMenu {
         UPDATE_REPORT_BACKLOG
     }
     // -------------------- Constructor ------------------------
-    public BacklogManagerMenu(IUserService<Manager> service) {
-        this.serviceManager = service;
-    }
-
-    public BacklogManagerMenu(IUserService<Manager> serviceManager, int managerId, int projectId) {
-        this.serviceManager = serviceManager;
+    public BacklogManagerMenu(int projectId) throws Exception {
         this.projectId = projectId;
-        this.managerId = managerId;
     }
 
     // -------------------- Getters and Setters ------------------------
-    public IUserService<Manager> getServiceManager() {
-        return serviceManager;
-    }
 
-    public int getManagerId() {
-        return managerId;
-    }
-
-    public void setManagerId(int managerId) {
-        this.managerId = managerId;
-    }
-
-
-    public void setServiceManager(IUserService<Manager> serviceManager) {
-        this.serviceManager = serviceManager;
-
-    }
     // -------------------- Methods ------------------------
 
     public void processMenuForBacklogManager() {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Backlog Manager Menu");
+            printValueMenu("Manager\\Project\\Backlog");
             for (CHOICE_BACKLOG_MANAGER_MENU choice : CHOICE_BACKLOG_MANAGER_MENU.values()) {
                 printValueMenu(choice.ordinal() + " to  " + choice.name().replace("_", " ").toLowerCase());
             }

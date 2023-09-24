@@ -10,8 +10,8 @@ import static application.utilities.OutputUtil.*;
 
 public class DocumentManagerMenu {
     // -------------------- Properties ------------------------
-    private IService<Manager> serviceDocs;
     private IDocsService docsService;
+    private int projectId;
     public enum CHOICE_DOCUMENT_MANAGER_MENU {
         EXIT,
         CREATE_DOCUMENT,
@@ -21,18 +21,11 @@ public class DocumentManagerMenu {
     }
     // -------------------- Constructor ------------------------
 
-    public DocumentManagerMenu(IService<Manager> service) {
-        this.serviceDocs = service;
+    public DocumentManagerMenu(int projectId) {
+        this.projectId = projectId;
     }
+
     // -------------------- Getters and Setters ------------------------
-    public IService<Manager> getServiceDocs() {
-        return serviceDocs;
-    }
-
-    public void setServiceDocs(IService<Manager> serviceDocs) {
-        this.serviceDocs = serviceDocs;
-    }
-
     public IDocsService getDocsService() {
         return docsService;
     }
@@ -46,6 +39,7 @@ public class DocumentManagerMenu {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Document Manager Menu");
+            printValueMenu("Manager\\Project\\Document");
             for (CHOICE_DOCUMENT_MANAGER_MENU choice : CHOICE_DOCUMENT_MANAGER_MENU.values()) {
                 printValueMenu(choice.ordinal() + " to  " + choice.name().replace("_", " ").toLowerCase());
             }

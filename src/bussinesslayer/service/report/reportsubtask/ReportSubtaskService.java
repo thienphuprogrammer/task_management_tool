@@ -4,7 +4,7 @@ import bussinesslayer.entity.report.ReportSubtask;
 
 import java.util.List;
 
-public class ReportSubtaskService implements IReportSubTaskService {
+public class ReportSubtaskService implements IReportSubtaskService {
     @Override
     public void update(ReportSubtask reportSubtask) throws Exception {
 

@@ -2,7 +2,10 @@ package application.ui.manager;
 
 import bussinesslayer.entity.space.Project;
 import bussinesslayer.entity.user.Manager;
+import bussinesslayer.service.report.reportproject.IReportProjectService;
+import bussinesslayer.service.report.reportproject.ReportProjectService;
 import bussinesslayer.service.sapce.project.IProjectService;
+import bussinesslayer.service.sapce.project.ProjectService;
 import bussinesslayer.service.user.IUserService;
 
 import java.time.LocalDate;
@@ -12,8 +15,8 @@ import static application.utilities.OutputUtil.*;
 
 public class ProjectManagerMenu {
     // -------------------- Properties ------------------------
-    private IUserService<Manager> serviceManager;
-    private IProjectService serviceProject;
+    private final IProjectService serviceProject = new ProjectService();
+    private final IReportProjectService reportProjectService = new ReportProjectService();
     private int managerId;
     public enum CHOICE_PROJECT_MANAGER_MENU {
         EXIT,
@@ -31,37 +34,15 @@ public class ProjectManagerMenu {
 
         // Sprint
         SPRINT_MANAGER,
-
+        DOCUMENT_PROJECT
     }
     // -------------------- Constructor ------------------------
 
-    public ProjectManagerMenu(IUserService<Manager> service) {
-        this.serviceManager = service;
-    }
-
-    public ProjectManagerMenu(IUserService<Manager> serviceManager, int managerId) {
-        this.serviceManager = serviceManager;
+    public ProjectManagerMenu(int managerId) throws Exception {
         this.managerId = managerId;
     }
 
     // -------------------- Getters and Setters ------------------------
-
-
-    public IUserService<Manager> getServiceManager() {
-        return serviceManager;
-    }
-
-    public void setServiceManager(IUserService<Manager> serviceManager) {
-        this.serviceManager = serviceManager;
-    }
-
-    public IProjectService getServiceProject() {
-        return serviceProject;
-    }
-
-    public void setServiceProject(IProjectService serviceProject) {
-        this.serviceProject = serviceProject;
-    }
 
     // -------------------- Methods ------------------------
     public void processMenuForProjectManager() {
@@ -91,6 +72,7 @@ public class ProjectManagerMenu {
                         case SPRINT_MANAGER -> this.manageSprint();
                         case CREATE_REPORT -> this.createReport();
                         case VIEW_REPORT -> this.viewReport();
+                        case DOCUMENT_PROJECT -> this.documentProject();
                     }
                 }
             } catch (Exception e) {
@@ -136,11 +118,12 @@ public class ProjectManagerMenu {
 
     private void manageBacklog() throws Exception {
         int projectId = readInt("Enter project id: ");
-        BacklogManagerMenu backlogManagerMenu = new BacklogManagerMenu(serviceManager, managerId, projectId);
+        BacklogManagerMenu backlogManagerMenu = new BacklogManagerMenu(projectId);
         backlogManagerMenu.processMenuForBacklogManager();
     }
     private void manageSprint() throws Exception {
-        SprintManagerMenu sprintManagerMenu = new SprintManagerMenu(serviceManager);
+        int projectId = readInt("Enter project id: ");
+        SprintManagerMenu sprintManagerMenu = new SprintManagerMenu(projectId);
         sprintManagerMenu.processMenuForSprintManager();
     }
     private void createReport() {
@@ -148,5 +131,10 @@ public class ProjectManagerMenu {
     }
     private void viewReport() {
 
+    }
+    private void documentProject() throws Exception {
+        int projectId = readInt("Enter project id: ");
+        DocumentManagerMenu documentManagerMenu = new DocumentManagerMenu(managerId);
+        documentManagerMenu.processMenuForDocumentManager();
     }
 }
