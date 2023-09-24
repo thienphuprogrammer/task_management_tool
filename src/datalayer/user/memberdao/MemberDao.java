@@ -4,7 +4,7 @@ import bussinesslayer.entity.user.Member;
 
 import java.util.List;
 
-public class MemberDao implements IMemberDao<Member> {
+public class MemberDao implements IMemberDao {
     @Override
     public Member getById(int id) throws Exception {
         return null;

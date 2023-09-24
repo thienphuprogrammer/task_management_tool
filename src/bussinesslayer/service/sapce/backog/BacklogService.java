@@ -1,16 +1,16 @@
-package bussinesslayer.service.sapce;
+package bussinesslayer.service.sapce.backog;
 
 import bussinesslayer.entity.space.Backlog;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
+import datalayer.spacedao.backlogdao.IBacklogDao;
 
-import java.sql.SQLException;
 import java.util.List;
 
-public class BacklogService implements ISpaceService<Backlog> {
+public class BacklogService implements IBacklogService {
     // -------------------- Properties ------------------------
-    private IDao<Backlog> backlogIDao;
+    private IBacklogDao backlogIDao;
     IDaoFactory backlogDaoFactory;
 
     // -------------------- Constructor ------------------------
@@ -25,7 +25,7 @@ public class BacklogService implements ISpaceService<Backlog> {
         return backlogIDao;
     }
 
-    public void setBacklogIDao(IDao<Backlog> backlogIDao) {
+    public void setBacklogIDao(IBacklogDao backlogIDao) {
         this.backlogIDao = backlogIDao;
     }
 
@@ -76,5 +76,8 @@ public class BacklogService implements ISpaceService<Backlog> {
         System.out.println("| Title: " + backlog.getTitle() + " ".repeat(40 - String.valueOf(backlog.getTitle()).length()) + "|");
         System.out.println("| Description: " + backlog.getDescription() + " ".repeat(36 - String.valueOf(backlog.getDescription()).length()) + "|");
         System.out.println("| File URL: " + backlog.getFileURL() + " ".repeat(43 - String.valueOf(backlog.getFileURL()).length()) + "|");
+    }
+    public Backlog getBacklogByProjectId(int projectId) throws Exception {
+        return backlogIDao.getBacklogByProjectId(projectId);
     }
 }

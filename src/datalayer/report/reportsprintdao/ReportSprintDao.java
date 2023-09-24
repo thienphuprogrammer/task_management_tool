@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReportSprintDao implements IDao<ReportSprint> {
+public class ReportSprintDao implements IReportSprintDao {
     Connection connection = null;
     PreparedStatement statement = null;
     ResultSet resultSet = null;
@@ -54,7 +54,7 @@ public class ReportSprintDao implements IDao<ReportSprint> {
                 reportSprint.setDate(resultSet.getDate("date").toLocalDate());
                 reportSprint.setTime(resultSet.getTime("time").toLocalTime());
                 reportSprint.setDescription(resultSet.getString("Description"));
-                reportSprint.setSprint_id(reportSprint.getSprint_id());
+                reportSprint.setSprint_id(resultSet.getInt("sprint_id"));
                 list.add(reportSprint);
             }
         }catch (SQLException exception) {

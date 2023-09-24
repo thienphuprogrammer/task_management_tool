@@ -15,7 +15,9 @@ public class SprintManagerMenu {
         CREATE_SPRINT,
         UPDATE_SPRINT,
         DELETE_SPRINT,
-        VIEW_SPRINT
+        VIEW_SPRINT,
+        CREATE_REPORT,
+        VIEW_REPORT
     }
     // -------------------- Constructor ------------------------
 
@@ -50,6 +52,8 @@ public class SprintManagerMenu {
                         case UPDATE_SPRINT -> this.updateSprint();
                         case DELETE_SPRINT -> this.deleteSprint();
                         case VIEW_SPRINT -> this.viewSprint();
+                        case CREATE_REPORT -> this.createReport();
+                        case VIEW_REPORT -> this.viewReport();
                     }
                 }
             } catch (Exception e) {
@@ -67,6 +71,12 @@ public class SprintManagerMenu {
 
     }
     private void viewSprint() {
+
+    }
+    private void createReport() {
+
+    }
+    private void viewReport() {
 
     }
 }

@@ -1,37 +1,45 @@
 package datalayer;
 
-import bussinesslayer.entity.report.ReportBacklog;
 import bussinesslayer.entity.report.ReportProject;
 import bussinesslayer.entity.report.ReportSprint;
 import bussinesslayer.entity.report.ReportTask;
 import bussinesslayer.entity.space.*;
 import bussinesslayer.entity.user.Admin;
-import bussinesslayer.entity.user.Manager;
-import bussinesslayer.entity.user.Member;
-import datalayer.report.reportbacklogdao.ReportBacklogDao;
+import datalayer.report.reportbacklogdao.IReportBacklogDao;
+import datalayer.report.reportprojectdao.IReportProjectDao;
+import datalayer.report.reportsprintdao.IReportSprintDao;
+import datalayer.report.reporttaskdao.IReportTaskDao;
+import datalayer.spacedao.backlogdao.IBacklogDao;
+import datalayer.spacedao.projectdao.IProjectDao;
+import datalayer.spacedao.sprintdao.ISprintDao;
+import datalayer.spacedao.substaskdao.ISubTaskDao;
+import datalayer.spacedao.taskdao.ITaskDao;
+import datalayer.user.admindao.IAdminDao;
+import datalayer.user.managerdao.IManagerDao;
+import datalayer.user.memberdao.IMemberDao;
 
 public interface IDaoFactory {
-    IDao<Backlog> getBacklogDao() throws Exception;
+    IBacklogDao getBacklogDao() throws Exception;
 
-    IDao<Project> getProjectDao() throws Exception;
+    IProjectDao getProjectDao() throws Exception;
 
-    IDao<Sprint> getSprintDao() throws Exception;
+    ISprintDao getSprintDao() throws Exception;
 
-    IDao<Task> getTaskDao() throws Exception;
+    ITaskDao getTaskDao() throws Exception;
 
-    IDao<SubTask> getSubTaskDao() throws Exception;
+    ISubTaskDao getSubTaskDao() throws Exception;
 
-    IDao<Admin> getAdminDao() throws Exception;
+    IAdminDao getAdminDao() throws Exception;
 
-    IDao<Member> getMemberDao() throws Exception;
+    IMemberDao getMemberDao() throws Exception;
 
-    IDao<Manager> getManagerDao() throws Exception;
+    IManagerDao getManagerDao() throws Exception;
 
-    IDao<ReportBacklog> getReportBacklogDao() throws Exception;
+    IReportBacklogDao getReportBacklogDao() throws Exception;
 
-    IDao<ReportProject> getReportProjectDao() throws Exception;
+    IReportProjectDao getReportProjectDao() throws Exception;
 
-    IDao<ReportTask> getReportTaskDao() throws Exception;
+    IReportTaskDao getReportTaskDao() throws Exception;
 
-    IDao<ReportSprint> getReportSprintDao() throws Exception;
+    IReportSprintDao getReportSprintDao() throws Exception;
 }

@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProjectDao implements IProjectDao<Project> {
+public class ProjectDao implements IProjectDao {
     Connection connection = null;
     PreparedStatement statement = null;
     ResultSet resultSet = null;

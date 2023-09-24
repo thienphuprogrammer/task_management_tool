@@ -1,6 +1,7 @@
 package datalayer.spacedao.projectdao;
 
+import bussinesslayer.entity.space.Project;
 import datalayer.spacedao.ISpaceDao;
 
-public interface IProjectDao <Project> extends ISpaceDao<Project> {
+public interface IProjectDao extends ISpaceDao<Project> {
 }

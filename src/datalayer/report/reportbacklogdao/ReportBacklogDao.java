@@ -8,11 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReportBacklogDao implements IDao<ReportBacklog> {
+public class ReportBacklogDao implements IReportBacklogDao {
     Connection connection = null;
     PreparedStatement statement = null;
     ResultSet resultSet = null;
-
     public ReportBacklogDao() {
     }
 

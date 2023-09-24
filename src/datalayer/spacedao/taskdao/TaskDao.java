@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TaskDao implements ITaskDao<Task> {
+public class TaskDao implements ITaskDao {
     Connection connection = null;
     PreparedStatement statement = null;
     ResultSet resultSet =   null;

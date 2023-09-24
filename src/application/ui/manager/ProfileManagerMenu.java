@@ -13,6 +13,9 @@ public class ProfileManagerMenu {
     public enum CHOICE_PROFILE_MANAGER_MENU {
         EXIT,
         UPDATE_PROFILE,
+        CHANGE_PASSWORD,
+        CHANGE_EMAIL,
+        CHANGE_INFORMATION,
         VIEW_INFORMATION,
     }
     // -------------------- Constructor ------------------------
@@ -49,6 +52,11 @@ public class ProfileManagerMenu {
                         case EXIT -> exit = true;
                         case UPDATE_PROFILE -> this.updateProfile();
                         case VIEW_INFORMATION -> this.viewInformation();
+                        case CHANGE_PASSWORD -> this.changePassword();
+                        case CHANGE_EMAIL -> this.changeEmail();
+                        case CHANGE_INFORMATION -> this.changeInformation();
+                        default -> {
+                        }
                     }
                 }
             } catch (Exception e) {
@@ -61,6 +69,15 @@ public class ProfileManagerMenu {
 
     }
     private void viewInformation() {
+
+    }
+    private void changePassword() {
+
+    }
+    private void changeEmail() {
+
+    }
+    private void changeInformation() {
 
     }
 }

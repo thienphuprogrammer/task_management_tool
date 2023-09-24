@@ -1,14 +1,13 @@
-package bussinesslayer.service.sapce;
+package bussinesslayer.service.sapce.subtask;
 
 import bussinesslayer.entity.space.SubTask;
-import bussinesslayer.entity.user.Manager;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class SubTaskService implements ISpaceService<SubTask> {
+public class SubTaskService implements ISubTaskService {
     // -------------------- Properties ------------------------
     private IDao<SubTask> subTaskIDao;
     IDaoFactory subTaskDaoFactory;

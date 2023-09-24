@@ -1,13 +1,14 @@
-package bussinesslayer.service.sapce;
+package bussinesslayer.service.sapce.project;
 
 import bussinesslayer.entity.space.Project;
+import bussinesslayer.service.IService;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class ProjectService implements ISpaceService<Project> {
+public class ProjectService implements IProjectService {
     // -------------------- Properties ------------------------
     private IDao<Project> projectIDao;
     IDaoFactory projectDapFactory;

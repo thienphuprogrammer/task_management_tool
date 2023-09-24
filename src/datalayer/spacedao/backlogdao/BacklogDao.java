@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class BacklogDao implements IBacklogDao<Backlog> {
+public class BacklogDao implements IBacklogDao {
     Connection connection = null;
     PreparedStatement statement = null;
     ResultSet resultSet = null;
@@ -60,6 +60,7 @@ public class BacklogDao implements IBacklogDao<Backlog> {
                 backlog.setDescription(resultSet.getString("description"));
                 backlog.setTitle(resultSet.getString("title"));
                 backlog.setFileURL(resultSet.getString("file_url"));
+                backlog.setProjectId(resultSet.getInt("project_id"));
                 list.add(backlog);
             }
         } catch (SQLException e) {
@@ -110,5 +111,27 @@ public class BacklogDao implements IBacklogDao<Backlog> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public Backlog getBacklogByProjectId(int projectId) throws Exception {
+        Backlog backlog = null;
+        try {
+            String sql = "SELECT * FROM backlog WHERE project_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, projectId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                backlog = new Backlog();
+                backlog.setId(resultSet.getInt("id"));
+                backlog.setDescription(resultSet.getString("description"));
+                backlog.setTitle(resultSet.getString("title"));
+                backlog.setFileURL(resultSet.getString("file_url"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return backlog;
     }
 }

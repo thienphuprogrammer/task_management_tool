@@ -4,7 +4,7 @@ import bussinesslayer.entity.user.Manager;
 
 import java.util.List;
 
-public class ManagerDao implements IManagerDao<Manager> {
+public class ManagerDao implements IManagerDao {
     @Override
     public Manager getById(int id) throws Exception {
         return null;

@@ -8,7 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReportProjectDao implements IDao<ReportProject> {
+public class ReportProjectDao implements IReportProjectDao {
     Connection connection = null;
     PreparedStatement statement = null;
     ResultSet resultSet = null;

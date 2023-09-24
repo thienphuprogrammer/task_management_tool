@@ -18,6 +18,8 @@ public class SubtaskManagerMenu {
         VIEW_SUBTASK,
         ASSIGN_SUBTASK_TO_MEMBER,
         REASSIGN_SUBTASK_TO_MEMBER,
+        CREATE_REPORT,
+        VIEW_REPORT
     }
     //  ------------------- Constructor ------------------------
     public SubtaskManagerMenu(IUserService<Manager> service) {
@@ -55,6 +57,8 @@ public class SubtaskManagerMenu {
                         case VIEW_SUBTASK -> this.viewSubtask();
                         case ASSIGN_SUBTASK_TO_MEMBER -> this.assignSubtaskToMember();
                         case REASSIGN_SUBTASK_TO_MEMBER -> this.reassignSubtaskToMember();
+                        case CREATE_REPORT -> this.createReport();
+                        case VIEW_REPORT -> this.viewReport();
                     }
                 }
             } catch (Exception e) {
@@ -80,5 +84,10 @@ public class SubtaskManagerMenu {
     private void deleteSubtask() {
 
     }
+    private void createReport() {
 
+    }
+    private void viewReport() {
+
+    }
 }

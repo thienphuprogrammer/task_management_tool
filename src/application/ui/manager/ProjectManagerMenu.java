@@ -2,8 +2,7 @@ package application.ui.manager;
 
 import bussinesslayer.entity.space.Project;
 import bussinesslayer.entity.user.Manager;
-import bussinesslayer.service.IService;
-import bussinesslayer.service.sapce.ISpaceService;
+import bussinesslayer.service.sapce.project.IProjectService;
 import bussinesslayer.service.user.IUserService;
 
 import java.time.LocalDate;
@@ -14,7 +13,8 @@ import static application.utilities.OutputUtil.*;
 public class ProjectManagerMenu {
     // -------------------- Properties ------------------------
     private IUserService<Manager> serviceManager;
-    private ISpaceService<Project> serviceProject;
+    private IProjectService serviceProject;
+    private int managerId;
     public enum CHOICE_PROJECT_MANAGER_MENU {
         EXIT,
         EDIT_PROJECT,
@@ -24,12 +24,26 @@ public class ProjectManagerMenu {
         ADD_MEMBER_TO_PROJECT,
         REMOVE_MEMBER_FROM_PROJECT,
         VIEW_MEMBER,
+        CREATE_REPORT,
+        VIEW_REPORT,
+        // Backlog
+        BACKLOG_MANAGER,
+
+        // Sprint
+        SPRINT_MANAGER,
+
     }
     // -------------------- Constructor ------------------------
 
     public ProjectManagerMenu(IUserService<Manager> service) {
         this.serviceManager = service;
     }
+
+    public ProjectManagerMenu(IUserService<Manager> serviceManager, int managerId) {
+        this.serviceManager = serviceManager;
+        this.managerId = managerId;
+    }
+
     // -------------------- Getters and Setters ------------------------
 
 
@@ -41,11 +55,11 @@ public class ProjectManagerMenu {
         this.serviceManager = serviceManager;
     }
 
-    public ISpaceService<Project> getServiceProject() {
+    public IProjectService getServiceProject() {
         return serviceProject;
     }
 
-    public void setServiceProject(ISpaceService<Project> serviceProject) {
+    public void setServiceProject(IProjectService serviceProject) {
         this.serviceProject = serviceProject;
     }
 
@@ -54,6 +68,7 @@ public class ProjectManagerMenu {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Project Manager Menu");
+            printValueMenu("\\Manager\\Project");
             for (CHOICE_PROJECT_MANAGER_MENU choice : CHOICE_PROJECT_MANAGER_MENU.values()) {
                 printValueMenu(choice.ordinal() + " to  " + choice.name().replace("_", " ").toLowerCase());
             }
@@ -72,6 +87,10 @@ public class ProjectManagerMenu {
                         case ADD_MEMBER_TO_PROJECT -> this.addMemberToProject();
                         case REMOVE_MEMBER_FROM_PROJECT -> this.removeMemberFromProject();
                         case VIEW_MEMBER -> this.viewMember();
+                        case BACKLOG_MANAGER -> this.manageBacklog();
+                        case SPRINT_MANAGER -> this.manageSprint();
+                        case CREATE_REPORT -> this.createReport();
+                        case VIEW_REPORT -> this.viewReport();
                     }
                 }
             } catch (Exception e) {
@@ -112,6 +131,22 @@ public class ProjectManagerMenu {
 
     }
     private void viewMember() {
+
+    }
+
+    private void manageBacklog() throws Exception {
+        int projectId = readInt("Enter project id: ");
+        BacklogManagerMenu backlogManagerMenu = new BacklogManagerMenu(serviceManager, managerId, projectId);
+        backlogManagerMenu.processMenuForBacklogManager();
+    }
+    private void manageSprint() throws Exception {
+        SprintManagerMenu sprintManagerMenu = new SprintManagerMenu(serviceManager);
+        sprintManagerMenu.processMenuForSprintManager();
+    }
+    private void createReport() {
+
+    }
+    private void viewReport() {
 
     }
 }

@@ -1,10 +1,9 @@
 package application.ui.manager;
 
 import bussinesslayer.entity.space.Backlog;
-import bussinesslayer.entity.space.Project;
 import bussinesslayer.entity.user.Manager;
-import bussinesslayer.entity.user.User;
-import bussinesslayer.service.sapce.ISpaceService;
+import bussinesslayer.service.report.reportbacklog.IReportBacklogService;
+import bussinesslayer.service.sapce.backog.IBacklogService;
 import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.InputUtil.*;
@@ -13,33 +12,34 @@ import static application.utilities.OutputUtil.*;
 public class BacklogManagerMenu {
     // -------------------- Properties ------------------------
     private IUserService<Manager> serviceManager;
-    private ISpaceService<Backlog> serviceBacklog;
+    private IBacklogService serviceBacklog;
+    private IReportBacklogService serviceReportBacklog;
     private int managerId;
+    private int projectId;
     public enum CHOICE_BACKLOG_MANAGER_MENU {
         EXIT,
         CREATE_BACKLOG,
         UPDATE_BACKLOG,
         DELETE_BACKLOG,
-        VIEW_BACKLOG
+        VIEW_BACKLOG,
+        CREATE_REPORT_BACKLOG,
+        VIEW_REPORT_BACKLOG,
+        UPDATE_REPORT_BACKLOG
     }
     // -------------------- Constructor ------------------------
     public BacklogManagerMenu(IUserService<Manager> service) {
         this.serviceManager = service;
     }
 
-    public BacklogManagerMenu(IUserService<Manager> serviceManager, ISpaceService<Backlog> serviceBacklog, int managerId) {
+    public BacklogManagerMenu(IUserService<Manager> serviceManager, int managerId, int projectId) {
         this.serviceManager = serviceManager;
-        this.serviceBacklog = serviceBacklog;
+        this.projectId = projectId;
         this.managerId = managerId;
     }
 
     // -------------------- Getters and Setters ------------------------
     public IUserService<Manager> getServiceManager() {
         return serviceManager;
-    }
-
-    public ISpaceService<Backlog> getServiceBacklog() {
-        return serviceBacklog;
     }
 
     public int getManagerId() {
@@ -50,9 +50,6 @@ public class BacklogManagerMenu {
         this.managerId = managerId;
     }
 
-    public void setServiceBacklog(ISpaceService<Backlog> serviceBacklog) {
-        this.serviceBacklog = serviceBacklog;
-    }
 
     public void setServiceManager(IUserService<Manager> serviceManager) {
         this.serviceManager = serviceManager;
@@ -79,6 +76,9 @@ public class BacklogManagerMenu {
                         case UPDATE_BACKLOG -> this.updateBacklog();
                         case DELETE_BACKLOG -> this.deleteBacklog();
                         case VIEW_BACKLOG -> this.viewBacklog();
+                        case VIEW_REPORT_BACKLOG -> this.viewReportBacklog();
+                        case UPDATE_REPORT_BACKLOG -> this.updateReportBacklog();
+                        case CREATE_REPORT_BACKLOG -> this.createReportBacklog();
                     }
                 }
             } catch (Exception e) {
@@ -106,8 +106,15 @@ public class BacklogManagerMenu {
         serviceBacklog.delete(readInt("Backlog ID: "));
     }
     private void viewBacklog() throws Exception {
-        Manager manager = serviceManager.getById(managerId);
-        Backlog backlog = serviceBacklog.getById(readInt("Backlog ID: "));
-//        serviceBacklog.viewById();
+        serviceBacklog.getBacklogByProjectId(projectId);
+    }
+    private void viewReportBacklog() throws Exception {
+
+    }
+    private void updateReportBacklog() throws Exception {
+
+    }
+    private void createReportBacklog() throws Exception {
+
     }
 }

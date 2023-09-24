@@ -1,6 +1,7 @@
-package bussinesslayer.service.report;
+package bussinesslayer.service.report.reporttask;
 
 import bussinesslayer.entity.report.ReportTask;
+import bussinesslayer.service.report.IReportService;
 
 import java.util.List;
 

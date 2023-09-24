@@ -1,16 +1,17 @@
-package bussinesslayer.service.report;
+package bussinesslayer.service.report.reportbacklog;
 
 import bussinesslayer.entity.report.ReportBacklog;
-import bussinesslayer.entity.report.ReportSprint;
+import bussinesslayer.entity.space.Backlog;
+import bussinesslayer.service.report.IReportService;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
-import datalayer.report.reportbacklogdao.ReportBacklogDao;
+import datalayer.report.reportbacklogdao.IReportBacklogDao;
 
 import java.util.List;
 
-public class ReportBacklogService implements IReportService<ReportBacklog> {
-    IDao<ReportBacklog> reportBacklogIDao;
+public class ReportBacklogService implements IReportBacklogService {
+    IReportBacklogDao reportBacklogIDao;
     IDaoFactory backlogDaoFactory;
 
     public ReportBacklogService() throws Exception {
@@ -18,11 +19,11 @@ public class ReportBacklogService implements IReportService<ReportBacklog> {
         reportBacklogIDao = backlogDaoFactory.getReportBacklogDao();
     }
 
-    public IDao<ReportBacklog> getReportBacklogIDao() {
+    public IReportBacklogDao getReportBacklogIDao() {
         return reportBacklogIDao;
     }
 
-    public void setReportBacklogIDao(IDao<ReportBacklog> reportBacklogIDao) {
+    public void setReportBacklogIDao(IReportBacklogDao reportBacklogIDao) {
         this.reportBacklogIDao = reportBacklogIDao;
     }
 
@@ -64,4 +65,5 @@ public class ReportBacklogService implements IReportService<ReportBacklog> {
     public void viewAll() throws Exception {
 //        ReportBacklog reportBacklog = reportBacklogIDao.getById();
     }
+
 }

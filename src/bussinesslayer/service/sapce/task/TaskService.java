@@ -1,4 +1,4 @@
-package bussinesslayer.service.sapce;
+package bussinesslayer.service.sapce.task;
 
 import bussinesslayer.entity.space.Task;
 import bussinesslayer.service.IService;
@@ -8,7 +8,7 @@ import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class TaskService implements ISpaceService<Task> {
+public class TaskService implements ITaskService {
     // -------------------- Properties ------------------------
     private IDao<Task> taskIDao;
     IDaoFactory taskFactory;

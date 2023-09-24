@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class SprintDao implements ISprintDao<Sprint> {
+public class SprintDao implements ISprintDao {
     Connection connection = null;
     PreparedStatement statement = null;
     ResultSet resultSet = null;

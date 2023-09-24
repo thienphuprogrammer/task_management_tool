@@ -2,9 +2,8 @@ package application.ui.manager;
 
 import bussinesslayer.entity.space.Task;
 import bussinesslayer.entity.user.Manager;
-import bussinesslayer.service.IService;
-import bussinesslayer.service.sapce.ISpaceService;
-import bussinesslayer.service.sapce.TaskService;
+import bussinesslayer.service.sapce.task.ITaskService;
+import bussinesslayer.service.sapce.task.TaskService;
 import bussinesslayer.service.user.IUserService;
 import bussinesslayer.service.user.ManagerService;
 
@@ -17,7 +16,7 @@ import static application.utilities.OutputUtil.*;
 public class TaskMangerMenu {
     // -------------------- Properties ------------------------
     private IUserService<Manager> serviceManager = new ManagerService();
-    private ISpaceService<Task> serviceTask = new TaskService();
+    private ITaskService serviceTask = new TaskService();
     public enum CHOICE_BACKLOG_MANAGER_MENU {
         EXIT,
         CREATE_TASK,
@@ -27,13 +26,15 @@ public class TaskMangerMenu {
         VIEW_TASK_PROGRESS_TRACKING,
         ASSIGN_TASK_TO_MEMBER,
         REASSIGN_TASK_TO_MEMBER,
+        CREATE_REPORT,
+        VIEW_REPORT
     }
     //  ------------------- Constructor ------------------------
     public TaskMangerMenu(IUserService<Manager> service) throws Exception {
         this.serviceManager = service;
     }
 
-    public TaskMangerMenu(IUserService<Manager> serviceManager, ISpaceService<Task> serviceTask) throws Exception {
+    public TaskMangerMenu(IUserService<Manager> serviceManager, ITaskService serviceTask) throws Exception {
         this.serviceManager = serviceManager;
         this.serviceTask = serviceTask;
     }
@@ -48,11 +49,11 @@ public class TaskMangerMenu {
         this.serviceManager = serviceManager;
     }
 
-    public ISpaceService<Task> getServiceTask() {
+    public ITaskService getServiceTask() {
         return serviceTask;
     }
 
-    public void setServiceTask(ISpaceService<Task> serviceTask) {
+    public void setServiceTask(ITaskService serviceTask) {
         this.serviceTask = serviceTask;
     }
 
@@ -79,6 +80,8 @@ public class TaskMangerMenu {
                         case VIEW_TASK_PROGRESS_TRACKING -> this.viewTaskProgressTracking();
                         case ASSIGN_TASK_TO_MEMBER -> this.assignTaskToMember();
                         case REASSIGN_TASK_TO_MEMBER -> this.reassignTaskToMember();
+                        case CREATE_REPORT -> this.createReport();
+                        case VIEW_REPORT -> this.viewReport();
                     }
                 }
             } catch (Exception e) {
@@ -144,5 +147,11 @@ public class TaskMangerMenu {
         int newMemberId = readInt("Enter new member id: ");
         task.setMemberId(newMemberId);
         serviceTask.update(task);
+    }
+    private void createReport() {
+
+    }
+    private void viewReport() {
+
     }
 }
