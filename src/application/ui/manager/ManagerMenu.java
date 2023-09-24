@@ -35,7 +35,7 @@ public class ManagerMenu {
     IUserService<Manager> service;
 
     // -------------------- Constructor ------------------------
-    public ManagerMenu(IUserService<Manager> service) {
+    public ManagerMenu(IUserService <Manager> service) {
         this.service = service;
     }
     public void processMenuForManager() {
@@ -43,6 +43,7 @@ public class ManagerMenu {
 
         while (!exit) {
             printLineSeparate("Manager Menu");
+            printValueMenu("\\Manager");
             for (CHOICE_MANAGER_MENU choice : CHOICE_MANAGER_MENU.values()) {
                 printValueMenu(choice.ordinal() + " to  " + choice.name().replace("_", " ").toLowerCase());
             }

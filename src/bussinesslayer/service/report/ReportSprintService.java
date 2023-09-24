@@ -29,4 +29,14 @@ public class ReportSprintService implements IReportService<ReportSprint> {
     public List<ReportSprint> getAll() throws Exception {
         return null;
     }
+
+    @Override
+    public void viewById(int id) throws Exception {
+
+    }
+
+    @Override
+    public void viewAll() throws Exception {
+
+    }
 }

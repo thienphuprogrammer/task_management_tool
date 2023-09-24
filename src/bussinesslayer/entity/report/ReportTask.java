@@ -10,7 +10,9 @@ public class ReportTask extends Report{
         super(id, time, date, description);
         this.task_id = task_id;
     }
+    public ReportTask() {
 
+    }
     public int getTask_id() {
         return task_id;
     }

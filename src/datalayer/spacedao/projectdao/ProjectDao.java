@@ -119,21 +119,4 @@ public class ProjectDao implements IProjectDao<Project> {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void save(Project space) throws Exception {
-        try {
-            String sql = "INSERT INTO Project (name, description, start_date, end_date, manager_id) VALUES (?, ?, ?, ?, ?)";
-            connection = getConnection();
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, space.getName());
-            statement.setString(2, space.getDescription());
-            statement.setDate(3, java.sql.Date.valueOf(space.getStartDate()));
-            statement.setDate(4, java.sql.Date.valueOf(space.getEndDate()));
-            statement.setInt(5, space.getManagerId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

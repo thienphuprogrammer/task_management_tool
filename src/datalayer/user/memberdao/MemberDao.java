@@ -30,8 +30,4 @@ public class MemberDao implements IMemberDao<Member> {
 
     }
 
-    @Override
-    public void save(Member space) throws Exception {
-
-    }
 }

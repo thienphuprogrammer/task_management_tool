@@ -1,7 +1,9 @@
 package application.ui.manager;
 
 import bussinesslayer.entity.space.Backlog;
+import bussinesslayer.entity.space.Project;
 import bussinesslayer.entity.user.Manager;
+import bussinesslayer.entity.user.User;
 import bussinesslayer.service.sapce.ISpaceService;
 import bussinesslayer.service.user.IUserService;
 
@@ -12,6 +14,7 @@ public class BacklogManagerMenu {
     // -------------------- Properties ------------------------
     private IUserService<Manager> serviceManager;
     private ISpaceService<Backlog> serviceBacklog;
+    private int managerId;
     public enum CHOICE_BACKLOG_MANAGER_MENU {
         EXIT,
         CREATE_BACKLOG,
@@ -23,6 +26,13 @@ public class BacklogManagerMenu {
     public BacklogManagerMenu(IUserService<Manager> service) {
         this.serviceManager = service;
     }
+
+    public BacklogManagerMenu(IUserService<Manager> serviceManager, ISpaceService<Backlog> serviceBacklog, int managerId) {
+        this.serviceManager = serviceManager;
+        this.serviceBacklog = serviceBacklog;
+        this.managerId = managerId;
+    }
+
     // -------------------- Getters and Setters ------------------------
     public IUserService<Manager> getServiceManager() {
         return serviceManager;
@@ -30,6 +40,14 @@ public class BacklogManagerMenu {
 
     public ISpaceService<Backlog> getServiceBacklog() {
         return serviceBacklog;
+    }
+
+    public int getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(int managerId) {
+        this.managerId = managerId;
     }
 
     public void setServiceBacklog(ISpaceService<Backlog> serviceBacklog) {
@@ -69,10 +87,11 @@ public class BacklogManagerMenu {
         }
     }
     private void createBacklog() throws Exception {
+        int projectId = readInt("Project ID: ");
         String title = readString("Title: ");
         String description = readString("Description: ");
         String fileUrl = readString("File URL: ");
-        Backlog backlog = new Backlog(title, description, fileUrl);
+        Backlog backlog = new Backlog(title, description, fileUrl, projectId);
         serviceBacklog.create(backlog);
     }
     private void updateBacklog() throws Exception {
@@ -86,7 +105,9 @@ public class BacklogManagerMenu {
     private void deleteBacklog() throws Exception {
         serviceBacklog.delete(readInt("Backlog ID: "));
     }
-    private void viewBacklog() {
-
+    private void viewBacklog() throws Exception {
+        Manager manager = serviceManager.getById(managerId);
+        Backlog backlog = serviceBacklog.getById(readInt("Backlog ID: "));
+//        serviceBacklog.viewById();
     }
 }

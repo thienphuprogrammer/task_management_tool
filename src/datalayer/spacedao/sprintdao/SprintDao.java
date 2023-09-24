@@ -119,21 +119,4 @@ public class SprintDao implements ISprintDao<Sprint> {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void save(Sprint space) throws Exception {
-        try {
-            String sql = "INSERT INTO Sprint (description, name, start_date, end_date, project_id) VALUES (?, ?, ?, ?, ?)";
-            connection = getConnection();
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, space.getDescription());
-            statement.setString(2, space.getName());
-            statement.setDate(3, java.sql.Date.valueOf(space.getStartDate()));
-            statement.setDate(4, java.sql.Date.valueOf(space.getEndDate()));
-            statement.setInt(5, space.getProjectId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

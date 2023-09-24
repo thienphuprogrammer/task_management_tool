@@ -123,23 +123,4 @@ public class TaskDao implements ITaskDao<Task> {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void save(Task space) throws Exception {
-        try {
-            String sql = "INSERT INTO Task (name, description, start_date, end_date, member_id, sprint_id, status) VALUES (?,?,?,?,?,?,?)";
-            connection = getConnection();
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, space.getName());
-            statement.setString(2, space.getDescription());
-            statement.setDate(3, java.sql.Date.valueOf(space.getStartDate()));
-            statement.setDate(4, java.sql.Date.valueOf(space.getEndDate()));
-            statement.setInt(5, space.getMemberId());
-            statement.setInt(6, space.getSprintId());
-            statement.setInt(7, space.getStatus());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

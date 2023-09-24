@@ -111,19 +111,4 @@ public class BacklogDao implements IBacklogDao<Backlog> {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void save(Backlog space) throws Exception {
-        try {
-            String sql = "INSERT INTO Backlog (description, title, file_url) VALUES (?, ?, ?)";
-            connection = getConnection();
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, space.getDescription());
-            statement.setString(2, space.getTitle());
-            statement.setString(3, space.getFileURL());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

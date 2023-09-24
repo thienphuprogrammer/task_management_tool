@@ -3,11 +3,9 @@ package datalayer.report.reporttaskdao;
 import bussinesslayer.entity.report.ReportTask;
 import datalayer.IDao;
 import datalayer.MySqlConnection;
+
+import java.sql.*;
 import java.util.ArrayList;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 public class ReportTaskDao implements IDao<ReportTask> {
@@ -30,8 +28,8 @@ public class ReportTaskDao implements IDao<ReportTask> {
             while (resultSet.next()) {
                 ReportTask reportTask = new ReportTask();
                 reportTask.setId(resultSet.getInt("id"));
-                reportTask.setDate(resultSet.getDate("date"));
-                reportTask.setTime(resultSet.getTime("time"));
+                reportTask.setDate(resultSet.getDate("date").toLocalDate());
+                reportTask.setTime(resultSet.getTime("time").toLocalTime());
                 reportTask.setDescription(resultSet.getString("Description"));
                 reportTask.setTask_id(resultSet.getInt("task_id"));
                 return reportTask;
@@ -53,8 +51,8 @@ public class ReportTaskDao implements IDao<ReportTask> {
             while (resultSet.next()) {
                 ReportTask reportTask = new ReportTask();
                 reportTask.setId(resultSet.getInt("id"));
-                reportTask.setDate(resultSet.getDate("date"));
-                reportTask.setTime(resultSet.getTime("time"));
+                reportTask.setDate(resultSet.getDate("date").toLocalDate());
+                reportTask.setTime(resultSet.getTime("time").toLocalTime());
                 reportTask.setDescription(resultSet.getString("Description"));
                 reportTask.setTask_id(resultSet.getInt("task_id"));
                 list.add(reportTask);
@@ -72,8 +70,8 @@ public class ReportTaskDao implements IDao<ReportTask> {
             connection = getConnection();
             statement = connection.prepareStatement(sqlStatement);
             statement.setInt(1, space.getId());
-            statement.setDate(2, space.getDate());
-            statement.setTime(3, space.getTime());
+            statement.setDate(2, Date.valueOf(space.getDate()));
+            statement.setTime(3, Time.valueOf(space.getTime()));
             statement.setString(4, space.getDescription());
             statement.setInt(5, space.getTask_id());
             statement.executeUpdate();
@@ -88,8 +86,8 @@ public class ReportTaskDao implements IDao<ReportTask> {
             String sqlStatement = "UPDATE Report_Task SET date = ?, time = ?, description = ?, task_id = ? WHERE id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sqlStatement);
-            statement.setDate(1, space.getDate());
-            statement.setTime(2, space.getTime());
+            statement.setDate(1, Date.valueOf(space.getDate()));
+            statement.setTime(2, Time.valueOf(space.getTime()));
             statement.setString(3, space.getDescription());
             statement.setInt(4, space.getTask_id());
             statement.setInt(5, space.getId());

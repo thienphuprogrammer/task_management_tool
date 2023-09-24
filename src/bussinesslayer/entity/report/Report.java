@@ -14,6 +14,9 @@ public abstract class Report {
         this.description = description;
     }
 
+    public Report() {
+    }
+
     public int getId() {
         return id;
     }

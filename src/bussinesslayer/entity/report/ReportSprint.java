@@ -10,6 +10,9 @@ public class ReportSprint extends Report{
         super(id, time, date, description);
         this.sprint_id = sprint_id;
     }
+    public ReportSprint() {
+
+    }
 
     public int getSprint_id() {
         return sprint_id;

@@ -4,10 +4,7 @@ import bussinesslayer.entity.report.ReportProject;
 import datalayer.IDao;
 import datalayer.MySqlConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +24,13 @@ public class ReportProjectDao implements IDao<ReportProject> {
             String sqlStatement = "SELECT * FROM Report_Project WHERE id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sqlStatement);
-            statement.setInt(1, ID);
+            statement.setInt(1, id);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 ReportProject reportProject = new ReportProject();
                 reportProject.setId(resultSet.getInt("id"));
                 reportProject.setDescription(resultSet.getString("Description"));
-                reportProject.setDate(resultSet.getDate("date"));
+                reportProject.setDate(resultSet.getDate("date").toLocalDate());
                 reportProject.setProject_id(resultSet.getInt("project_id"));
                 return reportProject;
             }
@@ -55,7 +52,7 @@ public class ReportProjectDao implements IDao<ReportProject> {
                 ReportProject reportProject = new ReportProject();
                 reportProject.setId(resultSet.getInt("id"));
                 reportProject.setDescription(resultSet.getString("Description"));
-                reportProject.setDate(resultSet.getDate("date"));
+                reportProject.setDate(resultSet.getDate("date").toLocalDate());
                 reportProject.setProject_id(resultSet.getInt("project_id"));
                 list.add(reportProject);
             }
@@ -72,8 +69,8 @@ public class ReportProjectDao implements IDao<ReportProject> {
             connection = getConnection();
             statement = connection.prepareStatement(sqlStatement);
             statement.setInt(1, space.getId());
-            statement.setDate(2, space.getDate());
-            statement.setTime(3, space.getTime());
+            statement.setDate(2, Date.valueOf(space.getDate()));
+            statement.setTime(3, Time.valueOf(space.getTime()));
             statement.setString(4, space.getDescription());
             statement.setInt(5, space.getProject_id());
             statement.executeUpdate();
@@ -88,8 +85,8 @@ public class ReportProjectDao implements IDao<ReportProject> {
             String sqlStatement = "UPDATE Report_Project SET date = ?, time = ?, description = ?, project_id = ? WHERE id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sqlStatement);
-            statement.setDate(1, space.getDate());
-            statement.setTime(2, space.getTime());
+            statement.setDate(1, Date.valueOf(space.getDate()));
+            statement.setTime(2, Time.valueOf(space.getTime()));
             statement.setString(3, space.getDescription());
             statement.setInt(4, space.getProject_id());
             statement.setInt(5, space.getId());

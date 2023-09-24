@@ -29,4 +29,14 @@ public class ReportTaskService implements IReportService<ReportTask> {
     public List<ReportTask> getAll() throws Exception {
         return null;
     }
+
+    @Override
+    public void viewById(int id) throws Exception {
+        
+    }
+
+    @Override
+    public void viewAll() throws Exception {
+
+    }
 }

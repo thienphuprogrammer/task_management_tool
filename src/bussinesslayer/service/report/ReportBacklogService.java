@@ -43,12 +43,12 @@ public class ReportBacklogService implements IReportService<ReportBacklog> {
 
     @Override
     public ReportBacklog getById(int id) throws Exception {
-        reportBacklogIDao.getById(id);
+        return reportBacklogIDao.getById(id);
     }
 
     @Override
     public List<ReportBacklog> getAll() throws Exception {
-        reportBacklogIDao.getAll();
+        return reportBacklogIDao.getAll();
     }
 
     @Override
@@ -57,12 +57,11 @@ public class ReportBacklogService implements IReportService<ReportBacklog> {
         System.out.println("| id: " + reportBacklog.getId() + " ".repeat(40 - String.valueOf(reportBacklog.getId()).length()) + "|");
         System.out.println("| Date: " + reportBacklog.getDate() + " ".repeat(40 - String.valueOf(reportBacklog.getDate()).length()) + "|");
         System.out.println("| Time: " + reportBacklog.getTime() + " ".repeat(36 - String.valueOf(reportBacklog.getDescription()).length()) + "|");
-        System.out.println("| File URL: " + reportBacklog.getDescription() + " ".repeat(43 - String.valueOf(reportBacklog.getFileURL()).length()) + "|");
-    }
+//        System.out.println("| File URL: " + reportBacklog.getDescription() + " ".repeat(43 - String.valueOf(reportBacklog.getFileURL()).length()) + "|");
     }
 
     @Override
     public void viewAll() throws Exception {
-        ReportBacklog reportBacklog = reportBacklogIDao.getById()
+//        ReportBacklog reportBacklog = reportBacklogIDao.getById();
     }
 }

@@ -5,18 +5,21 @@ public class Backlog {
     private String title;
     private String description;
     private String fileURL;
+    private int projectId;
 
-    public Backlog(int id, String title, String description, String fileURL) {
+    public Backlog(int id, String title, String description, String fileURL, int projectId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.fileURL = fileURL;
+        this.projectId = projectId;
     }
 
-    public Backlog(String title, String description, String fileURL) {
+    public Backlog(String title, String description, String fileURL, int projectId) {
         this.title = title;
         this.description = description;
         this.fileURL = fileURL;
+        this.projectId = projectId;
     }
 
     public Backlog() {
@@ -52,5 +55,13 @@ public class Backlog {
 
     public void setFileURL(String fileURL) {
         this.fileURL = fileURL;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 }

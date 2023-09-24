@@ -30,8 +30,4 @@ public class AdminDao implements IAdminDao<Admin>{
 
     }
 
-    @Override
-    public void save(Admin space) throws Exception {
-
-    }
 }

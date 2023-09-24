@@ -11,6 +11,9 @@ public class ReportProject extends Report {
         this.project_id = project_id;
     }
 
+    public ReportProject() {
+    }
+
     public int getProject_id() {
         return project_id;
     }

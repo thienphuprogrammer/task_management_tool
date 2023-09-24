@@ -4,10 +4,7 @@ import bussinesslayer.entity.report.ReportSprint;
 import datalayer.IDao;
 import datalayer.MySqlConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +28,8 @@ public class ReportSprintDao implements IDao<ReportSprint> {
             while (resultSet.next()) {
                 ReportSprint reportSprint = new ReportSprint();
                 reportSprint.setId(resultSet.getInt("id"));
-                reportSprint.setDate(resultSet.getDate("date"));
-                reportSprint.setTime(resultSet.getTime("time"));
+                reportSprint.setDate(resultSet.getDate("date").toLocalDate());
+                reportSprint.setTime(resultSet.getTime("time").toLocalTime());
                 reportSprint.setDescription(resultSet.getString("Description"));
                 reportSprint.setSprint_id(resultSet.getInt("sprint_id"));
                 return reportSprint;
@@ -54,8 +51,8 @@ public class ReportSprintDao implements IDao<ReportSprint> {
             while (resultSet.next()) {
                 ReportSprint reportSprint = new ReportSprint();
                 reportSprint.setId(resultSet.getInt("id"));
-                reportSprint.setDate(resultSet.getDate("date"));
-                reportSprint.setTime(resultSet.getTime("time"));
+                reportSprint.setDate(resultSet.getDate("date").toLocalDate());
+                reportSprint.setTime(resultSet.getTime("time").toLocalTime());
                 reportSprint.setDescription(resultSet.getString("Description"));
                 reportSprint.setSprint_id(reportSprint.getSprint_id());
                 list.add(reportSprint);
@@ -73,8 +70,8 @@ public class ReportSprintDao implements IDao<ReportSprint> {
             connection = getConnection();
             statement = connection.prepareStatement(sqlStatement);
             statement.setInt(1, space.getId());
-            statement.setDate(2, space.getDate());
-            statement.setTime(3, space.getTime());
+            statement.setDate(2, Date.valueOf(space.getDate()));
+            statement.setTime(3, Time.valueOf(space.getTime()));
             statement.setString(4, space.getDescription());
             statement.setInt(5, space.getSprint_id());
             statement.executeUpdate();
@@ -89,8 +86,8 @@ public class ReportSprintDao implements IDao<ReportSprint> {
             String sqlStatement = "UPDATE Report_Sprint SET date = ?, time = ?, description = ?, sprint_id = ? WHERE id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sqlStatement);
-            statement.setDate(1, space.getDate());
-            statement.setTime(2, space.getTime());
+            statement.setDate(1, Date.valueOf(space.getDate()));
+            statement.setTime(2, Time.valueOf(space.getTime()));
             statement.setString(3, space.getDescription());
             statement.setInt(4, space.getSprint_id());
             statement.setInt(5, space.getId());

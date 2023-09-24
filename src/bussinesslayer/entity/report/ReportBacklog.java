@@ -7,12 +7,15 @@ public class ReportBacklog extends Report{
     private int backlog_id;
     private int task_id;
 
+    public ReportBacklog() {
+
+    }
+
     public ReportBacklog(int id, LocalTime time, LocalDate date, String description, int backlog_id, int task_id) {
         super(id, time, date, description);
         this.backlog_id = backlog_id;
         this.task_id = task_id;
     }
-
     public int getBacklog_id() {
         return backlog_id;
     }

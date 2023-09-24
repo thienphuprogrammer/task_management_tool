@@ -4,10 +4,7 @@ import bussinesslayer.entity.report.ReportBacklog;
 import datalayer.IDao;
 import datalayer.MySqlConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,8 +32,8 @@ public class ReportBacklogDao implements IDao<ReportBacklog> {
             while (resultSet.next()) {
                 ReportBacklog reportBacklog = new ReportBacklog();
                 reportBacklog.setId(resultSet.getInt("id"));
-                reportBacklog.setTime(resultSet.getTime("time"));
-                reportBacklog.setDate(resultSet.getDate("date"));
+                reportBacklog.setTime(resultSet.getTime("time").toLocalTime());
+                reportBacklog.setDate(resultSet.getDate("date").toLocalDate());
                 reportBacklog.setDescription(resultSet.getString("Description"));
                 reportBacklog.setBacklog_id(resultSet.getInt("backlog_id"));
                 reportBacklog.setTask_id(resultSet.getInt("task_id"));
@@ -59,8 +56,8 @@ public class ReportBacklogDao implements IDao<ReportBacklog> {
             while(resultSet.next()) {
                 ReportBacklog reportBacklog = new ReportBacklog();
                 reportBacklog.setId(resultSet.getInt("id"));
-                reportBacklog.setTime(resultSet.getTime("time"));
-                reportBacklog.setDate(resultSet.getDate("date"));
+                reportBacklog.setTime(resultSet.getTime("time").toLocalTime());
+                reportBacklog.setDate(resultSet.getDate("date").toLocalDate());
                 reportBacklog.setDescription(resultSet.getString("Description"));
                 reportBacklog.setBacklog_id(resultSet.getInt("backlog_id"));
                 reportBacklog.setTask_id(resultSet.getInt("task_id"));
@@ -77,7 +74,7 @@ public class ReportBacklogDao implements IDao<ReportBacklog> {
         try {
             String sqlStatement = "UPDATE Report_Backlog SET date = ?, Description = ?, backlog_id = ?, task_id = ? WHERE id =?";
             statement = connection.prepareStatement(sqlStatement);
-            statement.setDate(1, space.getDate());
+            statement.setDate(1, Date.valueOf(space.getDate()));
             statement.setString(2, space.getDescription());
             statement.setInt(3, space.getBacklog_id());
             statement.setInt(4, space.getTask_id());
@@ -94,7 +91,7 @@ public class ReportBacklogDao implements IDao<ReportBacklog> {
         try {
             String sqlStatement = "UPDATE Report_Backlog SET date = ?, Description = ?, backlog_id = ?, task_id = ? WHERE id =?";
             statement = connection.prepareStatement(sqlStatement);
-            statement.setDate(1, space.getDate());
+            statement.setDate(1, Date.valueOf(space.getDate()));
             statement.setString(2, space.getDescription());
             statement.setInt(3, space.getBacklog_id());
             statement.setInt(4, space.getTask_id());

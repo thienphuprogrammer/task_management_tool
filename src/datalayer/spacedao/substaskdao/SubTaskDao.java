@@ -127,23 +127,4 @@ public class SubTaskDao implements ISubTaskDao<SubTask> {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void save(SubTask space) throws Exception {
-        try {
-            String sql = "INSERT INTO SubTask (description, name, start_date, end_date, status, member_id, task_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            connection = getConnection();
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, space.getDescription());
-            statement.setString(2, space.getName());
-            statement.setDate(3, java.sql.Date.valueOf(space.getStartDate()));
-            statement.setDate(4, java.sql.Date.valueOf(space.getEndDate()));
-            statement.setInt(5, space.getStatus());
-            statement.setInt(6, space.getMemberId());
-            statement.setInt(7, space.getTaskId());
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

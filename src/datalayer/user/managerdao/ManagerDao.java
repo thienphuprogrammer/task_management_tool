@@ -29,9 +29,4 @@ public class ManagerDao implements IManagerDao<Manager> {
     public void delete(int id) throws Exception {
 
     }
-
-    @Override
-    public void save(Manager space) throws Exception {
-
-    }
 }
