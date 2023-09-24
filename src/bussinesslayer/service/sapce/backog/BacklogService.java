@@ -79,4 +79,7 @@ public class BacklogService implements IBacklogService {
     public List<Task> getTasksInBacklog(int backlogId) {
         return backlogIDao.getTasksInBacklog(backlogId);
     }
+    public Backlog getBacklogByProjectId(int projectId) throws Exception {
+        return backlogIDao.getBacklogByProjectId(projectId);
+    }
 }
