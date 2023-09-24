@@ -54,7 +54,7 @@ public class ReportSubtaskDao implements IReportSubtaskDao {
             statement = connection.prepareStatement(sqlStatement);
             resultSet = statement.executeQuery();
             while(resultSet.next()) {
-                ReportSubtask reportSubtask = new ReportSubtask;
+                ReportSubtask reportSubtask = new ReportSubtask();
                 reportSubtask.setId(resultSet.getInt("id"));
                 reportSubtask.setDate(resultSet.getDate("date").toLocalDate());
                 reportSubtask.setTime(resultSet.getTime("time").toLocalTime());
