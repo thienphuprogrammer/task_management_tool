@@ -28,7 +28,6 @@ public class ProjectManagerMenu {
         ADD_MEMBER_TO_PROJECT,
         REMOVE_MEMBER_FROM_PROJECT,
         VIEW_MEMBER,
-        CREATE_REPORT,
         VIEW_REPORT,
         // Backlog
         BACKLOG_MANAGER,
@@ -71,7 +70,6 @@ public class ProjectManagerMenu {
                         case VIEW_MEMBER -> this.viewMember();
                         case BACKLOG_MANAGER -> this.manageBacklog();
                         case SPRINT_MANAGER -> this.manageSprint();
-                        case CREATE_REPORT -> this.createReport();
                         case VIEW_REPORT -> this.viewReport();
                         case DOCUMENT_PROJECT -> this.documentProject();
                     }
@@ -127,10 +125,6 @@ public class ProjectManagerMenu {
         int projectId = readInt("Enter project id: ");
         SprintManagerMenu sprintManagerMenu = new SprintManagerMenu(projectId);
         sprintManagerMenu.processMenuForSprintManager();
-    }
-    private void createReport() throws Exception {
-        int projectId = readInt("Enter project id: ");
-        LocalTime time = readLocalTime("Enter report time: ");
     }
     private void viewReport() {
         serviceProject.viewReport();

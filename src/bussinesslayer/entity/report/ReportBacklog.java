@@ -5,12 +5,10 @@ import java.time.LocalTime;
 
 public class ReportBacklog extends Report {
     private int backlog_id;
-    private int task_id;
 
-    public ReportBacklog(LocalTime time, LocalDate date, String description, int backlog_id, int task_id) {
+    public ReportBacklog(LocalTime time, LocalDate date, String description, int backlog_id) {
         super(time, date, description);
         this.backlog_id = backlog_id;
-        this.task_id = task_id;
     }
 
     public ReportBacklog() {
@@ -25,11 +23,4 @@ public class ReportBacklog extends Report {
         this.backlog_id = backlog_id;
     }
 
-    public int getTask_id() {
-        return task_id;
-    }
-
-    public void setTask_id(int task_id) {
-        this.task_id = task_id;
-    }
 }

@@ -1,6 +1,6 @@
 package bussinesslayer.entity;
 
-public class Document {
+public class Doc {
     // -------------------- Properties ------------------------
     private int id;
     private String title;
@@ -8,14 +8,14 @@ public class Document {
     private String content;
     private int projectId;
     // -------------------- Constructor ------------------------
-    public Document(String title, String description, String content, int projectId) {
+    public Doc(String title, String description, String content, int projectId) {
         this.title = title;
         this.description = description;
         this.content = content;
         this.projectId = projectId;
     }
 
-    public Document() {
+    public Doc() {
     }
 
     // -------------------- Getters and Setters ------------------------

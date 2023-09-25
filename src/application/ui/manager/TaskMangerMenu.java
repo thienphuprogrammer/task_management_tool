@@ -79,7 +79,6 @@ public class TaskMangerMenu {
         String description = readString("Enter task description: ");
         LocalDate startDate = readLocalDate("Enter task start date: ");
         LocalDate endDate = readLocalDate("Enter task end date: ");
-        int memberId = readInt("Enter task member id: ");
         int sprintId = readInt("Enter task sprint id: ");
         Task task = new Task(name, description, startDate, endDate, sprintId);
         serviceTask.create(task);

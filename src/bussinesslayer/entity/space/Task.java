@@ -22,6 +22,11 @@ public class Task extends Space {
         this.sprintId = sprintId;
     }
 
+    public Task(int id, String name, String description, LocalDate startDate, LocalDate endDate, int memberId, int sprintId) {
+        super(id, name, description, startDate, endDate);
+        this.memberId = memberId;
+        this.sprintId = sprintId;
+    }
 
     public Task(String name, String description, LocalDate startDate, LocalDate endDate, int memberId, int sprintId) {
         super(name, description, startDate, endDate);
@@ -31,13 +36,6 @@ public class Task extends Space {
 
     public Task(String name, String description, LocalDate startDate, LocalDate endDate) {
         super(name, description, startDate, endDate);
-    }
-
-    public Task(String name, String description, LocalDate startDate, LocalDate endDate, int memberId, int sprintId, int backlogId) {
-        super(name, description, startDate, endDate);
-        this.memberId = memberId;
-        this.sprintId = sprintId;
-        this.backlogId = backlogId;
     }
 
     public Task() {

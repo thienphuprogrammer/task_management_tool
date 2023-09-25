@@ -9,12 +9,8 @@ import bussinesslayer.entity.user.Manager;
 import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.IService;
 import bussinesslayer.service.user.IUserService;
-import bussinesslayer.service.user.admin.IAdminService;
-import bussinesslayer.service.user.manager.IManagerService;
-import bussinesslayer.service.user.member.IMemberService;
 
 import static application.utilities.OutputUtil.printValueln;
-import static application.utilities.OutputUtil.waitForInput;
 
 public class Menu {
     public static int getUserMenu() {
@@ -27,35 +23,16 @@ public class Menu {
         return number;
     }
 
-    public static void manageAdmin() throws Exception {
-        AccountAdminMenu accountAdminMenu = new AccountAdminMenu();
-        Admin admin = accountAdminMenu.processMenuForAdmin();
-        if (admin != null) {
-            AdminMenu adminMenu = new AdminMenu(admin.getId());
-            adminMenu.processMenuForAdmin();
-        } else {
-            printValueln("login failed");
-        }
-
+    public static void manageAdmin(IUserService<Admin> service) throws Exception {
+        AdminMenu adminMenu = new AdminMenu(service);
+        adminMenu.processMenuForAdmin();
     }
-    public static void manageManager() throws Exception {
-        AccountManagerMenu accountManagerMenu = new AccountManagerMenu();
-        Manager manager = accountManagerMenu.processMenuForManager();
-        if (manager != null) {
-            ManagerMenu managerMenu = new ManagerMenu(manager.getId());
-            managerMenu.processMenuForManager();
-        } else {
-            printValueln("login failed");
-        }
+    public static void manageMember(IUserService<Member> service) {
+        MemberMenu memberMenu = new MemberMenu(service);
+        memberMenu.processMenuForMember();
     }
-    public static void manageMember() throws Exception {
-        AccountMemberMenu accountMemberMenu = new AccountMemberMenu();
-        Member member = accountMemberMenu.processMenuForMember();
-        if (member != null) {
-            MemberMenu memberMenu = new MemberMenu(member.getId());
-            memberMenu.processMenuForMember();
-        } else {
-            printValueln("login failed");
-        }
+    public static void manageManager(IUserService<Manager> service) {
+        ManagerMenu managerMenu = new ManagerMenu(service);
+        managerMenu.processMenuForManager();
     }
 }

@@ -14,7 +14,6 @@ public class DocumentManagerMenu {
     private int projectId;
     public enum CHOICE_DOCUMENT_MANAGER_MENU {
         EXIT,
-        CREATE_DOCUMENT,
         DELETE_DOCUMENT,
         UPDATE_DOCUMENT,
         VIEW_DOCUMENT
@@ -34,9 +33,16 @@ public class DocumentManagerMenu {
         this.docsService = docsService;
     }
     // -------------------- Methods ------------------------
+    private void checkDocumentNone() throws Exception {
+        if (docsService.getAll().size() == 0) {
+            printValueln("Document is empty.");
+            docsService.create(new Doc());
+        }
+    }
 
-    public void processMenuForDocumentManager() {
+    public void processMenuForDocumentManager() throws Exception {
         boolean exit = false;
+        checkDocumentNone();
         while (!exit) {
             printLineSeparate("Document Manager Menu");
             printValueMenu("Manager\\Project\\Document");
@@ -51,7 +57,6 @@ public class DocumentManagerMenu {
                 } else {
                     switch (CHOICE_DOCUMENT_MANAGER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case CREATE_DOCUMENT -> this.createDocument();
                         case DELETE_DOCUMENT -> this.deleteDocument();
                         case UPDATE_DOCUMENT -> this.updateDocument();
                         case VIEW_DOCUMENT -> this.viewDocument();
@@ -61,14 +66,6 @@ public class DocumentManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
-    }
-    private void createDocument() throws Exception {
-        String title = readString("Title: ");
-        String description = readString("Description: ");
-        String content = readString("Content: ");
-        String projectId = readString("Project Id: ");
-        Doc doc = new Doc(title, description, content, Integer.parseInt(projectId));
-        docsService.create(doc);
     }
     private void deleteDocument() throws Exception {
         int id = readInt("Document Id: ");
@@ -83,6 +80,6 @@ public class DocumentManagerMenu {
         docsService.update(doc);
     }
     private void viewDocument() {
-        Doc doc = docsService.getDocByProjectId(projectId);
+        docsService.viewDocumentByProjectId(projectId);
     }
 }
