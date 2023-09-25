@@ -6,6 +6,5 @@ import bussinesslayer.service.IService;
 public interface IBacklogService extends IService<Backlog> {
     void viewById(int id) throws Exception;
     void viewAll() throws Exception;
-    Backlog getBacklogByProjectId(int projectId) throws Exception;
-
+    void viewBacklogByProjectId(int projectId);
 }

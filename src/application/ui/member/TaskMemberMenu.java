@@ -16,7 +16,7 @@ public class TaskMemberMenu {
     private int sprintId;
     public enum CHOICE_TASK_MEMBER_MENU {
         EXIT,
-        COMPLETE_TASK,
+        SUBMIT_TASK,
         VIEW_MY_TASK,
         VIEW_ALL_TASK,
         VIEW_REPORT_TASK,
@@ -49,7 +49,7 @@ public class TaskMemberMenu {
                         case VIEW_REPORT_TASK -> this.viewReportTask();
                         case VIEW_MY_TASK -> this.viewMyTask();
                         case VIEW_ALL_TASK -> this.viewAllTask();
-                        case COMPLETE_TASK -> this.completeTask();
+                        case SUBMIT_TASK -> this.submitTask();
                         case SUBTASK_MEMBER -> this.processMenuForSubtaskManager();
                     }
                 }
@@ -58,17 +58,20 @@ public class TaskMemberMenu {
             }
         }
     }
-    private void viewReportTask() {
-
+    private void viewReportTask() throws Exception {
+        int taskId = readInt("Enter task id: ");
+        reportTaskService.viewReportSprint(taskId, sprintId);
     }
-    private void viewMyTask() {
-
+    private void viewMyTask() throws Exception {
+        int taskId = readInt("Enter task id: ");
+        taskService.viewTaskSprint(taskId, sprintId);
     }
     private void viewAllTask() {
-
+        taskService.viewAllTaskProject(sprintId);
     }
-    private void completeTask() {
-
+    private void submitTask() throws Exception {
+        int taskId = readInt("Enter task id: ");
+        taskService.submitTask(taskId);
     }
     private void processMenuForSubtaskManager() throws Exception {
         SubtaskMemberMenu subtaskMemberMenu = new SubtaskMemberMenu(sprintId);

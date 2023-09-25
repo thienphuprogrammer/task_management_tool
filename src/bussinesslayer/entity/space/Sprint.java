@@ -10,6 +10,11 @@ public class Sprint extends Space {
         this.projectId = projectId;
     }
 
+    public Sprint(String name, String description, LocalDate startDate, LocalDate endDate, int projectId) {
+        super(name, description, startDate, endDate);
+        this.projectId = projectId;
+    }
+
     public Sprint() {
     }
 

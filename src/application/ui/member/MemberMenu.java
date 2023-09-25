@@ -2,6 +2,7 @@ package application.ui.member;
 
 import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.IService;
+import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -11,12 +12,14 @@ public class MemberMenu {
     public enum CHOICE_MEMBER_MENU {
         EXIT,
         // Project
-        PROJECT_MEMBER
+        PROJECT_MEMBER,
+        PROFILE_MEMBER
     }
     // -------------------- Properties ------------------------
-    IService<Member> service;
+    IUserService<Member> service;
+    private int memberId;
     // -------------------- Constructor ------------------------
-    public MemberMenu(IService<Member> service) {
+    public MemberMenu(IUserService<Member> service) {
         this.service = service;
     }
     public void processMenuForMember() {
@@ -34,6 +37,8 @@ public class MemberMenu {
                 } else {
                     switch (CHOICE_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
+                        case PROJECT_MEMBER -> this.processMenuForProject();
+                        case PROFILE_MEMBER -> this.processMenuForProfile();
                         default -> {
                         }
                     }
@@ -43,34 +48,12 @@ public class MemberMenu {
             }
         }
     }
-    private void viewDocument() {
-
+    private void processMenuForProject() throws Exception {
+        ProjectMemberMenu projectMemberMenu = new ProjectMemberMenu(memberId);
+        projectMemberMenu.processMenuForProjectMember();
     }
-    private void viewReport() {
-
-    }
-    private void viewProject() {
-
-    }
-    private void viewInformation() {
-
-    }
-    private void viewTaskProgressTracking() {
-
-    }
-    private void viewTaskProgress() {
-
-    }
-    private void updateProfile() {
-
-    }
-    private void submitTask() {
-
-    }
-    private void marksProgress() {
-
-    }
-    private void resubmitTask() {
-
+    private void processMenuForProfile() {
+        ProfileMemberMenu profileMemberMenu = new ProfileMemberMenu(service, memberId);
+        profileMemberMenu.processMenuForProfileMember();
     }
 }

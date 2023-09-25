@@ -40,4 +40,14 @@ public class ReportTaskService implements IReportTaskService {
     public void viewAll() throws Exception {
 
     }
+
+    @Override
+    public void viewReport(int id) throws Exception {
+
+    }
+
+    @Override
+    public void viewReportSprint(int taskId, int sprintId) {
+
+    }
 }

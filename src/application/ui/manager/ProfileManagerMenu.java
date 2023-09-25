@@ -4,7 +4,7 @@ import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.user.IUserService;
 import bussinesslayer.service.user.ManagerService;
 
-import static application.utilities.InputUtil.readInt;
+import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
 
 public class ProfileManagerMenu {
@@ -13,7 +13,6 @@ public class ProfileManagerMenu {
     private int managerId;
     public enum CHOICE_PROFILE_MANAGER_MENU {
         EXIT,
-        UPDATE_PROFILE,
         CHANGE_PASSWORD,
         CHANGE_EMAIL,
         CHANGE_INFORMATION,
@@ -53,7 +52,6 @@ public class ProfileManagerMenu {
                 } else {
                     switch (CHOICE_PROFILE_MANAGER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case UPDATE_PROFILE -> this.updateProfile();
                         case VIEW_INFORMATION -> this.viewInformation();
                         case CHANGE_PASSWORD -> this.changePassword();
                         case CHANGE_EMAIL -> this.changeEmail();
@@ -68,19 +66,28 @@ public class ProfileManagerMenu {
         }
     }
 
-    private void updateProfile() {
-
-    }
-    private void viewInformation() {
-
+    private void viewInformation() throws Exception {
+        serviceManager.viewById(managerId);
     }
     private void changePassword() {
-
+        String password = readString("Password: ");
+        serviceManager.changePassword(managerId, password);
     }
     private void changeEmail() {
-
+        try {
+            String email = readString("Email: ");
+            serviceManager.changeEmail(managerId, email);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    private void changeInformation() {
-
+    private void changeInformation() throws Exception {
+        Manager manager = serviceManager.getById(managerId);
+        manager.setName(readString("Name: "));
+        manager.setAge(readInt("Age: "));
+        manager.setPhone_number(readString("Phone number: "));
+        manager.setAddress(readString("Address: "));
+        manager.setGender(readBoolean("0 for male, 1 for female, Gender: "));
+        serviceManager.update(manager);
     }
 }

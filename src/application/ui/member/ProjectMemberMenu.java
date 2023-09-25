@@ -14,7 +14,8 @@ public class ProjectMemberMenu {
     private int memberId;
     public enum CHOICE_PROJECT_MEMBER_MENU {
         EXIT,
-        VIEW_SPRINT,
+        VIEW_MY_PROJECT,
+        VIEW_ALL_MY_PROJECT,
         VIEW_DOCUMENT,
         SPRINT_MEMBER
     }
@@ -42,7 +43,8 @@ public class ProjectMemberMenu {
                 } else {
                     switch (CHOICE_PROJECT_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case VIEW_SPRINT -> this.viewSprint();
+                        case VIEW_MY_PROJECT -> this.viewAProject();
+                        case VIEW_ALL_MY_PROJECT -> this.viewAllProject();
                         case VIEW_DOCUMENT -> this.viewDocument();
                         case SPRINT_MEMBER -> this.processMenuForSprintMember();
                         default -> {
@@ -54,11 +56,16 @@ public class ProjectMemberMenu {
             }
         }
     }
-    private void viewSprint() {
-
+    private void viewAProject() throws Exception {
+        int projectId = readInt("Enter project id: ");
+        serviceProject.viewProjectMember(projectId, memberId);
     }
-    private void viewDocument() {
-
+    private void viewAllProject() throws Exception {
+        serviceProject.viewAllMember(memberId);
+    }
+    private void viewDocument() throws Exception {
+        int projectId = readInt("Enter project id: ");
+        serviceProject.getDocByProjectId(projectId);
     }
     private void processMenuForSprintMember() throws Exception {
         SprintMemberMenu sprintMemberMenu = new SprintMemberMenu(memberId);

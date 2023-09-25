@@ -1,5 +1,6 @@
 package application.ui.manager;
 
+import bussinesslayer.entity.report.ReportBacklog;
 import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.report.reportbacklog.IReportBacklogService;
@@ -7,6 +8,9 @@ import bussinesslayer.service.report.reportbacklog.ReportBacklogService;
 import bussinesslayer.service.sapce.backog.BacklogService;
 import bussinesslayer.service.sapce.backog.IBacklogService;
 import bussinesslayer.service.user.IUserService;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
@@ -85,15 +89,26 @@ public class BacklogManagerMenu {
         serviceBacklog.delete(readInt("Backlog ID: "));
     }
     private void viewBacklog() throws Exception {
-        serviceBacklog.getBacklogByProjectId(projectId);
+        serviceBacklog.viewBacklogByProjectId(projectId);
     }
     private void viewReportBacklog() throws Exception {
-
+        serviceReportBacklog.viewReport(projectId);
     }
     private void updateReportBacklog() throws Exception {
-
+        int backlogId = readInt("Backlog ID: ");
+        String description = readString("Description: ");
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        ReportBacklog reportBacklog = new ReportBacklog(time, date, description, backlogId, 0);
+        serviceReportBacklog.updateReportBacklog(reportBacklog);
     }
-    private void createReportBacklog() throws Exception {
 
+    private void createReportBacklog() throws Exception {
+        int backlogId = readInt("Backlog ID: ");
+        String description = readString("Description: ");
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        ReportBacklog reportBacklog = new ReportBacklog(time, date, description, backlogId, 0);
+        serviceReportBacklog.createReportBacklog(reportBacklog);
     }
 }

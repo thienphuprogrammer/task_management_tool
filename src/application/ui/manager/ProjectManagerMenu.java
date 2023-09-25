@@ -9,6 +9,7 @@ import bussinesslayer.service.sapce.project.ProjectService;
 import bussinesslayer.service.user.IUserService;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
@@ -100,20 +101,21 @@ public class ProjectManagerMenu {
         LocalDate endDate = readLocalDate("Enter project end date: ");
         //Project project = new Project(name, description, startDate, endDate, serviceManager.getAll().get(0).getId());
     }
-    private void viewProject() {
-
+    private void viewProject() throws Exception {
+        serviceProject.viewAll();
     }
     private void addMemberToProject() throws Exception {
         int projectId = readInt("Enter project id: ");
-        Project project = serviceProject.getById(projectId);
         int memberId = readInt("Enter member id: ");
-
+        serviceProject.addMemberToProject(projectId, memberId);
     }
-    private void removeMemberFromProject() {
-
+    private void removeMemberFromProject() throws Exception {
+        int projectId = readInt("Enter project id: ");
+        int memberId = readInt("Enter member id: ");
+        serviceProject.removeMemberFromProject(projectId, memberId);
     }
     private void viewMember() {
-
+        serviceProject.viewMember();
     }
 
     private void manageBacklog() throws Exception {
@@ -126,11 +128,12 @@ public class ProjectManagerMenu {
         SprintManagerMenu sprintManagerMenu = new SprintManagerMenu(projectId);
         sprintManagerMenu.processMenuForSprintManager();
     }
-    private void createReport() {
-
+    private void createReport() throws Exception {
+        int projectId = readInt("Enter project id: ");
+        LocalTime time = readLocalTime("Enter report time: ");
     }
     private void viewReport() {
-
+        serviceProject.viewReport();
     }
     private void documentProject() throws Exception {
         int projectId = readInt("Enter project id: ");

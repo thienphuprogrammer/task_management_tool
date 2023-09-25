@@ -1,7 +1,6 @@
 package datalayer.report.reporttaskdao;
 
 import bussinesslayer.entity.report.ReportTask;
-import datalayer.IDao;
 import datalayer.MySqlConnection;
 
 import java.sql.*;
@@ -31,7 +30,7 @@ public class ReportTaskDao implements IReportTaskDao {
                 reportTask.setDate(resultSet.getDate("date").toLocalDate());
                 reportTask.setTime(resultSet.getTime("time").toLocalTime());
                 reportTask.setDescription(resultSet.getString("Description"));
-                reportTask.setTask_id(resultSet.getInt("task_id"));
+                reportTask.setTaskId(resultSet.getInt("task_id"));
                 return reportTask;
             }
         } catch (SQLException sqlException) {
@@ -54,7 +53,7 @@ public class ReportTaskDao implements IReportTaskDao {
                 reportTask.setDate(resultSet.getDate("date").toLocalDate());
                 reportTask.setTime(resultSet.getTime("time").toLocalTime());
                 reportTask.setDescription(resultSet.getString("Description"));
-                reportTask.setTask_id(resultSet.getInt("task_id"));
+                reportTask.setTaskId(resultSet.getInt("task_id"));
                 list.add(reportTask);
             }
         }catch (SQLException exception) {
@@ -73,7 +72,7 @@ public class ReportTaskDao implements IReportTaskDao {
             statement.setDate(2, Date.valueOf(space.getDate()));
             statement.setTime(3, Time.valueOf(space.getTime()));
             statement.setString(4, space.getDescription());
-            statement.setInt(5, space.getTask_id());
+            statement.setInt(5, space.getTaskId());
             statement.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -89,7 +88,7 @@ public class ReportTaskDao implements IReportTaskDao {
             statement.setDate(1, Date.valueOf(space.getDate()));
             statement.setTime(2, Time.valueOf(space.getTime()));
             statement.setString(3, space.getDescription());
-            statement.setInt(4, space.getTask_id());
+            statement.setInt(4, space.getTaskId());
             statement.setInt(5, space.getId());
             statement.executeUpdate();
         } catch (SQLException exception) {

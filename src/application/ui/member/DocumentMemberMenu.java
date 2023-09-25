@@ -51,6 +51,6 @@ public class DocumentMemberMenu {
         }
     }
     private void viewDocument() {
-
+        serviceDoc.viewDocumentByProjectId(projectId);
     }
 }

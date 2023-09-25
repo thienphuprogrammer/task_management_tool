@@ -55,11 +55,12 @@ public class SprintMemberMenu {
             }
         }
     }
-    private void viewMySprint() {
-
+    private void viewMySprint() throws Exception {
+        int sprintId = readInt("Enter sprint id: ");
+        sprintService.viewSprintProject(sprintId, projectId);
     }
     private void viewAllSprint() {
-
+        sprintService.viewAllSprintProject(projectId);
     }
     private void processMenuForTaskMember() throws Exception {
         TaskMemberMenu taskMemberMenu = new TaskMemberMenu(projectId);

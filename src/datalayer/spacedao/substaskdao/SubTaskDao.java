@@ -1,6 +1,6 @@
 package datalayer.spacedao.substaskdao;
 
-import bussinesslayer.entity.space.SubTask;
+import bussinesslayer.entity.space.Subtask;
 import datalayer.MySqlConnection;
 
 import java.sql.Connection;
@@ -25,8 +25,8 @@ public class SubTaskDao implements ISubTaskDao {
     }
 
     @Override
-    public SubTask getById(int id) throws Exception {
-        SubTask subTask = null;
+    public Subtask getById(int id) throws Exception {
+        Subtask subTask = null;
         try {
             String sql = "SELECT * FROM SubTask WHERE id = ?";
             connection = getConnection();
@@ -34,7 +34,7 @@ public class SubTaskDao implements ISubTaskDao {
             statement.setInt(1, id);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                subTask = new SubTask();
+                subTask = new Subtask();
                 subTask.setId(resultSet.getInt("id"));
                 subTask.setDescription(resultSet.getString("description"));
                 subTask.setName(resultSet.getString("name"));
@@ -51,15 +51,15 @@ public class SubTaskDao implements ISubTaskDao {
     }
 
     @Override
-    public List<SubTask> getAll() throws Exception {
-        List<SubTask> list = null;
+    public List<Subtask> getAll() throws Exception {
+        List<Subtask> list = null;
         try {
             String sql = "SELECT * FROM SubTask";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                SubTask subTask = new SubTask();
+                Subtask subTask = new Subtask();
                 subTask.setId(resultSet.getInt("id"));
                 subTask.setDescription(resultSet.getString("description"));
                 subTask.setName(resultSet.getString("name"));
@@ -77,7 +77,7 @@ public class SubTaskDao implements ISubTaskDao {
     }
 
     @Override
-    public void addNew(SubTask space) throws Exception {
+    public void addNew(Subtask space) throws Exception {
         try {
             String sql = "INSERT INTO SubTask (description, name, start_date, end_date, status, member_id, task_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
             connection = getConnection();
@@ -96,7 +96,7 @@ public class SubTaskDao implements ISubTaskDao {
     }
 
     @Override
-    public void update(SubTask space) throws Exception {
+    public void update(Subtask space) throws Exception {
         try {
             String sql = "UPDATE SubTask SET description = ?, name = ?, start_date = ?, end_date = ?, status = ?, member_id = ?, task_id = ? WHERE id = ?";
             connection = getConnection();

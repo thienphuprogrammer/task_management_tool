@@ -4,22 +4,17 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ReportSubtask extends Report {
+    // -------------------- Properties ------------------------
     private int subtaskId;
-    public ReportSubtask(int id, LocalTime time, LocalDate date, String description) {
-        super(id, time, date, description);
-    }
-
+    // -------------------- Constructor ------------------------
     public ReportSubtask() {
     }
 
-    public ReportSubtask(int id, LocalTime time, LocalDate date, String description, int subtaskId) {
-        super(id, time, date, description);
+    public ReportSubtask(LocalTime time, LocalDate date, String description, int subtaskId) {
+        super(time, date, description);
         this.subtaskId = subtaskId;
     }
-
-    public ReportSubtask(int subtaskId) {
-        this.subtaskId = subtaskId;
-    }
+    // -------------------- Getters and Setters ------------------------
 
     public int getSubtaskId() {
         return subtaskId;

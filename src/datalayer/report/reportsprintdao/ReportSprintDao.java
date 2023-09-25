@@ -1,7 +1,6 @@
 package datalayer.report.reportsprintdao;
 
 import bussinesslayer.entity.report.ReportSprint;
-import datalayer.IDao;
 import datalayer.MySqlConnection;
 
 import java.sql.*;
@@ -31,7 +30,7 @@ public class ReportSprintDao implements IReportSprintDao {
                 reportSprint.setDate(resultSet.getDate("date").toLocalDate());
                 reportSprint.setTime(resultSet.getTime("time").toLocalTime());
                 reportSprint.setDescription(resultSet.getString("Description"));
-                reportSprint.setSprint_id(resultSet.getInt("sprint_id"));
+                reportSprint.setSprintId(resultSet.getInt("sprint_id"));
                 return reportSprint;
             }
         } catch (SQLException sqlException) {
@@ -54,7 +53,7 @@ public class ReportSprintDao implements IReportSprintDao {
                 reportSprint.setDate(resultSet.getDate("date").toLocalDate());
                 reportSprint.setTime(resultSet.getTime("time").toLocalTime());
                 reportSprint.setDescription(resultSet.getString("Description"));
-                reportSprint.setSprint_id(resultSet.getInt("sprint_id"));
+                reportSprint.setSprintId(resultSet.getInt("sprint_id"));
                 list.add(reportSprint);
             }
         }catch (SQLException exception) {
@@ -73,7 +72,7 @@ public class ReportSprintDao implements IReportSprintDao {
             statement.setDate(2, Date.valueOf(space.getDate()));
             statement.setTime(3, Time.valueOf(space.getTime()));
             statement.setString(4, space.getDescription());
-            statement.setInt(5, space.getSprint_id());
+            statement.setInt(5, space.getSprintId());
             statement.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -89,7 +88,7 @@ public class ReportSprintDao implements IReportSprintDao {
             statement.setDate(1, Date.valueOf(space.getDate()));
             statement.setTime(2, Time.valueOf(space.getTime()));
             statement.setString(3, space.getDescription());
-            statement.setInt(4, space.getSprint_id());
+            statement.setInt(4, space.getSprintId());
             statement.setInt(5, space.getId());
             statement.executeUpdate();
         } catch (SQLException exception) {

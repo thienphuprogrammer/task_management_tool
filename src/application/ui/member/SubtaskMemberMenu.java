@@ -14,7 +14,7 @@ public class SubtaskMemberMenu {
     private int taskId;
     public enum CHOICE_SUBTASK_MEMBER_MENU {
         EXIT,
-        COMPLETE_SUBTASK,
+        SUBMIT_SUBTASK,
         VIEW_MY_SUBTASK,
         VIEW_ALL_SUBTASK,
         VIEW_REPORT_SUBTASK
@@ -46,7 +46,7 @@ public class SubtaskMemberMenu {
                         case VIEW_REPORT_SUBTASK -> this.viewReportSubtask();
                         case VIEW_MY_SUBTASK -> this.viewMySubtask();
                         case VIEW_ALL_SUBTASK -> this.viewAllSubtask();
-                        case COMPLETE_SUBTASK -> this.completeSubtask();
+                        case SUBMIT_SUBTASK -> this.submitSubtask();
                     }
                 }
             } catch (Exception e) {
@@ -54,16 +54,19 @@ public class SubtaskMemberMenu {
             }
         }
     }
-    private void viewReportSubtask() {
-
+    private void viewReportSubtask() throws Exception {
+        int subtaskId = readInt("Enter subtask id: ");
+        reportSubtaskService.viewReport(subtaskId);
     }
-    private void viewMySubtask() {
-
+    private void viewMySubtask() throws Exception {
+        int subtaskId = readInt("Enter subtask id: ");
+        subtaskService.viewSubtaskProject(subtaskId, taskId);
     }
     private void viewAllSubtask() {
-
+        subtaskService.viewAllSubtaskProject(taskId);
     }
-    private void completeSubtask() {
-
+    private void submitSubtask() throws Exception {
+        int subtaskId = readInt("Enter subtask id: ");
+        subtaskService.submitSubtask(subtaskId);
     }
 }

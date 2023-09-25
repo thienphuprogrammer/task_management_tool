@@ -83,5 +83,6 @@ public class DocumentManagerMenu {
         docsService.update(doc);
     }
     private void viewDocument() {
+        Doc doc = docsService.getDocByProjectId(projectId);
     }
 }

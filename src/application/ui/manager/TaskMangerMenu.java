@@ -1,15 +1,14 @@
 package application.ui.manager;
 
+import bussinesslayer.entity.report.ReportTask;
 import bussinesslayer.entity.space.Task;
-import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.report.reporttask.IReportTaskService;
 import bussinesslayer.service.report.reporttask.ReportTaskService;
 import bussinesslayer.service.sapce.task.ITaskService;
 import bussinesslayer.service.sapce.task.TaskService;
-import bussinesslayer.service.user.IUserService;
-import bussinesslayer.service.user.ManagerService;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static application.utilities.InputUtil.*;
@@ -134,11 +133,17 @@ public class TaskMangerMenu {
         task.setMemberId(newMemberId);
         serviceTask.update(task);
     }
-    private void createReport() {
-
+    private void createReport() throws Exception {
+        int taskId = readInt("Enter task id: ");
+        Task task = serviceTask.getById(taskId);
+        LocalDate date = LocalDate.now();
+        LocalTime time = LocalTime.now();
+        String description = readString("Description: ");
+        ReportTask reportTask = new ReportTask(time, date, description, taskId);
+        reportTaskService.create(reportTask);
     }
-    private void viewReport() {
-
+    private void viewReport() throws Exception {
+        reportTaskService.viewAll();
     }
     private void processMenuForSubtaskManager() throws Exception {
         int taskId = readInt("Enter task id: ");

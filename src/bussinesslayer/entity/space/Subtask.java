@@ -2,20 +2,28 @@ package bussinesslayer.entity.space;
 
 import java.time.LocalDate;
 
-public class SubTask extends Space {
+public class Subtask extends Space {
+    // -------------------- Properties ------------------------
     private int memberId;
     private int taskId;
     private int status;
-
-    public SubTask(int id, String name, String description, LocalDate startDate, LocalDate endDate, int memberId, int taskId, int status) {
+    // -------------------- Constructor ------------------------
+    public Subtask(int id, String name, String description, LocalDate startDate, LocalDate endDate, int memberId, int taskId, int status) {
         super(id, name, description, startDate, endDate);
         this.memberId = memberId;
         this.taskId = taskId;
         this.status = status;
     }
 
-    public SubTask() {
+    public Subtask(String name, String description, LocalDate startDate, LocalDate endDate, int taskId, int status) {
+        super(name, description, startDate, endDate);
+        this.taskId = taskId;
+        this.status = status;
     }
+
+    public Subtask() {
+    }
+    // -------------------- Getters and Setters ------------------------
 
     public int getMemberId() {
         return memberId;
