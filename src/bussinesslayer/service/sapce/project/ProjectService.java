@@ -1,17 +1,16 @@
 package bussinesslayer.service.sapce.project;
 
 import bussinesslayer.entity.space.Project;
-import bussinesslayer.entity.user.Member;
+import bussinesslayer.service.IService;
 import datalayer.DaoFactory;
+import datalayer.IDao;
 import datalayer.IDaoFactory;
-import datalayer.spacedao.projectdao.IProjectDao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectService implements IProjectService {
     // -------------------- Properties ------------------------
-    private IProjectDao projectIDao;
+    private IDao<Project> projectIDao;
     IDaoFactory projectDapFactory;
 
     // -------------------- Constructor ------------------------
@@ -23,11 +22,11 @@ public class ProjectService implements IProjectService {
     // -------------------- Getters and Setters ------------------------
 
 
-    public IProjectDao getProjectIDao() {
+    public IDao<Project> getProjectIDao() {
         return projectIDao;
     }
 
-    public void setProjectIDao(IProjectDao projectIDao) {
+    public void setProjectIDao(IDao<Project> projectIDao) {
         this.projectIDao = projectIDao;
     }
     // -------------------- Methods -----------------------
@@ -81,56 +80,38 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public void addMemberToProject(int projectId, int memberId, int managerId) throws Exception {
-        projectIDao.addMemberToProject(projectId, memberId);
+    public void addMemberToProject(int projectId, int memberId) {
+
     }
 
     @Override
-    public void removeMemberFromProject(int projectId, int memberId, int managerId) throws Exception {
-        projectIDao.removeMemberFromProject(projectId, memberId);
+    public void removeMemberFromProject(int projectId, int memberId) {
+
     }
 
     @Override
-    public List<Member> getMember(int projectId, int managerId) throws Exception {
-        List<Member> list = new ArrayList<>();
-        Project project = projectIDao.getById(projectId);
-        if (project.getManagerId() == managerId) {
-            list = projectIDao.getAllMemberProject(projectId, managerId);
-        } else {
-            throw new Exception("You are not the manager of this project");
-        }
-        return list;
-    }
-    @Override
-    public List<Project> getProjectMember(int memberId) throws Exception {
-        return projectIDao.getProjectMember(memberId);
+    public void viewMember() {
+
     }
 
     @Override
-    public List<Member> getAllMember(int projectId, int memberId) throws Exception {
-        Project project = projectIDao.getById(projectId);
-        List<Member> list = new ArrayList<>();
-        if (project.getManagerId() == memberId) {
-            list = projectIDao.getAllMemberProject(projectId, memberId);
-        } else {
-            throw new Exception("You don't manager of this project");
-        }
-        return list;
+    public void viewReport() {
+
     }
 
     @Override
-    public List<Project> getAllProjectManager(int userId) throws Exception {
-        return projectIDao.getAllProject(userId);
+    public void getDocByProjectId(int memberId) {
+
     }
 
     @Override
-    public Project getMemberByProjectId(int projectId, int memberId) {
-        return projectIDao.getMemberByProjectId(projectId, memberId);
+    public void viewProjectMember(int projectId, int memberId) {
+
     }
 
     @Override
-    public List<Project> getAllProjectMember(int memberId) {
-        return projectIDao.getAllProjectMember(memberId);
+    public void viewAllMember(int memberId) {
+
     }
 
     @Override
@@ -142,5 +123,6 @@ public class ProjectService implements IProjectService {
         System.out.println("| Start Date: " + project.getStartDate() + " ".repeat(43 - String.valueOf(project.getStartDate()).length()) + "|");
         System.out.println("| End Date: " + project.getEndDate() + " ".repeat(43 - String.valueOf(project.getEndDate()).length()) + "|");
         System.out.println("| Manager ID: " + project.getManagerId() + " ".repeat(43 - String.valueOf(project.getManagerId()).length()) + "|");
+
     }
 }

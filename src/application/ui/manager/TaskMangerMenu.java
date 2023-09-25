@@ -134,7 +134,6 @@ public class TaskMangerMenu {
     }
     private void createReport() throws Exception {
         int taskId = readInt("Enter task id: ");
-        Task task = serviceTask.getById(taskId);
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
         String description = readString("Description: ");

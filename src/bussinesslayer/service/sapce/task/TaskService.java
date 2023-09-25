@@ -1,15 +1,16 @@
 package bussinesslayer.service.sapce.task;
 
 import bussinesslayer.entity.space.Task;
+import bussinesslayer.service.IService;
 import datalayer.DaoFactory;
+import datalayer.IDao;
 import datalayer.IDaoFactory;
-import datalayer.spacedao.taskdao.ITaskDao;
 
 import java.util.List;
 
 public class TaskService implements ITaskService {
     // -------------------- Properties ------------------------
-    private ITaskDao taskIDao;
+    private IDao<Task> taskIDao;
     IDaoFactory taskFactory;
 
     // -------------------- Constructor ------------------------
@@ -19,11 +20,11 @@ public class TaskService implements ITaskService {
     }
 
     // -------------------- Getters and Setters ------------------------
-    public ITaskDao getTaskIDao() {
+    public IDao<Task> getTaskIDao() {
         return taskIDao;
     }
 
-    public void setTaskIDao(ITaskDao taskIDao) {
+    public void setTaskIDao(IDao<Task> taskIDao) {
         this.taskIDao = taskIDao;
     }
     // -------------------- Methods ------------------------
@@ -63,39 +64,49 @@ public class TaskService implements ITaskService {
     public List<Task> getAll() throws Exception {
         return taskIDao.getAll();
     }
+
+    @Override
+    public void viewAll() throws Exception {
+        try {
+            List<Task> list = taskIDao.getAll();
+            for (Task task : list) {
+                viewById(task.getId());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void viewTaskSprint(int taskId, int sprintId) {
+
+    }
+
+    @Override
+    public void viewAllTaskProject(int sprintId) {
+
+    }
+
     @Override
     public void submitTask(int taskId) {
-        taskIDao.submitTask(taskId);
+
     }
 
     @Override
-    public List<Task> getAllTaskBacklog(int backlogId) {
-        return taskIDao.getAllTaskBacklog(backlogId);
+    public void viewAllTaskBacklog(int projectId) {
+
     }
 
     @Override
-    public List<Task> getAllMyTaskMember(int sprintId, int memberId) {
-        return taskIDao.getAllMyTaskMember(sprintId, memberId);
+    public void viewById(int id) throws Exception {
+        Task task = taskIDao.getById(id);
+        System.out.println("| id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");
+        System.out.println("| Name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");
+        System.out.println("| Description: " + task.getDescription() + " ".repeat(36 - String.valueOf(task.getDescription()).length()) + "|");
+        System.out.println("| Start Date: " + task.getStartDate() + " ".repeat(43 - String.valueOf(task.getStartDate()).length()) + "|");
+        System.out.println("| End Date: " + task.getEndDate() + " ".repeat(43 - String.valueOf(task.getEndDate()).length()) + "|");
+        System.out.println("| Status: " + task.getStatus() + " ".repeat(43 - String.valueOf(task.getStatus()).length()) + "|");
+        System.out.println("| Member ID: " + task.getMemberId() + " ".repeat(43 - String.valueOf(task.getMemberId()).length()) + "|");
+        System.out.println("| Sprint ID: " + task.getSprintId() + " ".repeat(43 - String.valueOf(task.getSprintId()).length()) + "|");
     }
-
-    @Override
-    public List<Task> getTasks(int sprintId, int memberId) {
-        return taskIDao.getTasksMember(sprintId, memberId);
-    }
-
-    @Override
-    public List<Task> getTaskProgress(int sprintId) {
-        return taskIDao.getTaskProgress(sprintId);
-    }
-
-    @Override
-    public List<Task> getAllTasksMamager(int sprintId) {
-        return taskIDao.getAllTasksMamager(sprintId);
-    }
-
-    @Override
-    public List<Task> getAllTasks(int sprintId) {
-        return taskIDao.getAllTasks(sprintId);
-    }
-
 }

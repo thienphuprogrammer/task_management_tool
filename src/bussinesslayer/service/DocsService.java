@@ -1,17 +1,15 @@
 package bussinesslayer.service;
 
-import bussinesslayer.entity.Document;
+import bussinesslayer.entity.Doc;
 import datalayer.IDao;
-import datalayer.documentdao.DocumentDao;
-import datalayer.documentdao.IDocumentDao;
 
 import java.util.List;
 
 public class DocsService implements IDocsService {
     // -------------------- Properties ------------------------
-    private IDocumentDao docIDao = new DocumentDao();
+    private IDao<Doc> docIDao;
     // -------------------- Constructor ------------------------
-    public DocsService(IDocumentDao docIDao) {
+    public DocsService(IDao<Doc> docIDao) {
         this.docIDao = docIDao;
     }
 
@@ -19,22 +17,22 @@ public class DocsService implements IDocsService {
     }
     // -------------------- Getters and Setters ------------------------
 
-    public IDao<Document> getDocIDao() {
+    public IDao<Doc> getDocIDao() {
         return docIDao;
     }
 
-    public void setDocIDao(IDocumentDao docIDao) {
+    public void setDocIDao(IDao<Doc> docIDao) {
         this.docIDao = docIDao;
     }
     // -------------------- Methods ------------------------
 
     @Override
-    public void update(Document doc) throws Exception {
+    public void update(Doc doc) throws Exception {
         docIDao.update(doc);
     }
 
     @Override
-    public void create(Document doc) throws Exception {
+    public void create(Doc doc) throws Exception {
         docIDao.addNew(doc);
     }
 
@@ -44,17 +42,17 @@ public class DocsService implements IDocsService {
     }
 
     @Override
-    public Document getById(int id) throws Exception {
+    public Doc getById(int id) throws Exception {
         return docIDao.getById(id);
     }
 
     @Override
-    public List<Document> getAll() throws Exception {
+    public List<Doc> getAll() throws Exception {
         return docIDao.getAll();
     }
 
     @Override
-    public Document getDocument(int projectId) throws Exception {
-        return docIDao.getDocument(projectId);
+    public void viewDocumentByProjectId(int projectId) {
+
     }
 }

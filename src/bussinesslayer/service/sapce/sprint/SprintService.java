@@ -77,6 +77,26 @@ public class SprintService implements ISprintService {
     }
 
     @Override
+    public void createSprint(Sprint sprint) {
+
+    }
+
+    @Override
+    public void viewReport(int sprintId) {
+
+    }
+
+    @Override
+    public void viewSprintProject(int sprintId, int projectId) {
+
+    }
+
+    @Override
+    public void viewAllSprintProject(int projectId) {
+
+    }
+
+    @Override
     public void viewById(int id) throws Exception {
         Sprint sprint = sprintIDao.getById(id);
         System.out.println("| id: " + sprint.getId() + " ".repeat(40 - String.valueOf(sprint.getId()).length()) + "|");
