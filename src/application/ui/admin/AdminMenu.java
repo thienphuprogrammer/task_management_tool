@@ -1,26 +1,32 @@
 package application.ui.admin;
 
+import application.ui.manager.ProjectManagerMenu;
 import bussinesslayer.entity.user.Admin;
+import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.IService;
+import bussinesslayer.service.user.IUserService;
+import bussinesslayer.service.user.ManagerService;
+import bussinesslayer.service.user.MemberService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
 
 public class AdminMenu {
+    private final ManagerService serviceManager = new ManagerService();
+    private final IUserService<Member> serviceMember = new MemberService();
     public enum CHOICE_ADMIN_MENU {
         EXIT,
-        CREATE_ADMIN,
-        UPDATE_ADMIN,
-        DELETE_ADMIN,
-        GET_ALL_ADMIN,
-        GET_ADMIN_BY_ID
+        VIEW_ALL_MANAGER,
+        VIEW_ALL_MEMBER,
+        REPORT_PROJECT_MANAGER,
+        REPORT_SPRINT_MANAGER,
     }
 
     // -------------------- Properties ------------------------
     IService<Admin> service;
 
     // -------------------- Constructor ------------------------
-    public AdminMenu(IService<Admin> service) {
+    public AdminMenu(IService<Admin> service) throws Exception {
         this.service = service;
     }
     public void processMenuForAdmin() {
@@ -39,11 +45,10 @@ public class AdminMenu {
                 } else {
                     switch (CHOICE_ADMIN_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case CREATE_ADMIN -> this.createAdmin();
-                        case UPDATE_ADMIN -> this.updateAdmin();
-                        case DELETE_ADMIN -> this.deleteAdmin();
-                        case GET_ALL_ADMIN -> this.getAllAdmin();
-                        case GET_ADMIN_BY_ID -> this.getAdminById();
+                        case VIEW_ALL_MANAGER -> this.viewAllManager();
+                        case VIEW_ALL_MEMBER -> this.viewAllMember();
+                        case REPORT_PROJECT_MANAGER -> this.reportProjectManager();
+                        case REPORT_SPRINT_MANAGER -> this.reportSprintManager();
                         default -> {
                         }
                     }
@@ -53,19 +58,18 @@ public class AdminMenu {
             }
         }
     }
-
-    private void createAdmin() {
+    private void viewAllManager() throws Exception {
+        serviceManager.viewAll();
     }
-    private void updateAdmin() {
-
+    private  void viewAllMember() throws Exception {
+        serviceMember.viewAll();
     }
-    private void deleteAdmin() {
-
+    private void reportProjectManager() throws Exception {
+        ProjectAdminMenu projectAdminMenu = new ProjectAdminMenu();
+        projectAdminMenu.processMenuForReportProjectAdmin();
     }
-    private void getAllAdmin() {
-
-    }
-    private void getAdminById() {
-
+    private void reportSprintManager() throws Exception {
+        SprintAdminMenu sprintAdminMenu = new SprintAdminMenu();
+        sprintAdminMenu.processMenuBacklogAdmin();
     }
 }

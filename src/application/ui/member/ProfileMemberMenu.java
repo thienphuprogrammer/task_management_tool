@@ -3,8 +3,7 @@ package application.ui.member;
 import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.user.IUserService;
 
-import static application.utilities.InputUtil.readInt;
-import static application.utilities.InputUtil.readString;
+import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
 
 public class ProfileMemberMenu {
@@ -63,9 +62,16 @@ public class ProfileMemberMenu {
         serviceMember.changePassword(memberId, password);
     }
     private void changeEmail() {
-
+        String email = readString("Email: ");
+        serviceMember.changeEmail(memberId, email);
     }
-    private void changeInformation() {
-
+    private void changeInformation() throws Exception {
+        Member member = serviceMember.getById(memberId);
+        member.setName(readString("Name: "));
+        member.setAge(readInt("Age: "));
+        member.setPhone_number(readString("Phone number: "));
+        member.setGender(readBoolean("0 for male, 1 for female, Gender: "));
+        member.setAddress(readString("Address: "));
+        serviceMember.update(member);
     }
 }

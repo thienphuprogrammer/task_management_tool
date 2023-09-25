@@ -23,7 +23,7 @@ public class Menu {
         return number;
     }
 
-    public static void manageAdmin(IUserService<Admin> service) {
+    public static void manageAdmin(IUserService<Admin> service) throws Exception {
         AdminMenu adminMenu = new AdminMenu(service);
         adminMenu.processMenuForAdmin();
     }

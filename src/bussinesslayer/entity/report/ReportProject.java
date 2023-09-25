@@ -11,6 +11,11 @@ public class ReportProject extends Report {
         this.project_id = project_id;
     }
 
+    public ReportProject(LocalTime time, LocalDate date, String description, int project_id) {
+        super(time, date, description);
+        this.project_id = project_id;
+    }
+
     public ReportProject() {
     }
 

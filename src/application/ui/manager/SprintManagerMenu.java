@@ -24,7 +24,6 @@ public class SprintManagerMenu {
         UPDATE_SPRINT,
         DELETE_SPRINT,
         VIEW_SPRINT,
-        CREATE_REPORT,
         VIEW_REPORT,
         TASK_MANAGER
     }
@@ -57,7 +56,6 @@ public class SprintManagerMenu {
                         case UPDATE_SPRINT -> this.updateSprint();
                         case DELETE_SPRINT -> this.deleteSprint();
                         case VIEW_SPRINT -> this.viewSprint();
-                        case CREATE_REPORT -> this.createReport();
                         case VIEW_REPORT -> this.viewReport();
                         case TASK_MANAGER -> this.processMenuForTaskManager();
                     }
@@ -90,14 +88,6 @@ public class SprintManagerMenu {
     }
     private void viewSprint() throws Exception {
         sprintService.viewById(projectId);
-    }
-    private void createReport() throws Exception {
-        int sprintId = readInt("Enter sprint id: ");
-        LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        String description = readString("Description: ");
-        ReportSprint reportSprint = new ReportSprint(time, date, description, sprintId);
-        reportSprintService.createReport(reportSprint);
     }
     private void viewReport() throws Exception {
         int sprintId = readInt("Enter sprint id: ");

@@ -14,6 +14,10 @@ public class Doc {
         this.content = content;
         this.projectId = projectId;
     }
+
+    public Doc() {
+    }
+
     // -------------------- Getters and Setters ------------------------
     public int getId() {
         return id;

@@ -12,4 +12,6 @@ public interface ITaskService extends IService<Task> {
     void viewAllTaskProject(int sprintId);
 
     void submitTask(int taskId);
+
+    void viewAllTaskBacklog(int projectId);
 }

@@ -1,8 +1,6 @@
 package application.ui.manager;
 
-import bussinesslayer.entity.Doc;
 import bussinesslayer.entity.user.Manager;
-import bussinesslayer.service.IService;
 import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.InputUtil.readInt;
@@ -14,15 +12,16 @@ public class ManagerMenu {
         // Project
         PROJECT_MANAGER,
         //Profile
-        PROFILE_MANAGER
+        PROFILE_MANAGER,
+        VIEW_ALL_MEMBER
     }
     // -------------------- Properties ------------------------
-    IUserService<Manager> service;
+    IUserService<Manager> serviceManager;
     private int managerId;
 
     // -------------------- Constructor ------------------------
     public ManagerMenu(IUserService <Manager> service) {
-        this.service = service;
+        this.serviceManager = service;
     }
     public void processMenuForManager() {
         boolean exit = false;
@@ -44,6 +43,7 @@ public class ManagerMenu {
                         case EXIT -> exit = true;
                         case PROJECT_MANAGER -> this.manageProject();
                         case PROFILE_MANAGER -> this.manageProfile();
+                        case VIEW_ALL_MEMBER -> this.viewAllMember();
                         default -> {
                         }
                     }
@@ -62,5 +62,8 @@ public class ManagerMenu {
     private void manageProfile() throws Exception {
         ProfileManagerMenu profileManagerMenu = new ProfileManagerMenu(managerId);
         profileManagerMenu.processMenuForProfileManager();
+    }
+    private void viewAllMember() throws Exception {
+        serviceManager.viewAllMember(managerId);
     }
 }

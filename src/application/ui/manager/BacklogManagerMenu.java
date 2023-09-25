@@ -2,11 +2,14 @@ package application.ui.manager;
 
 import bussinesslayer.entity.report.ReportBacklog;
 import bussinesslayer.entity.space.Backlog;
+import bussinesslayer.entity.space.Task;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.report.reportbacklog.IReportBacklogService;
 import bussinesslayer.service.report.reportbacklog.ReportBacklogService;
 import bussinesslayer.service.sapce.backog.BacklogService;
 import bussinesslayer.service.sapce.backog.IBacklogService;
+import bussinesslayer.service.sapce.task.ITaskService;
+import bussinesslayer.service.sapce.task.TaskService;
 import bussinesslayer.service.user.IUserService;
 
 import java.time.LocalDate;
@@ -17,16 +20,15 @@ import static application.utilities.OutputUtil.*;
 
 public class BacklogManagerMenu {
     // -------------------- Properties ------------------------
-    private IBacklogService serviceBacklog = new BacklogService();
-    private IReportBacklogService serviceReportBacklog  = new ReportBacklogService();
+    private final IBacklogService serviceBacklog = new BacklogService();
+    private final IReportBacklogService serviceReportBacklog  = new ReportBacklogService();
     private int projectId;
     public enum CHOICE_BACKLOG_MANAGER_MENU {
         EXIT,
-        CREATE_BACKLOG,
-        UPDATE_BACKLOG,
-        DELETE_BACKLOG,
-        VIEW_BACKLOG,
-        CREATE_REPORT_BACKLOG,
+        CREATE_TASK_IN_BACKLOG,
+        UPDATE_TASK_IN_BACKLOG,
+        DELETE_TASK_IN_BACKLOG,
+        VIEW_ALL_TASK_IN_BACKLOG,
         VIEW_REPORT_BACKLOG,
         UPDATE_REPORT_BACKLOG
     }
@@ -39,8 +41,17 @@ public class BacklogManagerMenu {
 
     // -------------------- Methods ------------------------
 
-    public void processMenuForBacklogManager() {
+    private void checkBacklogNone() throws Exception {
+        if (serviceBacklog.getAll().size() == 0) {
+            printValueln("Backlog is empty.");
+            serviceBacklog.create(new Backlog(projectId));
+        }
+    }
+
+    public void processMenuForBacklogManager() throws Exception {
         boolean exit = false;
+        checkBacklogNone();
+
         while (!exit) {
             printLineSeparate("Backlog Manager Menu");
             printValueMenu("Manager\\Project\\Backlog");
@@ -55,13 +66,12 @@ public class BacklogManagerMenu {
                 } else {
                     switch (CHOICE_BACKLOG_MANAGER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case CREATE_BACKLOG -> this.createBacklog();
-                        case UPDATE_BACKLOG -> this.updateBacklog();
-                        case DELETE_BACKLOG -> this.deleteBacklog();
-                        case VIEW_BACKLOG -> this.viewBacklog();
+                        case CREATE_TASK_IN_BACKLOG -> this.createTask();
+                        case UPDATE_TASK_IN_BACKLOG -> this.updateTask();
+                        case DELETE_TASK_IN_BACKLOG -> this.deleteTask();
+                        case VIEW_ALL_TASK_IN_BACKLOG -> this.viewAllTask();
                         case VIEW_REPORT_BACKLOG -> this.viewReportBacklog();
                         case UPDATE_REPORT_BACKLOG -> this.updateReportBacklog();
-                        case CREATE_REPORT_BACKLOG -> this.createReportBacklog();
                     }
                 }
             } catch (Exception e) {
@@ -69,27 +79,31 @@ public class BacklogManagerMenu {
             }
         }
     }
-    private void createBacklog() throws Exception {
-        int projectId = readInt("Project ID: ");
-        String title = readString("Title: ");
+    private void createTask() throws Exception {
+        String name = readString("Name: ");
         String description = readString("Description: ");
-        String fileUrl = readString("File URL: ");
-        Backlog backlog = new Backlog(title, description, fileUrl, projectId);
-        serviceBacklog.create(backlog);
+        LocalDate startDate = readLocalDate("Start date: ");
+        LocalDate endDate = readLocalDate("End date: ");
+        int memberId = -1;
+        int sprintId = -1;
+        Task task = new Task(name, description, startDate, endDate, memberId, sprintId);
+        serviceBacklog.createTaskBacklog(task);
     }
-    private void updateBacklog() throws Exception {
-        int backlogId = readInt("Backlog ID: ");
-        Backlog backlog = serviceBacklog.getById(backlogId);
-        backlog.setTitle(readString("Title: "));
-        backlog.setDescription(readString("Description: "));
-        backlog.setFileURL(readString("File URL: "));
-        serviceBacklog.update(backlog);
+    private void updateTask() throws Exception {
+        int taskId = readInt("Task ID: ");
+        String name = readString("Name: ");
+        String description = readString("Description: ");
+        LocalDate startDate = readLocalDate("Start date: ");
+        LocalDate endDate = readLocalDate("End date: ");
+        Task task = new Task(name, description, startDate, endDate);
+        serviceBacklog.updateTaskBacklog(task, taskId);
     }
-    private void deleteBacklog() throws Exception {
-        serviceBacklog.delete(readInt("Backlog ID: "));
+    private void deleteTask() throws Exception {
+        int taskId = readInt("Task ID: ");
+        serviceBacklog.deleteTaskBacklog(taskId);
     }
-    private void viewBacklog() throws Exception {
-        serviceBacklog.viewBacklogByProjectId(projectId);
+    private void viewAllTask() throws Exception {
+        serviceBacklog.viewAllTaskBacklog(projectId);
     }
     private void viewReportBacklog() throws Exception {
         serviceReportBacklog.viewReport(projectId);
@@ -99,16 +113,7 @@ public class BacklogManagerMenu {
         String description = readString("Description: ");
         LocalDate date = LocalDate.now();
         LocalTime time = LocalTime.now();
-        ReportBacklog reportBacklog = new ReportBacklog(time, date, description, backlogId, 0);
+        ReportBacklog reportBacklog = new ReportBacklog(time, date, description, backlogId);
         serviceReportBacklog.updateReportBacklog(reportBacklog);
-    }
-
-    private void createReportBacklog() throws Exception {
-        int backlogId = readInt("Backlog ID: ");
-        String description = readString("Description: ");
-        LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        ReportBacklog reportBacklog = new ReportBacklog(time, date, description, backlogId, 0);
-        serviceReportBacklog.createReportBacklog(reportBacklog);
     }
 }
