@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerDao implements IManagerDao {
@@ -29,7 +30,7 @@ public class ManagerDao implements IManagerDao {
                 manager.setPhoneNumber(resultSet.getString("phone_number"));
                 manager.setAddress(resultSet.getString("address"));
                 manager.setRole(resultSet.getString("role"));
-                manager.setGender(resultSet.getBoolean("gender"));
+                manager.setGender(resultSet.getString("gender"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,7 +40,7 @@ public class ManagerDao implements IManagerDao {
 
     @Override
     public List<Manager> getAll() throws Exception {
-        List<Manager> list = null;
+        List<Manager> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Manager";
             Connection connection = MySqlConnection.getInstance().getConnection();
@@ -55,7 +56,7 @@ public class ManagerDao implements IManagerDao {
                 manager.setPhoneNumber(resultSet.getString("phone_number"));
                 manager.setAddress(resultSet.getString("address"));
                 manager.setRole(resultSet.getString("role"));
-                manager.setGender(resultSet.getBoolean("gender"));
+                manager.setGender(resultSet.getString("gender"));
                 list.add(manager);
             }
         } catch (SQLException e) {
@@ -77,7 +78,7 @@ public class ManagerDao implements IManagerDao {
             statement.setString(5, space.getPhoneNumber());
             statement.setString(6, space.getAddress());
             statement.setString(7, space.getRole());
-            statement.setBoolean(8, space.isGender());
+            statement.setString(8, space.isGender());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -97,7 +98,7 @@ public class ManagerDao implements IManagerDao {
             statement.setString(5, space.getPhoneNumber());
             statement.setString(6, space.getAddress());
             statement.setString(7, space.getRole());
-            statement.setBoolean(8, space.isGender());
+            statement.setString(8, space.isGender());
             statement.setInt(9, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {

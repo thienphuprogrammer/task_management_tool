@@ -87,7 +87,7 @@ public class ProfileManagerMenu {
         manager.setAge(readInt("Age: "));
         manager.setPhoneNumber(readString("Phone number: "));
         manager.setAddress(readString("Address: "));
-        manager.setGender(readBoolean("0 for male, 1 for female, Gender: "));
+        manager.setGender(readString("Gender: "));
         serviceManager.update(manager);
     }
 }

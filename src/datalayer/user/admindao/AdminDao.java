@@ -110,30 +110,4 @@ public class AdminDao implements IAdminDao{
             e.printStackTrace();
         }
     }
-
-    @Override
-    public Admin login(String email, String password) {
-        Admin admin = null;
-        try {
-            String sql = "select * from admin where email = ? and password = ?";
-            Connection connection = MySqlConnection.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, email);
-            statement.setString(2, password);
-            ResultSet resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                admin = new Admin();
-                admin.setId(resultSet.getInt("id"));
-                admin.setName(resultSet.getString("name"));
-                admin.setAge(resultSet.getInt("age"));
-                admin.setEmail(resultSet.getString("email"));
-                admin.setPassword(resultSet.getString("password"));
-                admin.setPhoneNumber(resultSet.getString("phone_number"));
-                admin.setAddress(resultSet.getString("address"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return admin;
-    }
 }
