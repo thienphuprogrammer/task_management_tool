@@ -123,4 +123,99 @@ public class TaskDao implements ITaskDao {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<Task> getAllMyTaskMember(int sprintId, int memberId) {
+        List<Task> list = null;
+        try {
+            String sql = "SELECT * FROM Task WHERE sprint_id = ? AND member_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, sprintId);
+            statement.setInt(2, memberId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Task task = new Task();
+                task.setId(resultSet.getInt("id"));
+                task.setDescription(resultSet.getString("description"));
+                task.setName(resultSet.getString("name"));
+                task.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                task.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                task.setMemberId(resultSet.getInt("member_id"));
+                task.setSprintId(resultSet.getInt("sprint_id"));
+                task.setStatus(resultSet.getInt("status"));
+                list.add(task);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    @Override
+    public void submitTask(int taskId) {
+        try {
+            String sql = "UPDATE Task SET status = 1 WHERE id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, taskId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<Task> getAllTask(int backlogId) {
+        List<Task> list = null;
+        try {
+            String sql = "SELECT * FROM Task WHERE backlog_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, backlogId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Task task = new Task();
+                task.setId(resultSet.getInt("id"));
+                task.setDescription(resultSet.getString("description"));
+                task.setName(resultSet.getString("name"));
+                task.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                task.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                task.setMemberId(resultSet.getInt("member_id"));
+                task.setSprintId(resultSet.getInt("sprint_id"));
+                task.setStatus(resultSet.getInt("status"));
+                list.add(task);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Task> getAllTaskProject(int sprintId) {
+        List<Task> list = null;
+        try {
+            String sql = "SELECT * FROM Task WHERE sprint_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, sprintId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Task task = new Task();
+                task.setId(resultSet.getInt("id"));
+                task.setDescription(resultSet.getString("description"));
+                task.setName(resultSet.getString("name"));
+                task.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                task.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                task.setMemberId(resultSet.getInt("member_id"));
+                task.setSprintId(resultSet.getInt("sprint_id"));
+                task.setStatus(resultSet.getInt("status"));
+                list.add(task);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
 }

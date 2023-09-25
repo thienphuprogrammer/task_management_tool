@@ -14,18 +14,21 @@ public class TaskMemberMenu {
     private final ITaskService taskService = new TaskService();
     private final IReportTaskService reportTaskService = new ReportTaskService();
     private int sprintId;
+    public int memberId;
     public enum CHOICE_TASK_MEMBER_MENU {
         EXIT,
         SUBMIT_TASK,
         VIEW_MY_TASK,
+        VIEW_ALL_MY_TASK,
         VIEW_ALL_TASK,
         VIEW_REPORT_TASK,
         SUBTASK_MEMBER
     }
     // -------------------- Constructor ------------------------
 
-    public TaskMemberMenu(int sprintId) throws Exception {
+    public TaskMemberMenu(int sprintId, int memberId) throws Exception {
         this.sprintId = sprintId;
+        this.memberId = memberId;
     }
 
     // -------------------- Getters and Setters ------------------------
@@ -51,6 +54,7 @@ public class TaskMemberMenu {
                         case VIEW_ALL_TASK -> this.viewAllTask();
                         case SUBMIT_TASK -> this.submitTask();
                         case SUBTASK_MEMBER -> this.processMenuForSubtaskManager();
+                        case VIEW_ALL_MY_TASK -> this.viewAllMyTask();
                     }
                 }
             } catch (Exception e) {
@@ -58,23 +62,39 @@ public class TaskMemberMenu {
             }
         }
     }
-    private void viewReportTask() throws Exception {
-        int taskId = readInt("Enter task id: ");
-        reportTaskService.viewReportSprint(taskId, sprintId);
+    private void viewReportTask()  {
+        try {
+            int taskId = readInt("Enter task id: ");
+            reportTaskService.viewReportSprint(taskId, sprintId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void viewMyTask() throws Exception {
-        int taskId = readInt("Enter task id: ");
-        taskService.viewTaskSprint(taskId, sprintId);
+    private void viewMyTask()  {
+        try {
+            int taskId = readInt("Enter task id: ");
+            taskService.getTask(taskId, sprintId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
+    }
+    private void viewAllMyTask() {
+        try {
+            taskService.getAllMyTaskMember(sprintId, memberId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void viewAllTask() {
-        taskService.viewAllTaskProject(sprintId);
+        taskService.getAllTaskProject(sprintId);
     }
     private void submitTask() throws Exception {
         int taskId = readInt("Enter task id: ");
         taskService.submitTask(taskId);
     }
     private void processMenuForSubtaskManager() throws Exception {
-        SubtaskMemberMenu subtaskMemberMenu = new SubtaskMemberMenu(sprintId);
+        int taskId = readInt("Enter task id: ");
+        SubtaskMemberMenu subtaskMemberMenu = new SubtaskMemberMenu(taskId, memberId);
         subtaskMemberMenu.processMenuForSubtaskMember();
     }
 }

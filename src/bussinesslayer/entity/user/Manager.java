@@ -10,6 +10,10 @@ public class Manager extends User{
         this.gender = gender;
     }
 
+    public Manager() {
+
+    }
+
     public String getRole() {
         return role;
     }

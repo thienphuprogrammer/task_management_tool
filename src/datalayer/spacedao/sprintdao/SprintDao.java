@@ -119,4 +119,54 @@ public class SprintDao implements ISprintDao {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<Sprint> getAllSprintProject(int projectId) {
+        List<Sprint> list = null;
+        try {
+            String sql = "SELECT * FROM Sprint WHERE project_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, projectId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Sprint sprint = new Sprint();
+                sprint.setId(resultSet.getInt("id"));
+                sprint.setDescription(resultSet.getString("description"));
+                sprint.setName(resultSet.getString("name"));
+                sprint.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                sprint.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                sprint.setProjectId(resultSet.getInt("project_id"));
+                list.add(sprint);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+    @Override
+    public List<Sprint> getMySprintProject(int sprintId, int projectId) {
+        List<Sprint> list = null;
+        try {
+            String sql = "SELECT * FROM Sprint WHERE id = ? AND project_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, sprintId);
+            statement.setInt(2, projectId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Sprint sprint = new Sprint();
+                sprint.setId(resultSet.getInt("id"));
+                sprint.setDescription(resultSet.getString("description"));
+                sprint.setName(resultSet.getString("name"));
+                sprint.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                sprint.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                sprint.setProjectId(resultSet.getInt("project_id"));
+                list.add(sprint);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
 }

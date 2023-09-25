@@ -21,7 +21,7 @@ public interface IReportBacklogService extends IReportService<ReportBacklog> {
     @Override
     List<ReportBacklog> getAll() throws Exception;
 
-    void viewReport(int projectId);
+    List<ReportBacklog> viewReport(int projectId) throws Exception;
 
     void updateReportBacklog(ReportBacklog reportBacklog);
 

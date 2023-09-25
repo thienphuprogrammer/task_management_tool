@@ -10,6 +10,9 @@ public class Member extends User {
         this.gender = gender;
     }
 
+    public Member() {
+    }
+
     public String getRole() {
         return role;
     }

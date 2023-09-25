@@ -22,7 +22,9 @@ public class BacklogManagerMenu {
     // -------------------- Properties ------------------------
     private final IBacklogService serviceBacklog = new BacklogService();
     private final IReportBacklogService serviceReportBacklog  = new ReportBacklogService();
+    private final ITaskService serviceTask = new TaskService();
     private int projectId;
+    private int backlogId;
     public enum CHOICE_BACKLOG_MANAGER_MENU {
         EXIT,
         CREATE_TASK_IN_BACKLOG,
@@ -45,6 +47,7 @@ public class BacklogManagerMenu {
         if (serviceBacklog.getAll().size() == 0) {
             printValueln("Backlog is empty.");
             serviceBacklog.create(new Backlog(projectId));
+            backlogId = serviceBacklog.getAll().get(0).getId();
         }
     }
 
@@ -79,31 +82,56 @@ public class BacklogManagerMenu {
             }
         }
     }
-    private void createTask() throws Exception {
-        String name = readString("Name: ");
-        String description = readString("Description: ");
-        LocalDate startDate = readLocalDate("Start date: ");
-        LocalDate endDate = readLocalDate("End date: ");
-        int memberId = -1;
-        int sprintId = -1;
-        Task task = new Task(name, description, startDate, endDate, memberId, sprintId);
-        serviceBacklog.createTaskBacklog(task);
+    private void createTask()  {
+        try {
+            String name = readString("Name: ");
+            String description = readString("Description: ");
+            LocalDate startDate = readLocalDate("Start date: ");
+            LocalDate endDate = readLocalDate("End date: ");
+            int memberId = -1;
+            int sprintId = -1;
+            Task task = new Task(name, description, startDate, endDate, memberId, sprintId, backlogId);
+            serviceTask.create(task);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void updateTask() throws Exception {
-        int taskId = readInt("Task ID: ");
-        String name = readString("Name: ");
-        String description = readString("Description: ");
-        LocalDate startDate = readLocalDate("Start date: ");
-        LocalDate endDate = readLocalDate("End date: ");
-        Task task = new Task(name, description, startDate, endDate);
-        serviceBacklog.updateTaskBacklog(task, taskId);
+    private void updateTask() {
+        try {
+            int taskId = readInt("Task ID: ");
+            Task task = serviceTask.getById(taskId);
+            if (task.getBacklogId() == backlogId) {
+                task.setName(readString("Name: "));
+                task.setDescription(readString("Description: "));
+                task.setStartDate(readLocalDate("Start date: "));
+                task.setEndDate(readLocalDate("End date: "));
+                serviceTask.update(task);
+            } else {
+                printValueln("Task is not in this backlog.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void deleteTask() throws Exception {
-        int taskId = readInt("Task ID: ");
-        serviceBacklog.deleteTaskBacklog(taskId);
+        try {
+            int taskId = readInt("Task ID: ");
+            Task task = serviceTask.getById(taskId);
+            if (task.getBacklogId() == backlogId) {
+                serviceTask.delete(taskId);
+            } else {
+                printValueln("Task is not in this backlog.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void viewAllTask() throws Exception {
-        serviceBacklog.viewAllTaskBacklog(projectId);
+    private void viewAllTask() {
+        try {
+            serviceTask.getAllTask(backlogId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void viewReportBacklog() throws Exception {
         serviceReportBacklog.viewReport(projectId);

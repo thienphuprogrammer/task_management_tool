@@ -1,6 +1,7 @@
 package datalayer.spacedao.projectdao;
 
 import bussinesslayer.entity.space.Project;
+import bussinesslayer.entity.user.Member;
 import datalayer.MySqlConnection;
 
 import java.sql.Connection;
@@ -118,5 +119,86 @@ public class ProjectDao implements IProjectDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void addMemberToProject(int projectId, int memberId, int managerId) {
+        try {
+            String sql = "INSERT INTO Member_Project (project_id, member_id) VALUES (?, ?)";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, projectId);
+            statement.setInt(2, memberId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void removeMemberFromProject(int projectId, int memberId, int managerId) {
+        try {
+            String sql = "DELETE FROM Member_Project WHERE project_id = ? AND member_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, projectId);
+            statement.setInt(2, memberId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<Member> getAllMemberProject(int projectId, int managerId) {
+        List<Member> list = null;
+        try {
+            String sql = "SELECT * FROM Member_Project WHERE project_id = ? AND manager_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, projectId);
+            statement.setInt(2, managerId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Member member = new Member();
+                member.setId(resultSet.getInt("member_id"));
+                member.setName(resultSet.getString("name"));
+                member.setEmail(resultSet.getString("email"));
+                member.setPhoneNumber(resultSet.getString("phone_number"));
+                member.setAge(resultSet.getInt("age"));
+                member.setAddress(resultSet.getString("address"));
+                member.setGender(resultSet.getBoolean("gender"));
+                member.setRole(resultSet.getString("role"));
+                list.add(member);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Project> getAllProject(int userId) {
+        List<Project> list = null;
+        try {
+            String sql = "SELECT * FROM Project WHERE manager_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, userId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Project project = new Project();
+                project.setId(resultSet.getInt("id"));
+                project.setDescription(resultSet.getString("description"));
+                project.setName(resultSet.getString("name"));
+                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                project.setManagerId(resultSet.getInt("manager_id"));
+                list.add(project);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
     }
 }

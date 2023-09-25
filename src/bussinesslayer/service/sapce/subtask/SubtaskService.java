@@ -4,12 +4,13 @@ import bussinesslayer.entity.space.Subtask;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
+import datalayer.spacedao.substaskdao.ISubtaskDao;
 
 import java.util.List;
 
 public class SubtaskService implements ISubtaskService {
     // -------------------- Properties ------------------------
-    private IDao<Subtask> subTaskIDao;
+    private ISubtaskDao subTaskIDao;
     IDaoFactory subTaskDaoFactory;
 
     // -------------------- Constructor ------------------------
@@ -21,11 +22,11 @@ public class SubtaskService implements ISubtaskService {
     // -------------------- Getters and Setters ------------------------
 
 
-    public IDao<Subtask> getSubTaskIDao() {
+    public ISubtaskDao getSubTaskIDao() {
         return subTaskIDao;
     }
 
-    public void setSubTaskIDao(IDao<Subtask> subTaskIDao) {
+    public void setSubTaskIDao(ISubtaskDao subTaskIDao) {
         this.subTaskIDao = subTaskIDao;
     }
     // -------------------- Methods -----------------------
@@ -80,33 +81,60 @@ public class SubtaskService implements ISubtaskService {
     }
 
     @Override
-    public void assignSubtaskToMember(int subtaskId, int memberId) {
-
+    public void assignSubtaskToMember(int subtaskId, int memberId, int taskId) throws Exception {
+        Subtask subtask = subTaskIDao.getById(subtaskId);
+        if (subtask.getTaskId() == taskId) {
+            subtask.setMemberId(memberId);
+            subTaskIDao.update(subtask);
+        } else {
+            throw new Exception("Subtask is not in this task.");
+        }
     }
 
     @Override
-    public void reassignSubtaskToMember(int subtaskId, int memberId) {
-
+    public void reassignSubtaskToMember(int subtaskId, int memberId, int taskId) throws Exception {
+        Subtask subtask = subTaskIDao.getById(subtaskId);
+        if (subtask.getTaskId() == taskId) {
+            subtask.setMemberId(memberId);
+            subTaskIDao.update(subtask);
+        } else {
+            throw new Exception("Subtask is not in this task.");
+        }
+    }
+    @Override
+    public List<Subtask> getSubtaskProject(int subtaskId, int taskId) throws Exception {
+        Subtask subtask = subTaskIDao.getById(subtaskId);
+        List<Subtask> list = null;
+        if (subtask.getTaskId() == taskId) {
+            list = subTaskIDao.getAllSubtaskProject(subtaskId);
+        } else {
+            throw new Exception("Subtask is not in this task.");
+        }
+        return list;
     }
 
     @Override
-    public void createSubtask(Subtask subtask) {
-
+    public List<Subtask> viewAllSubtaskProject(int taskId) {
+        return subTaskIDao.getAllSubtaskProject(taskId);
     }
 
     @Override
-    public void viewSubtaskProject(int subtaskId, int taskId) {
-
+    public List<Subtask> getAllMySubtask(int memberId, int taskId) {
+        return subTaskIDao.getAllMySubtask(memberId, taskId);
+    }
+    @Override
+    public List<Subtask> getAllSubtask(int taskId) {
+        return subTaskIDao.getAllSubtask(taskId);
     }
 
     @Override
-    public void viewAllSubtaskProject(int taskId) {
-
+    public List<Subtask> getAllMySubtaskProject(int taskId, int memberId) {
+        return subTaskIDao.getAllMySubtaskProject(taskId, memberId);
     }
 
     @Override
     public void submitSubtask(int subtaskId) {
-
+        subTaskIDao.submitSubtask(subtaskId);
     }
 
     @Override

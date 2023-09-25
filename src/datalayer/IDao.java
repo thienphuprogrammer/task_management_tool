@@ -1,5 +1,8 @@
 package datalayer;
 
+import bussinesslayer.entity.space.Subtask;
+import bussinesslayer.entity.space.Task;
+
 import java.util.List;
 
 public interface IDao <T> {

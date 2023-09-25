@@ -7,7 +7,7 @@ public class OutputUtil {
 
     public static void waitForInput() {
         printLineSeparate();
-        System.out.println("Nhấn phím bất kỳ để trở về menu.");
+        System.out.println("Input anything to continue.");
         readString("");
         for (int i = 0; i < 100; i++) System.out.println(" ");
     }

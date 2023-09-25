@@ -1,7 +1,5 @@
 package datalayer;
 
-import bussinesslayer.entity.report.ReportSprint;
-import bussinesslayer.entity.report.ReportTask;
 import datalayer.report.reportbacklogdao.IReportBacklogDao;
 import datalayer.report.reportbacklogdao.ReportBacklogDao;
 import datalayer.report.reportprojectdao.IReportProjectDao;
@@ -16,8 +14,8 @@ import datalayer.spacedao.projectdao.IProjectDao;
 import datalayer.spacedao.projectdao.ProjectDao;
 import datalayer.spacedao.sprintdao.ISprintDao;
 import datalayer.spacedao.sprintdao.SprintDao;
-import datalayer.spacedao.substaskdao.ISubTaskDao;
-import datalayer.spacedao.substaskdao.SubTaskDao;
+import datalayer.spacedao.substaskdao.ISubtaskDao;
+import datalayer.spacedao.substaskdao.SubtaskDao;
 import datalayer.spacedao.taskdao.ITaskDao;
 import datalayer.spacedao.taskdao.TaskDao;
 import datalayer.user.admindao.AdminDao;
@@ -66,8 +64,8 @@ public class DaoFactory implements IDaoFactory {
     }
 
     @Override
-    public ISubTaskDao getSubTaskDao() throws Exception {
-        return new SubTaskDao();
+    public ISubtaskDao getSubTaskDao() throws Exception {
+        return new SubtaskDao();
     }
 
     @Override

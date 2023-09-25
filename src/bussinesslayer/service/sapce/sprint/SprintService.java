@@ -4,12 +4,13 @@ import bussinesslayer.entity.space.Sprint;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
+import datalayer.spacedao.sprintdao.ISprintDao;
 
 import java.util.List;
 
 public class SprintService implements ISprintService {
     // -------------------- Properties ------------------------
-    private IDao<Sprint> sprintIDao;
+    private ISprintDao sprintIDao;
     IDaoFactory sprintDaoFactory;
 
     // -------------------- Constructor ------------------------
@@ -20,11 +21,11 @@ public class SprintService implements ISprintService {
     }
     // -------------------- Getters and Setters ------------------------
 
-    public IDao<Sprint> getSprintIDao() {
+    public ISprintDao getSprintIDao() {
         return sprintIDao;
     }
 
-    public void setSprintIDao(IDao<Sprint> sprintIDao) {
+    public void setSprintIDao(ISprintDao sprintIDao) {
         this.sprintIDao = sprintIDao;
     }
 
@@ -66,25 +67,14 @@ public class SprintService implements ISprintService {
             e.printStackTrace();
         }
     }
-
     @Override
-    public void createSprint(Sprint sprint) {
-
+    public List<Sprint> getAllSprintProject(int projectId) {
+        return sprintIDao.getAllSprintProject(projectId);
     }
 
     @Override
-    public void viewReport(int sprintId) {
-
-    }
-
-    @Override
-    public void viewSprintProject(int sprintId, int projectId) {
-
-    }
-
-    @Override
-    public void viewAllSprintProject(int projectId) {
-
+    public List<Sprint> getMySprintProject(int sprintId, int projectId) {
+        return sprintIDao.getMySprintProject(sprintId, projectId);
     }
 
     @Override
