@@ -54,10 +54,10 @@ public class BacklogMemberMenu {
         }
     }
 
-    private void viewBacklog() {
-
+    private void viewBacklog() throws Exception {
+        serviceBacklog.getBacklogByProjectId(projectId);
     }
     private void viewReportBacklog() {
-
+        serviceReportBacklog.viewReport(projectId);
     }
 }

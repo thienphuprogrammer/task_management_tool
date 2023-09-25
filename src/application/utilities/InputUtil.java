@@ -47,7 +47,7 @@ public class InputUtil {
         System.out.print(message);
         String input = scanner.nextLine();
         LocalDate date = null;
-        if (!input.matches("^\\d{4}-\\d{2}-\\d{2}$")) { // YYYY-MM-DD
+        if (!input.matches("^\\d{4}-\\d{2}-\\d{2}$")) {
             throw new Exception("Data invalid.");
         }else {
             date = LocalDate.parse(input);
@@ -58,7 +58,7 @@ public class InputUtil {
         System.out.print(message);
         String input = scanner.nextLine();
         LocalTime time = null;
-        if (!input.matches("^\\d{2}:\\d{2}$")) { // HH:MM
+        if (!input.matches("^\\d{2}:\\d{2}$")) {
             throw new Exception("Data invalid.");
         }else {
             time = LocalTime.parse(input);

@@ -39,4 +39,14 @@ public class ReportSubtaskService implements IReportSubtaskService {
     public void viewAll() throws Exception {
 
     }
+
+    @Override
+    public void createReport(ReportSubtask reportSubtask) {
+
+    }
+
+    @Override
+    public void viewReport(int taskId) {
+
+    }
 }

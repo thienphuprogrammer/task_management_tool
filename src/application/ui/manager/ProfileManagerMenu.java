@@ -2,7 +2,7 @@ package application.ui.manager;
 
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.user.IUserService;
-import bussinesslayer.service.user.manager.ManagerService;
+import bussinesslayer.service.user.ManagerService;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
@@ -67,28 +67,11 @@ public class ProfileManagerMenu {
     }
 
     private void viewInformation() throws Exception {
-        try {
-            Manager manager = serviceManager.getById(managerId);
-            printLineSeparate("Information");
-            printValueMenu("Id: " + manager.getId());
-            printValueMenu("Name: " + manager.getName());
-            printValueMenu("Age: " + manager.getAge());
-            printValueMenu("Phone number: " + manager.getPhoneNumber());
-            printValueMenu("Address: " + manager.getAddress());
-            printValueMenu("Email: " + manager.getEmail());
-            printValueln("Password: " + manager.getPassword());
-            printLineSeparate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        serviceManager.viewById(managerId);
     }
     private void changePassword() {
-        try {
-            String password = readString("Password: ");
-            serviceManager.changePassword(managerId, password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String password = readString("Password: ");
+        serviceManager.changePassword(managerId, password);
     }
     private void changeEmail() {
         try {
@@ -98,17 +81,13 @@ public class ProfileManagerMenu {
             e.printStackTrace();
         }
     }
-    private void changeInformation() {
-        try {
-            Manager manager = serviceManager.getById(managerId);
-            manager.setName(readString("Name: "));
-            manager.setAge(readInt("Age: "));
-            manager.setPhoneNumber(readString("Phone number: "));
-            manager.setAddress(readString("Address: "));
-            manager.setGender(readString("Gender: "));
-            serviceManager.update(manager);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    private void changeInformation() throws Exception {
+        Manager manager = serviceManager.getById(managerId);
+        manager.setName(readString("Name: "));
+        manager.setAge(readInt("Age: "));
+        manager.setPhone_number(readString("Phone number: "));
+        manager.setAddress(readString("Address: "));
+        manager.setGender(readBoolean("0 for male, 1 for female, Gender: "));
+        serviceManager.update(manager);
     }
 }

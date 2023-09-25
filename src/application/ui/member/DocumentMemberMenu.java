@@ -1,8 +1,9 @@
 package application.ui.member;
 
-import bussinesslayer.entity.Document;
+import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.DocsService;
 import bussinesslayer.service.IDocsService;
+import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -50,16 +51,6 @@ public class DocumentMemberMenu {
         }
     }
     private void viewDocument() {
-        try {
-            Document doc = serviceDoc.getDocument(projectId);
-            printLineSeparate("Document");
-            printValue("id: " + doc.getId() + " ".repeat(40 - String.valueOf(doc.getId()).length()) + "|");
-            printValue("Title: " + doc.getTitle());
-            printValueln("Description: " + doc.getDescription());
-            printValueln("Content: " + doc.getContent());
-            printLineSeparate("");
-        } catch (Exception e) {
-            printValueln(e.getMessage());
-        }
+        serviceDoc.viewDocumentByProjectId(projectId);
     }
 }

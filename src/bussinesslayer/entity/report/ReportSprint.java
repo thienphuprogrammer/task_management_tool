@@ -10,9 +10,6 @@ public class ReportSprint extends Report{
         super(id, time, date, description);
         this.sprintId = sprintId;
     }
-    public ReportSprint() {
-
-    }
 
     public ReportSprint(LocalTime time, LocalDate date, String description, int sprintId) {
         super(time, date, description);

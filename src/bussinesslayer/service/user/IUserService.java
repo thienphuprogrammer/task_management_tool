@@ -9,5 +9,5 @@ public interface IUserService<T> extends IService<T> {
 
     void changePassword(int id, String password);
 
-    void changeEmail(int id, String email) throws Exception;
+    void changeEmail(int id, String email);
 }
