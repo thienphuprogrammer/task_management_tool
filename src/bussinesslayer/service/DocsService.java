@@ -50,4 +50,9 @@ public class DocsService implements IDocsService {
     public List<Doc> getAll() throws Exception {
         return docIDao.getAll();
     }
+
+    @Override
+    public void viewDocumentByProjectId(int projectId) {
+
+    }
 }

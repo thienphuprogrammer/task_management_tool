@@ -67,4 +67,19 @@ public class ManagerService implements IUserService<Manager> {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void changePassword(int id, String password) {
+
+    }
+
+    @Override
+    public void changeEmail(int id, String email) {
+
+    }
+
+    @Override
+    public void viewAllMember(int managerId) {
+
+    }
 }

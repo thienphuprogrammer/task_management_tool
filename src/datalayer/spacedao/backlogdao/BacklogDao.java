@@ -35,9 +35,6 @@ public class BacklogDao implements IBacklogDao {
             if (resultSet.next()) {
                 Backlog backlog = new Backlog();
                 backlog.setId(resultSet.getInt("id"));
-                backlog.setDescription(resultSet.getString("description"));
-                backlog.setTitle(resultSet.getString("title"));
-                backlog.setFileURL(resultSet.getString("file_url"));
                 return backlog;
             }
         } catch (SQLException e) {
@@ -57,9 +54,6 @@ public class BacklogDao implements IBacklogDao {
             while (resultSet.next()) {
                 Backlog backlog = new Backlog();
                 backlog.setId(resultSet.getInt("id"));
-                backlog.setDescription(resultSet.getString("description"));
-                backlog.setTitle(resultSet.getString("title"));
-                backlog.setFileURL(resultSet.getString("file_url"));
                 backlog.setProjectId(resultSet.getInt("project_id"));
                 list.add(backlog);
             }
@@ -75,9 +69,6 @@ public class BacklogDao implements IBacklogDao {
             String sql = "INSERT INTO Backlog (description, title, file_url) VALUES (?, ?, ?)";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1, space.getDescription());
-            statement.setString(2, space.getTitle());
-            statement.setString(3, space.getFileURL());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,9 +81,6 @@ public class BacklogDao implements IBacklogDao {
             String sql = "UPDATE Backlog SET description = ?, title = ?, file_url = ? WHERE id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1, space.getDescription());
-            statement.setString(2, space.getTitle());
-            statement.setString(3, space.getFileURL());
             statement.setInt(4, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -125,9 +113,6 @@ public class BacklogDao implements IBacklogDao {
             while (resultSet.next()) {
                 backlog = new Backlog();
                 backlog.setId(resultSet.getInt("id"));
-                backlog.setDescription(resultSet.getString("description"));
-                backlog.setTitle(resultSet.getString("title"));
-                backlog.setFileURL(resultSet.getString("file_url"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

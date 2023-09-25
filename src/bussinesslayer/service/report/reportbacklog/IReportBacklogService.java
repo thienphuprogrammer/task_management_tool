@@ -25,6 +25,4 @@ public interface IReportBacklogService extends IReportService<ReportBacklog> {
 
     void updateReportBacklog(ReportBacklog reportBacklog);
 
-    void createReportBacklog(ReportBacklog reportBacklog);
-
 }

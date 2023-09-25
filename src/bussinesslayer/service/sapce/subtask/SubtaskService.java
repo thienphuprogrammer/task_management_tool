@@ -80,6 +80,36 @@ public class SubtaskService implements ISubtaskService {
     }
 
     @Override
+    public void assignSubtaskToMember(int subtaskId, int memberId) {
+
+    }
+
+    @Override
+    public void reassignSubtaskToMember(int subtaskId, int memberId) {
+
+    }
+
+    @Override
+    public void createSubtask(Subtask subtask) {
+
+    }
+
+    @Override
+    public void viewSubtaskProject(int subtaskId, int taskId) {
+
+    }
+
+    @Override
+    public void viewAllSubtaskProject(int taskId) {
+
+    }
+
+    @Override
+    public void submitSubtask(int subtaskId) {
+
+    }
+
+    @Override
     public void viewById(int id) throws Exception {
         Subtask subTask = subTaskIDao.getById(id);
         System.out.println("| id: " + subTask.getId() + " ".repeat(40 - String.valueOf(subTask.getId()).length()) + "|");

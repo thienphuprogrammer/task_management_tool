@@ -80,6 +80,41 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
+    public void addMemberToProject(int projectId, int memberId) {
+
+    }
+
+    @Override
+    public void removeMemberFromProject(int projectId, int memberId) {
+
+    }
+
+    @Override
+    public void viewMember() {
+
+    }
+
+    @Override
+    public void viewReport() {
+
+    }
+
+    @Override
+    public void getDocByProjectId(int memberId) {
+
+    }
+
+    @Override
+    public void viewProjectMember(int projectId, int memberId) {
+
+    }
+
+    @Override
+    public void viewAllMember(int memberId) {
+
+    }
+
+    @Override
     public void viewById(int id) throws Exception {
         Project project = projectIDao.getById(id);
         System.out.println("| id: " + project.getId() + " ".repeat(40 - String.valueOf(project.getId()).length()) + "|");

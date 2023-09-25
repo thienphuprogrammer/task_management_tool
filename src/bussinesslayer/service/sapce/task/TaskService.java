@@ -78,6 +78,26 @@ public class TaskService implements ITaskService {
     }
 
     @Override
+    public void viewTaskSprint(int taskId, int sprintId) {
+
+    }
+
+    @Override
+    public void viewAllTaskProject(int sprintId) {
+
+    }
+
+    @Override
+    public void submitTask(int taskId) {
+
+    }
+
+    @Override
+    public void viewAllTaskBacklog(int projectId) {
+
+    }
+
+    @Override
     public void viewById(int id) throws Exception {
         Task task = taskIDao.getById(id);
         System.out.println("| id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");

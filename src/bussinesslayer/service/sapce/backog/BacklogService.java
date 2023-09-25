@@ -1,6 +1,7 @@
 package bussinesslayer.service.sapce.backog;
 
 import bussinesslayer.entity.space.Backlog;
+import bussinesslayer.entity.space.Task;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
@@ -70,12 +71,32 @@ public class BacklogService implements IBacklogService {
     }
 
     @Override
+    public void viewBacklogByProjectId(int projectId) {
+
+    }
+
+    @Override
+    public void updateTaskBacklog(Task task, int taskId) {
+
+    }
+
+    @Override
+    public void deleteTaskBacklog(int taskId) {
+
+    }
+
+    @Override
+    public void viewAllTaskBacklog(int projectId) {
+
+    }
+
+    @Override
+    public void createTaskBacklog(Task task) {
+
+    }
+
+    @Override
     public void viewById(int id) throws Exception {
-        Backlog backlog = backlogIDao.getById(id);
-        System.out.println("| id: " + backlog.getId() + " ".repeat(40 - String.valueOf(backlog.getId()).length()) + "|");
-        System.out.println("| Title: " + backlog.getTitle() + " ".repeat(40 - String.valueOf(backlog.getTitle()).length()) + "|");
-        System.out.println("| Description: " + backlog.getDescription() + " ".repeat(36 - String.valueOf(backlog.getDescription()).length()) + "|");
-        System.out.println("| File URL: " + backlog.getFileURL() + " ".repeat(43 - String.valueOf(backlog.getFileURL()).length()) + "|");
     }
     public Backlog getBacklogByProjectId(int projectId) throws Exception {
         return backlogIDao.getBacklogByProjectId(projectId);

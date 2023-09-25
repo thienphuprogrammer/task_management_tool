@@ -53,6 +53,16 @@ public class ReportBacklogService implements IReportBacklogService {
     }
 
     @Override
+    public void viewReport(int projectId) {
+
+    }
+
+    @Override
+    public void updateReportBacklog(ReportBacklog reportBacklog) {
+
+    }
+
+    @Override
     public void viewById(int id) throws Exception {
         ReportBacklog reportBacklog = reportBacklogIDao.getById(id);
         System.out.println("| id: " + reportBacklog.getId() + " ".repeat(40 - String.valueOf(reportBacklog.getId()).length()) + "|");

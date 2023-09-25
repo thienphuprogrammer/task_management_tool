@@ -40,4 +40,9 @@ public class ReportSprintService implements IReportSprintService {
     public void viewAll() throws Exception {
 
     }
+
+    @Override
+    public void createReport(ReportSprint reportSprint) {
+
+    }
 }

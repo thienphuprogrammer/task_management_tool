@@ -66,4 +66,19 @@ public class MemberService implements IUserService<Member> {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void changePassword(int id, String password) {
+
+    }
+
+    @Override
+    public void changeEmail(int id, String email) {
+
+    }
+
+    @Override
+    public void viewAllMember(int managerId) {
+
+    }
 }

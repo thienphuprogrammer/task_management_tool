@@ -35,7 +35,6 @@ public class ReportBacklogDao implements IReportBacklogDao {
                 reportBacklog.setDate(resultSet.getDate("date").toLocalDate());
                 reportBacklog.setDescription(resultSet.getString("Description"));
                 reportBacklog.setBacklog_id(resultSet.getInt("backlog_id"));
-                reportBacklog.setTask_id(resultSet.getInt("task_id"));
                 return reportBacklog;
             }
         } catch (SQLException exception) {
@@ -59,7 +58,6 @@ public class ReportBacklogDao implements IReportBacklogDao {
                 reportBacklog.setDate(resultSet.getDate("date").toLocalDate());
                 reportBacklog.setDescription(resultSet.getString("Description"));
                 reportBacklog.setBacklog_id(resultSet.getInt("backlog_id"));
-                reportBacklog.setTask_id(resultSet.getInt("task_id"));
                 list.add(reportBacklog);
             }
         } catch (SQLException e) {
@@ -76,7 +74,6 @@ public class ReportBacklogDao implements IReportBacklogDao {
             statement.setDate(1, Date.valueOf(space.getDate()));
             statement.setString(2, space.getDescription());
             statement.setInt(3, space.getBacklog_id());
-            statement.setInt(4, space.getTask_id());
             statement.setInt(5, space.getId());
             statement.executeUpdate();
         } catch (SQLException exception) {
@@ -93,7 +90,6 @@ public class ReportBacklogDao implements IReportBacklogDao {
             statement.setDate(1, Date.valueOf(space.getDate()));
             statement.setString(2, space.getDescription());
             statement.setInt(3, space.getBacklog_id());
-            statement.setInt(4, space.getTask_id());
             statement.setInt(5, space.getId());
             statement.executeUpdate();
         } catch (SQLException exception) {
