@@ -1,16 +1,16 @@
 package bussinesslayer.service.sapce.project;
 
 import bussinesslayer.entity.space.Project;
-import bussinesslayer.service.IService;
+import bussinesslayer.entity.user.Member;
 import datalayer.DaoFactory;
-import datalayer.IDao;
 import datalayer.IDaoFactory;
+import datalayer.spacedao.projectdao.IProjectDao;
 
 import java.util.List;
 
 public class ProjectService implements IProjectService {
     // -------------------- Properties ------------------------
-    private IDao<Project> projectIDao;
+    private IProjectDao projectIDao;
     IDaoFactory projectDapFactory;
 
     // -------------------- Constructor ------------------------
@@ -22,11 +22,11 @@ public class ProjectService implements IProjectService {
     // -------------------- Getters and Setters ------------------------
 
 
-    public IDao<Project> getProjectIDao() {
+    public IProjectDao getProjectIDao() {
         return projectIDao;
     }
 
-    public void setProjectIDao(IDao<Project> projectIDao) {
+    public void setProjectIDao(IProjectDao projectIDao) {
         this.projectIDao = projectIDao;
     }
     // -------------------- Methods -----------------------
@@ -80,38 +80,61 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public void addMemberToProject(int projectId, int memberId) {
-
+    public void addMemberToProject(int projectId, int memberId, int managerId) throws Exception {
+        Project project = projectIDao.getById(projectId);
+        if (project.getManagerId() == managerId) {
+            projectIDao.addMemberToProject(projectId, memberId, managerId);
+        } else {
+            throw new Exception("You are not the manager of this project");
+        }
     }
 
     @Override
-    public void removeMemberFromProject(int projectId, int memberId) {
-
+    public void removeMemberFromProject(int projectId, int memberId, int managerId) throws Exception {
+        Project project = projectIDao.getById(projectId);
+        if (project.getManagerId() == managerId) {
+            projectIDao.removeMemberFromProject(projectId, memberId, managerId);
+        } else {
+            throw new Exception("You are not the manager of this project");
+        }
     }
 
     @Override
-    public void viewMember() {
-
+    public List<Member> getMember(int projectId, int managerId) throws Exception {
+        List<Member> list = null;
+        Project project = projectIDao.getById(projectId);
+        if (project.getManagerId() == managerId) {
+            list = projectIDao.getAllMemberProject(projectId, managerId);
+        } else {
+            throw new Exception("You are not the manager of this project");
+        }
+        return list;
+    }
+    @Override
+    public Project getProject(int projectId, int memberId) throws Exception {
+        Project project = projectIDao.getById(projectId);
+        if (project.getManagerId() == memberId) {
+            return project;
+        } else {
+            throw new Exception("You don't manager of this project");
+        }
     }
 
     @Override
-    public void viewReport() {
-
+    public List<Member> getAllMember(int projectId, int memberId) throws Exception {
+        Project project = projectIDao.getById(projectId);
+        List<Member> list = null;
+        if (project.getManagerId() == memberId) {
+            list = projectIDao.getAllMemberProject(projectId, memberId);
+        } else {
+            throw new Exception("You don't manager of this project");
+        }
+        return list;
     }
 
     @Override
-    public void getDocByProjectId(int memberId) {
-
-    }
-
-    @Override
-    public void viewProjectMember(int projectId, int memberId) {
-
-    }
-
-    @Override
-    public void viewAllMember(int memberId) {
-
+    public List<Project> getAllProject(int userId) throws Exception {
+        return projectIDao.getAllProject(userId);
     }
 
     @Override
@@ -123,6 +146,5 @@ public class ProjectService implements IProjectService {
         System.out.println("| Start Date: " + project.getStartDate() + " ".repeat(43 - String.valueOf(project.getStartDate()).length()) + "|");
         System.out.println("| End Date: " + project.getEndDate() + " ".repeat(43 - String.valueOf(project.getEndDate()).length()) + "|");
         System.out.println("| Manager ID: " + project.getManagerId() + " ".repeat(43 - String.valueOf(project.getManagerId()).length()) + "|");
-
     }
 }

@@ -2,12 +2,16 @@ package bussinesslayer.entity.user;
 
 public class Manager extends User{
     private String role;
-    private boolean gender;
+    private String gender;
 
-    public Manager(int id, String name, int age, String email, String password, String phone_number, String address, String role, boolean gender) {
+    public Manager(int id, String name, int age, String email, String password, String phone_number, String address, String role, String gender) {
         super(id, name, age, email, password, phone_number, address);
         this.role = role;
         this.gender = gender;
+    }
+
+    public Manager() {
+
     }
 
     public String getRole() {
@@ -18,11 +22,11 @@ public class Manager extends User{
         this.role = role;
     }
 
-    public boolean isGender() {
+    public String isGender() {
         return gender;
     }
 
-    public void setGender(boolean gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 }

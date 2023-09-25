@@ -1,15 +1,14 @@
 package application.ui.manager;
 
 import bussinesslayer.entity.space.Project;
-import bussinesslayer.entity.user.Manager;
+import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.report.reportproject.IReportProjectService;
 import bussinesslayer.service.report.reportproject.ReportProjectService;
 import bussinesslayer.service.sapce.project.IProjectService;
 import bussinesslayer.service.sapce.project.ProjectService;
-import bussinesslayer.service.user.IUserService;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
+import java.util.List;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
@@ -68,8 +67,8 @@ public class ProjectManagerMenu {
                         case ADD_MEMBER_TO_PROJECT -> this.addMemberToProject();
                         case REMOVE_MEMBER_FROM_PROJECT -> this.removeMemberFromProject();
                         case VIEW_MEMBER -> this.viewMember();
-                        case BACKLOG_MANAGER -> this.manageBacklog();
-                        case SPRINT_MANAGER -> this.manageSprint();
+                        case BACKLOG_MANAGER -> this.processMenuForBacklogManager();
+                        case SPRINT_MANAGER -> this.processMenuForSprintManager();
                         case VIEW_REPORT -> this.viewReport();
                         case DOCUMENT_PROJECT -> this.documentProject();
                     }
@@ -79,59 +78,126 @@ public class ProjectManagerMenu {
             }
         }
     }
-    private void editProject() throws Exception {
-        int projectId = readInt("Enter project id: ");
-        Project project = serviceProject.getById(projectId);
-        project.setName(readString("Enter new project name: "));
-        project.setDescription(readString("Enter new project description: "));
-        project.setStartDate(readLocalDate("Enter new project start date: "));
-        project.setEndDate(readLocalDate("Enter new project end date: "));
-        serviceProject.update(project);
+    private void editProject() {
+        try {
+            int projectId = readInt("Enter project id: ");
+            Project project = serviceProject.getById(projectId);
+            if (project.getManagerId() == managerId) {
+                project.setName(readString("Enter new project name: "));
+                project.setDescription(readString("Enter new project description: "));
+                project.setStartDate(readLocalDate("Enter new project start date: "));
+                project.setEndDate(readLocalDate("Enter new project end date: "));
+                serviceProject.update(project);
+            } else {
+                printValueln("You are not manager of this project.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void deleteProject() throws Exception {
-        int projectId = readInt("Enter project id: ");
-        serviceProject.delete(projectId);
+    private void deleteProject()  {
+        try {
+            int projectId = readInt("Enter project id: ");
+            if (serviceProject.getById(projectId).getManagerId() == managerId) {
+                serviceProject.delete(projectId);
+            } else {
+                printValueln("You are not manager of this project.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void createProject() throws Exception {
-        String name = readString("Enter project name: ");
-        String description = readString("Enter project description: ");
-        LocalDate startDate = readLocalDate("Enter project start date: ");
-        LocalDate endDate = readLocalDate("Enter project end date: ");
-        //Project project = new Project(name, description, startDate, endDate, serviceManager.getAll().get(0).getId());
+        try {
+            String name = readString("Enter project name: ");
+            String description = readString("Enter project description: ");
+            LocalDate startDate = readLocalDate("Enter project start date: ");
+            LocalDate endDate = readLocalDate("Enter project end date: ");
+            Project project = new Project(name, description, startDate, endDate, managerId);
+            serviceProject.create(project);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void viewProject() throws Exception {
-        serviceProject.viewAll();
+    private void viewProject() {
+        try {
+            List<Project> list = serviceProject.getAllProject(managerId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void addMemberToProject() throws Exception {
-        int projectId = readInt("Enter project id: ");
-        int memberId = readInt("Enter member id: ");
-        serviceProject.addMemberToProject(projectId, memberId);
+    private void addMemberToProject() {
+        try {
+            int projectId = readInt("Enter project id: ");
+            int memberId = readInt("Enter member id: ");
+            serviceProject.addMemberToProject(projectId, memberId, managerId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void removeMemberFromProject() throws Exception {
-        int projectId = readInt("Enter project id: ");
-        int memberId = readInt("Enter member id: ");
-        serviceProject.removeMemberFromProject(projectId, memberId);
+    private void removeMemberFromProject() {
+        try {
+            int projectId = readInt("Enter project id: ");
+            int memberId = readInt("Enter member id: ");
+            serviceProject.removeMemberFromProject(projectId, memberId, managerId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
+
     }
-    private void viewMember() {
-        serviceProject.viewMember();
+    private void viewMember() throws Exception {
+        try {
+            int projectId = readInt("Enter project id: ");
+            List<Member> list = serviceProject.getMember(projectId, managerId);
+            serviceProject.getMember(projectId, managerId);
+        } catch (Exception e) {
+            printValue(e.getMessage());
+        }
     }
 
-    private void manageBacklog() throws Exception {
-        int projectId = readInt("Enter project id: ");
-        BacklogManagerMenu backlogManagerMenu = new BacklogManagerMenu(projectId);
-        backlogManagerMenu.processMenuForBacklogManager();
+    private void processMenuForBacklogManager() {
+        try {
+            int projectId = readInt("Enter project id: ");
+            Project project = serviceProject.getById(projectId);
+            if (project.getManagerId() == managerId) {
+                BacklogManagerMenu backlogManagerMenu = new BacklogManagerMenu(projectId);
+                backlogManagerMenu.processMenuForBacklogManager();
+            } else {
+                printValueln("You are not manager of this project.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void manageSprint() throws Exception {
-        int projectId = readInt("Enter project id: ");
-        SprintManagerMenu sprintManagerMenu = new SprintManagerMenu(projectId);
-        sprintManagerMenu.processMenuForSprintManager();
+    private void processMenuForSprintManager()  {
+        try {
+            int projectId = readInt("Enter project id: ");
+            Project project = serviceProject.getById(projectId);
+            if (project.getManagerId() == managerId) {
+                SprintManagerMenu sprintManagerMenu = new SprintManagerMenu(projectId);
+                sprintManagerMenu.processMenuForSprintManager();
+            } else {
+                printValueln("You are not manager of this project.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void viewReport() {
-        serviceProject.viewReport();
-    }
-    private void documentProject() throws Exception {
+    private void viewReport() throws Exception {
         int projectId = readInt("Enter project id: ");
-        DocumentManagerMenu documentManagerMenu = new DocumentManagerMenu(managerId);
-        documentManagerMenu.processMenuForDocumentManager();
+//        reportProjectService.getReport(managerId, projectId);
+    }
+    private void documentProject() {
+        try {
+            int projectId = readInt("Enter project id: ");
+            if (serviceProject.getById(projectId).getManagerId() == managerId) {
+                DocumentManagerMenu documentManagerMenu = new DocumentManagerMenu(managerId);
+                documentManagerMenu.processMenuForDocumentManager();
+            } else {
+                printValueln("You are not manager of this project.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

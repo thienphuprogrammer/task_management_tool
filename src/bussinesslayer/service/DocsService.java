@@ -52,7 +52,12 @@ public class DocsService implements IDocsService {
     }
 
     @Override
-    public void viewDocumentByProjectId(int projectId) {
+    public void getDocument(int projectId) {
+
+    }
+
+    @Override
+    public void getDocument(int projectId, int userId) throws Exception {
 
     }
 }

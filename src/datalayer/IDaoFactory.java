@@ -1,10 +1,5 @@
 package datalayer;
 
-import bussinesslayer.entity.report.ReportProject;
-import bussinesslayer.entity.report.ReportSprint;
-import bussinesslayer.entity.report.ReportTask;
-import bussinesslayer.entity.space.*;
-import bussinesslayer.entity.user.Admin;
 import datalayer.report.reportbacklogdao.IReportBacklogDao;
 import datalayer.report.reportprojectdao.IReportProjectDao;
 import datalayer.report.reportsprintdao.IReportSprintDao;
@@ -12,7 +7,7 @@ import datalayer.report.reporttaskdao.IReportTaskDao;
 import datalayer.spacedao.backlogdao.IBacklogDao;
 import datalayer.spacedao.projectdao.IProjectDao;
 import datalayer.spacedao.sprintdao.ISprintDao;
-import datalayer.spacedao.substaskdao.ISubTaskDao;
+import datalayer.spacedao.substaskdao.ISubtaskDao;
 import datalayer.spacedao.taskdao.ITaskDao;
 import datalayer.user.admindao.IAdminDao;
 import datalayer.user.managerdao.IManagerDao;
@@ -27,7 +22,7 @@ public interface IDaoFactory {
 
     ITaskDao getTaskDao() throws Exception;
 
-    ISubTaskDao getSubTaskDao() throws Exception;
+    ISubtaskDao getSubTaskDao() throws Exception;
 
     IAdminDao getAdminDao() throws Exception;
 

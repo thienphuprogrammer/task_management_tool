@@ -13,6 +13,7 @@ public class SprintMemberMenu {
     private final ISprintService sprintService = new SprintService();
     private final IReportSprintService reportSprintService = new ReportSprintService();
     private int projectId;
+    private int memberId;
     public enum CHOICE_SPRINT_MEMBER_MENU {
         EXIT,
         VIEW_MY_SPRINT,
@@ -21,8 +22,9 @@ public class SprintMemberMenu {
     }
     // -------------------- Constructor ------------------------
 
-    public SprintMemberMenu(int projectId) throws Exception {
+    public SprintMemberMenu(int projectId, int memberId) throws Exception {
         this.projectId = projectId;
+        this.memberId = memberId;
     }
 
     // -------------------- Getters and Setters ------------------------
@@ -43,7 +45,7 @@ public class SprintMemberMenu {
                 } else {
                     switch (CHOICE_SPRINT_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case VIEW_MY_SPRINT -> this.viewMySprint();
+                        case VIEW_MY_SPRINT -> this.getMySprint();
                         case VIEW_ALL_SPRINT -> this.viewAllSprint();
                         case TASK_MEMBER -> this.processMenuForTaskMember();
                         default -> {
@@ -55,15 +57,16 @@ public class SprintMemberMenu {
             }
         }
     }
-    private void viewMySprint() throws Exception {
+    private void getMySprint() throws Exception {
         int sprintId = readInt("Enter sprint id: ");
-        sprintService.viewSprintProject(sprintId, projectId);
+        sprintService.getMySprintProject(sprintId, projectId);
     }
     private void viewAllSprint() {
-        sprintService.viewAllSprintProject(projectId);
+        sprintService.getAllSprintProject(projectId);
     }
     private void processMenuForTaskMember() throws Exception {
-        TaskMemberMenu taskMemberMenu = new TaskMemberMenu(projectId);
+        int sprintId = readInt("Enter sprint id: ");
+        TaskMemberMenu taskMemberMenu = new TaskMemberMenu(sprintId, memberId);
         taskMemberMenu.processMenuForTaskMember();
     }
 }
