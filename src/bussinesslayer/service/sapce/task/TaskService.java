@@ -1,16 +1,16 @@
 package bussinesslayer.service.sapce.task;
 
 import bussinesslayer.entity.space.Task;
-import bussinesslayer.service.IService;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
+import datalayer.spacedao.taskdao.ITaskDao;
 
 import java.util.List;
 
 public class TaskService implements ITaskService {
     // -------------------- Properties ------------------------
-    private IDao<Task> taskIDao;
+    private ITaskDao taskIDao;
     IDaoFactory taskFactory;
 
     // -------------------- Constructor ------------------------
@@ -20,11 +20,11 @@ public class TaskService implements ITaskService {
     }
 
     // -------------------- Getters and Setters ------------------------
-    public IDao<Task> getTaskIDao() {
+    public ITaskDao getTaskIDao() {
         return taskIDao;
     }
 
-    public void setTaskIDao(IDao<Task> taskIDao) {
+    public void setTaskIDao(ITaskDao taskIDao) {
         this.taskIDao = taskIDao;
     }
     // -------------------- Methods ------------------------
@@ -78,23 +78,34 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public void viewTaskSprint(int taskId, int sprintId) {
-
+    public Task getTask(int taskId, int sprintId) throws Exception {
+        Task task = taskIDao.getById(taskId);
+        if (task.getSprintId() == sprintId) {
+            return task;
+        } else {
+            throw new Exception("Task is not in this sprint.");
+        }
     }
 
     @Override
-    public void viewAllTaskProject(int sprintId) {
+    public List<Task> getAllMyTaskMember(int sprintId, int memberId) {
+        return taskIDao.getAllMyTaskMember(sprintId, memberId);
+    }
 
+
+    @Override
+    public List<Task> getAllTaskProject(int sprintId) {
+        return taskIDao.getAllTaskProject(sprintId);
     }
 
     @Override
     public void submitTask(int taskId) {
-
+        taskIDao.submitTask(taskId);
     }
 
     @Override
-    public void viewAllTaskBacklog(int projectId) {
-
+    public List<Task> getAllTask(int backlogId) {
+        return taskIDao.getAllTask(backlogId);
     }
 
     @Override

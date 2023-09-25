@@ -12,17 +12,20 @@ public class SubtaskMemberMenu {
     private final ISubtaskService subtaskService = new SubtaskService();
     private final IReportSubtaskService reportSubtaskService = new ReportSubtaskService();
     private int taskId;
+    private int memberId;
     public enum CHOICE_SUBTASK_MEMBER_MENU {
         EXIT,
         SUBMIT_SUBTASK,
         VIEW_MY_SUBTASK,
+        VIEW_ALL_MY_SUBTASK,
         VIEW_ALL_SUBTASK,
         VIEW_REPORT_SUBTASK
     }
     // -------------------- Constructor ------------------------
 
-    public SubtaskMemberMenu(int taskId) throws Exception {
+    public SubtaskMemberMenu(int taskId, int memberId) throws Exception {
         this.taskId = taskId;
+        this.memberId = memberId;
     }
 
     // -------------------- Getters and Setters ------------------------
@@ -47,6 +50,7 @@ public class SubtaskMemberMenu {
                         case VIEW_MY_SUBTASK -> this.viewMySubtask();
                         case VIEW_ALL_SUBTASK -> this.viewAllSubtask();
                         case SUBMIT_SUBTASK -> this.submitSubtask();
+                        case VIEW_ALL_MY_SUBTASK -> this.viewAllMySubtask();
                     }
                 }
             } catch (Exception e) {
@@ -59,14 +63,34 @@ public class SubtaskMemberMenu {
         reportSubtaskService.viewReport(subtaskId);
     }
     private void viewMySubtask() throws Exception {
-        int subtaskId = readInt("Enter subtask id: ");
-        subtaskService.viewSubtaskProject(subtaskId, taskId);
+        try {
+            int subtaskId = readInt("Enter subtask id: ");
+            subtaskService.getSubtaskProject(subtaskId, taskId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
+    }
+    private void viewAllMySubtask() throws Exception {
+        try {
+            subtaskService.getAllMySubtaskProject(taskId, memberId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void viewAllSubtask() {
         subtaskService.viewAllSubtaskProject(taskId);
     }
-    private void submitSubtask() throws Exception {
-        int subtaskId = readInt("Enter subtask id: ");
-        subtaskService.submitSubtask(subtaskId);
+    private void submitSubtask(){
+        try {
+            int taskId = readInt("Enter task id: ");
+            if (taskId == this.taskId) {
+                int subtaskId = readInt("Enter subtask id: ");
+                subtaskService.submitSubtask(subtaskId);
+            } else {
+                printValueln("Invalid task id.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

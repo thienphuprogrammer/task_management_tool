@@ -1,9 +1,7 @@
 package application.ui.member;
 
-import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.DocsService;
 import bussinesslayer.service.IDocsService;
-import bussinesslayer.service.user.IUserService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -51,6 +49,6 @@ public class DocumentMemberMenu {
         }
     }
     private void viewDocument() {
-        serviceDoc.viewDocumentByProjectId(projectId);
+        serviceDoc.getDocument(projectId);
     }
 }

@@ -1,10 +1,7 @@
 package bussinesslayer.service.report.reportbacklog;
 
 import bussinesslayer.entity.report.ReportBacklog;
-import bussinesslayer.entity.space.Backlog;
-import bussinesslayer.service.report.IReportService;
 import datalayer.DaoFactory;
-import datalayer.IDao;
 import datalayer.IDaoFactory;
 import datalayer.report.reportbacklogdao.IReportBacklogDao;
 
@@ -53,8 +50,9 @@ public class ReportBacklogService implements IReportBacklogService {
     }
 
     @Override
-    public void viewReport(int projectId) {
+    public List<ReportBacklog> viewReport(int backlogId) throws Exception {
 
+        return null;
     }
 
     @Override

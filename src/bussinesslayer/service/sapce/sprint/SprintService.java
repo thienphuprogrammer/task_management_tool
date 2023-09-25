@@ -2,6 +2,7 @@ package bussinesslayer.service.sapce.sprint;
 
 import bussinesslayer.entity.space.Sprint;
 import datalayer.DaoFactory;
+import datalayer.IDao;
 import datalayer.IDaoFactory;
 import datalayer.spacedao.sprintdao.ISprintDao;
 
@@ -67,33 +68,13 @@ public class SprintService implements ISprintService {
         }
     }
     @Override
-    public List<Sprint> getAllSprint(int projectId) {
+    public List<Sprint> getAllSprintProject(int projectId) {
         return sprintIDao.getAllSprintProject(projectId);
     }
 
     @Override
-    public List<Sprint> getSprintMember(int projectId, int memberId) {
-        return sprintIDao.getSprintMemberProject(projectId, memberId);
-    }
-
-    @Override
-    public void createSprint(Sprint sprint) {
-
-    }
-
-    @Override
-    public void viewReport(int sprintId) {
-
-    }
-
-    @Override
-    public void viewSprintProject(int sprintId, int projectId) {
-
-    }
-
-    @Override
-    public void viewAllSprintProject(int projectId) {
-
+    public List<Sprint> getMySprintProject(int sprintId, int projectId) {
+        return sprintIDao.getMySprintProject(sprintId, projectId);
     }
 
     @Override

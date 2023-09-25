@@ -1,9 +1,13 @@
 package application.ui.member;
 
+import bussinesslayer.entity.space.Project;
 import bussinesslayer.entity.user.Member;
+import bussinesslayer.service.DocsService;
+import bussinesslayer.service.IDocsService;
 import bussinesslayer.service.sapce.project.IProjectService;
 import bussinesslayer.service.sapce.project.ProjectService;
-import bussinesslayer.service.user.IUserService;
+
+import java.util.List;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -11,6 +15,7 @@ import static application.utilities.OutputUtil.*;
 public class ProjectMemberMenu {
     // -------------------- Properties ------------------------
     private final IProjectService serviceProject = new ProjectService();
+    private final IDocsService serviceDocs = new DocsService();
     private int memberId;
     public enum CHOICE_PROJECT_MEMBER_MENU {
         EXIT,
@@ -56,19 +61,39 @@ public class ProjectMemberMenu {
             }
         }
     }
-    private void viewAProject() throws Exception {
-        int projectId = readInt("Enter project id: ");
-        serviceProject.viewProjectMember(projectId, memberId);
+    private void viewAProject() {
+        try {
+            int projectId = readInt("Enter project id: ");
+            serviceProject.getProject(projectId, memberId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void viewAllProject() throws Exception {
-        serviceProject.viewAllMember(memberId);
+    private void viewAllProject() {
+        try {
+            int projectId = readInt("Enter project id: ");
+            List<Member>  list = serviceProject.getAllMember(projectId, memberId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void viewDocument() throws Exception {
         int projectId = readInt("Enter project id: ");
-        serviceProject.getDocByProjectId(projectId);
+        serviceDocs.getDocument(projectId, memberId);
     }
-    private void processMenuForSprintMember() throws Exception {
-        SprintMemberMenu sprintMemberMenu = new SprintMemberMenu(memberId);
-        sprintMemberMenu.processMenuForSprintMember();
+    private void processMenuForSprintMember() {
+        try {
+            int projectId = readInt("Enter project id: ");
+            Project project = serviceProject.getProject(projectId, memberId);
+            if (project != null) {
+                SprintMemberMenu sprintMemberMenu = new SprintMemberMenu(projectId, memberId);
+                sprintMemberMenu.processMenuForSprintMember();
+            } else {
+                printValueln("Project not found.");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

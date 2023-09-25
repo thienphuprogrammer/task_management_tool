@@ -3,15 +3,19 @@ package bussinesslayer.service.sapce.task;
 import bussinesslayer.entity.space.Task;
 import bussinesslayer.service.IService;
 
+import java.util.List;
+
 public interface ITaskService extends IService<Task> {
     void viewById(int id) throws Exception;
     void viewAll() throws Exception;
 
-    void viewTaskSprint(int taskId, int sprintId);
+    Task getTask(int taskId, int sprintId) throws Exception;
 
-    void viewAllTaskProject(int sprintId);
+    List<Task> getAllTaskProject(int sprintId);
 
     void submitTask(int taskId);
 
-    void viewAllTaskBacklog(int projectId);
+    List<Task> getAllTask(int backlogId);
+
+    List<Task> getAllMyTaskMember(int sprintId, int memberId);
 }

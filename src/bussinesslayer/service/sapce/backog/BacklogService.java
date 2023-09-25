@@ -59,6 +59,11 @@ public class BacklogService implements IBacklogService {
     }
 
     @Override
+    public void viewById(int id) throws Exception {
+        backlogIDao.getById(id);
+    }
+
+    @Override
     public void viewAll() throws Exception {
         try {
             List<Backlog> list = backlogIDao.getAll();
@@ -68,37 +73,5 @@ public class BacklogService implements IBacklogService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void viewBacklogByProjectId(int projectId) {
-
-    }
-
-    @Override
-    public void updateTaskBacklog(Task task, int taskId) {
-
-    }
-
-    @Override
-    public void deleteTaskBacklog(int taskId) {
-
-    }
-
-    @Override
-    public void viewAllTaskBacklog(int projectId) {
-
-    }
-
-    @Override
-    public void createTaskBacklog(Task task) {
-
-    }
-
-    @Override
-    public void viewById(int id) throws Exception {
-    }
-    public Backlog getBacklogByProjectId(int projectId) throws Exception {
-        return backlogIDao.getBacklogByProjectId(projectId);
     }
 }

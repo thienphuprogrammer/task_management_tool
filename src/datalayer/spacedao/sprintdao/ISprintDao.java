@@ -8,5 +8,5 @@ import java.util.List;
 public interface ISprintDao extends ISpaceDao<Sprint> {
     List<Sprint> getAllSprintProject(int projectId);
 
-    List<Sprint> getSprintMemberProject(int projectId, int memberId);
+    List<Sprint> getMySprintProject(int sprintId, int projectId);
 }

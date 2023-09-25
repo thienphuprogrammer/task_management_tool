@@ -8,7 +8,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDao implements IProjectDao {
@@ -52,7 +51,7 @@ public class ProjectDao implements IProjectDao {
 
     @Override
     public List<Project> getAll() throws Exception {
-        List<Project> list = new ArrayList<>();
+        List<Project> list = null;
         try {
             String sql = "SELECT * FROM Project";
             connection = getConnection();
@@ -123,7 +122,7 @@ public class ProjectDao implements IProjectDao {
     }
 
     @Override
-    public void addMemberToProject(int projectId, int memberId) {
+    public void addMemberToProject(int projectId, int memberId, int managerId) {
         try {
             String sql = "INSERT INTO Member_Project (project_id, member_id) VALUES (?, ?)";
             connection = getConnection();
@@ -137,7 +136,7 @@ public class ProjectDao implements IProjectDao {
     }
 
     @Override
-    public void removeMemberFromProject(int projectId, int memberId) {
+    public void removeMemberFromProject(int projectId, int memberId, int managerId) {
         try {
             String sql = "DELETE FROM Member_Project WHERE project_id = ? AND member_id = ?";
             connection = getConnection();
@@ -152,12 +151,9 @@ public class ProjectDao implements IProjectDao {
 
     @Override
     public List<Member> getAllMemberProject(int projectId, int managerId) {
-        List<Member> list = new ArrayList<>();
+        List<Member> list = null;
         try {
-            String sql = "SELECT * FROM Member_Project as mp " +
-                    "JOIN Project as p on p.id = mp.project_id " +
-                    "JOIN Member as m on m.id = mp.member_id " +
-                    "WHERE p.id = ? AND p.manager_id = ?";
+            String sql = "SELECT * FROM Member_Project WHERE project_id = ? AND manager_id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
             statement.setInt(1, projectId);
@@ -171,7 +167,7 @@ public class ProjectDao implements IProjectDao {
                 member.setPhoneNumber(resultSet.getString("phone_number"));
                 member.setAge(resultSet.getInt("age"));
                 member.setAddress(resultSet.getString("address"));
-                member.setGender(resultSet.getString("gender"));
+                member.setGender(resultSet.getBoolean("gender"));
                 member.setRole(resultSet.getString("role"));
                 list.add(member);
             }
@@ -183,7 +179,7 @@ public class ProjectDao implements IProjectDao {
 
     @Override
     public List<Project> getAllProject(int userId) {
-        List<Project> list = new ArrayList<>();
+        List<Project> list = null;
         try {
             String sql = "SELECT * FROM Project WHERE manager_id = ?";
             connection = getConnection();
@@ -202,90 +198,6 @@ public class ProjectDao implements IProjectDao {
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-        return list;
-    }
-
-    @Override
-    public List<Project> getProjectMember(int memberId) {
-        List<Project> list = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM Project as pr " +
-                    "JOIN Member_Project as mp ON pr.id = mp.project_id " +
-                    "JOIN Member as mb ON mp.member_id = mb.id " +
-                    "WHERE mb.id = ?";
-            connection = getConnection();
-            statement = connection.prepareStatement(sql);
-            statement.setInt(1, memberId);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Project project = new Project();
-                project.setId(resultSet.getInt("id"));
-                project.setDescription(resultSet.getString("description"));
-                project.setName(resultSet.getString("name"));
-                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
-                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                project.setManagerId(resultSet.getInt("manager_id"));
-                list.add(project);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    @Override
-    public Project getMemberByProjectId(int projectId, int memberId) {
-        Project project = null;
-        try {
-            String sql = "SELECT * FROM Project as pr " +
-                    "JOIN Member_Project as mp ON pr.id = mp.project_id " +
-                    "JOIN Member as mb ON mp.member_id = mb.id " +
-                    "WHERE pr.id = ? AND mb.id = ?";
-            connection = getConnection();
-            statement = connection.prepareStatement(sql);
-            statement.setInt(1, projectId);
-            statement.setInt(2, memberId);
-            resultSet = statement.executeQuery();
-            if (resultSet.next()) {
-                project = new Project();
-                project.setId(resultSet.getInt("id"));
-                project.setDescription(resultSet.getString("description"));
-                project.setName(resultSet.getString("name"));
-                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
-                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                project.setManagerId(resultSet.getInt("manager_id"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return project;
-    }
-
-    @Override
-    public List<Project> getAllProjectMember(int memberId) {
-        List<Project> list = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM Project as pr " +
-                    "JOIN Member_Project as mp ON pr.id = mp.project_id " +
-                    "JOIN Member as mb ON mp.member_id = mb.id " +
-                    "WHERE mb.id = ?";
-            connection = getConnection();
-            statement = connection.prepareStatement(sql);
-            statement.setInt(1, memberId);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Project project = new Project();
-                project.setId(resultSet.getInt("id"));
-                project.setDescription(resultSet.getString("description"));
-                project.setName(resultSet.getString("name"));
-                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
-                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                project.setManagerId(resultSet.getInt("manager_id"));
-                list.add(project);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return list;
     }
