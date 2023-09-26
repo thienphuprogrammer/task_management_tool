@@ -51,7 +51,13 @@ public class DocumentMemberMenu {
     }
     private void viewDocument() {
         try {
-            Document document = serviceDoc.getDocument(projectId);
+            Document doc = serviceDoc.getDocument(projectId);
+            printLineSeparate("Document");
+            printValue("id: " + doc.getId() + " ".repeat(40 - String.valueOf(doc.getId()).length()) + "|");
+            printValue("Title: " + doc.getTitle());
+            printValueln("Description: " + doc.getDescription());
+            printValueln("Content: " + doc.getContent());
+            printLineSeparate("");
         } catch (Exception e) {
             printValueln(e.getMessage());
         }

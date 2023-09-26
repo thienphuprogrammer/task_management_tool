@@ -220,4 +220,32 @@ public class TaskDao implements ITaskDao {
         }
         return list;
     }
+
+    @Override
+    public List<Task> getTaskProgress(int sprintId) {
+        List<Task> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM ReportTask WHERE sprint_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, sprintId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Task task = new Task();
+                task.setId(resultSet.getInt("id"));
+                task.setDescription(resultSet.getString("description"));
+                task.setName(resultSet.getString("name"));
+                task.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                task.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                task.setMemberId(resultSet.getInt("member_id"));
+                task.setSprintId(resultSet.getInt("sprint_id"));
+                task.setStatus(resultSet.getInt("status"));
+                list.add(task);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
 }

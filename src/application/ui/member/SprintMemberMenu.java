@@ -62,8 +62,14 @@ public class SprintMemberMenu {
     }
     private void viewMySprint() throws Exception {
         try {
-            List<Sprint> sprintList = sprintService.getSprintMember(memberId);
-
+            List<Sprint> sprintList = sprintService.getSprintMember(projectId, memberId);
+            for (Sprint sprint : sprintList) {
+                printValue("Sprint id: " + sprint.getId() + " ".repeat(40 - String.valueOf(sprint.getId()).length()) + "|");
+                printValue("Sprint name: " + sprint.getName() + " ".repeat(40 - String.valueOf(sprint.getName()).length()) + "|");
+                printValue("Sprint description: " + sprint.getDescription() + " ".repeat(40 - String.valueOf(sprint.getDescription()).length()) + "|");
+                printValue("Sprint start date: " + sprint.getStartDate() + " ".repeat(40 - String.valueOf(sprint.getStartDate()).length()) + "|");
+                printValueln("Sprint end date: " + sprint.getEndDate() + " ".repeat(40 - String.valueOf(sprint.getEndDate()).length()) + "|");
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
@@ -71,6 +77,13 @@ public class SprintMemberMenu {
     private void viewAllSprint() {
         try {
             List<Sprint> sprintList = sprintService.getAllSprint(projectId);
+            for (Sprint sprint : sprintList) {
+                printValue("Sprint id: " + sprint.getId() + " ".repeat(40 - String.valueOf(sprint.getId()).length()) + "|");
+                printValue("Sprint name: " + sprint.getName() + " ".repeat(40 - String.valueOf(sprint.getName()).length()) + "|");
+                printValue("Sprint description: " + sprint.getDescription() + " ".repeat(40 - String.valueOf(sprint.getDescription()).length()) + "|");
+                printValue("Sprint start date: " + sprint.getStartDate() + " ".repeat(40 - String.valueOf(sprint.getStartDate()).length()) + "|");
+                printValueln("Sprint end date: " + sprint.getEndDate() + " ".repeat(40 - String.valueOf(sprint.getEndDate()).length()) + "|");
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }

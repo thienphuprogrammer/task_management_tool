@@ -56,7 +56,7 @@ public class SprintAdminMenu {
             }
         }
     }
-    private void createReport() throws Exception {
+    private void createReport()  {
         try {
             int sprintId = readInt("Enter sprint id: ");
             Sprint sprint = serviceSprint.getById(sprintId);
@@ -73,12 +73,15 @@ public class SprintAdminMenu {
             printValueln(e.getMessage());
         }
     }
-    private void viewReports() throws Exception {
+    private void viewReports() {
         try {
-            int sprintId = readInt("Enter sprint id: ");
             List<ReportSprint> reportSprint = reportSprintService.getAll();
             for (ReportSprint r : reportSprint) {
-                printValueln(r.toString());
+                printValue("id: " + r.getId() + "| ");
+                printValue("Time: " + r.getTime() + "| ");
+                printValue("Date: " + r.getDate() + "| ");
+                printValue("Description: " + r.getDescription() + "| ");
+                printValueln("Sprint id: " + r.getSprintId() + "| ");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -88,7 +91,12 @@ public class SprintAdminMenu {
         try {
             List<Sprint> sprints = serviceSprint.getAll();
             for (Sprint r : sprints) {
-                printValueln(r.toString());
+                printValue("id: " + r.getId() + " ".repeat(30 - String.valueOf(r.getId()).length()) + "| ");
+                printValue("name: " + r.getName() + " ".repeat(30 - String.valueOf(r.getName()).length()) + "| ");
+                printValue("start date: " + r.getStartDate() + " ".repeat(30 - String.valueOf(r.getStartDate()).length()) + "| ");
+                printValue("end date: " + r.getEndDate() + " ".repeat(30 - String.valueOf(r.getEndDate()).length()) + "| ");
+                printValue("description: " + r.getDescription() + " ".repeat(30 - String.valueOf(r.getDescription()).length()) + "| ");
+                printValueln("Project id: " + r.getProjectId() + " ".repeat(30 - String.valueOf(r.getProjectId()).length()) + "| ");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());

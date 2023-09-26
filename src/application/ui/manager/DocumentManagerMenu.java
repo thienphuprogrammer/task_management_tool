@@ -80,6 +80,15 @@ public class DocumentManagerMenu {
     private void viewDocument() {
         try {
             Document doc = docsService.getDocument(projectId);
+            if (doc != null) {
+                printLineSeparate("Document");
+                printValue("id: " + doc.getId() + " ".repeat(40 - String.valueOf(doc.getId()).length()) + "|");
+                printValue("Title: " + doc.getTitle());
+                printValueln("Description: " + doc.getDescription());
+                printValueln("Content: " + doc.getContent());
+                printLineSeparate("");
+
+            }
         } catch (Exception e) {
             printValue(e.getMessage());
         }

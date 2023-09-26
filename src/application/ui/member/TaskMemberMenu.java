@@ -71,7 +71,10 @@ public class TaskMemberMenu {
             if (task != null && task.getSprintId() == this.sprintId) {
                 List<ReportTask> reportTaskList = reportTaskService.getReports(taskId);
                 for (ReportTask reportTask : reportTaskList) {
-                    printValue(reportTask.toString());
+                    printValue("Report task id: " + reportTask.getId() + " ".repeat(40 - String.valueOf(reportTask.getId()).length()) + "|");
+                    printValue("Report time: " + reportTask.getTime() + " ".repeat(40 - String.valueOf(reportTask.getTime()).length()) + "|");
+                    printValue("Report date: " + reportTask.getDate() + " ".repeat(40 - String.valueOf(reportTask.getDate()).length()) + "|");
+                    printValueln("Description: " + reportTask.getDescription() + " ".repeat(40 - String.valueOf(reportTask.getDescription()).length()) + "|");
                 }
             }
         } catch (Exception e) {
@@ -81,6 +84,14 @@ public class TaskMemberMenu {
     private void viewAllMyTask() {
         try {
             List<Task> taskList = taskService.getAllMyTaskMember(sprintId, memberId);
+            for (Task task : taskList) {
+                printValue("Task id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");
+                printValue("Task name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");
+                printValue("Task description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
+                printValue("Task start date: " + task.getStartDate() + " ".repeat(40 - String.valueOf(task.getStartDate()).length()) + "|");
+                printValue("Task end date: " + task.getEndDate() + " ".repeat(40 - String.valueOf(task.getEndDate()).length()) + "|");
+                printValueln("Task status: " + task.getStatus() + " ".repeat(40 - String.valueOf(task.getStatus()).length()) + "|");
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
@@ -88,6 +99,14 @@ public class TaskMemberMenu {
     private void viewAllTask() {
         try {
             List<Task> taskList = taskService.getAllTask(sprintId);
+            for (Task task : taskList) {
+                printValue("Task id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");
+                printValue("Task name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");
+                printValue("Task description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
+                printValue("Task start date: " + task.getStartDate() + " ".repeat(40 - String.valueOf(task.getStartDate()).length()) + "|");
+                printValue("Task end date: " + task.getEndDate() + " ".repeat(40 - String.valueOf(task.getEndDate()).length()) + "|");
+                printValueln("Task status: " + task.getStatus() + " ".repeat(40 - String.valueOf(task.getStatus()).length()) + "|");
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }

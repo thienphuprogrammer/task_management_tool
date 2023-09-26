@@ -109,7 +109,14 @@ public class SprintManagerMenu {
     }
     private void viewSprint() {
         try {
-            sprintService.getAllSprint(projectId);
+            List<Sprint> sprintList = sprintService.getAllSprint(projectId);
+            for (Sprint sprint : sprintList) {
+                printValue("id: " + sprint.getId() + " ".repeat(40 - String.valueOf(sprint.getId()).length()) + "|");
+                printValue("name: " + sprint.getName() + " ".repeat(40 - String.valueOf(sprint.getName()).length()) + "|");
+                printValue("start date: " + sprint.getStartDate() + " ".repeat(40 - String.valueOf(sprint.getStartDate()).length()) + "|");
+                printValue("end date: " + sprint.getEndDate() + " ".repeat(40 - String.valueOf(sprint.getEndDate()).length()) + "|");
+                printValueln("description: " + sprint.getDescription() + " ".repeat(40 - String.valueOf(sprint.getDescription()).length()) + "|");
+            }
         } catch (Exception e) {
             printValue(e.getMessage());
         }
@@ -120,6 +127,14 @@ public class SprintManagerMenu {
             Sprint sprint = sprintService.getById(projectId);
             if (sprint.getProjectId() == projectId) {
                 List<ReportSprint> list = reportSprintService.getReports(projectId);
+                for (ReportSprint reportSprint : list) {
+                    printLineSeparate();
+                    printValue("id: " + reportSprint.getId() + " ".repeat(40 - String.valueOf(reportSprint.getId()).length()) + "|");
+                    printValue("time: " + reportSprint.getTime() + " ".repeat(40 - String.valueOf(reportSprint.getTime()).length()) + "|");
+                    printValue("date: " + reportSprint.getDate() + " ".repeat(40 - String.valueOf(reportSprint.getDate()).length()) + "|");
+                    printValue("description: " + reportSprint.getDescription() + " ".repeat(40 - String.valueOf(reportSprint.getDescription()).length()) + "|");
+                    printValueln("sprint id: " + reportSprint.getSprintId() + " ".repeat(40 - String.valueOf(reportSprint.getSprintId()).length()) + "|");
+                }
             }
         } catch (Exception e) {
             printValue(e.getMessage());

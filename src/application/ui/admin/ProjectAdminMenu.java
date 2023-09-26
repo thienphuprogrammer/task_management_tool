@@ -56,19 +56,37 @@ public class ProjectAdminMenu {
         }
     }
     private void createReport() throws Exception {
-        int projectId = readInt("Enter project id: ");
-        LocalTime time = LocalTime.now();
-        LocalDate date = LocalDate.now();
-        String description = readString("Enter description: ");
-        ReportProject reportProject = new ReportProject(time, date, description, projectId);
-        reportProjectService.create(reportProject);
+        try {
+            int projectId = readInt("Enter project id: ");
+            Project project = serviceProject.getById(projectId);
+            if (project != null) {
+                LocalTime time = LocalTime.now();
+                LocalDate date = LocalDate.now();
+                String description = readString("Enter description: ");
+                ReportProject reportProject = new ReportProject(time, date, description, projectId);
+                reportProjectService.create(reportProject);
+            } else {
+                printValueln("Project not found.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void viewReport() {
         try {
             int projectId = readInt("Enter project id: ");
-            List<ReportProject> reportProjects = reportProjectService.getReportProject(projectId);
-            for (ReportProject reportProject : reportProjects) {
-                printLineSeparate(reportProject.toString());
+            Project project = serviceProject.getById(projectId);
+            if (project != null) {
+                List<ReportProject> reportProjects = reportProjectService.getReportsProject(projectId);
+                for (ReportProject reportProject : reportProjects) {
+                    printValue("id: " + reportProject.getId() + " ".repeat(40 - String.valueOf(reportProject.getId()).length()) + "|");
+                    printValue("time: " + reportProject.getTime() + " ".repeat(40 - String.valueOf(reportProject.getTime()).length()) + "|");
+                    printValue("date: " + reportProject.getDate() + " ".repeat(40 - String.valueOf(reportProject.getDate()).length()) + "|");
+                    printValue("description: " + reportProject.getDescription() + " ".repeat(40 - String.valueOf(reportProject.getDescription()).length()) + "|");
+                    printValueln("Project id: " + reportProject.getProject_id() + " ".repeat(40 - String.valueOf(reportProject.getProject_id()).length()) + "|");
+                }
+            } else {
+                printValueln("Project not found.");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -78,7 +96,12 @@ public class ProjectAdminMenu {
         try {
             List<Project> projects = serviceProject.getAll();
             for (Project project : projects) {
-                printLineSeparate(project.toString());
+                printValue("id: " + project.getId() + " ".repeat(40 - String.valueOf(project.getId()).length()) + "|");
+                printValue("name: " + project.getName() + " ".repeat(40 - String.valueOf(project.getName()).length()) + "|");
+                printValue("start date: " + project.getStartDate() + " ".repeat(40 - String.valueOf(project.getStartDate()).length()) + "|");
+                printValue("end date: " + project.getEndDate() + " ".repeat(40 - String.valueOf(project.getEndDate()).length()) + "|");
+                printValue("description: " + project.getDescription() + " ".repeat(40 - String.valueOf(project.getDescription()).length()) + "|");
+                printValueln("Manager id: " + project.getManagerId() + " ".repeat(40 - String.valueOf(project.getManagerId()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());

@@ -123,7 +123,7 @@ public class ProjectDao implements IProjectDao {
     }
 
     @Override
-    public void addMemberToProject(int projectId, int memberId, int managerId) {
+    public void addMemberToProject(int projectId, int memberId) {
         try {
             String sql = "INSERT INTO Member_Project (project_id, member_id) VALUES (?, ?)";
             connection = getConnection();
@@ -137,7 +137,7 @@ public class ProjectDao implements IProjectDao {
     }
 
     @Override
-    public void removeMemberFromProject(int projectId, int memberId, int managerId) {
+    public void removeMemberFromProject(int projectId, int memberId) {
         try {
             String sql = "DELETE FROM Member_Project WHERE project_id = ? AND member_id = ?";
             connection = getConnection();
@@ -201,5 +201,61 @@ public class ProjectDao implements IProjectDao {
             throw new RuntimeException(e);
         }
         return list;
+    }
+
+    @Override
+    public List<Project> getProjectMember(int memberId) {
+        List<Project> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Project as pr " +
+                    "JOIN Member_Project as mp ON pr.id = mp.project_id " +
+                    "JOIN Member as mb ON mp.member_id = mb.id " +
+                    "WHERE mb.id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, memberId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Project project = new Project();
+                project.setId(resultSet.getInt("id"));
+                project.setDescription(resultSet.getString("description"));
+                project.setName(resultSet.getString("name"));
+                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                project.setManagerId(resultSet.getInt("manager_id"));
+                list.add(project);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public Project getMemberByProjectId(int projectId, int memberId) {
+        Project project = null;
+        try {
+            String sql = "SELECT * FROM Project as pr " +
+                    "JOIN Member_Project as mp ON pr.id = mp.project_id " +
+                    "JOIN Member as mb ON mp.member_id = mb.id " +
+                    "WHERE pr.id = ? AND mb.id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, projectId);
+            statement.setInt(2, memberId);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                project = new Project();
+                project.setId(resultSet.getInt("id"));
+                project.setDescription(resultSet.getString("description"));
+                project.setName(resultSet.getString("name"));
+                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                project.setManagerId(resultSet.getInt("manager_id"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return project;
     }
 }

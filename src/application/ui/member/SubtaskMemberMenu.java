@@ -1,5 +1,6 @@
 package application.ui.member;
 
+import bussinesslayer.entity.report.ReportSubtask;
 import bussinesslayer.entity.space.Subtask;
 import bussinesslayer.service.report.reportsubtask.IReportSubtaskService;
 import bussinesslayer.service.report.reportsubtask.ReportSubtaskService;
@@ -64,7 +65,13 @@ public class SubtaskMemberMenu {
             int subtaskId = readInt("Enter subtask id: ");
             Subtask subtask = subtaskService.getById(subtaskId);
             if (subtask != null && subtask.getTaskId() == this.taskId) {
-                reportSubtaskService.getReport(subtaskId);
+                List<ReportSubtask> subtaskList = reportSubtaskService.getReport(subtaskId);
+                for (ReportSubtask reportSubtask : subtaskList) {
+                    printValue("Subtask id: " + reportSubtask.getId() + " ".repeat(40 - String.valueOf(reportSubtask.getId()).length()) + "|");
+                    printValue("Description: " + reportSubtask.getDescription() + " ".repeat(40 - String.valueOf(reportSubtask.getDescription()).length()) + "|");
+                    printValue("Report time: " + reportSubtask.getTime() + " ".repeat(40 - String.valueOf(reportSubtask.getTime()).length()) + "|");
+                    printValueln("Report date: " + reportSubtask.getDate() + " ".repeat(40 - String.valueOf(reportSubtask.getDate()).length()) + "|");
+                }
             } else {
                 printValueln("Subtask is not in this task.");
             }
@@ -74,9 +81,14 @@ public class SubtaskMemberMenu {
     }
     private void viewAllMySubtask() throws Exception {
         try {
-            List<Subtask> subtaskList = subtaskService.getAllMySubtaskProject(taskId, memberId);
+            List<Subtask> subtaskList = subtaskService.getAllSubtaskProjectMember(taskId, memberId);
             for (Subtask subtask : subtaskList) {
-                printValue(String.valueOf(subtask.getId()));
+                printValue("Subtask id: " + subtask.getId() + " ".repeat(40 - String.valueOf(subtask.getId()).length()) + "|");
+                printValue("Name: " + subtask.getName() + " ".repeat(40 - String.valueOf(subtask.getName()).length()) + "|");
+                printValue("Start date: " + subtask.getStartDate() + " ".repeat(40 - String.valueOf(subtask.getStartDate()).length()) + "|");
+                printValue("End date: " + subtask.getEndDate() + " ".repeat(40 - String.valueOf(subtask.getEndDate()).length()) + "|");
+                printValue("Description: " + subtask.getDescription() + " ".repeat(40 - String.valueOf(subtask.getDescription()).length()) + "|");
+                printValueln("Status: " + subtask.getStatus() + " ".repeat(40 - String.valueOf(subtask.getStatus()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -84,19 +96,27 @@ public class SubtaskMemberMenu {
     }
     private void viewAllSubtask() {
         try {
-            subtaskService.getAllSubtask(taskId);
+            List<Subtask> subtaskList = subtaskService.getAllSubtask(taskId);
+            for (Subtask subtask : subtaskList) {
+                printValue("Subtask id: " + subtask.getId() + " ".repeat(40 - String.valueOf(subtask.getId()).length()) + "|");
+                printValue("Name: " + subtask.getName() + " ".repeat(40 - String.valueOf(subtask.getName()).length()) + "|");
+                printValue("Start date: " + subtask.getStartDate() + " ".repeat(40 - String.valueOf(subtask.getStartDate()).length()) + "|");
+                printValue("End date: " + subtask.getEndDate() + " ".repeat(40 - String.valueOf(subtask.getEndDate()).length()) + "|");
+                printValue("Description: " + subtask.getDescription() + " ".repeat(40 - String.valueOf(subtask.getDescription()).length()) + "|");
+                printValueln("Status: " + subtask.getStatus() + " ".repeat(40 - String.valueOf(subtask.getStatus()).length()) + "|");
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
     }
     private void submitSubtask(){
         try {
-            int taskId = readInt("Enter task id: ");
-            if (taskId == this.taskId) {
-                int subtaskId = readInt("Enter subtask id: ");
+            int subtaskId = readInt("Enter subtask id: ");
+            Subtask subtask = subtaskService.getById(subtaskId);
+            if (subtask != null && subtask.getTaskId() == this.taskId) {
                 subtaskService.submitSubtask(subtaskId);
             } else {
-                printValueln("Invalid task id.");
+                printValueln("Subtask is not in this task.");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());

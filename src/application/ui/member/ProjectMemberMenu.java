@@ -1,7 +1,7 @@
 package application.ui.member;
 
+import bussinesslayer.entity.Document;
 import bussinesslayer.entity.space.Project;
-import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.DocsService;
 import bussinesslayer.service.IDocsService;
 import bussinesslayer.service.sapce.project.IProjectService;
@@ -19,8 +19,8 @@ public class ProjectMemberMenu {
     private int memberId;
     public enum CHOICE_PROJECT_MEMBER_MENU {
         EXIT,
-        VIEW_MY_PROJECT,
         VIEW_ALL_MY_PROJECT,
+        VIEW_PROJECT,
         VIEW_DOCUMENT,
         SPRINT_MEMBER
     }
@@ -48,10 +48,10 @@ public class ProjectMemberMenu {
                 } else {
                     switch (CHOICE_PROJECT_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case VIEW_MY_PROJECT -> this.viewAProject();
                         case VIEW_ALL_MY_PROJECT -> this.viewAllProject();
                         case VIEW_DOCUMENT -> this.viewDocument();
                         case SPRINT_MEMBER -> this.processMenuForSprintMember();
+                        case VIEW_PROJECT -> this.viewProject();
                         default -> {
                         }
                     }
@@ -61,18 +61,18 @@ public class ProjectMemberMenu {
             }
         }
     }
-    private void viewAProject() {
-        try {
-            int projectId = readInt("Enter project id: ");
-            serviceProject.getProject(projectId, memberId);
-        } catch (Exception e) {
-            printValueln(e.getMessage());
-        }
-    }
     private void viewAllProject() {
         try {
-            int projectId = readInt("Enter project id: ");
-            List<Member>  list = serviceProject.getAllMember(projectId, memberId);
+            List<Project> projects = serviceProject.getAllProject(memberId);
+            for (Project project : projects) {
+                printLineSeparate("Project");
+                printValue("id: " + project.getId() + " ".repeat(40 - String.valueOf(project.getId()).length()) + "|");
+                printValue("Description: " + project.getDescription() + " ".repeat(40 - String.valueOf(project.getDescription()).length()) + "|");
+                printValue("Start date: " + project.getStartDate() + " ".repeat(40 - String.valueOf(project.getStartDate()).length()) + "|");
+                printValue("End date: " + project.getEndDate() + " ".repeat(40 - String.valueOf(project.getEndDate()).length()) + "|");
+                printValue("Manager id: " + project.getManagerId() + " ".repeat(40 - String.valueOf(project.getManagerId()).length()) + "|");
+                printLineSeparate("");
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
@@ -80,9 +80,15 @@ public class ProjectMemberMenu {
     private void viewDocument() throws Exception {
         try {
             int projectId = readInt("Enter project id: ");
-            Project project = serviceProject.getProject(projectId, memberId);
+            Project project = serviceProject.getMemberByProjectId(projectId, memberId);
             if (project != null) {
-                serviceDocs.getDocument(projectId);
+                Document doc = serviceDocs.getDocument(projectId);
+                printLineSeparate("Document");
+                printValue("id: " + doc.getId() + " ".repeat(40 - String.valueOf(doc.getId()).length()) + "|");
+                printValue("Title: " + doc.getTitle() + " ".repeat(40 - String.valueOf(doc.getTitle()).length()) + "|");
+                printValueln("Description: " + doc.getDescription() + " ".repeat(40 - String.valueOf(doc.getDescription()).length()) + "|");
+                printValueln("Content: " + doc.getContent());
+                printLineSeparate("");
             } else {
                 printValueln("Project not found.");
             }
@@ -90,11 +96,29 @@ public class ProjectMemberMenu {
             throw new RuntimeException(e);
         }
     }
+    private void viewProject() {
+        try {
+            List<Project> list = serviceProject.getProjectMember(memberId);
+            if (list != null) {
+                for (Project project : list) {
+                    printValue("id: " + project.getId() + " ".repeat(40 - String.valueOf(project.getId()).length()) + "|");
+                    printValue("Description: " + project.getDescription() + " ".repeat(40 - String.valueOf(project.getDescription()).length()) + "|");
+                    printValue("Start date: " + project.getStartDate() + " ".repeat(40 - String.valueOf(project.getStartDate()).length()) + "|");
+                    printValue("End date: " + project.getEndDate() + " ".repeat(40 - String.valueOf(project.getEndDate()).length()) + "|");
+                    printValueln("Manager id: " + project.getManagerId() + " ".repeat(40 - String.valueOf(project.getManagerId()).length()) + "|");
+                }
+            } else {
+                printValueln("Project is null.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
+    }
     private void processMenuForSprintMember() {
         try {
             int projectId = readInt("Enter project id: ");
-            Project project = serviceProject.getProject(projectId, memberId);
-            if (project != null) {
+            Project project = serviceProject.getMemberByProjectId(projectId, memberId);
+            if (project != null && project.getManagerId() == memberId) {
                 SprintMemberMenu sprintMemberMenu = new SprintMemberMenu(projectId, memberId);
                 sprintMemberMenu.processMenuForSprintMember();
             } else {

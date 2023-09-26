@@ -1,6 +1,7 @@
 package datalayer.spacedao.backlogdao;
 
 import bussinesslayer.entity.space.Backlog;
+import bussinesslayer.entity.space.Task;
 import datalayer.MySqlConnection;
 
 import java.sql.Connection;
@@ -118,5 +119,34 @@ public class BacklogDao implements IBacklogDao {
             e.printStackTrace();
         }
         return backlog;
+    }
+
+    @Override
+    public List<Task> getTasksInBacklog(int projectId) {
+        List<Task> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Backlog as bl " +
+                    "JOIN Task as t on t.backlog_id = bl.id " +
+                    "WHERE bl.id = 1";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Task task = new Task();
+                task.setId(resultSet.getInt("id"));
+                task.setName(resultSet.getString("name"));
+                task.setDescription(resultSet.getString("description"));
+                task.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                task.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                task.setMemberId(resultSet.getInt("member_id"));
+                task.setSprintId(resultSet.getInt("sprint_id"));
+                task.setStatus(resultSet.getInt("status"));
+                list.add(task);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

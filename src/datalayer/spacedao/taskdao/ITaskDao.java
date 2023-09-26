@@ -13,4 +13,6 @@ public interface ITaskDao extends ISpaceDao<Task> {
     List<Task> getAllTask(int backlogId);
 
     List<Task> getTasks(int sprintId, int memberId);
+
+    List<Task> getTaskProgress(int sprintId);
 }

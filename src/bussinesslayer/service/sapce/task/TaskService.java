@@ -83,4 +83,9 @@ public class TaskService implements ITaskService {
         return taskIDao.getTasks(sprintId, memberId);
     }
 
+    @Override
+    public List<Task> getTaskProgress(int sprintId) {
+        return taskIDao.getTaskProgress(sprintId);
+    }
+
 }

@@ -13,4 +13,6 @@ public interface ITaskService extends IService<Task> {
     List<Task> getAllMyTaskMember(int sprintId, int memberId);
 
     List<Task> getTasks(int sprintId, int memberId);
+
+    List<Task> getTaskProgress(int sprintId);
 }

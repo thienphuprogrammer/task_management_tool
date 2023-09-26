@@ -91,7 +91,12 @@ public class SubtaskManagerMenu {
         try {
            List<Subtask> subtaskList = subtaskManager.getAllSubtask(taskId);
            for (Subtask subtask : subtaskList) {
-               printValue(String.valueOf(subtask));
+               printValue("id: " + subtask.getId() + " ".repeat(40 - String.valueOf(subtask.getId()).length()) + "|");
+               printValue("name: " + subtask.getName() + " ".repeat(40 - String.valueOf(subtask.getName()).length()) + "|");
+               printValue("description: " + subtask.getDescription() + " ".repeat(40 - String.valueOf(subtask.getDescription()).length()) + "|");
+               printValue("status: " + subtask.getStatus() + " ".repeat(40 - String.valueOf(subtask.getStatus()).length()) + "|");
+               printValue("start date: " + subtask.getStartDate() + " ".repeat(40 - String.valueOf(subtask.getStartDate()).length()) + "|");
+               printValueln("end date: " + subtask.getEndDate() + " ".repeat(40 - String.valueOf(subtask.getEndDate()).length()) + "|");
            }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -162,7 +167,11 @@ public class SubtaskManagerMenu {
         try {
             List<ReportSubtask> reportSubtaskList = reportSubtaskService.getReport(taskId);
             for (ReportSubtask reportSubtask : reportSubtaskList) {
-                printValue(String.valueOf(reportSubtask));
+                printValue("id: " + reportSubtask.getId() + " ".repeat(40 - String.valueOf(reportSubtask.getId()).length()) + "|");
+                printValue("description: " + reportSubtask.getDescription() + " ".repeat(40 - String.valueOf(reportSubtask.getDescription()).length()) + "|");
+                printValue("time: " + reportSubtask.getTime() + " ".repeat(40 - String.valueOf(reportSubtask.getTime()).length()) + "|");
+                printValue("date: " + reportSubtask.getDate() + " ".repeat(40 - String.valueOf(reportSubtask.getDate()).length()) + "|");
+                printValue("subtask id: " + reportSubtask.getSubtaskId() + " ".repeat(40 - String.valueOf(reportSubtask.getSubtaskId()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());

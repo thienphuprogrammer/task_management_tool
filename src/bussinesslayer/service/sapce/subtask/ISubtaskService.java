@@ -17,7 +17,7 @@ public interface ISubtaskService extends IService<Subtask> {
 
     List<Subtask> getAllSubtask(int taskId);
 
-    List<Subtask> getAllMySubtaskProject(int taskId, int memberId);
+    List<Subtask> getAllSubtaskProjectMember(int taskId, int memberId);
 
     void getAllSubtaskProject(int taskId);
 }

@@ -67,11 +67,27 @@ public class ProfileManagerMenu {
     }
 
     private void viewInformation() throws Exception {
-        serviceManager.viewById(managerId);
+        try {
+            Manager manager = serviceManager.getById(managerId);
+            printLineSeparate("Information");
+            printValueMenu("Name: " + manager.getName());
+            printValueMenu("Age: " + manager.getAge());
+            printValueMenu("Phone number: " + manager.getPhoneNumber());
+            printValueMenu("Address: " + manager.getAddress());
+            printValueMenu("Email: " + manager.getEmail());
+            printValueln("Password: " + manager.getPassword());
+            printLineSeparate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     private void changePassword() {
-        String password = readString("Password: ");
-        serviceManager.changePassword(managerId, password);
+        try {
+            String password = readString("Password: ");
+            serviceManager.changePassword(managerId, password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     private void changeEmail() {
         try {
@@ -81,13 +97,17 @@ public class ProfileManagerMenu {
             e.printStackTrace();
         }
     }
-    private void changeInformation() throws Exception {
-        Manager manager = serviceManager.getById(managerId);
-        manager.setName(readString("Name: "));
-        manager.setAge(readInt("Age: "));
-        manager.setPhoneNumber(readString("Phone number: "));
-        manager.setAddress(readString("Address: "));
-        manager.setGender(readString("Gender: "));
-        serviceManager.update(manager);
+    private void changeInformation() {
+        try {
+            Manager manager = serviceManager.getById(managerId);
+            manager.setName(readString("Name: "));
+            manager.setAge(readInt("Age: "));
+            manager.setPhoneNumber(readString("Phone number: "));
+            manager.setAddress(readString("Address: "));
+            manager.setGender(readString("Gender: "));
+            serviceManager.update(manager);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

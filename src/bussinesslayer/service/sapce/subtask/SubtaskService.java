@@ -107,7 +107,7 @@ public class SubtaskService implements ISubtaskService {
     }
 
     @Override
-    public List<Subtask> getAllMySubtaskProject(int taskId, int memberId) {
+    public List<Subtask> getAllSubtaskProjectMember(int taskId, int memberId) {
         return subTaskIDao.getAllMySubtaskProject(taskId, memberId);
     }
 

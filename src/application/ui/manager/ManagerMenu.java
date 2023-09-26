@@ -71,7 +71,12 @@ public class ManagerMenu {
         try {
             List<Member> list = serviceManager.viewAllMember(managerId);
             for (Member member : list) {
-                printValue(member.toString());
+                printValue("Id: " + member.getId() + " ".repeat(40 - String.valueOf(member.getId()).length()) + "|");
+                printValue("Name: " + member.getName() + " ".repeat(40 - String.valueOf(member.getName()).length()) + "|");
+                printValue("Email: " + member.getEmail() + " ".repeat(40 - String.valueOf(member.getEmail()).length()) + "|");
+                printValue("Phone: " + member.getPhoneNumber() + " ".repeat(40 - String.valueOf(member.getPhoneNumber()).length()) + "|");
+                printValue("Address: " + member.getAddress() + " ".repeat(40 - String.valueOf(member.getAddress()).length()) + "|");
+                printValue("Role: " + member.getRole() + " ".repeat(40 - String.valueOf(member.getRole()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());

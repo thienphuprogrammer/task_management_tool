@@ -58,6 +58,16 @@ public class ProfileMemberMenu {
     private void viewInformation() throws Exception {
         try {
             Member member = serviceMember.getById(memberId);
+            printLineSeparate("Information");
+            printValue("Id: " + member.getId());
+            printValueMenu("Name: " + member.getName());
+            printValueMenu("Age: " + member.getAge());
+            printValueMenu("Phone number: " + member.getPhoneNumber());
+            printValueMenu("Gender: " + member.isGender());
+            printValueMenu("Address: " + member.getAddress());
+            printValueMenu("Email: " + member.getEmail());
+            printValueMenu("Password: " + member.getPassword());
+            printValueMenu("Role: " + member.getRole());
         } catch (Exception e) {
             printValueln(e.getMessage());
         }

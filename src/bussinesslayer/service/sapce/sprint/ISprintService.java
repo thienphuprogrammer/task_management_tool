@@ -10,5 +10,5 @@ public interface ISprintService extends IService<Sprint> {
     void viewAll() throws Exception;
     List<Sprint> getAllSprint(int projectId);
 
-    List<Sprint> getSprintMember(int memberId);
+    List<Sprint> getSprintMember(int projectId, int memberId);
 }
