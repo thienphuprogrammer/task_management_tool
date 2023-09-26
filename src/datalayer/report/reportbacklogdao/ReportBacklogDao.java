@@ -53,7 +53,7 @@ public class ReportBacklogDao implements IReportBacklogDao {
             while(resultSet.next()) {
                 ReportBacklog reportBacklog = new ReportBacklog();
                 reportBacklog.setId(resultSet.getInt("id"));
-                reportBacklog.setTime(resultSet.getTime("time").toLocalTime());
+//                reportBacklog.setTime(resultSet.getTime("time").toLocalTime());
                 reportBacklog.setDate(resultSet.getDate("date").toLocalDate());
                 reportBacklog.setDescription(resultSet.getString("Description"));
                 reportBacklog.setBacklogId(resultSet.getInt("backlog_id"));
@@ -68,12 +68,14 @@ public class ReportBacklogDao implements IReportBacklogDao {
     @Override
     public void addNew(ReportBacklog space) throws Exception {
         try {
-            String sqlStatement = "UPDATE Report_Backlog SET date = ?, Description = ?, backlog_id = ?, task_id = ? WHERE id =?";
+            String sqlStatement = "INSERT INTO Report_Backlog(id, date, time, backlog_id, description) VALUES (?, ?, ?, ?, ?)";
+            connection = getConnection();
             statement = connection.prepareStatement(sqlStatement);
-            statement.setDate(1, Date.valueOf(space.getDate()));
-            statement.setString(2, space.getDescription());
-            statement.setInt(3, space.getBacklogId());
-            statement.setInt(5, space.getId());
+            statement.setInt(1, space.getId());
+            statement.setDate(2, Date.valueOf(space.getDate()));
+            statement.setTime(3, Time.valueOf(space.getTime()));
+            statement.setString(5, space.getDescription());
+            statement.setInt(4, space.getBacklogId());
             statement.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
@@ -84,12 +86,12 @@ public class ReportBacklogDao implements IReportBacklogDao {
     @Override
     public void update(ReportBacklog space) throws Exception {
         try {
-            String sqlStatement = "UPDATE Report_Backlog SET date = ?, Description = ?, backlog_id = ?, task_id = ? WHERE id =?";
+            String sqlStatement = "UPDATE Report_Backlog SET date = ?, Description = ?, backlog_id = ? WHERE id =?";
             statement = connection.prepareStatement(sqlStatement);
             statement.setDate(1, Date.valueOf(space.getDate()));
             statement.setString(2, space.getDescription());
             statement.setInt(3, space.getBacklogId());
-            statement.setInt(5, space.getId());
+            statement.setInt(4, space.getId());
             statement.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();

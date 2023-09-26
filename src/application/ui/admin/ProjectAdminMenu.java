@@ -80,11 +80,11 @@ public class ProjectAdminMenu {
             if (project != null) {
                 List<ReportProject> reportProjects = reportProjectService.getReportsProject(projectId);
                 for (ReportProject reportProject : reportProjects) {
-                    printValue("id: " + reportProject.getId() + " ".repeat(40 - String.valueOf(reportProject.getId()).length()) + "|");
-                    printValue("time: " + reportProject.getTime() + " ".repeat(40 - String.valueOf(reportProject.getTime()).length()) + "|");
-                    printValue("date: " + reportProject.getDate() + " ".repeat(40 - String.valueOf(reportProject.getDate()).length()) + "|");
-                    printValue("description: " + reportProject.getDescription() + " ".repeat(40 - String.valueOf(reportProject.getDescription()).length()) + "|");
-                    printValueln("Project id: " + reportProject.getProject_id() + " ".repeat(40 - String.valueOf(reportProject.getProject_id()).length()) + "|");
+                    printValue("id: " + reportProject.getId() + " ".repeat(30 - String.valueOf(reportProject.getId()).length()) + "|");
+                    printValue("time: " + reportProject.getTime() + " ".repeat(30 - String.valueOf(reportProject.getTime()).length()) + "|");
+                    printValue("date: " + reportProject.getDate() + " ".repeat(30 - String.valueOf(reportProject.getDate()).length()) + "|");
+                    printValue("description: " + reportProject.getDescription() + " ".repeat(30 - String.valueOf(reportProject.getDescription()).length()) + "|");
+                    printValueln("Project id: " + reportProject.getProject_id() + " ".repeat(30 - String.valueOf(reportProject.getProject_id()).length()) + "|");
                 }
             } else {
                 printValueln("Project not found.");
@@ -97,12 +97,12 @@ public class ProjectAdminMenu {
         try {
             List<Project> projects = serviceProject.getAll();
             for (Project project : projects) {
-                printValue("id: " + project.getId() + " ".repeat(40 - String.valueOf(project.getId()).length()) + "|");
-                printValue("name: " + project.getName() + " ".repeat(40 - String.valueOf(project.getName()).length()) + "|");
-                printValue("start date: " + project.getStartDate() + " ".repeat(40 - String.valueOf(project.getStartDate()).length()) + "|");
-                printValue("end date: " + project.getEndDate() + " ".repeat(40 - String.valueOf(project.getEndDate()).length()) + "|");
-                printValue("description: " + project.getDescription() + " ".repeat(40 - String.valueOf(project.getDescription()).length()) + "|");
-                printValueln("Manager id: " + project.getManagerId() + " ".repeat(40 - String.valueOf(project.getManagerId()).length()) + "|");
+                printValue("id: " + project.getId() + " ".repeat(20 - String.valueOf(project.getId()).length()) + "|");
+                printValue("name: " + project.getName() + " ".repeat(20 - String.valueOf(project.getName()).length()) + "|");
+                printValue("start date: " + project.getStartDate() + " ".repeat(20 - String.valueOf(project.getStartDate()).length()) + "|");
+                printValue("end date: " + project.getEndDate() + " ".repeat(20 - String.valueOf(project.getEndDate()).length()) + "|");
+                printValue("description: " + project.getDescription() + " ".repeat(20 - String.valueOf(project.getDescription()).length()) + "|");
+                printValueln("Manager id: " + project.getManagerId() + " ".repeat(20 - String.valueOf(project.getManagerId()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());

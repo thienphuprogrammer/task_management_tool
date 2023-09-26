@@ -142,8 +142,14 @@ public class BacklogDao implements IBacklogDao {
                 task.setEndDate(resultSet.getDate("end_date").toLocalDate());
                 task.setMemberId(resultSet.getInt("member_id"));
                 task.setSprintId(resultSet.getInt("sprint_id"));
-                task.setStatus(resultSet.getInt("status"));
-                list.add(task);
+                String status = resultSet.getString("status");
+                switch (status) {
+                    case "Open" -> task.setStatus(0);
+                    case "In Progress" -> task.setStatus(1);
+                    case "Completed" -> task.setStatus(2);
+                    case "On Hold" -> task.setStatus(3);
+                    case "Cancelled" -> task.setStatus(4);
+                }                list.add(task);
             }
         }
         catch (SQLException e) {
