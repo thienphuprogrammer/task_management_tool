@@ -9,5 +9,8 @@ import java.util.List;
 public interface IBacklogService extends IService<Backlog> {
     void viewById(int id) throws Exception;
     void viewAll() throws Exception;
+
+    List<Backlog> getAllBacklogInProject(int projectId);
+
     List<Task> getTasksInBacklog(int backlogId);
 }

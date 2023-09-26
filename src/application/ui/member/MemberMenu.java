@@ -1,6 +1,9 @@
 package application.ui.member;
+
+import bussinesslayer.entity.user.Member;
+import bussinesslayer.service.IService;
+import bussinesslayer.service.user.IUserService;
 import bussinesslayer.service.user.member.IMemberService;
-import bussinesslayer.service.user.member.MemberService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -14,22 +17,16 @@ public class MemberMenu {
         PROFILE_MEMBER
     }
     // -------------------- Properties ------------------------
-    IMemberService service = new MemberService();
+    IMemberService service;
     private int memberId = 1;
-
-    public MemberMenu(int memberId) throws Exception {
-        this.memberId = memberId;
-    }
-
     // -------------------- Constructor ------------------------
-    public MemberMenu(IMemberService service) throws Exception {
+    public MemberMenu(IMemberService service) {
         this.service = service;
     }
     public void processMenuForMember() {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Member Menu");
-            printValueMenu("Member");
             for (CHOICE_MEMBER_MENU choice : CHOICE_MEMBER_MENU.values()) {
                 printValueMenu(choice.ordinal() + ". " + choice.name().replace("_", " ").toLowerCase());
             }
@@ -51,6 +48,7 @@ public class MemberMenu {
                 printValueln("Invalid choice.");
             }
         }
+        waitForInput();
     }
     private void processMenuForProject() throws Exception {
         ProjectMemberMenu projectMemberMenu = new ProjectMemberMenu(memberId);

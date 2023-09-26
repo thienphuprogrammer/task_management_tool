@@ -1,8 +1,9 @@
 package application.ui.manager;
 
+import bussinesslayer.entity.user.Manager;
 import bussinesslayer.entity.user.Member;
+import bussinesslayer.service.user.IUserService;
 import bussinesslayer.service.user.manager.IManagerService;
-import bussinesslayer.service.user.manager.ManagerService;
 
 import java.util.List;
 
@@ -19,14 +20,13 @@ public class ManagerMenu {
         VIEW_ALL_MEMBER
     }
     // -------------------- Properties ------------------------
-    IManagerService serviceManager = new ManagerService();
+    IManagerService serviceManager;
     private int managerId = 1;
 
-    public ManagerMenu(int managerId) throws Exception {
-        this.managerId = managerId;
-    }
-
     // -------------------- Constructor ------------------------
+    public ManagerMenu(IManagerService service) {
+        this.serviceManager = service;
+    }
     public void processMenuForManager() {
         boolean exit = false;
 
@@ -56,6 +56,7 @@ public class ManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
+        waitForInput();
     }
 
     private void manageProject() throws Exception {
@@ -72,7 +73,7 @@ public class ManagerMenu {
             List<Member> list = serviceManager.viewAllMember(managerId);
             for (Member member : list) {
                 printValue("Id: " + member.getId() + " ".repeat(10 - String.valueOf(member.getId()).length()) + "|");
-                printValue("Name: " + member.getName() + " ".repeat(30 - String.valueOf(member.getName()).length()) + "|");
+                printValue("Name: " + member.getName() + " ".repeat(20 - String.valueOf(member.getName()).length()) + "|");
                 printValue("Email: " + member.getEmail() + " ".repeat(40 - String.valueOf(member.getEmail()).length()) + "|");
                 printValue("Phone: " + member.getPhoneNumber() + " ".repeat(20 - String.valueOf(member.getPhoneNumber()).length()) + "|");
                 printValue("Address: " + member.getAddress() + " ".repeat(20 - String.valueOf(member.getAddress()).length()) + "|");

@@ -64,6 +64,7 @@ public class ProfileManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
+        waitForInput();
     }
 
     private void viewInformation() throws Exception {

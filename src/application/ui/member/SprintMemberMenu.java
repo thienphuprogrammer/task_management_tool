@@ -55,6 +55,7 @@ public class SprintMemberMenu {
             } catch (Exception e) {
                 printValueln("Invalid choice.");
             }
+            waitForInput();
         }
     }
     private void viewMySprint() throws Exception {

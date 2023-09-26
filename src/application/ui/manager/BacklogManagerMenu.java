@@ -75,6 +75,7 @@ public class BacklogManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
+        waitForInput();
     }
     private void createTask()  {
         try {
