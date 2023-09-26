@@ -71,7 +71,6 @@ public class TaskMangerMenu {
                 printValueln("Invalid choice.");
             }
         }
-        waitForInput();
     }
     private void createTask() throws Exception {
         try {

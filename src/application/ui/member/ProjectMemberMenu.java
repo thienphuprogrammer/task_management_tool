@@ -57,7 +57,6 @@ public class ProjectMemberMenu {
             } catch (Exception e) {
                 printValueln("Invalid choice.");
             }
-            waitForInput();
         }
     }
     private void viewAllProject() {

@@ -29,6 +29,7 @@ public class MemberMenu {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Member Menu");
+            printValueMenu("Member");
             for (CHOICE_MEMBER_MENU choice : CHOICE_MEMBER_MENU.values()) {
                 printValueMenu(choice.ordinal() + ". " + choice.name().replace("_", " ").toLowerCase());
             }
@@ -50,7 +51,6 @@ public class MemberMenu {
                 printValueln("Invalid choice.");
             }
         }
-        waitForInput();
     }
     private void processMenuForProject() throws Exception {
         ProjectMemberMenu projectMemberMenu = new ProjectMemberMenu(memberId);

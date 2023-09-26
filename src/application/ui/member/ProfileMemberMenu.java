@@ -53,7 +53,6 @@ public class ProfileMemberMenu {
                 printValueln("Invalid choice.");
             }
         }
-        waitForInput();
     }
     private void viewInformation()  {
         try {

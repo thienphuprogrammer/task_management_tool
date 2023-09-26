@@ -58,7 +58,6 @@ public class ManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
-        waitForInput();
     }
 
     private void manageProject() throws Exception {

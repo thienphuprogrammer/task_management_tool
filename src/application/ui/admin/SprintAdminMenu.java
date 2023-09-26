@@ -33,6 +33,7 @@ public class SprintAdminMenu {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Report Project Admin Menu");
+            printValueln("Admin\\Sprint");
             for (CHOICE_SPRINT_ADMIN_MENU choice : CHOICE_SPRINT_ADMIN_MENU.values()) {
                 printValueMenu(choice.ordinal() + " to  " + choice.name().replace("_", " ").toLowerCase());
             }
