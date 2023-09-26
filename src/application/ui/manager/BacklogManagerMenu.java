@@ -128,17 +128,17 @@ public class BacklogManagerMenu {
     }
     private void viewAllTask() {
         try {
-            List<Task> list = serviceTask.getAllTask(backlogId);
+            List<Task> list = serviceTask.getAllTaskBacklog(backlogId);
             for (Task task : list) {
                 printLineSeparate();
-                printValue(("Task ID: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|"));
-                printValue("Name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");
-                printValue("Description: " + task.getDescription() + " ".repeat(36 - String.valueOf(task.getDescription()).length()) + "|");
-                printValue("Start date: " + task.getStartDate() + " ".repeat(36 - String.valueOf(task.getStartDate()).length()) + "|");
-                printValue("End date: " + task.getEndDate() + " ".repeat(36 - String.valueOf(task.getEndDate()).length()) + "|");
-                printValue("Status: " + task.getStatus() + " ".repeat(36 - String.valueOf(task.getStatus()).length()) + "|");
-                printValue("Member ID: " + task.getMemberId() + " ".repeat(36 - String.valueOf(task.getMemberId()).length()) + "|");
-                printValue("Sprint ID: " + task.getSprintId() + " ".repeat(36 - String.valueOf(task.getSprintId()).length()) + "|");
+                printValue(("Task ID: " + task.getId() + " ".repeat(10 - String.valueOf(task.getId()).length()) + "|"));
+                printValue("Name: " + task.getName() + " ".repeat(20 - String.valueOf(task.getName()).length()) + "|");
+                printValue("Description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
+                printValue("Start date: " + task.getStartDate() + " ".repeat(20 - String.valueOf(task.getStartDate()).length()) + "|");
+                printValue("End date: " + task.getEndDate() + " ".repeat(20 - String.valueOf(task.getEndDate()).length()) + "|");
+                printValue("Status: " + task.getStatus() + " ".repeat(10 - String.valueOf(task.getStatus()).length()) + "|");
+                printValue("Member ID: " + task.getMemberId() + " ".repeat(10 - String.valueOf(task.getMemberId()).length()) + "|");
+                printValue("Sprint ID: " + task.getSprintId() + " ".repeat(10 - String.valueOf(task.getSprintId()).length()) + "|");
                 printLineSeparate();
             }
         } catch (Exception e) {

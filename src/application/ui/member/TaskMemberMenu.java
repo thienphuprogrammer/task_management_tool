@@ -99,7 +99,7 @@ public class TaskMemberMenu {
     }
     private void viewAllTask() {
         try {
-            List<Task> taskList = taskService.getAllTask(sprintId);
+            List<Task> taskList = taskService.getAllTasks(sprintId);
             for (Task task : taskList) {
                 printValue("Task id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");
                 printValue("Task name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");

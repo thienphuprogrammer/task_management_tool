@@ -27,6 +27,7 @@ public class Menu {
     }
 
     public static void manageAdmin(IAdminService service) throws Exception {
+
         AdminMenu adminMenu = new AdminMenu(service);
         adminMenu.processMenuForAdmin();
     }

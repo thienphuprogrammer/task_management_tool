@@ -18,7 +18,7 @@ public class DataValidation {
         return number >= min && number <= max;
     }
     //Method to validate username
-    public static boolean isValidUserName(String userName) {
+    public static boolean isValidName(String userName) {
         return userName.length() >= 5 && userName.length() <= 20;
     }
 

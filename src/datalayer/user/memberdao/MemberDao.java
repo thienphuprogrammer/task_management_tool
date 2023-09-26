@@ -113,4 +113,86 @@ public class MemberDao implements IMemberDao {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<Member> getByEmail(String email) {
+        List<Member> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Member WHERE email = ?";
+            Connection connection = MySqlConnection.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Member member = new Member();
+                member.setId(resultSet.getInt("id"));
+                member.setName(resultSet.getString("name"));
+                member.setEmail(resultSet.getString("email"));
+                member.setPhoneNumber(resultSet.getString("phone_number"));
+                member.setAge(resultSet.getInt("age"));
+                member.setAddress(resultSet.getString("address"));
+                member.setGender(resultSet.getString("gender"));
+                member.setRole(resultSet.getString("role"));
+                list.add(member);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    @Override
+    public Member loginMember(String email, String password) {
+        Member member = null;
+        try {
+            String sql = "SELECT * FROM Member WHERE email = ? AND password = ?";
+            Connection connection = MySqlConnection.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                member = new Member();
+                member.setId(resultSet.getInt("id"));
+                member.setName(resultSet.getString("name"));
+                member.setEmail(resultSet.getString("email"));
+                member.setPhoneNumber(resultSet.getString("phone_number"));
+                member.setAge(resultSet.getInt("age"));
+                member.setAddress(resultSet.getString("address"));
+                member.setGender(resultSet.getString("gender"));
+                member.setRole(resultSet.getString("role"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return member;
+    }
+
+    @Override
+    public void changeEmail(int id, String email) {
+        try {
+            String sql = "UPDATE Member SET email = ? WHERE id = ?";
+            Connection connection = MySqlConnection.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void changePassword(int id, String password) {
+        try {
+            String sql = "UPDATE Member SET password = ? WHERE id = ?";
+            Connection connection = MySqlConnection.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, password);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -20,6 +20,15 @@ public abstract class User {
         this.address = address;
     }
 
+    public User(String name, int age, String email, String password, String phoneNumber, String address) {
+        this.name = name;
+        this.age = age;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
+
     public User() {
     }
 
