@@ -65,14 +65,14 @@ public class ReportProjectDao implements IReportProjectDao {
     @Override
     public void addNew(ReportProject space) throws Exception {
         try {
-            String sqlStatement = "INSERT INTO Report_Backlog(id, date, time, Descripton, project_id) VALUES (?, ?, ?, ?, ?)";
+            String sqlStatement = "INSERT INTO Report_Project(id, date, description, project_id, time) VALUES (?, ?, ?, ?, ?)";
             connection = getConnection();
             statement = connection.prepareStatement(sqlStatement);
             statement.setInt(1, space.getId());
             statement.setDate(2, Date.valueOf(space.getDate()));
-            statement.setTime(3, Time.valueOf(space.getTime()));
-            statement.setString(4, space.getDescription());
-            statement.setInt(5, space.getProject_id());
+            statement.setTime(5, Time.valueOf(space.getTime()));
+            statement.setString(3, space.getDescription());
+            statement.setInt(4, space.getProject_id());
             statement.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();

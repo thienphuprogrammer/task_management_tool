@@ -52,7 +52,6 @@ public class ReportSprintDao implements IReportSprintDao {
                 ReportSprint reportSprint = new ReportSprint();
                 reportSprint.setId(resultSet.getInt("id"));
                 reportSprint.setDate(resultSet.getDate("date").toLocalDate());
-                reportSprint.setTime(resultSet.getTime("time").toLocalTime());
                 reportSprint.setDescription(resultSet.getString("Description"));
                 reportSprint.setSprintId(resultSet.getInt("sprint_id"));
                 list.add(reportSprint);

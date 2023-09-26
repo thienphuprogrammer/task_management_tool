@@ -105,7 +105,7 @@ public class DocumentDao implements IDocumentDao {
     public Document getDocument(int projectId) {
         Document doc = new Document();
         try {
-            String sql = "SELECT * FROM Document WHERE project_id = ?";
+            String sql = "SELECT * FROM doc WHERE project_id = ?";
             Connection connection = MySqlConnection.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setInt(1, projectId);
