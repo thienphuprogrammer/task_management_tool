@@ -1,16 +1,5 @@
 package application.ui;
 
-import bussinesslayer.entity.user.Admin;
-import bussinesslayer.entity.user.Manager;
-import bussinesslayer.entity.user.Member;
-import bussinesslayer.service.user.admin.AdminService;
-import bussinesslayer.service.user.IUserService;
-import bussinesslayer.service.user.admin.IAdminService;
-import bussinesslayer.service.user.manager.IManagerService;
-import bussinesslayer.service.user.manager.ManagerService;
-import bussinesslayer.service.user.member.IMemberService;
-import bussinesslayer.service.user.member.MemberService;
-
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
 

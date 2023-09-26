@@ -1,7 +1,6 @@
 package application.ui.member;
 
 import bussinesslayer.entity.user.Member;
-import bussinesslayer.service.user.IUserService;
 import bussinesslayer.service.user.member.IMemberService;
 
 import static application.utilities.InputUtil.*;
@@ -55,7 +54,7 @@ public class ProfileMemberMenu {
             }
         }
     }
-    private void viewInformation() throws Exception {
+    private void viewInformation()  {
         try {
             Member member = serviceMember.getById(memberId);
             printLineSeparate("Information");

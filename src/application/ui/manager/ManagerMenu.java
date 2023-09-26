@@ -1,8 +1,6 @@
 package application.ui.manager;
 
-import bussinesslayer.entity.user.Manager;
 import bussinesslayer.entity.user.Member;
-import bussinesslayer.service.user.IUserService;
 import bussinesslayer.service.user.manager.IManagerService;
 import bussinesslayer.service.user.manager.ManagerService;
 
