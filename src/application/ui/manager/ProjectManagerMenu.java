@@ -160,11 +160,12 @@ public class ProjectManagerMenu {
             int projectId = readInt("Enter project id: ");
             List<Member> list = serviceProject.getMember(projectId, managerId);
             for (Member member : list) {
-                printValue("id: " + member.getId() + " ".repeat(40 - String.valueOf(member.getId()).length()) + "|");
-                printValue("name: " + member.getName() + " ".repeat(40 - String.valueOf(member.getName()).length()) + "|");
-                printValue("email: " + member.getEmail() + " ".repeat(40 - String.valueOf(member.getEmail()).length()) + "|");
-                printValue("phone: " + member.getPhoneNumber() + " ".repeat(40 - String.valueOf(member.getPhoneNumber()).length()) + "|");
-                printValue("address: " + member.getAddress() + " ".repeat(40 - String.valueOf(member.getAddress()).length()) + "|");
+                printValue("id: " + member.getId() + " ".repeat(10 - String.valueOf(member.getId()).length()) + "|");
+                printValue("name: " + member.getName() + " ".repeat(30 - String.valueOf(member.getName()).length()) + "|");
+                printValue("email: " + member.getEmail() + " ".repeat(35 - String.valueOf(member.getEmail()).length()) + "|");
+                printValue("phone: " + member.getPhoneNumber() + " ".repeat(20 - String.valueOf(member.getPhoneNumber()).length()) + "|");
+                printValue("address: " + member.getAddress() + " ".repeat(10 - String.valueOf(member.getAddress()).length()) + "|");
+                System.out.println();
             }
         } catch (Exception e) {
             printValue(e.getMessage());
