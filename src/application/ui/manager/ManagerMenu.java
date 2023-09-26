@@ -4,6 +4,7 @@ import bussinesslayer.entity.user.Manager;
 import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.user.IUserService;
 import bussinesslayer.service.user.manager.IManagerService;
+import bussinesslayer.service.user.manager.ManagerService;
 
 import java.util.List;
 
@@ -20,13 +21,14 @@ public class ManagerMenu {
         VIEW_ALL_MEMBER
     }
     // -------------------- Properties ------------------------
-    IManagerService serviceManager;
+    IManagerService serviceManager = new ManagerService();
     private int managerId = 1;
 
-    // -------------------- Constructor ------------------------
-    public ManagerMenu(IManagerService service) {
-        this.serviceManager = service;
+    public ManagerMenu(int managerId) throws Exception {
+        this.managerId = managerId;
     }
+
+    // -------------------- Constructor ------------------------
     public void processMenuForManager() {
         boolean exit = false;
 

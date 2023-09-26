@@ -22,11 +22,6 @@ public class Program {
         ACCOUNT_MEMBER
     }
     public static void main(String[] args) throws Exception {
-
-        IAdminService adminService = new AdminService();
-        IMemberService memberService = new MemberService();
-        IManagerService managerService = new ManagerService();
-
         while (true) {
             printLineSeparate("Admin Menu");
             for (LOGIN_CHOICE choice : LOGIN_CHOICE.values()) {
@@ -40,9 +35,9 @@ public class Program {
                 } else {
                     switch (LOGIN_CHOICE.values()[choice]) {
                         case EXIT -> System.exit(0);
-                        case ACCOUNT_ADMIN -> Menu.manageAdmin(adminService);
-                        case ACCOUNT_MANAGER -> Menu.manageManager(managerService);
-                        case ACCOUNT_MEMBER -> Menu.manageMember(memberService);
+                        case ACCOUNT_ADMIN -> Menu.manageAdmin();
+                        case ACCOUNT_MANAGER -> Menu.manageManager();
+                        case ACCOUNT_MEMBER -> Menu.manageMember();
                     }
                 }
             } catch (Exception e) {

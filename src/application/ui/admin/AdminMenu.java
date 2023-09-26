@@ -26,11 +26,11 @@ public class AdminMenu {
     // -------------------- Properties ------------------------
     private final ManagerService serviceManager = new ManagerService();
     private final IMemberService serviceMember = new MemberService();
-    private IAdminService service = new AdminService();
-
+    private IAdminService serviceAdmin = new AdminService();
+    private int adminId = 1;
     // -------------------- Constructor ------------------------
-    public AdminMenu(IAdminService service) throws Exception {
-        this.service = service;
+    public AdminMenu(int admin) throws Exception {
+        this.adminId = admin;
     }
     public void processMenuForAdmin() {
         boolean exit = false;
