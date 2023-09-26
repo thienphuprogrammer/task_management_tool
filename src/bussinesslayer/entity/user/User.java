@@ -6,7 +6,7 @@ public abstract class User {
     protected int age;
     protected String email;
     protected String password;
-    protected String phone_number;
+    protected String phoneNumber;
     protected String address;
 
     public User(int id, String name, int age, String email, String password, String phone_number, String address) {
@@ -16,8 +16,11 @@ public abstract class User {
         this.email = email;
         this.password = password;
 
-        this.phone_number = phone_number;
+        this.phoneNumber = phone_number;
         this.address = address;
+    }
+
+    public User() {
     }
 
     public int getId() {
@@ -60,12 +63,12 @@ public abstract class User {
         this.password = password;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAddress() {

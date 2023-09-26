@@ -1,6 +1,7 @@
 package application.utilities;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Scanner;
 
 public class InputUtil {
@@ -52,5 +53,27 @@ public class InputUtil {
             date = LocalDate.parse(input);
         }
         return date;
+    }
+    public static LocalTime readLocalTime(String message) throws Exception {
+        System.out.print(message);
+        String input = scanner.nextLine();
+        LocalTime time = null;
+        if (!input.matches("^\\d{2}:\\d{2}$")) {
+            throw new Exception("Data invalid.");
+        }else {
+            time = LocalTime.parse(input);
+        }
+        return time;
+    }
+    public static boolean readBoolean(String message) throws Exception {
+        System.out.print(message);
+        String input = scanner.nextLine();
+        boolean bool = false;
+        if (!input.matches("true|false")) {
+            throw new Exception("Data invalid.");
+        } else {
+            bool = Boolean.parseBoolean(input);
+        }
+        return bool;
     }
 }

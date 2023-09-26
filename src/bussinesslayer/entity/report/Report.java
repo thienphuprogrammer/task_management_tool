@@ -14,6 +14,15 @@ public abstract class Report {
         this.description = description;
     }
 
+    public Report(LocalTime time, LocalDate date, String description) {
+        this.time = time;
+        this.date = date;
+        this.description = description;
+    }
+
+    public Report() {
+    }
+
     public int getId() {
         return id;
     }

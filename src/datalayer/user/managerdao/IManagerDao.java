@@ -1,6 +1,7 @@
 package datalayer.user.managerdao;
 
+import bussinesslayer.entity.user.Manager;
 import datalayer.IDao;
 
-public interface IManagerDao<Manager> extends IDao<Manager> {
+public interface IManagerDao extends IDao<Manager> {
 }

@@ -4,18 +4,27 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ReportSprint extends Report{
-    private int sprint_id;
+    private int sprintId;
 
-    public ReportSprint(int id, LocalTime time, LocalDate date, String description, int sprint_id) {
+    public ReportSprint(int id, LocalTime time, LocalDate date, String description, int sprintId) {
         super(id, time, date, description);
-        this.sprint_id = sprint_id;
+        this.sprintId = sprintId;
     }
 
-    public int getSprint_id() {
-        return sprint_id;
+    public ReportSprint(LocalTime time, LocalDate date, String description, int sprintId) {
+        super(time, date, description);
+        this.sprintId = sprintId;
     }
 
-    public void setSprint_id(int sprint_id) {
-        this.sprint_id = sprint_id;
+    public ReportSprint() {
+
+    }
+
+    public int getSprintId() {
+        return sprintId;
+    }
+
+    public void setSprintId(int sprintId) {
+        this.sprintId = sprintId;
     }
 }

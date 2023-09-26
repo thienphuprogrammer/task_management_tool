@@ -1,24 +1,30 @@
 package datalayer;
 
-import bussinesslayer.entity.report.ReportBacklog;
-import bussinesslayer.entity.report.ReportProject;
-import bussinesslayer.entity.report.ReportSprint;
-import bussinesslayer.entity.report.ReportTask;
-import bussinesslayer.entity.space.*;
-import bussinesslayer.entity.user.Admin;
-import bussinesslayer.entity.user.Manager;
-import bussinesslayer.entity.user.Member;
+import datalayer.report.reportbacklogdao.IReportBacklogDao;
 import datalayer.report.reportbacklogdao.ReportBacklogDao;
+import datalayer.report.reportprojectdao.IReportProjectDao;
 import datalayer.report.reportprojectdao.ReportProjectDao;
+import datalayer.report.reportsprintdao.IReportSprintDao;
 import datalayer.report.reportsprintdao.ReportSprintDao;
+import datalayer.report.reportsubtaskdao.IReportSubtaskDao;
+import datalayer.report.reportsubtaskdao.ReportSubtaskDao;
+import datalayer.report.reporttaskdao.IReportTaskDao;
 import datalayer.report.reporttaskdao.ReportTaskDao;
 import datalayer.spacedao.backlogdao.BacklogDao;
+import datalayer.spacedao.backlogdao.IBacklogDao;
+import datalayer.spacedao.projectdao.IProjectDao;
 import datalayer.spacedao.projectdao.ProjectDao;
+import datalayer.spacedao.sprintdao.ISprintDao;
 import datalayer.spacedao.sprintdao.SprintDao;
-import datalayer.spacedao.substaskdao.SubTaskDao;
+import datalayer.spacedao.substaskdao.ISubtaskDao;
+import datalayer.spacedao.substaskdao.SubtaskDao;
+import datalayer.spacedao.taskdao.ITaskDao;
 import datalayer.spacedao.taskdao.TaskDao;
 import datalayer.user.admindao.AdminDao;
+import datalayer.user.admindao.IAdminDao;
+import datalayer.user.managerdao.IManagerDao;
 import datalayer.user.managerdao.ManagerDao;
+import datalayer.user.memberdao.IMemberDao;
 import datalayer.user.memberdao.MemberDao;
 
 public class DaoFactory implements IDaoFactory {
@@ -40,62 +46,67 @@ public class DaoFactory implements IDaoFactory {
 
     // -------------------- Methods ------------------------
     @Override
-    public IDao<Backlog> getBacklogDao() throws Exception {
+    public IBacklogDao getBacklogDao() throws Exception {
         return new BacklogDao();
     }
 
     @Override
-    public IDao<Project> getProjectDao() throws Exception {
+    public IProjectDao getProjectDao() throws Exception {
         return new ProjectDao();
     }
 
     @Override
-    public IDao<Sprint> getSprintDao() throws Exception {
+    public ISprintDao getSprintDao() throws Exception {
         return new SprintDao();
     }
 
     @Override
-    public IDao<Task> getTaskDao() throws Exception {
+    public ITaskDao getTaskDao() throws Exception {
         return new TaskDao();
     }
 
     @Override
-    public IDao<SubTask> getSubTaskDao() throws Exception {
-        return new SubTaskDao();
+    public ISubtaskDao getSubTaskDao() throws Exception {
+        return new SubtaskDao();
     }
 
     @Override
-    public IDao<Admin> getAdminDao() throws Exception {
+    public IAdminDao getAdminDao() throws Exception {
         return new AdminDao();
     }
 
     @Override
-    public IDao<Member> getMemberDao() throws Exception {
+    public IMemberDao getMemberDao() throws Exception {
         return new MemberDao();
     }
 
     @Override
-    public IDao<Manager> getManagerDao() throws Exception {
+    public IManagerDao getManagerDao() throws Exception {
         return new ManagerDao();
     }
 
     @Override
-    public IDao<ReportBacklog> getReportBacklogDao() throws Exception {
+    public IReportBacklogDao getReportBacklogDao() throws Exception {
         return new ReportBacklogDao();
     }
 
     @Override
-    public IDao<ReportProject> getReportProjectDao() throws Exception {
+    public IReportProjectDao getReportProjectDao() throws Exception {
         return new ReportProjectDao();
     }
 
     @Override
-    public IDao<ReportTask> getReportTaskDao() throws Exception {
+    public IReportTaskDao getReportTaskDao() throws Exception {
         return new ReportTaskDao();
     }
 
     @Override
-    public IDao<ReportSprint> getReportSprintDao() throws Exception {
+    public IReportSubtaskDao getReportSubtaskDao() throws Exception {
+        return new ReportSubtaskDao();
+    }
+
+    @Override
+    public IReportSprintDao getReportSprintDao() throws Exception {
         return new ReportSprintDao();
     }
 }

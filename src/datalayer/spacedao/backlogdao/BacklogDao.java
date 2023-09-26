@@ -1,16 +1,17 @@
 package datalayer.spacedao.backlogdao;
 
-import datalayer.IConnection;
 import bussinesslayer.entity.space.Backlog;
+import bussinesslayer.entity.space.Task;
 import datalayer.MySqlConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class BacklogDao implements IBacklogDao<Backlog> {
+public class BacklogDao implements IBacklogDao {
     Connection connection = null;
     PreparedStatement statement = null;
     ResultSet resultSet = null;
@@ -35,9 +36,6 @@ public class BacklogDao implements IBacklogDao<Backlog> {
             if (resultSet.next()) {
                 Backlog backlog = new Backlog();
                 backlog.setId(resultSet.getInt("id"));
-                backlog.setDescription(resultSet.getString("description"));
-                backlog.setTitle(resultSet.getString("title"));
-                backlog.setFileURL(resultSet.getString("file_url"));
                 return backlog;
             }
         } catch (SQLException e) {
@@ -48,7 +46,7 @@ public class BacklogDao implements IBacklogDao<Backlog> {
 
     @Override
     public List<Backlog> getAll() throws Exception {
-        List<Backlog> list = null;
+        List<Backlog> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Backlog";
             connection = getConnection();
@@ -57,9 +55,7 @@ public class BacklogDao implements IBacklogDao<Backlog> {
             while (resultSet.next()) {
                 Backlog backlog = new Backlog();
                 backlog.setId(resultSet.getInt("id"));
-                backlog.setDescription(resultSet.getString("description"));
-                backlog.setTitle(resultSet.getString("title"));
-                backlog.setFileURL(resultSet.getString("file_url"));
+                backlog.setProjectId(resultSet.getInt("project_id"));
                 list.add(backlog);
             }
         } catch (SQLException e) {
@@ -74,9 +70,6 @@ public class BacklogDao implements IBacklogDao<Backlog> {
             String sql = "INSERT INTO Backlog (description, title, file_url) VALUES (?, ?, ?)";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1, space.getDescription());
-            statement.setString(2, space.getTitle());
-            statement.setString(3, space.getFileURL());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,9 +82,6 @@ public class BacklogDao implements IBacklogDao<Backlog> {
             String sql = "UPDATE Backlog SET description = ?, title = ?, file_url = ? WHERE id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1, space.getDescription());
-            statement.setString(2, space.getTitle());
-            statement.setString(3, space.getFileURL());
             statement.setInt(4, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -113,17 +103,50 @@ public class BacklogDao implements IBacklogDao<Backlog> {
     }
 
     @Override
-    public void save(Backlog space) throws Exception {
+    public Backlog getBacklogByProjectId(int projectId) throws Exception {
+        Backlog backlog = null;
         try {
-            String sql = "INSERT INTO Backlog (description, title, file_url) VALUES (?, ?, ?)";
+            String sql = "SELECT * FROM backlog WHERE project_id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1, space.getDescription());
-            statement.setString(2, space.getTitle());
-            statement.setString(3, space.getFileURL());
-            statement.executeUpdate();
+            statement.setInt(1, projectId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                backlog = new Backlog();
+                backlog.setId(resultSet.getInt("id"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return backlog;
+    }
+
+    @Override
+    public List<Task> getTasksInBacklog(int projectId) {
+        List<Task> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Backlog as bl " +
+                    "JOIN Task as t on t.backlog_id = bl.id " +
+                    "WHERE bl.id = 1";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Task task = new Task();
+                task.setId(resultSet.getInt("id"));
+                task.setName(resultSet.getString("name"));
+                task.setDescription(resultSet.getString("description"));
+                task.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                task.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                task.setMemberId(resultSet.getInt("member_id"));
+                task.setSprintId(resultSet.getInt("sprint_id"));
+                task.setStatus(resultSet.getInt("status"));
+                list.add(task);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

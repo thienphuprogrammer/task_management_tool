@@ -1,8 +1,11 @@
 package application.ui.manager;
 
-import bussinesslayer.entity.Doc;
 import bussinesslayer.entity.user.Manager;
-import bussinesslayer.service.IService;
+import bussinesslayer.entity.user.Member;
+import bussinesslayer.service.user.IUserService;
+import bussinesslayer.service.user.manager.IManagerService;
+
+import java.util.List;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -10,38 +13,26 @@ import static application.utilities.OutputUtil.*;
 public class ManagerMenu {
     public enum CHOICE_MANAGER_MENU {
         EXIT,
-
         // Project
         PROJECT_MANAGER,
-        // Backlog
-        BACKLOG_MANAGER,
-
-        // Sprint
-        SPRINT_MANAGER,
-
-        // Task
-        TASK_MANAGER,
-
-        // Subtask
-        SUBTASK_MANAGER,
-
-        // Document
-        DOCUMENT_MANAGER,
         //Profile
-        PROFILE_MANAGER
+        PROFILE_MANAGER,
+        VIEW_ALL_MEMBER
     }
     // -------------------- Properties ------------------------
-    IService<Manager> service;
+    IManagerService serviceManager;
+    private int managerId;
 
     // -------------------- Constructor ------------------------
-    public ManagerMenu(IService<Manager> service) {
-        this.service = service;
+    public ManagerMenu(IManagerService service) {
+        this.serviceManager = service;
     }
     public void processMenuForManager() {
         boolean exit = false;
 
         while (!exit) {
             printLineSeparate("Manager Menu");
+            printValueMenu("\\Manager");
             for (CHOICE_MANAGER_MENU choice : CHOICE_MANAGER_MENU.values()) {
                 printValueMenu(choice.ordinal() + " to  " + choice.name().replace("_", " ").toLowerCase());
             }
@@ -55,12 +46,8 @@ public class ManagerMenu {
                     switch (CHOICE_MANAGER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
                         case PROJECT_MANAGER -> this.manageProject();
-                        case BACKLOG_MANAGER -> this.manageBacklog();
-                        case SPRINT_MANAGER -> this.manageSprint();
-                        case TASK_MANAGER -> this.manageTask();
-                        case SUBTASK_MANAGER -> this.manageSubtask();
-                        case DOCUMENT_MANAGER -> this.manageDocument();
                         case PROFILE_MANAGER -> this.manageProfile();
+                        case VIEW_ALL_MEMBER -> this.viewAllMember();
                         default -> {
                         }
                     }
@@ -72,32 +59,27 @@ public class ManagerMenu {
     }
 
     private void manageProject() throws Exception {
-        ProjectManagerMenu managerProjectManagerMenu = new ProjectManagerMenu(service);
+        ProjectManagerMenu managerProjectManagerMenu = new ProjectManagerMenu(managerId);
         managerProjectManagerMenu.processMenuForProjectManager();
 
     }
-    private void manageBacklog() throws Exception {
-        BacklogManagerMenu backlogManagerMenu = new BacklogManagerMenu(service);
-        backlogManagerMenu.processMenuForBacklogManager();
-    }
-    private void manageSprint() throws Exception {
-        SprintManagerMenu sprintManagerMenu = new SprintManagerMenu(service);
-        sprintManagerMenu.processMenuForSprintManager();
-    }
-    private void manageTask() throws Exception {
-        TaskMangerMenu taskMangerMenu = new TaskMangerMenu(service);
-        taskMangerMenu.processMenuForTaskManager();
-    }
-    private void manageSubtask() throws Exception {
-        SubtaskManagerMenu subtaskManagerMenu = new SubtaskManagerMenu(service);
-        subtaskManagerMenu.processMenuForSubtaskManager();
-    }
-    private void manageDocument() throws Exception {
-        DocumentManagerMenu documentManagerMenu = new DocumentManagerMenu(service);
-        documentManagerMenu.processMenuForDocumentManager();
-    }
     private void manageProfile() throws Exception {
-        ProfileManagerMenu profileManagerMenu = new ProfileManagerMenu(service);
+        ProfileManagerMenu profileManagerMenu = new ProfileManagerMenu(managerId);
         profileManagerMenu.processMenuForProfileManager();
+    }
+    private void viewAllMember() throws Exception {
+        try {
+            List<Member> list = serviceManager.viewAllMember(managerId);
+            for (Member member : list) {
+                printValue("Id: " + member.getId() + " ".repeat(40 - String.valueOf(member.getId()).length()) + "|");
+                printValue("Name: " + member.getName() + " ".repeat(40 - String.valueOf(member.getName()).length()) + "|");
+                printValue("Email: " + member.getEmail() + " ".repeat(40 - String.valueOf(member.getEmail()).length()) + "|");
+                printValue("Phone: " + member.getPhoneNumber() + " ".repeat(40 - String.valueOf(member.getPhoneNumber()).length()) + "|");
+                printValue("Address: " + member.getAddress() + " ".repeat(40 - String.valueOf(member.getAddress()).length()) + "|");
+                printValue("Role: " + member.getRole() + " ".repeat(40 - String.valueOf(member.getRole()).length()) + "|");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

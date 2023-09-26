@@ -2,6 +2,8 @@ package application.ui.member;
 
 import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.IService;
+import bussinesslayer.service.user.IUserService;
+import bussinesslayer.service.user.member.IMemberService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -10,21 +12,15 @@ import static application.utilities.OutputUtil.*;
 public class MemberMenu {
     public enum CHOICE_MEMBER_MENU {
         EXIT,
-        VIEW_DOCUMENT,
-        View_REPORT,
-        VIEW_PROJECT,
-        VIEW_INFORMATION,
-        VIEW_TASK_PROGRESS_TRACKING,
-        VIEW_TASK_PROGRESS,
-        UPDATE_PROFILE,
-        SUBMIT_TASK,
-        MARKS_PROGRESS,
-        RESUBMIT_TASK,
+        // Project
+        PROJECT_MEMBER,
+        PROFILE_MEMBER
     }
     // -------------------- Properties ------------------------
-    IService<Member> service;
+    IMemberService service;
+    private int memberId;
     // -------------------- Constructor ------------------------
-    public MemberMenu(IService<Member> service) {
+    public MemberMenu(IMemberService service) {
         this.service = service;
     }
     public void processMenuForMember() {
@@ -42,16 +38,8 @@ public class MemberMenu {
                 } else {
                     switch (CHOICE_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case VIEW_DOCUMENT -> this.viewDocument();
-                        case View_REPORT -> this.viewReport();
-                        case VIEW_PROJECT -> this.viewProject();
-                        case VIEW_INFORMATION -> this.viewInformation();
-                        case VIEW_TASK_PROGRESS_TRACKING -> this.viewTaskProgressTracking();
-                        case VIEW_TASK_PROGRESS -> this.viewTaskProgress();
-                        case UPDATE_PROFILE -> this.updateProfile();
-                        case SUBMIT_TASK -> this.submitTask();
-                        case MARKS_PROGRESS -> this.marksProgress();
-                        case RESUBMIT_TASK -> this.resubmitTask();
+                        case PROJECT_MEMBER -> this.processMenuForProject();
+                        case PROFILE_MEMBER -> this.processMenuForProfile();
                         default -> {
                         }
                     }
@@ -61,34 +49,12 @@ public class MemberMenu {
             }
         }
     }
-    private void viewDocument() {
-
+    private void processMenuForProject() throws Exception {
+        ProjectMemberMenu projectMemberMenu = new ProjectMemberMenu(memberId);
+        projectMemberMenu.processMenuForProjectMember();
     }
-    private void viewReport() {
-
-    }
-    private void viewProject() {
-
-    }
-    private void viewInformation() {
-
-    }
-    private void viewTaskProgressTracking() {
-
-    }
-    private void viewTaskProgress() {
-
-    }
-    private void updateProfile() {
-
-    }
-    private void submitTask() {
-
-    }
-    private void marksProgress() {
-
-    }
-    private void resubmitTask() {
-
+    private void processMenuForProfile() {
+        ProfileMemberMenu profileMemberMenu = new ProfileMemberMenu(service, memberId);
+        profileMemberMenu.processMenuForProfileMember();
     }
 }

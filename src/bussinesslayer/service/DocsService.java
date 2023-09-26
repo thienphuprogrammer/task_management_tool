@@ -1,15 +1,16 @@
 package bussinesslayer.service;
 
-import bussinesslayer.entity.Doc;
+import bussinesslayer.entity.Document;
 import datalayer.IDao;
+import datalayer.documentdao.IDocumentDao;
 
 import java.util.List;
 
-public class DocsService implements IService<Doc> {
+public class DocsService implements IDocsService {
     // -------------------- Properties ------------------------
-    private IDao<Doc> docIDao;
+    private IDocumentDao docIDao;
     // -------------------- Constructor ------------------------
-    public DocsService(IDao<Doc> docIDao) {
+    public DocsService(IDocumentDao docIDao) {
         this.docIDao = docIDao;
     }
 
@@ -17,22 +18,22 @@ public class DocsService implements IService<Doc> {
     }
     // -------------------- Getters and Setters ------------------------
 
-    public IDao<Doc> getDocIDao() {
+    public IDao<Document> getDocIDao() {
         return docIDao;
     }
 
-    public void setDocIDao(IDao<Doc> docIDao) {
+    public void setDocIDao(IDocumentDao docIDao) {
         this.docIDao = docIDao;
     }
     // -------------------- Methods ------------------------
 
     @Override
-    public void update(Doc doc) throws Exception {
+    public void update(Document doc) throws Exception {
         docIDao.update(doc);
     }
 
     @Override
-    public void create(Doc doc) throws Exception {
+    public void create(Document doc) throws Exception {
         docIDao.addNew(doc);
     }
 
@@ -42,12 +43,17 @@ public class DocsService implements IService<Doc> {
     }
 
     @Override
-    public Doc getById(int id) throws Exception {
+    public Document getById(int id) throws Exception {
         return docIDao.getById(id);
     }
 
     @Override
-    public List<Doc> getAll() throws Exception {
+    public List<Document> getAll() throws Exception {
         return docIDao.getAll();
+    }
+
+    @Override
+    public Document getDocument(int projectId) throws Exception {
+        return docIDao.getDocument(projectId);
     }
 }

@@ -12,8 +12,9 @@ public class Task extends Space {
     }
 
     // -------------------- Properties ------------------------
-    private int memberId;
-    private int sprintId;
+    private int memberId = -1;
+    private int sprintId = -1;
+    private int backlogId;
     private int status = TASK_STATUS.OPEN.ordinal();
     // -------------------- Constructor ------------------------
     public Task(String name, String description, LocalDate startDate, LocalDate endDate, int sprintId) {
@@ -21,16 +22,22 @@ public class Task extends Space {
         this.sprintId = sprintId;
     }
 
-    public Task(int id, String name, String description, LocalDate startDate, LocalDate endDate, int memberId, int sprintId) {
-        super(id, name, description, startDate, endDate);
-        this.memberId = memberId;
-        this.sprintId = sprintId;
-    }
 
     public Task(String name, String description, LocalDate startDate, LocalDate endDate, int memberId, int sprintId) {
         super(name, description, startDate, endDate);
         this.memberId = memberId;
         this.sprintId = sprintId;
+    }
+
+    public Task(String name, String description, LocalDate startDate, LocalDate endDate) {
+        super(name, description, startDate, endDate);
+    }
+
+    public Task(String name, String description, LocalDate startDate, LocalDate endDate, int memberId, int sprintId, int backlogId) {
+        super(name, description, startDate, endDate);
+        this.memberId = memberId;
+        this.sprintId = sprintId;
+        this.backlogId = backlogId;
     }
 
     public Task() {
@@ -59,5 +66,13 @@ public class Task extends Space {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public int getBacklogId() {
+        return backlogId;
+    }
+
+    public void setBacklogId(int backlogId) {
+        this.backlogId = backlogId;
     }
 }

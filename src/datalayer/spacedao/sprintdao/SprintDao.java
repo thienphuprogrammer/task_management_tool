@@ -7,9 +7,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class SprintDao implements ISprintDao<Sprint> {
+public class SprintDao implements ISprintDao {
     Connection connection = null;
     PreparedStatement statement = null;
     ResultSet resultSet = null;
@@ -50,7 +51,7 @@ public class SprintDao implements ISprintDao<Sprint> {
 
     @Override
     public List<Sprint> getAll() throws Exception {
-        List<Sprint> list = null;
+        List<Sprint> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Sprint";
             connection = getConnection();
@@ -121,19 +122,56 @@ public class SprintDao implements ISprintDao<Sprint> {
     }
 
     @Override
-    public void save(Sprint space) throws Exception {
+    public List<Sprint> getAllSprintProject(int projectId) {
+        List<Sprint> list = new ArrayList<>();
         try {
-            String sql = "INSERT INTO Sprint (description, name, start_date, end_date, project_id) VALUES (?, ?, ?, ?, ?)";
+            String sql = "SELECT * FROM Sprint WHERE project_id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setString(1, space.getDescription());
-            statement.setString(2, space.getName());
-            statement.setDate(3, java.sql.Date.valueOf(space.getStartDate()));
-            statement.setDate(4, java.sql.Date.valueOf(space.getEndDate()));
-            statement.setInt(5, space.getProjectId());
-            statement.executeUpdate();
+            statement.setInt(1, projectId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Sprint sprint = new Sprint();
+                sprint.setId(resultSet.getInt("id"));
+                sprint.setDescription(resultSet.getString("description"));
+                sprint.setName(resultSet.getString("name"));
+                sprint.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                sprint.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                sprint.setProjectId(resultSet.getInt("project_id"));
+                list.add(sprint);
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+        return list;
+    }
+    @Override
+    public List<Sprint> getSprintMemberProject(int projectId, int memberId) {
+        List<Sprint> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Sprint as sp " +
+                    "JOIN Project as pr ON sp.project_id = pr.id " +
+                    "JOIN Member_Project as mp ON pr.id = mp.project_id " +
+                    "JOIN Member as me ON me.id = mp.member_id " +
+                    "WHERE me.id = ? AND sp.project_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, memberId);
+            statement.setInt(2, projectId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Sprint sprint = new Sprint();
+                sprint.setId(resultSet.getInt("id"));
+                sprint.setDescription(resultSet.getString("description"));
+                sprint.setName(resultSet.getString("name"));
+                sprint.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                sprint.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                sprint.setProjectId(resultSet.getInt("project_id"));
+                list.add(sprint);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
     }
 }
