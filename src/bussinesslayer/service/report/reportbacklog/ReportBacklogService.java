@@ -63,4 +63,19 @@ public class ReportBacklogService implements IReportBacklogService {
     public List<ReportBacklog> getAllReport(int projectId) throws Exception {
         return reportBacklogIDao.getAllReport(projectId);
     }
+
+    @Override
+    public void viewById(int id) throws Exception {
+        ReportBacklog reportBacklog = reportBacklogIDao.getById(id);
+        System.out.println("| id: " + reportBacklog.getId() + " ".repeat(40 - String.valueOf(reportBacklog.getId()).length()) + "|");
+        System.out.println("| Date: " + reportBacklog.getDate() + " ".repeat(40 - String.valueOf(reportBacklog.getDate()).length()) + "|");
+        System.out.println("| Time: " + reportBacklog.getTime() + " ".repeat(36 - String.valueOf(reportBacklog.getDescription()).length()) + "|");
+//        System.out.println("| File URL: " + reportBacklog.getDescription() + " ".repeat(43 - String.valueOf(reportBacklog.getFileURL()).length()) + "|");
+    }
+
+    @Override
+    public void viewAll() throws Exception {
+//        ReportBacklog reportBacklog = reportBacklogIDao.getById();
+    }
+
 }

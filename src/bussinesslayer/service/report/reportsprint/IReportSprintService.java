@@ -6,7 +6,7 @@ import bussinesslayer.service.report.IReportService;
 import java.util.List;
 
 public interface IReportSprintService extends IReportService<ReportSprint> {
+    void createReport(ReportSprint reportSprint);
 
-    List<ReportSprint> getReports(int projectId);
-
+    List<ReportSprint> getReport(int sprintId);
 }

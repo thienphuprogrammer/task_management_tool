@@ -130,13 +130,13 @@ public class SubtaskDao implements ISubtaskDao {
     }
 
     @Override
-    public List<Subtask> getAllSubtaskProject(int taskId) {
+    public List<Subtask> getAllSubtaskProject(int subtaskId) {
         List<Subtask> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM SubTask WHERE task_id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, taskId);
+            statement.setInt(1, subtaskId);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Subtask subTask = new Subtask();

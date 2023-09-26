@@ -194,14 +194,13 @@ public class TaskDao implements ITaskDao {
     }
 
     @Override
-    public List<Task> getTasks(int sprintId, int memberId) {
+    public List<Task> getAllTaskProject(int sprintId) {
         List<Task> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Task WHERE sprint_id = ? AND member_id = ?";
+            String sql = "SELECT * FROM Task WHERE sprint_id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
             statement.setInt(1, sprintId);
-            statement.setInt(2, memberId);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Task task = new Task();

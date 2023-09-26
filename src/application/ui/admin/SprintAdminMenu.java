@@ -1,7 +1,6 @@
 package application.ui.admin;
 
 import bussinesslayer.entity.report.ReportSprint;
-import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.service.report.reportsprint.IReportSprintService;
 import bussinesslayer.service.report.reportsprint.ReportSprintService;
 import bussinesslayer.service.sapce.sprint.ISprintService;
@@ -45,7 +44,7 @@ public class SprintAdminMenu {
                     switch (CHOICE_SPRINT_ADMIN_MENU.values()[choice]) {
                         case EXIT -> exit = true;
                         case CREATE_REPORT -> this.createReport();
-                        case VIEW_REPORT -> this.viewReports();
+                        case VIEW_REPORT -> this.viewReport();
                         case VIEW_SPRINT -> this.viewSprint();
                         default -> {
                         }
@@ -57,26 +56,17 @@ public class SprintAdminMenu {
         }
     }
     private void createReport() throws Exception {
-        try {
-            int sprintId = readInt("Enter sprint id: ");
-            Sprint sprint = serviceSprint.getById(sprintId);
-            if (sprint != null) {
-                LocalTime time = LocalTime.now();
-                LocalDate date = LocalDate.now();
-                String description = readString("Enter description: ");
-                ReportSprint reportSprint = new ReportSprint(time, date, description, sprintId);
-                reportSprintService.create(reportSprint);
-            } else {
-                printValueln("Invalid sprint id.");
-            }
-        } catch (Exception e) {
-            printValueln(e.getMessage());
-        }
+        int sprintId = readInt("Enter sprint id: ");
+        LocalTime time = LocalTime.now();
+        LocalDate date = LocalDate.now();
+        String description = readString("Enter description: ");
+        ReportSprint reportSprint = new ReportSprint(time, date, description, sprintId);
+        reportSprintService.create(reportSprint);
     }
-    private void viewReports() throws Exception {
+    private void viewReport() throws Exception {
         try {
             int sprintId = readInt("Enter sprint id: ");
-            List<ReportSprint> reportSprint = reportSprintService.getAll();
+            List<ReportSprint> reportSprint = reportSprintService.getReport(sprintId);
             for (ReportSprint r : reportSprint) {
                 printValueln(r.toString());
             }
@@ -86,8 +76,9 @@ public class SprintAdminMenu {
     }
     private void viewSprint() throws Exception {
         try {
-            List<Sprint> sprints = serviceSprint.getAll();
-            for (Sprint r : sprints) {
+            int sprintId = readInt("Enter sprint id: ");
+            List<ReportSprint> reportSprint = reportSprintService.getReport(sprintId);
+            for (ReportSprint r : reportSprint) {
                 printValueln(r.toString());
             }
         } catch (Exception e) {

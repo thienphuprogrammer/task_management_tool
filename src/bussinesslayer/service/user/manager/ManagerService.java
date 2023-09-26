@@ -1,7 +1,7 @@
 package bussinesslayer.service.user.manager;
 
 import bussinesslayer.entity.user.Manager;
-import bussinesslayer.entity.user.Member;
+import bussinesslayer.service.user.IUserService;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
@@ -80,8 +80,7 @@ public class ManagerService implements IManagerService {
     }
 
     @Override
-    public List<Member> viewAllMember(int managerId) {
+    public void viewAllMember(int managerId) {
 
-        return null;
     }
 }
