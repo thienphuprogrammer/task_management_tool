@@ -3,8 +3,6 @@ package application.ui.manager;
 import bussinesslayer.entity.report.ReportBacklog;
 import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.entity.space.Task;
-import bussinesslayer.service.report.reportbacklog.IReportBacklogService;
-import bussinesslayer.service.report.reportbacklog.ReportBacklogService;
 import bussinesslayer.service.sapce.backog.BacklogService;
 import bussinesslayer.service.sapce.backog.IBacklogService;
 import bussinesslayer.service.sapce.task.ITaskService;
@@ -20,7 +18,6 @@ import static application.utilities.OutputUtil.*;
 public class BacklogManagerMenu {
     // -------------------- Properties ------------------------
     private final IBacklogService serviceBacklog = new BacklogService();
-    private final IReportBacklogService serviceReportBacklog  = new ReportBacklogService();
     private final ITaskService serviceTask = new TaskService();
     private int projectId;
     private int backlogId;
@@ -72,8 +69,6 @@ public class BacklogManagerMenu {
                         case UPDATE_TASK_IN_BACKLOG -> this.updateTask();
                         case DELETE_TASK_IN_BACKLOG -> this.deleteTask();
                         case VIEW_ALL_TASK_IN_BACKLOG -> this.viewAllTask();
-                        case VIEW_REPORT_BACKLOG -> this.viewReportBacklog();
-                        case UPDATE_REPORT_BACKLOG -> this.updateReportBacklog();
                     }
                 }
             } catch (Exception e) {
@@ -140,34 +135,6 @@ public class BacklogManagerMenu {
                 printValue("Sprint ID: " + task.getSprintId() + " ".repeat(10 - String.valueOf(task.getSprintId()).length()) + "|");
                 printLineSeparate();
             }
-        } catch (Exception e) {
-            printValueln(e.getMessage());
-        }
-    }
-    private void viewReportBacklog() throws Exception {
-        try {
-            List<ReportBacklog> list = serviceReportBacklog.getReport(backlogId);
-            for (ReportBacklog reportBacklog : list) {
-                printLineSeparate();
-                printValue(("Report ID: " + reportBacklog.getId() + " ".repeat(40 - String.valueOf(reportBacklog.getId()).length()) + "|"));
-                printValue("Description: " + reportBacklog.getDescription() + " ".repeat(36 - String.valueOf(reportBacklog.getDescription()).length()) + "|");
-                printValue("Date: " + reportBacklog.getDate() + " ".repeat(36 - String.valueOf(reportBacklog.getDate()).length()) + "|");
-                printValue("Time: " + reportBacklog.getTime() + " ".repeat(36 - String.valueOf(reportBacklog.getTime()).length()) + "|");
-                printValue("backlog ID: " + reportBacklog.getBacklogId() + " ".repeat(36 - String.valueOf(reportBacklog.getBacklogId()).length()) + "|");
-                printLineSeparate();
-            }
-        } catch (Exception e) {
-            printValueln(e.getMessage());
-        }
-    }
-    private void updateReportBacklog() {
-        try {
-            int backlogId = readInt("Backlog ID: ");
-            String description = readString("Description: ");
-            LocalDate date = LocalDate.now();
-            LocalTime time = LocalTime.now();
-            ReportBacklog reportBacklog = new ReportBacklog(time, date, description, backlogId);
-            serviceReportBacklog.updateReportBacklog(reportBacklog);
         } catch (Exception e) {
             printValueln(e.getMessage());
         }

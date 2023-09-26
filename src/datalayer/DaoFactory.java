@@ -1,13 +1,7 @@
 package datalayer;
 
-import datalayer.report.reportbacklogdao.IReportBacklogDao;
-import datalayer.report.reportbacklogdao.ReportBacklogDao;
 import datalayer.report.reportprojectdao.IReportProjectDao;
 import datalayer.report.reportprojectdao.ReportProjectDao;
-import datalayer.report.reportsprintdao.IReportSprintDao;
-import datalayer.report.reportsprintdao.ReportSprintDao;
-import datalayer.report.reportsubtaskdao.IReportSubtaskDao;
-import datalayer.report.reportsubtaskdao.ReportSubtaskDao;
 import datalayer.report.reporttaskdao.IReportTaskDao;
 import datalayer.report.reporttaskdao.ReportTaskDao;
 import datalayer.spacedao.backlogdao.BacklogDao;
@@ -16,8 +10,6 @@ import datalayer.spacedao.projectdao.IProjectDao;
 import datalayer.spacedao.projectdao.ProjectDao;
 import datalayer.spacedao.sprintdao.ISprintDao;
 import datalayer.spacedao.sprintdao.SprintDao;
-import datalayer.spacedao.substaskdao.ISubtaskDao;
-import datalayer.spacedao.substaskdao.SubtaskDao;
 import datalayer.spacedao.taskdao.ITaskDao;
 import datalayer.spacedao.taskdao.TaskDao;
 import datalayer.user.admindao.AdminDao;
@@ -64,12 +56,6 @@ public class DaoFactory implements IDaoFactory {
     public ITaskDao getTaskDao() throws Exception {
         return new TaskDao();
     }
-
-    @Override
-    public ISubtaskDao getSubTaskDao() throws Exception {
-        return new SubtaskDao();
-    }
-
     @Override
     public IAdminDao getAdminDao() throws Exception {
         return new AdminDao();
@@ -86,11 +72,6 @@ public class DaoFactory implements IDaoFactory {
     }
 
     @Override
-    public IReportBacklogDao getReportBacklogDao() throws Exception {
-        return new ReportBacklogDao();
-    }
-
-    @Override
     public IReportProjectDao getReportProjectDao() throws Exception {
         return new ReportProjectDao();
     }
@@ -98,15 +79,5 @@ public class DaoFactory implements IDaoFactory {
     @Override
     public IReportTaskDao getReportTaskDao() throws Exception {
         return new ReportTaskDao();
-    }
-
-    @Override
-    public IReportSubtaskDao getReportSubtaskDao() throws Exception {
-        return new ReportSubtaskDao();
-    }
-
-    @Override
-    public IReportSprintDao getReportSprintDao() throws Exception {
-        return new ReportSprintDao();
     }
 }

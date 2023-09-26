@@ -2,8 +2,6 @@ package application.ui.manager;
 
 import bussinesslayer.entity.report.ReportSprint;
 import bussinesslayer.entity.space.Sprint;
-import bussinesslayer.service.report.reportsprint.IReportSprintService;
-import bussinesslayer.service.report.reportsprint.ReportSprintService;
 import bussinesslayer.service.sapce.sprint.ISprintService;
 import bussinesslayer.service.sapce.sprint.SprintService;
 
@@ -16,7 +14,6 @@ import static application.utilities.OutputUtil.*;
 public class SprintManagerMenu {
     // -------------------- Properties ------------------------
     private ISprintService sprintService = new SprintService();
-    private IReportSprintService reportSprintService = new ReportSprintService();
     private int projectId;
     public enum CHOICE_SPRINT_MANAGER_MENU {
         EXIT,
@@ -24,7 +21,6 @@ public class SprintManagerMenu {
         UPDATE_SPRINT,
         DELETE_SPRINT,
         VIEW_SPRINT,
-        VIEW_REPORT,
         TASK_MANAGER
     }
     // -------------------- Constructor ------------------------
@@ -56,7 +52,6 @@ public class SprintManagerMenu {
                         case UPDATE_SPRINT -> this.updateSprint();
                         case DELETE_SPRINT -> this.deleteSprint();
                         case VIEW_SPRINT -> this.viewSprint();
-                        case VIEW_REPORT -> this.viewReport();
                         case TASK_MANAGER -> this.processMenuForTaskManager();
                     }
                 }
@@ -116,25 +111,6 @@ public class SprintManagerMenu {
                 printValue("start date: " + sprint.getStartDate() + " ".repeat(40 - String.valueOf(sprint.getStartDate()).length()) + "|");
                 printValue("end date: " + sprint.getEndDate() + " ".repeat(40 - String.valueOf(sprint.getEndDate()).length()) + "|");
                 printValueln("description: " + sprint.getDescription() + " ".repeat(40 - String.valueOf(sprint.getDescription()).length()) + "|");
-            }
-        } catch (Exception e) {
-            printValue(e.getMessage());
-        }
-    }
-    private void viewReport() throws Exception {
-        try {
-            int projectId = readInt("Enter project id: ");
-            Sprint sprint = sprintService.getById(projectId);
-            if (sprint.getProjectId() == projectId) {
-                List<ReportSprint> list = reportSprintService.getReports(projectId);
-                for (ReportSprint reportSprint : list) {
-                    printLineSeparate();
-                    printValue("id: " + reportSprint.getId() + " ".repeat(40 - String.valueOf(reportSprint.getId()).length()) + "|");
-                    printValue("time: " + reportSprint.getTime() + " ".repeat(40 - String.valueOf(reportSprint.getTime()).length()) + "|");
-                    printValue("date: " + reportSprint.getDate() + " ".repeat(40 - String.valueOf(reportSprint.getDate()).length()) + "|");
-                    printValue("description: " + reportSprint.getDescription() + " ".repeat(40 - String.valueOf(reportSprint.getDescription()).length()) + "|");
-                    printValueln("sprint id: " + reportSprint.getSprintId() + " ".repeat(40 - String.valueOf(reportSprint.getSprintId()).length()) + "|");
-                }
             }
         } catch (Exception e) {
             printValue(e.getMessage());

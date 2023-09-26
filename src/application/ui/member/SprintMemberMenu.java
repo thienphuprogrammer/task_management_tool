@@ -1,8 +1,6 @@
 package application.ui.member;
 
 import bussinesslayer.entity.space.Sprint;
-import bussinesslayer.service.report.reportsprint.IReportSprintService;
-import bussinesslayer.service.report.reportsprint.ReportSprintService;
 import bussinesslayer.service.sapce.sprint.ISprintService;
 import bussinesslayer.service.sapce.sprint.SprintService;
 
@@ -14,7 +12,6 @@ import static application.utilities.OutputUtil.*;
 public class SprintMemberMenu {
     // -------------------- Properties ------------------------
     private final ISprintService sprintService = new SprintService();
-    private final IReportSprintService reportSprintService = new ReportSprintService();
     private int projectId;
     private int memberId;
     public enum CHOICE_SPRINT_MEMBER_MENU {

@@ -55,7 +55,6 @@ public class TaskMemberMenu {
                         case VIEW_REPORT_TASK -> this.viewReportTask();
                         case VIEW_ALL_TASK -> this.viewAllTask();
                         case SUBMIT_TASK -> this.submitTask();
-                        case SUBTASK_MEMBER -> this.processMenuForSubtaskManager();
                         case VIEW_ALL_MY_TASK -> this.viewAllMyTask();
                     }
                 }
@@ -117,20 +116,6 @@ public class TaskMemberMenu {
             Task task = taskService.getById(taskId);
             if (task != null && task.getSprintId() == this.sprintId) {
                 taskService.submitTask(taskId);
-            } else {
-                printValueln("Task not found.");
-            }
-        } catch (Exception e) {
-            printValueln(e.getMessage());
-        }
-    }
-    private void processMenuForSubtaskManager() throws Exception {
-        try {
-            int taskId = readInt("Enter task id: ");
-            Task task = taskService.getById(taskId);
-            if (task != null && task.getSprintId() == this.sprintId) {
-                SubtaskMemberMenu subtaskMemberMenu = new SubtaskMemberMenu(taskId, memberId);
-                subtaskMemberMenu.processMenuForSubtaskMember();
             } else {
                 printValueln("Task not found.");
             }

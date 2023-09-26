@@ -52,8 +52,6 @@ public class AdminMenu {
                         case VIEW_ALL_MANAGER -> this.viewAllManager();
                         case VIEW_ALL_MEMBER -> this.viewAllMember();
                         case REPORT_PROJECT_MANAGER -> this.reportProjectManager();
-                        case REPORT_SPRINT_MANAGER -> this.reportSprintManager();
-                        case REPORT_BACKLOG_MANAGER -> this.reportBacklogManager();
                         default -> {
                         }
                     }
@@ -63,11 +61,6 @@ public class AdminMenu {
             }
             waitForInput();
         }
-    }
-
-    private void reportBacklogManager() throws Exception {
-        BacklogAdminMenu backlogManagerMenu = new BacklogAdminMenu();
-        backlogManagerMenu.processMenuForBacklogAdmin();
     }
 
     private void viewAllManager() throws Exception {
@@ -108,9 +101,5 @@ public class AdminMenu {
     private void reportProjectManager() throws Exception {
         ProjectAdminMenu projectAdminMenu = new ProjectAdminMenu();
         projectAdminMenu.processMenuForReportProjectAdmin();
-    }
-    private void reportSprintManager() throws Exception {
-        SprintAdminMenu sprintAdminMenu = new SprintAdminMenu();
-        sprintAdminMenu.processMenuBacklogAdmin();
     }
 }

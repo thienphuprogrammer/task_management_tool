@@ -30,7 +30,6 @@ public class TaskMangerMenu {
         REASSIGN_TASK_TO_MEMBER,
         CREATE_REPORT,
         VIEW_REPORT,
-        SUBTASK_MANAGER
     }
     //  ------------------- Constructor ------------------------
 
@@ -66,7 +65,6 @@ public class TaskMangerMenu {
                         case REASSIGN_TASK_TO_MEMBER -> this.reassignTaskToMember();
                         case CREATE_REPORT -> this.createReport();
                         case VIEW_REPORT -> this.viewReport();
-                        case SUBTASK_MANAGER -> this.processMenuForSubtaskManager();
                     }
                 }
             } catch (Exception e) {
@@ -204,20 +202,6 @@ public class TaskMangerMenu {
                 printValue("description: " + reportTask.getDescription() + " ".repeat(40 - String.valueOf(reportTask.getDescription()).length()) + "|");
                 printValue("time: " + reportTask.getTime() + " ".repeat(40 - String.valueOf(reportTask.getTime()).length()) + "|");
                 printValueln("date: " + reportTask.getDate() + " ".repeat(40 - String.valueOf(reportTask.getDate()).length()) + "|");
-            }
-        } catch (Exception e) {
-            printValueln(e.getMessage());
-        }
-    }
-    private void processMenuForSubtaskManager() throws Exception {
-        try {
-            int taskId = readInt("Enter task id: ");
-            Task task = serviceTask.getById(taskId);
-            if (task.getSprintId() == sprintId) {
-                SubtaskManagerMenu subtaskManagerMenu = new SubtaskManagerMenu(taskId);
-                subtaskManagerMenu.processMenuForSubtaskManager();
-            } else {
-                printValueln("You are not manager of this task.");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
