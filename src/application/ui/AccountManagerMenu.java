@@ -18,7 +18,7 @@ public class AccountManagerMenu {
     }
     public AccountManagerMenu() throws Exception {
     }
-    public Manager processMenuForManager() {
+    public void processMenuForManager() {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Manager Menu");
@@ -33,9 +33,7 @@ public class AccountManagerMenu {
                 } else {
                     switch (CHOICE_ACCOUNT_MANAGER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case LOGIN_MANAGER -> {
-                            return this.loginManager();
-                        }
+                        case LOGIN_MANAGER -> this.loginManager();
                         case SIGNUP_MANAGER -> this.signupManager();
                         default -> {
                         }
@@ -45,7 +43,6 @@ public class AccountManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
-        return null;
     }
     public Manager loginManager() throws Exception {
         Manager manager = null;

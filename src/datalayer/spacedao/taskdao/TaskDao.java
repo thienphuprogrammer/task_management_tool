@@ -100,15 +100,7 @@ public class TaskDao implements ITaskDao {
             statement.setDate(4, java.sql.Date.valueOf(space.getEndDate()));
             statement.setInt(5, space.getMemberId());
             statement.setInt(6, space.getSprintId());
-            String status = "";
-            switch (space.getStatus()) {
-                case 0 -> status = "Open";
-                case 1 -> status = "In Progress";
-                case 2 -> status = "Completed";
-                case 3 -> status = "On Hold";
-                case 4 -> status = "Cancelled";
-            }
-            statement.setString(7, status);
+            statement.setString(7, "Open");
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -309,6 +301,40 @@ public class TaskDao implements ITaskDao {
 
     @Override
     public List<Task> getAllTasksMamager(int sprintId) {
+        List<Task> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Task WHERE sprint_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, sprintId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Task task = new Task();
+                task.setId(resultSet.getInt("id"));
+                task.setDescription(resultSet.getString("description"));
+                task.setName(resultSet.getString("name"));
+                task.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                task.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                task.setMemberId(resultSet.getInt("member_id"));
+                task.setSprintId(resultSet.getInt("sprint_id"));
+                String status = resultSet.getString("status");
+                switch (status) {
+                    case "Open" -> task.setStatus(0);
+                    case "In Progress" -> task.setStatus(1);
+                    case "Completed" -> task.setStatus(2);
+                    case "On Hold" -> task.setStatus(3);
+                    case "Cancelled" -> task.setStatus(4);
+                }
+                list.add(task);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
+    @Override
+    public List<Task> getAllTasks(int sprintId) {
         List<Task> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Task WHERE sprint_id = ?";

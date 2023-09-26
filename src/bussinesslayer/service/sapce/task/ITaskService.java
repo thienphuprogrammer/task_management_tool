@@ -8,7 +8,7 @@ import java.util.List;
 public interface ITaskService extends IService<Task> {
     void submitTask(int taskId);
 
-    List<Task> getAllTask(int backlogId);
+    List<Task> getAllTaskBacklog(int backlogId);
 
     List<Task> getAllMyTaskMember(int sprintId, int memberId);
 
@@ -17,4 +17,6 @@ public interface ITaskService extends IService<Task> {
     List<Task> getTaskProgress(int sprintId);
 
     List<Task> getAllTasksMamager(int sprintId);
+
+    List<Task> getAllTasks(int sprintId);
 }

@@ -1,6 +1,8 @@
 package application.ui;
 
 import bussinesslayer.entity.user.Member;
+import bussinesslayer.service.user.manager.IManagerService;
+import bussinesslayer.service.user.manager.ManagerService;
 import bussinesslayer.service.user.member.IMemberService;
 import bussinesslayer.service.user.member.MemberService;
 
@@ -19,7 +21,7 @@ public class AccountMemberMenu {
         LOGIN_MEMBER,
         SIGNUP_MEMBER
     }
-    public Member processMenuForMember() {
+    public void processMenuForMember() {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Member Menu");
@@ -34,9 +36,7 @@ public class AccountMemberMenu {
                 } else {
                     switch (CHOICE_ACCOUNT_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case LOGIN_MEMBER -> {
-                            return loginMember();
-                        }
+                        case LOGIN_MEMBER -> this.loginMember();
                         case SIGNUP_MEMBER -> this.signupMember();
                         default -> {
                         }
@@ -46,7 +46,6 @@ public class AccountMemberMenu {
                 printValueln("Invalid choice.");
             }
         }
-        return null;
     }
     private Member loginMember() throws Exception {
         Member member = null;

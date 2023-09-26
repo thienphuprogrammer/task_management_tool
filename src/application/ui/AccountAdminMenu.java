@@ -1,5 +1,6 @@
 package application.ui;
 
+import application.ui.admin.AdminMenu;
 import bussinesslayer.entity.user.Admin;
 import bussinesslayer.service.user.admin.AdminService;
 import bussinesslayer.service.user.admin.IAdminService;
@@ -18,7 +19,7 @@ public class AccountAdminMenu {
     public AccountAdminMenu() throws Exception {
     }
 
-    public Admin processMenuForAdmin() {
+    public void processMenuForAdmin() {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Admin Menu");
@@ -33,9 +34,7 @@ public class AccountAdminMenu {
                 } else {
                     switch (CHOICE_ACCOUNT_ADMIN_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case LOGIN_ADMIN -> {
-                            return this.loginAdmin();
-                        }
+                        case LOGIN_ADMIN -> this.loginAdmin();
                         default -> {
                         }
                     }
@@ -44,7 +43,6 @@ public class AccountAdminMenu {
                 printValueln("Invalid choice.");
             }
         }
-        return null;
     }
     private Admin loginAdmin() throws Exception {
         Admin admin = null;
