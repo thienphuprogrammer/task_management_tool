@@ -1,6 +1,8 @@
 package datalayer.user.managerdao;
 
+import bussinesslayer.entity.user.Admin;
 import bussinesslayer.entity.user.Manager;
+import bussinesslayer.entity.user.Member;
 import datalayer.MySqlConnection;
 
 import java.sql.Connection;
@@ -118,4 +120,119 @@ public class ManagerDao implements IManagerDao {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<Member> viewAllMember(int managerId) {
+        List<Member> list = new ArrayList<>();
+        try {
+            String sql = "SELECT distinct m.id, m.name, m.age, m.email, m.gender, m.phone_number, m.role, m.address, m.password FROM Manager as ma " +
+                    "INNER JOIN Project as p ON p.manager_id = ma.id " +
+                    "INNER JOIN Member_Project as mp ON mp.project_id = p.id " +
+                    "INNER JOIN Member as m ON m.id = mp.member_id "+
+                    "WHERE ma.id = ?";
+            Connection connection = MySqlConnection.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, managerId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Member member = new Member();
+                member.setId(resultSet.getInt("id"));
+                member.setName(resultSet.getString("name"));
+                member.setAge(resultSet.getInt("age"));
+                member.setGender(resultSet.getString("gender"));
+                member.setRole(resultSet.getString("role"));
+                member.setEmail(resultSet.getString("email"));
+                member.setPassword(resultSet.getString("password"));
+                member.setPhoneNumber(resultSet.getString("phone_number"));
+                member.setAddress(resultSet.getString("address"));
+                list.add(member);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public Manager loginManager(String email, String password) {
+        Manager manager = null;
+        try {
+            String sql = "SELECT * FROM Manager WHERE email = ? AND password = ?";
+            Connection connection = MySqlConnection.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            statement.setString(2, password);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                manager = new Manager();
+                manager.setId(resultSet.getInt("id"));
+                manager.setName(resultSet.getString("name"));
+                manager.setAge(resultSet.getInt("age"));
+                manager.setEmail(resultSet.getString("email"));
+                manager.setPassword(resultSet.getString("password"));
+                manager.setPhoneNumber(resultSet.getString("phone_number"));
+                manager.setAddress(resultSet.getString("address"));
+                manager.setRole(resultSet.getString("role"));
+                manager.setGender(resultSet.getString("gender"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return manager;
+    }
+
+    @Override
+    public List<Admin> getByEmail(String email) {
+        List<Admin> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Admin WHERE email = ?";
+            Connection connection = MySqlConnection.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Admin admin = new Admin();
+                admin.setId(resultSet.getInt("id"));
+                admin.setName(resultSet.getString("name"));
+                admin.setAge(resultSet.getInt("age"));
+                admin.setEmail(resultSet.getString("email"));
+                admin.setPassword(resultSet.getString("password"));
+                admin.setPhoneNumber(resultSet.getString("phone_number"));
+                admin.setAddress(resultSet.getString("address"));
+                list.add(admin);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    @Override
+    public void changePassword(int id, String password) {
+        try {
+            String sql = "UPDATE Manager SET password = ? WHERE id = ?";
+            Connection connection = MySqlConnection.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, password);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void changeEmail(int id, String email) {
+        try {
+            String sql = "UPDATE Manager SET email = ? WHERE id = ?";
+            Connection connection = MySqlConnection.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            statement.setInt(2, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -30,7 +30,6 @@ public class TaskMangerMenu {
         REASSIGN_TASK_TO_MEMBER,
         CREATE_REPORT,
         VIEW_REPORT,
-        SUBTASK_MANAGER
     }
     //  ------------------- Constructor ------------------------
 
@@ -66,7 +65,6 @@ public class TaskMangerMenu {
                         case REASSIGN_TASK_TO_MEMBER -> this.reassignTaskToMember();
                         case CREATE_REPORT -> this.createReport();
                         case VIEW_REPORT -> this.viewReport();
-                        case SUBTASK_MANAGER -> this.processMenuForSubtaskManager();
                     }
                 }
             } catch (Exception e) {
@@ -117,9 +115,14 @@ public class TaskMangerMenu {
     }
     private void viewTask() throws Exception {
         try {
-            List <Task> list = serviceTask.getAllTask(sprintId);
+            List <Task> list = serviceTask.getAllTasksMamager(sprintId);
             for (Task task1 : list) {
-                printValue(String.valueOf(task1));
+                printValue("id: " + task1.getId() + " ".repeat(40 - String.valueOf(task1.getId()).length()) + "|");
+                printValue("name: " + task1.getName() + " ".repeat(40 - String.valueOf(task1.getName()).length()) + "|");
+                printValue("start date: " + task1.getStartDate() + " ".repeat(40 - String.valueOf(task1.getStartDate()).length()) + "|");
+                printValue("end date: " + task1.getEndDate() + " ".repeat(40 - String.valueOf(task1.getEndDate()).length()) + "|");
+                printValue("description: " + task1.getDescription() + " ".repeat(40 - String.valueOf(task1.getDescription()).length()) + "|");
+                printValueln("sprint id: " + task1.getSprintId() + " ".repeat(40 - String.valueOf(task1.getSprintId()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -127,9 +130,14 @@ public class TaskMangerMenu {
     }
     private void viewTaskProgressTracking() throws Exception {
         try {
-            List<ReportTask> list = reportTaskService.getTaskProgress(sprintId);
-            for (ReportTask reportTask : list) {
-                printValue(String.valueOf(reportTask));
+            List<Task> list = serviceTask.getTaskProgress(sprintId);
+            for (Task task : list) {
+                printValue("id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");
+                printValue("name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");
+                printValue("start date: " + task.getStartDate() + " ".repeat(40 - String.valueOf(task.getStartDate()).length()) + "|");
+                printValue("end date: " + task.getEndDate() + " ".repeat(40 - String.valueOf(task.getEndDate()).length()) + "|");
+                printValue("description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
+                printValueln("sprint id: " + task.getSprintId() + " ".repeat(40 - String.valueOf(task.getSprintId()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -190,21 +198,10 @@ public class TaskMangerMenu {
         try {
             List<ReportTask> reportTaskList = reportTaskService.getReports(sprintId);
             for (ReportTask reportTask : reportTaskList) {
-                printValue(String.valueOf(reportTask));
-            }
-        } catch (Exception e) {
-            printValueln(e.getMessage());
-        }
-    }
-    private void processMenuForSubtaskManager() throws Exception {
-        try {
-            int taskId = readInt("Enter task id: ");
-            Task task = serviceTask.getById(taskId);
-            if (task.getSprintId() == sprintId) {
-                SubtaskManagerMenu subtaskManagerMenu = new SubtaskManagerMenu(taskId);
-                subtaskManagerMenu.processMenuForSubtaskManager();
-            } else {
-                printValueln("You are not manager of this task.");
+                printValue("Task id: " + reportTask.getTaskId() + " ".repeat(40 - String.valueOf(reportTask.getTaskId()).length()) + "|");
+                printValue("description: " + reportTask.getDescription() + " ".repeat(40 - String.valueOf(reportTask.getDescription()).length()) + "|");
+                printValue("time: " + reportTask.getTime() + " ".repeat(40 - String.valueOf(reportTask.getTime()).length()) + "|");
+                printValueln("date: " + reportTask.getDate() + " ".repeat(40 - String.valueOf(reportTask.getDate()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());

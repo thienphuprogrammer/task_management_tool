@@ -82,22 +82,12 @@ public class ProjectService implements IProjectService {
 
     @Override
     public void addMemberToProject(int projectId, int memberId, int managerId) throws Exception {
-        Project project = projectIDao.getById(projectId);
-        if (project.getManagerId() == managerId) {
-            projectIDao.addMemberToProject(projectId, memberId, managerId);
-        } else {
-            throw new Exception("You are not the manager of this project");
-        }
+        projectIDao.addMemberToProject(projectId, memberId);
     }
 
     @Override
     public void removeMemberFromProject(int projectId, int memberId, int managerId) throws Exception {
-        Project project = projectIDao.getById(projectId);
-        if (project.getManagerId() == managerId) {
-            projectIDao.removeMemberFromProject(projectId, memberId, managerId);
-        } else {
-            throw new Exception("You are not the manager of this project");
-        }
+        projectIDao.removeMemberFromProject(projectId, memberId);
     }
 
     @Override
@@ -112,13 +102,8 @@ public class ProjectService implements IProjectService {
         return list;
     }
     @Override
-    public Project getProject(int projectId, int memberId) throws Exception {
-        Project project = projectIDao.getById(projectId);
-        if (project.getManagerId() == memberId) {
-            return project;
-        } else {
-            throw new Exception("You don't manager of this project");
-        }
+    public List<Project> getProjectMember(int memberId) throws Exception {
+        return projectIDao.getProjectMember(memberId);
     }
 
     @Override
@@ -134,8 +119,18 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public List<Project> getAllProject(int userId) throws Exception {
+    public List<Project> getAllProjectManager(int userId) throws Exception {
         return projectIDao.getAllProject(userId);
+    }
+
+    @Override
+    public Project getMemberByProjectId(int projectId, int memberId) {
+        return projectIDao.getMemberByProjectId(projectId, memberId);
+    }
+
+    @Override
+    public List<Project> getAllProjectMember(int memberId) {
+        return projectIDao.getAllProjectMember(memberId);
     }
 
     @Override

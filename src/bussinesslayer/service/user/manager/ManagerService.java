@@ -1,15 +1,18 @@
 package bussinesslayer.service.user.manager;
 
+import bussinesslayer.entity.user.Admin;
 import bussinesslayer.entity.user.Manager;
-import bussinesslayer.service.user.IUserService;
+import bussinesslayer.entity.user.Member;
 import datalayer.DaoFactory;
-import datalayer.IDao;
 import datalayer.IDaoFactory;
+import datalayer.user.managerdao.IManagerDao;
 
 import java.util.List;
 
+import static bussinesslayer.components.DataValidation.*;
+
 public class ManagerService implements IManagerService {
-    private IDao<Manager> managerDao;
+    private IManagerDao managerDao;
     IDaoFactory managerDaoFactory;
 
     public ManagerService() throws Exception {
@@ -71,16 +74,47 @@ public class ManagerService implements IManagerService {
 
     @Override
     public void changePassword(int id, String password) {
-
+        managerDao.changePassword(id, password);
     }
 
     @Override
-    public void changeEmail(int id, String email) {
-
+    public void changeEmail(int id, String email) throws Exception {
+        List<Admin> list = managerDao.getByEmail(email);
+        if (list.size() > 0) {
+            throw new Exception("Email already exists");
+        }
+        managerDao.changeEmail(id, email);
     }
 
     @Override
-    public void viewAllMember(int managerId) {
-
+    public List<Member> viewAllMember(int managerId) {
+        return managerDao.viewAllMember(managerId);
     }
+
+    @Override
+    public Manager loginManager(String email, String password) {
+        return managerDao.loginManager(email, password);
+    }
+
+    @Override
+    public void signupManager(Manager manager) throws Exception {
+        if(!isValidEmail(manager.getEmail())) {
+            throw new Exception("Invalid email");
+        }
+        List<Admin> list = managerDao.getByEmail(manager.getEmail());
+        if (list.size() > 0) {
+            throw new Exception("Email already exists");
+        }
+        if(isValidPassword(manager.getPassword())) {
+            throw new Exception("Invalid password");
+        }
+        if (isValidName(manager.getName())) {
+            throw new Exception("Invalid name");
+        }
+        if (isValidPhoneNumber(manager.getPhoneNumber())) {
+            throw new Exception("Invalid phone number");
+        }
+        managerDao.addNew(manager);
+    }
+
 }

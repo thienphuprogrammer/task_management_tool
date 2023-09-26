@@ -146,13 +146,17 @@ public class SprintDao implements ISprintDao {
         return list;
     }
     @Override
-    public List<Sprint> getMySprintProject(int sprintId, int projectId) {
+    public List<Sprint> getSprintMemberProject(int projectId, int memberId) {
         List<Sprint> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Sprint WHERE id = ? AND project_id = ?";
+            String sql = "SELECT * FROM Sprint as sp " +
+                    "JOIN Project as pr ON sp.project_id = pr.id " +
+                    "JOIN Member_Project as mp ON pr.id = mp.project_id " +
+                    "JOIN Member as me ON me.id = mp.member_id " +
+                    "WHERE me.id = ? AND sp.project_id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, sprintId);
+            statement.setInt(1, memberId);
             statement.setInt(2, projectId);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {

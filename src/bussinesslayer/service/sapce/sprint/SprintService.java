@@ -72,8 +72,8 @@ public class SprintService implements ISprintService {
     }
 
     @Override
-    public List<Sprint> getSprintMember(int memberId) {
-        return sprintIDao.getSprintMemberProject(memberId);
+    public List<Sprint> getSprintMember(int projectId, int memberId) {
+        return sprintIDao.getSprintMemberProject(projectId, memberId);
     }
 
     @Override

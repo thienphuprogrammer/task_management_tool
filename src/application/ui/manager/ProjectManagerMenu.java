@@ -1,5 +1,6 @@
 package application.ui.manager;
 
+import bussinesslayer.entity.report.ReportProject;
 import bussinesslayer.entity.space.Project;
 import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.report.reportproject.IReportProjectService;
@@ -121,7 +122,15 @@ public class ProjectManagerMenu {
     }
     private void viewProject() {
         try {
-            List<Project> list = serviceProject.getAllProject(managerId);
+            List<Project> list = serviceProject.getAllProjectManager(managerId);
+            for (Project project : list) {
+                printValue("id: " + project.getId() + " ".repeat(10 - String.valueOf(project.getId()).length()) + "|");
+                printValue("name: " + project.getName() + " ".repeat(20 - String.valueOf(project.getName()).length()) + "|");
+                printValue("start date: " + project.getStartDate() + " ".repeat(20 - String.valueOf(project.getStartDate()).length()) + "|");
+                printValue("end date: " + project.getEndDate() + " ".repeat(20 - String.valueOf(project.getEndDate()).length()) + "|");
+                printValue("description: " + project.getDescription() + " ".repeat(40 - String.valueOf(project.getDescription()).length()) + "|");
+                printValueln("Manager id: " + project.getManagerId() + " ".repeat(170 - String.valueOf(project.getManagerId()).length()) + "|");
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
@@ -149,7 +158,13 @@ public class ProjectManagerMenu {
         try {
             int projectId = readInt("Enter project id: ");
             List<Member> list = serviceProject.getMember(projectId, managerId);
-            serviceProject.getMember(projectId, managerId);
+            for (Member member : list) {
+                printValue("id: " + member.getId() + " ".repeat(10 - String.valueOf(member.getId()).length()) + "|");
+                printValue("name: " + member.getName() + " ".repeat(20 - String.valueOf(member.getName()).length()) + "|");
+                printValue("email: " + member.getEmail() + " ".repeat(30 - String.valueOf(member.getEmail()).length()) + "|");
+                printValue("phone: " + member.getPhoneNumber() + " ".repeat(20 - String.valueOf(member.getPhoneNumber()).length()) + "|");
+                printValueln("address: " + member.getAddress() + " ".repeat(30 - String.valueOf(member.getAddress()).length()) + "|");
+            }
         } catch (Exception e) {
             printValue(e.getMessage());
         }
@@ -188,7 +203,14 @@ public class ProjectManagerMenu {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getById(projectId);
             if (project.getManagerId() == managerId) {
-                reportProjectService.getReportProject(projectId);
+                List<ReportProject> reportProjects = reportProjectService.getReportsProject(projectId);
+                for (ReportProject reportProject : reportProjects) {
+                    printValue("id: " + reportProject.getId() + " ".repeat(40 - String.valueOf(reportProject.getId()).length()) + "|");
+                    printValue("name: " + reportProject.getDescription() + " ".repeat(40 - String.valueOf(reportProject.getDescription()).length()) + "|");
+                    printValue("description: " + reportProject.getDescription() + " ".repeat(40 - String.valueOf(reportProject.getDescription()).length()) + "|");
+                    printValue("Time: " + reportProject.getTime() + " ".repeat(40 - String.valueOf(reportProject.getTime()).length()) + "|");
+                    printValueln("Date: " + reportProject.getDate() + " ".repeat(40 - String.valueOf(reportProject.getDate()).length()) + "|");
+                }
             } else {
                 printValueln("You are not manager of this project.");
             }
