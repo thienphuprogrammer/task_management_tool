@@ -75,7 +75,7 @@ public class ProjectMemberMenu {
             printValueln(e.getMessage());
         }
     }
-    private void viewDocument() throws Exception {
+    private void viewDocument() {
         try {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getMemberByProjectId(projectId, memberId);

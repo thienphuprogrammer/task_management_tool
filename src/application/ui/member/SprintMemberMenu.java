@@ -57,7 +57,7 @@ public class SprintMemberMenu {
             }
         }
     }
-    private void viewMySprint() throws Exception {
+    private void viewMySprint() {
         try {
             List<Sprint> sprintList = sprintService.getSprintMember(projectId, memberId);
             for (Sprint sprint : sprintList) {
@@ -85,7 +85,7 @@ public class SprintMemberMenu {
             printValueln(e.getMessage());
         }
     }
-    private void processMenuForTaskMember() throws Exception {
+    private void processMenuForTaskMember() {
         try {
             int sprintId = readInt("Enter sprint id: ");
             Sprint sprint = sprintService.getById(sprintId);

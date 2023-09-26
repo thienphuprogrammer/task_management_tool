@@ -47,7 +47,7 @@ public class AccountManagerMenu {
         }
         return null;
     }
-    public Manager loginManager() throws Exception {
+    public Manager loginManager() {
         Manager manager = null;
         try {
             String email = readString("Enter your email: ");
@@ -58,7 +58,7 @@ public class AccountManagerMenu {
         }
         return manager;
     }
-    public void signupManager() throws Exception {
+    public void signupManager() {
         try {
             String name = readString("Enter your name: ");
             int age = readInt("Enter your age: ");

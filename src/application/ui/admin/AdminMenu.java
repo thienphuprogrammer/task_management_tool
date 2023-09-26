@@ -18,9 +18,7 @@ public class AdminMenu {
         EXIT,
         VIEW_ALL_MANAGER,
         VIEW_ALL_MEMBER,
-        REPORT_BACKLOG_MANAGER,
-        REPORT_PROJECT_MANAGER,
-        REPORT_SPRINT_MANAGER,
+        REPORT_PROJECT_MANAGER
     }
 
     // -------------------- Properties ------------------------
@@ -59,7 +57,6 @@ public class AdminMenu {
             } catch (Exception e) {
                 printValueln("Invalid choice.");
             }
-            waitForInput();
         }
     }
 

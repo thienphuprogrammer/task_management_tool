@@ -48,7 +48,7 @@ public class AccountMemberMenu {
         }
         return null;
     }
-    private Member loginMember() throws Exception {
+    private Member loginMember() {
         Member member = null;
         try {
             String email = readString("Enter your email: ");
@@ -59,7 +59,7 @@ public class AccountMemberMenu {
         }
         return member;
     }
-    private void signupMember() throws Exception {
+    private void signupMember() {
         try {
             String name = readString("Enter your name: ");
             int age = readInt("Enter your age: ");

@@ -101,13 +101,13 @@ public class MemberService implements IMemberService {
         if (list.size() > 0) {
             throw new Exception("Email already exists");
         }
-        if(isValidPassword(member.getPassword())) {
+        if(!isValidPassword(member.getPassword())) {
             throw new Exception("Invalid password");
         }
-        if (isValidName(member.getName())) {
+        if (!isValidName(member.getName())) {
             throw new Exception("Invalid name");
         }
-        if (isValidPhoneNumber(member.getPhoneNumber())) {
+        if (!isValidPhoneNumber(member.getPhoneNumber())) {
             throw new Exception("Invalid phone number");
         }
         memberIDao.addNew(member);

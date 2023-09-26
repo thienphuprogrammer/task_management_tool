@@ -1,6 +1,5 @@
 package application.ui.manager;
 
-import bussinesslayer.entity.report.ReportBacklog;
 import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.entity.space.Task;
 import bussinesslayer.service.sapce.backog.BacklogService;
@@ -9,7 +8,6 @@ import bussinesslayer.service.sapce.task.ITaskService;
 import bussinesslayer.service.sapce.task.TaskService;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import static application.utilities.InputUtil.*;
@@ -26,9 +24,7 @@ public class BacklogManagerMenu {
         CREATE_TASK_IN_BACKLOG,
         UPDATE_TASK_IN_BACKLOG,
         DELETE_TASK_IN_BACKLOG,
-        VIEW_ALL_TASK_IN_BACKLOG,
-        VIEW_REPORT_BACKLOG,
-        UPDATE_REPORT_BACKLOG
+        VIEW_ALL_TASK_IN_BACKLOG
     }
     // -------------------- Constructor ------------------------
     public BacklogManagerMenu(int projectId) throws Exception {

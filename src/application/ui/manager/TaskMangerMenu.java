@@ -72,7 +72,7 @@ public class TaskMangerMenu {
             }
         }
     }
-    private void createTask() throws Exception {
+    private void createTask() {
         try {
             String name = readString("Enter task name: ");
             String description = readString("Enter task description: ");
@@ -84,7 +84,7 @@ public class TaskMangerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void updateTask() throws Exception {
+    private void updateTask() {
         try {
             int taskId = readInt("Enter task id: ");
             Task task = serviceTask.getById(taskId);
@@ -101,7 +101,7 @@ public class TaskMangerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void deleteTask() throws Exception {
+    private void deleteTask() {
         try {
             int taskId = readInt("Enter task id: ");
             if (serviceTask.getById(taskId).getSprintId() == sprintId) {
@@ -113,7 +113,7 @@ public class TaskMangerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void viewTask() throws Exception {
+    private void viewTask() {
         try {
             List <Task> list = serviceTask.getAllTasksMamager(sprintId);
             for (Task task1 : list) {
@@ -128,7 +128,7 @@ public class TaskMangerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void viewTaskProgressTracking() throws Exception {
+    private void viewTaskProgressTracking() {
         try {
             List<Task> list = serviceTask.getTaskProgress(sprintId);
             for (Task task : list) {
@@ -144,7 +144,7 @@ public class TaskMangerMenu {
         }
 
     }
-    private void assignTaskToMember() throws Exception {
+    private void assignTaskToMember() {
         try {
             int taskId = readInt("Enter task id: ");
             Task task = serviceTask.getById(taskId);
@@ -160,7 +160,7 @@ public class TaskMangerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void reassignTaskToMember() throws Exception {
+    private void reassignTaskToMember() {
         try {
             int taskId = readInt("Enter task id: ");
             Task task = serviceTask.getById(taskId);
@@ -177,7 +177,7 @@ public class TaskMangerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void createReport() throws Exception {
+    private void createReport() {
         try {
             int taskId = readInt("Enter task id: ");
             Task task = serviceTask.getById(taskId);
@@ -194,7 +194,7 @@ public class TaskMangerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void viewReport() throws Exception {
+    private void viewReport() {
         try {
             List<ReportTask> reportTaskList = reportTaskService.getReports(sprintId);
             for (ReportTask reportTask : reportTaskList) {

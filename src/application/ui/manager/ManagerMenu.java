@@ -67,7 +67,7 @@ public class ManagerMenu {
         ProfileManagerMenu profileManagerMenu = new ProfileManagerMenu(managerId);
         profileManagerMenu.processMenuForProfileManager();
     }
-    private void viewAllMember() throws Exception {
+    private void viewAllMember() {
         try {
             List<Member> list = serviceManager.viewAllMember(managerId);
             for (Member member : list) {

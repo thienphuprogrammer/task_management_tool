@@ -46,7 +46,7 @@ public class AccountAdminMenu {
         }
         return null;
     }
-    private Admin loginAdmin() throws Exception {
+    private Admin loginAdmin() {
         Admin admin = null;
         try {
             String email = readString("Enter your email: ");

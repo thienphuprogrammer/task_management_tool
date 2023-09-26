@@ -66,7 +66,7 @@ public class ProfileManagerMenu {
         }
     }
 
-    private void viewInformation() throws Exception {
+    private void viewInformation() {
         try {
             Manager manager = serviceManager.getById(managerId);
             printLineSeparate("Information");
