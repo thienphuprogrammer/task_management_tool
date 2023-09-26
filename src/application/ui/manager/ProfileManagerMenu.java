@@ -64,13 +64,13 @@ public class ProfileManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
-        waitForInput();
     }
 
     private void viewInformation() throws Exception {
         try {
             Manager manager = serviceManager.getById(managerId);
             printLineSeparate("Information");
+            printValueMenu("Id: " + manager.getId());
             printValueMenu("Name: " + manager.getName());
             printValueMenu("Age: " + manager.getAge());
             printValueMenu("Phone number: " + manager.getPhoneNumber());

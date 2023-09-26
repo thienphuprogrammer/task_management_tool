@@ -36,6 +36,7 @@ public class AdminMenu {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Admin Menu");
+            printValueMenu("Admin");
             for (CHOICE_ADMIN_MENU choice : CHOICE_ADMIN_MENU.values()) {
                 printValueMenu(choice.ordinal() + ". " + choice.name().replace("_", " ").toLowerCase());
             }

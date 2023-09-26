@@ -57,7 +57,6 @@ public class ProjectMemberMenu {
             } catch (Exception e) {
                 printValueln("Invalid choice.");
             }
-            waitForInput();
         }
     }
     private void viewAllProject() {
@@ -65,11 +64,11 @@ public class ProjectMemberMenu {
             List<Project> projects = serviceProject.getAllProjectMember(memberId);
             for (Project project : projects) {
                 printLineSeparate("Project");
-                printValue("id: " + project.getId() + " ".repeat(40 - String.valueOf(project.getId()).length()) + "|");
+                printValue("id: " + project.getId() + " ".repeat(10 - String.valueOf(project.getId()).length()) + "|");
                 printValue("Description: " + project.getDescription() + " ".repeat(40 - String.valueOf(project.getDescription()).length()) + "|");
-                printValue("Start date: " + project.getStartDate() + " ".repeat(40 - String.valueOf(project.getStartDate()).length()) + "|");
-                printValue("End date: " + project.getEndDate() + " ".repeat(40 - String.valueOf(project.getEndDate()).length()) + "|");
-                printValue("Manager id: " + project.getManagerId() + " ".repeat(40 - String.valueOf(project.getManagerId()).length()) + "|");
+                printValue("Start date: " + project.getStartDate() + " ".repeat(20 - String.valueOf(project.getStartDate()).length()) + "|");
+                printValue("End date: " + project.getEndDate() + " ".repeat(20 - String.valueOf(project.getEndDate()).length()) + "|");
+                printValueln("Manager id: " + project.getManagerId() + " ".repeat(10 - String.valueOf(project.getManagerId()).length()) + "|");
                 printLineSeparate("");
             }
         } catch (Exception e) {
@@ -83,8 +82,8 @@ public class ProjectMemberMenu {
             if (project != null) {
                 Document doc = serviceDocs.getDocument(projectId);
                 printLineSeparate("Document");
-                printValue("id: " + doc.getId() + " ".repeat(40 - String.valueOf(doc.getId()).length()) + "|");
-                printValue("Title: " + doc.getTitle() + " ".repeat(40 - String.valueOf(doc.getTitle()).length()) + "|");
+                printValue("id: " + doc.getId() + " ".repeat(10 - String.valueOf(doc.getId()).length()) + "|");
+                printValue("Title: " + doc.getTitle() + " ".repeat(20 - String.valueOf(doc.getTitle()).length()) + "|");
                 printValueln("Description: " + doc.getDescription() + " ".repeat(40 - String.valueOf(doc.getDescription()).length()) + "|");
                 printValueln("Content: " + doc.getContent());
                 printLineSeparate("");

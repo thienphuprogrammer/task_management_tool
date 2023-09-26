@@ -54,13 +54,12 @@ public class ProfileMemberMenu {
                 printValueln("Invalid choice.");
             }
         }
-        waitForInput();
     }
     private void viewInformation() throws Exception {
         try {
             Member member = serviceMember.getById(memberId);
             printLineSeparate("Information");
-            printValue("Id: " + member.getId());
+            printValueMenu("Id: " + member.getId());
             printValueMenu("Name: " + member.getName());
             printValueMenu("Age: " + member.getAge());
             printValueMenu("Phone number: " + member.getPhoneNumber());

@@ -64,7 +64,6 @@ public class SprintManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
-        waitForInput();
     }
     private void createSprint() {
         try {

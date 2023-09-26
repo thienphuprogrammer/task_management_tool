@@ -32,6 +32,7 @@ public class ProjectAdminMenu {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Report Project Admin Menu");
+            printValueMenu("Admin\\Project");
             for (CHOICE_PROJECT_ADMIN_MENU choice : CHOICE_PROJECT_ADMIN_MENU.values()) {
                 printValueMenu(choice.ordinal() + " to  " + choice.name().replace("_", " ").toLowerCase());
             }

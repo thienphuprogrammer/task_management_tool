@@ -35,11 +35,10 @@ public class Menu {
             adminMenu.processMenuForAdmin();
         } else {
             printValueln("login failed");
-            waitForInput();
         }
 
     }
-    public static void manageMember() throws Exception {
+    public static void manageManager() throws Exception {
         AccountManagerMenu accountManagerMenu = new AccountManagerMenu();
         Manager manager = accountManagerMenu.processMenuForManager();
         if (manager != null) {
@@ -47,10 +46,9 @@ public class Menu {
             managerMenu.processMenuForManager();
         } else {
             printValueln("login failed");
-            waitForInput();
         }
     }
-    public static void manageManager() throws Exception {
+    public static void manageMember() throws Exception {
         AccountMemberMenu accountMemberMenu = new AccountMemberMenu();
         Member member = accountMemberMenu.processMenuForMember();
         if (member != null) {
@@ -58,7 +56,6 @@ public class Menu {
             memberMenu.processMenuForMember();
         } else {
             printValueln("login failed");
-            waitForInput();
         }
     }
 }

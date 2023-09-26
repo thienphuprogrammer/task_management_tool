@@ -62,7 +62,6 @@ public class TaskMemberMenu {
             } catch (Exception e) {
                 printValueln("Invalid choice.");
             }
-            waitForInput();
         }
     }
     private void viewReportTask()  {
@@ -72,9 +71,9 @@ public class TaskMemberMenu {
             if (task != null && task.getSprintId() == this.sprintId) {
                 List<ReportTask> reportTaskList = reportTaskService.getReports(taskId);
                 for (ReportTask reportTask : reportTaskList) {
-                    printValue("Report task id: " + reportTask.getId() + " ".repeat(40 - String.valueOf(reportTask.getId()).length()) + "|");
-                    printValue("Report time: " + reportTask.getTime() + " ".repeat(40 - String.valueOf(reportTask.getTime()).length()) + "|");
-                    printValue("Report date: " + reportTask.getDate() + " ".repeat(40 - String.valueOf(reportTask.getDate()).length()) + "|");
+                    printValue("Report task id: " + reportTask.getId() + " ".repeat(10 - String.valueOf(reportTask.getId()).length()) + "|");
+                    printValue("Report time: " + reportTask.getTime() + " ".repeat(20 - String.valueOf(reportTask.getTime()).length()) + "|");
+                    printValue("Report date: " + reportTask.getDate() + " ".repeat(20 - String.valueOf(reportTask.getDate()).length()) + "|");
                     printValueln("Description: " + reportTask.getDescription() + " ".repeat(40 - String.valueOf(reportTask.getDescription()).length()) + "|");
                 }
             }

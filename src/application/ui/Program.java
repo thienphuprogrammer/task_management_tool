@@ -23,7 +23,7 @@ public class Program {
     }
     public static void main(String[] args) throws Exception {
         while (true) {
-            printLineSeparate("Admin Menu");
+            printLineSeparate("User Menu");
             for (LOGIN_CHOICE choice : LOGIN_CHOICE.values()) {
                 printValueMenu(choice.ordinal() + ". " + choice.name().replace("_", " ").toLowerCase());
             }

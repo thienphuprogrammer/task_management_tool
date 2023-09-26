@@ -78,7 +78,6 @@ public class ProjectManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
-        waitForInput();
     }
     private void editProject() {
         try {
@@ -125,12 +124,12 @@ public class ProjectManagerMenu {
         try {
             List<Project> list = serviceProject.getAllProjectManager(managerId);
             for (Project project : list) {
-                printValue("id: " + project.getId() + " ".repeat(40 - String.valueOf(project.getId()).length()) + "|");
-                printValue("name: " + project.getName() + " ".repeat(40 - String.valueOf(project.getName()).length()) + "|");
-                printValue("start date: " + project.getStartDate() + " ".repeat(40 - String.valueOf(project.getStartDate()).length()) + "|");
-                printValue("end date: " + project.getEndDate() + " ".repeat(40 - String.valueOf(project.getEndDate()).length()) + "|");
+                printValue("id: " + project.getId() + " ".repeat(10 - String.valueOf(project.getId()).length()) + "|");
+                printValue("name: " + project.getName() + " ".repeat(20 - String.valueOf(project.getName()).length()) + "|");
+                printValue("start date: " + project.getStartDate() + " ".repeat(20 - String.valueOf(project.getStartDate()).length()) + "|");
+                printValue("end date: " + project.getEndDate() + " ".repeat(20 - String.valueOf(project.getEndDate()).length()) + "|");
                 printValue("description: " + project.getDescription() + " ".repeat(40 - String.valueOf(project.getDescription()).length()) + "|");
-                printValueln("Manager id: " + project.getManagerId() + " ".repeat(40 - String.valueOf(project.getManagerId()).length()) + "|");
+                printValueln("Manager id: " + project.getManagerId() + " ".repeat(170 - String.valueOf(project.getManagerId()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -160,11 +159,11 @@ public class ProjectManagerMenu {
             int projectId = readInt("Enter project id: ");
             List<Member> list = serviceProject.getMember(projectId, managerId);
             for (Member member : list) {
-                printValue("id: " + member.getId() + " ".repeat(40 - String.valueOf(member.getId()).length()) + "|");
-                printValue("name: " + member.getName() + " ".repeat(40 - String.valueOf(member.getName()).length()) + "|");
-                printValue("email: " + member.getEmail() + " ".repeat(40 - String.valueOf(member.getEmail()).length()) + "|");
-                printValue("phone: " + member.getPhoneNumber() + " ".repeat(40 - String.valueOf(member.getPhoneNumber()).length()) + "|");
-                printValue("address: " + member.getAddress() + " ".repeat(40 - String.valueOf(member.getAddress()).length()) + "|");
+                printValue("id: " + member.getId() + " ".repeat(10 - String.valueOf(member.getId()).length()) + "|");
+                printValue("name: " + member.getName() + " ".repeat(20 - String.valueOf(member.getName()).length()) + "|");
+                printValue("email: " + member.getEmail() + " ".repeat(30 - String.valueOf(member.getEmail()).length()) + "|");
+                printValue("phone: " + member.getPhoneNumber() + " ".repeat(20 - String.valueOf(member.getPhoneNumber()).length()) + "|");
+                printValueln("address: " + member.getAddress() + " ".repeat(30 - String.valueOf(member.getAddress()).length()) + "|");
             }
         } catch (Exception e) {
             printValue(e.getMessage());

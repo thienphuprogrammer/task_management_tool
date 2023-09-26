@@ -2,13 +2,14 @@ package bussinesslayer.service;
 
 import bussinesslayer.entity.Document;
 import datalayer.IDao;
+import datalayer.documentdao.DocumentDao;
 import datalayer.documentdao.IDocumentDao;
 
 import java.util.List;
 
 public class DocsService implements IDocsService {
     // -------------------- Properties ------------------------
-    private IDocumentDao docIDao;
+    private IDocumentDao docIDao = new DocumentDao();
     // -------------------- Constructor ------------------------
     public DocsService(IDocumentDao docIDao) {
         this.docIDao = docIDao;
