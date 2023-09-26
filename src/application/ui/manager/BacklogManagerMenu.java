@@ -3,17 +3,16 @@ package application.ui.manager;
 import bussinesslayer.entity.report.ReportBacklog;
 import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.entity.space.Task;
-import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.report.reportbacklog.IReportBacklogService;
 import bussinesslayer.service.report.reportbacklog.ReportBacklogService;
 import bussinesslayer.service.sapce.backog.BacklogService;
 import bussinesslayer.service.sapce.backog.IBacklogService;
 import bussinesslayer.service.sapce.task.ITaskService;
 import bussinesslayer.service.sapce.task.TaskService;
-import bussinesslayer.service.user.IUserService;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
@@ -128,20 +127,49 @@ public class BacklogManagerMenu {
     }
     private void viewAllTask() {
         try {
-            serviceTask.getAllTask(backlogId);
+            List<Task> list = serviceTask.getAllTask(backlogId);
+            for (Task task : list) {
+                printLineSeparate();
+                printValue(("Task ID: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|"));
+                printValue("Name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");
+                printValue("Description: " + task.getDescription() + " ".repeat(36 - String.valueOf(task.getDescription()).length()) + "|");
+                printValue("Start date: " + task.getStartDate() + " ".repeat(36 - String.valueOf(task.getStartDate()).length()) + "|");
+                printValue("End date: " + task.getEndDate() + " ".repeat(36 - String.valueOf(task.getEndDate()).length()) + "|");
+                printValue("Status: " + task.getStatus() + " ".repeat(36 - String.valueOf(task.getStatus()).length()) + "|");
+                printValue("Member ID: " + task.getMemberId() + " ".repeat(36 - String.valueOf(task.getMemberId()).length()) + "|");
+                printValue("Sprint ID: " + task.getSprintId() + " ".repeat(36 - String.valueOf(task.getSprintId()).length()) + "|");
+                printLineSeparate();
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
     }
     private void viewReportBacklog() throws Exception {
-        serviceReportBacklog.viewReport(projectId);
+        try {
+            List<ReportBacklog> list = serviceReportBacklog.getReport(backlogId);
+            for (ReportBacklog reportBacklog : list) {
+                printLineSeparate();
+                printValue(("Report ID: " + reportBacklog.getId() + " ".repeat(40 - String.valueOf(reportBacklog.getId()).length()) + "|"));
+                printValue("Description: " + reportBacklog.getDescription() + " ".repeat(36 - String.valueOf(reportBacklog.getDescription()).length()) + "|");
+                printValue("Date: " + reportBacklog.getDate() + " ".repeat(36 - String.valueOf(reportBacklog.getDate()).length()) + "|");
+                printValue("Time: " + reportBacklog.getTime() + " ".repeat(36 - String.valueOf(reportBacklog.getTime()).length()) + "|");
+                printValue("backlog ID: " + reportBacklog.getBacklogId() + " ".repeat(36 - String.valueOf(reportBacklog.getBacklogId()).length()) + "|");
+                printLineSeparate();
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void updateReportBacklog() throws Exception {
-        int backlogId = readInt("Backlog ID: ");
-        String description = readString("Description: ");
-        LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        ReportBacklog reportBacklog = new ReportBacklog(time, date, description, backlogId);
-        serviceReportBacklog.updateReportBacklog(reportBacklog);
+    private void updateReportBacklog() {
+        try {
+            int backlogId = readInt("Backlog ID: ");
+            String description = readString("Description: ");
+            LocalDate date = LocalDate.now();
+            LocalTime time = LocalTime.now();
+            ReportBacklog reportBacklog = new ReportBacklog(time, date, description, backlogId);
+            serviceReportBacklog.updateReportBacklog(reportBacklog);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

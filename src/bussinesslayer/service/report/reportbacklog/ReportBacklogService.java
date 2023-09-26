@@ -50,14 +50,18 @@ public class ReportBacklogService implements IReportBacklogService {
     }
 
     @Override
-    public List<ReportBacklog> viewReport(int backlogId) throws Exception {
-
-        return null;
+    public List<ReportBacklog> getReport(int backlogId) throws Exception {
+        return reportBacklogIDao.getReport(backlogId);
     }
 
     @Override
-    public void updateReportBacklog(ReportBacklog reportBacklog) {
+    public void updateReportBacklog(ReportBacklog reportBacklog) throws Exception {
+            reportBacklogIDao.update(reportBacklog);
+    }
 
+    @Override
+    public List<ReportBacklog> getAllReport(int projectId) throws Exception {
+        return reportBacklogIDao.getAllReport(projectId);
     }
 
     @Override

@@ -1,13 +1,14 @@
-package bussinesslayer.service.user;
+package bussinesslayer.service.user.member;
 
 import bussinesslayer.entity.user.Member;
+import bussinesslayer.service.user.IUserService;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class MemberService implements IUserService<Member> {
+public class MemberService implements IMemberService {
     private IDao<Member> memberIDao;
     IDaoFactory adminDaoFactory;
 

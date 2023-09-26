@@ -6,6 +6,7 @@ import datalayer.DaoFactory;
 import datalayer.IDaoFactory;
 import datalayer.spacedao.projectdao.IProjectDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectService implements IProjectService {
@@ -101,7 +102,7 @@ public class ProjectService implements IProjectService {
 
     @Override
     public List<Member> getMember(int projectId, int managerId) throws Exception {
-        List<Member> list = null;
+        List<Member> list = new ArrayList<>();
         Project project = projectIDao.getById(projectId);
         if (project.getManagerId() == managerId) {
             list = projectIDao.getAllMemberProject(projectId, managerId);
@@ -123,7 +124,7 @@ public class ProjectService implements IProjectService {
     @Override
     public List<Member> getAllMember(int projectId, int memberId) throws Exception {
         Project project = projectIDao.getById(projectId);
-        List<Member> list = null;
+        List<Member> list = new ArrayList<>();
         if (project.getManagerId() == memberId) {
             list = projectIDao.getAllMemberProject(projectId, memberId);
         } else {

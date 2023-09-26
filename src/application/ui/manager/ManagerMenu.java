@@ -2,6 +2,7 @@ package application.ui.manager;
 
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.user.IUserService;
+import bussinesslayer.service.user.manager.IManagerService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -16,11 +17,11 @@ public class ManagerMenu {
         VIEW_ALL_MEMBER
     }
     // -------------------- Properties ------------------------
-    IUserService<Manager> serviceManager;
+    IManagerService serviceManager;
     private int managerId;
 
     // -------------------- Constructor ------------------------
-    public ManagerMenu(IUserService <Manager> service) {
+    public ManagerMenu(IManagerService service) {
         this.serviceManager = service;
     }
     public void processMenuForManager() {

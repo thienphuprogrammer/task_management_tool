@@ -70,7 +70,7 @@ public class ProfileMemberMenu {
         member.setName(readString("Name: "));
         member.setAge(readInt("Age: "));
         member.setPhoneNumber(readString("Phone number: "));
-        member.setGender(readBoolean("0 for male, 1 for female, Gender: "));
+        member.setGender(readString("Gender: "));
         member.setAddress(readString("Address: "));
         serviceMember.update(member);
     }

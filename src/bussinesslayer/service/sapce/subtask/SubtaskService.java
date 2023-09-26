@@ -6,6 +6,7 @@ import datalayer.IDao;
 import datalayer.IDaoFactory;
 import datalayer.spacedao.substaskdao.ISubtaskDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubtaskService implements ISubtaskService {
@@ -104,7 +105,7 @@ public class SubtaskService implements ISubtaskService {
     @Override
     public List<Subtask> getSubtaskProject(int subtaskId, int taskId) throws Exception {
         Subtask subtask = subTaskIDao.getById(subtaskId);
-        List<Subtask> list = null;
+        List<Subtask> list = new ArrayList<>();
         if (subtask.getTaskId() == taskId) {
             list = subTaskIDao.getAllSubtaskProject(subtaskId);
         } else {

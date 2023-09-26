@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskDao implements ITaskDao {
@@ -48,7 +49,7 @@ public class TaskDao implements ITaskDao {
 
     @Override
     public List<Task> getAll() throws Exception {
-        List<Task> list = null;
+        List<Task> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Task";
             connection = getConnection();
@@ -126,7 +127,7 @@ public class TaskDao implements ITaskDao {
 
     @Override
     public List<Task> getAllMyTaskMember(int sprintId, int memberId) {
-        List<Task> list = null;
+        List<Task> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Task WHERE sprint_id = ? AND member_id = ?";
             connection = getConnection();
@@ -167,7 +168,7 @@ public class TaskDao implements ITaskDao {
 
     @Override
     public List<Task> getAllTask(int backlogId) {
-        List<Task> list = null;
+        List<Task> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Task WHERE backlog_id = ?";
             connection = getConnection();
@@ -194,7 +195,7 @@ public class TaskDao implements ITaskDao {
 
     @Override
     public List<Task> getAllTaskProject(int sprintId) {
-        List<Task> list = null;
+        List<Task> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Task WHERE sprint_id = ?";
             connection = getConnection();

@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SprintDao implements ISprintDao {
@@ -50,7 +51,7 @@ public class SprintDao implements ISprintDao {
 
     @Override
     public List<Sprint> getAll() throws Exception {
-        List<Sprint> list = null;
+        List<Sprint> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Sprint";
             connection = getConnection();
@@ -122,7 +123,7 @@ public class SprintDao implements ISprintDao {
 
     @Override
     public List<Sprint> getAllSprintProject(int projectId) {
-        List<Sprint> list = null;
+        List<Sprint> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Sprint WHERE project_id = ?";
             connection = getConnection();
@@ -146,7 +147,7 @@ public class SprintDao implements ISprintDao {
     }
     @Override
     public List<Sprint> getMySprintProject(int sprintId, int projectId) {
-        List<Sprint> list = null;
+        List<Sprint> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Sprint WHERE id = ? AND project_id = ?";
             connection = getConnection();

@@ -8,6 +8,7 @@ import bussinesslayer.service.sapce.sprint.SprintService;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.InputUtil.readString;
@@ -63,9 +64,25 @@ public class SprintAdminMenu {
         reportSprintService.create(reportSprint);
     }
     private void viewReport() throws Exception {
-        reportSprintService.viewAll();
+        try {
+            int sprintId = readInt("Enter sprint id: ");
+            List<ReportSprint> reportSprint = reportSprintService.getReport(sprintId);
+            for (ReportSprint r : reportSprint) {
+                printValueln(r.toString());
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void viewSprint() throws Exception {
-        serviceSprint.viewAll();
+        try {
+            int sprintId = readInt("Enter sprint id: ");
+            List<ReportSprint> reportSprint = reportSprintService.getReport(sprintId);
+            for (ReportSprint r : reportSprint) {
+                printValueln(r.toString());
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

@@ -3,6 +3,7 @@ package application.ui.member;
 import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.IService;
 import bussinesslayer.service.user.IUserService;
+import bussinesslayer.service.user.member.IMemberService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -16,10 +17,10 @@ public class MemberMenu {
         PROFILE_MEMBER
     }
     // -------------------- Properties ------------------------
-    IUserService<Member> service;
+    IMemberService service;
     private int memberId;
     // -------------------- Constructor ------------------------
-    public MemberMenu(IUserService<Member> service) {
+    public MemberMenu(IMemberService service) {
         this.service = service;
     }
     public void processMenuForMember() {

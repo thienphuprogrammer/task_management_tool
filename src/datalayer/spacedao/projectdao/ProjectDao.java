@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectDao implements IProjectDao {
@@ -51,7 +52,7 @@ public class ProjectDao implements IProjectDao {
 
     @Override
     public List<Project> getAll() throws Exception {
-        List<Project> list = null;
+        List<Project> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Project";
             connection = getConnection();
@@ -151,7 +152,7 @@ public class ProjectDao implements IProjectDao {
 
     @Override
     public List<Member> getAllMemberProject(int projectId, int managerId) {
-        List<Member> list = null;
+        List<Member> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Member_Project WHERE project_id = ? AND manager_id = ?";
             connection = getConnection();
@@ -167,7 +168,7 @@ public class ProjectDao implements IProjectDao {
                 member.setPhoneNumber(resultSet.getString("phone_number"));
                 member.setAge(resultSet.getInt("age"));
                 member.setAddress(resultSet.getString("address"));
-                member.setGender(resultSet.getBoolean("gender"));
+                member.setGender(resultSet.getString("gender"));
                 member.setRole(resultSet.getString("role"));
                 list.add(member);
             }
@@ -179,7 +180,7 @@ public class ProjectDao implements IProjectDao {
 
     @Override
     public List<Project> getAllProject(int userId) {
-        List<Project> list = null;
+        List<Project> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Project WHERE manager_id = ?";
             connection = getConnection();
