@@ -3,8 +3,10 @@ package bussinesslayer.service.report.reporttask;
 import bussinesslayer.entity.report.ReportTask;
 import bussinesslayer.service.report.IReportService;
 
-public interface IReportTaskService extends IReportService<ReportTask> {
-    void viewReport(int id) throws Exception;
+import java.util.List;
 
-    void viewReportSprint(int taskId, int sprintId);
+public interface IReportTaskService extends IReportService<ReportTask> {
+    List<ReportTask> getTaskProgress(int sprintId);
+
+    List<ReportTask> getReports(int sprintId);
 }

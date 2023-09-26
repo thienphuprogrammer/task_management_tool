@@ -3,6 +3,7 @@ package datalayer;
 import datalayer.report.reportbacklogdao.IReportBacklogDao;
 import datalayer.report.reportprojectdao.IReportProjectDao;
 import datalayer.report.reportsprintdao.IReportSprintDao;
+import datalayer.report.reportsubtaskdao.IReportSubtaskDao;
 import datalayer.report.reporttaskdao.IReportTaskDao;
 import datalayer.spacedao.backlogdao.IBacklogDao;
 import datalayer.spacedao.projectdao.IProjectDao;
@@ -35,6 +36,7 @@ public interface IDaoFactory {
     IReportProjectDao getReportProjectDao() throws Exception;
 
     IReportTaskDao getReportTaskDao() throws Exception;
+    IReportSubtaskDao getReportSubtaskDao() throws Exception;
 
     IReportSprintDao getReportSprintDao() throws Exception;
 }

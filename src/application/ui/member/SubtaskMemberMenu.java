@@ -1,9 +1,12 @@
 package application.ui.member;
 
+import bussinesslayer.entity.space.Subtask;
 import bussinesslayer.service.report.reportsubtask.IReportSubtaskService;
 import bussinesslayer.service.report.reportsubtask.ReportSubtaskService;
 import bussinesslayer.service.sapce.subtask.ISubtaskService;
 import bussinesslayer.service.sapce.subtask.SubtaskService;
+
+import java.util.List;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -16,7 +19,6 @@ public class SubtaskMemberMenu {
     public enum CHOICE_SUBTASK_MEMBER_MENU {
         EXIT,
         SUBMIT_SUBTASK,
-        VIEW_MY_SUBTASK,
         VIEW_ALL_MY_SUBTASK,
         VIEW_ALL_SUBTASK,
         VIEW_REPORT_SUBTASK
@@ -47,7 +49,6 @@ public class SubtaskMemberMenu {
                     switch (CHOICE_SUBTASK_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
                         case VIEW_REPORT_SUBTASK -> this.viewReportSubtask();
-                        case VIEW_MY_SUBTASK -> this.viewMySubtask();
                         case VIEW_ALL_SUBTASK -> this.viewAllSubtask();
                         case SUBMIT_SUBTASK -> this.submitSubtask();
                         case VIEW_ALL_MY_SUBTASK -> this.viewAllMySubtask();
@@ -59,26 +60,34 @@ public class SubtaskMemberMenu {
         }
     }
     private void viewReportSubtask() throws Exception {
-        int subtaskId = readInt("Enter subtask id: ");
-        reportSubtaskService.viewReport(subtaskId);
-    }
-    private void viewMySubtask() throws Exception {
         try {
             int subtaskId = readInt("Enter subtask id: ");
-            subtaskService.getSubtaskProject(subtaskId, taskId);
+            Subtask subtask = subtaskService.getById(subtaskId);
+            if (subtask != null && subtask.getTaskId() == this.taskId) {
+                reportSubtaskService.getReport(subtaskId);
+            } else {
+                printValueln("Subtask is not in this task.");
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
     }
     private void viewAllMySubtask() throws Exception {
         try {
-            subtaskService.getAllMySubtaskProject(taskId, memberId);
+            List<Subtask> subtaskList = subtaskService.getAllMySubtaskProject(taskId, memberId);
+            for (Subtask subtask : subtaskList) {
+                printValue(String.valueOf(subtask.getId()));
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
     }
     private void viewAllSubtask() {
-        subtaskService.viewAllSubtaskProject(taskId);
+        try {
+            subtaskService.getAllSubtask(taskId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void submitSubtask(){
         try {

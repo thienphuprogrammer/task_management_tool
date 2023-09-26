@@ -2,10 +2,10 @@ package bussinesslayer.service.sapce.subtask;
 
 import bussinesslayer.entity.space.Subtask;
 import datalayer.DaoFactory;
-import datalayer.IDao;
 import datalayer.IDaoFactory;
 import datalayer.spacedao.substaskdao.ISubtaskDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubtaskService implements ISubtaskService {
@@ -102,27 +102,6 @@ public class SubtaskService implements ISubtaskService {
         }
     }
     @Override
-    public List<Subtask> getSubtaskProject(int subtaskId, int taskId) throws Exception {
-        Subtask subtask = subTaskIDao.getById(subtaskId);
-        List<Subtask> list = null;
-        if (subtask.getTaskId() == taskId) {
-            list = subTaskIDao.getAllSubtaskProject(subtaskId);
-        } else {
-            throw new Exception("Subtask is not in this task.");
-        }
-        return list;
-    }
-
-    @Override
-    public List<Subtask> viewAllSubtaskProject(int taskId) {
-        return subTaskIDao.getAllSubtaskProject(taskId);
-    }
-
-    @Override
-    public List<Subtask> getAllMySubtask(int memberId, int taskId) {
-        return subTaskIDao.getAllMySubtask(memberId, taskId);
-    }
-    @Override
     public List<Subtask> getAllSubtask(int taskId) {
         return subTaskIDao.getAllSubtask(taskId);
     }
@@ -130,6 +109,11 @@ public class SubtaskService implements ISubtaskService {
     @Override
     public List<Subtask> getAllMySubtaskProject(int taskId, int memberId) {
         return subTaskIDao.getAllMySubtaskProject(taskId, memberId);
+    }
+
+    @Override
+    public void getAllSubtaskProject(int taskId) {
+        subTaskIDao.getAllSubtaskProject(taskId);
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 public interface ISprintService extends IService<Sprint> {
     void viewById(int id) throws Exception;
     void viewAll() throws Exception;
-    List<Sprint> getAllSprintProject(int projectId);
+    List<Sprint> getAllSprint(int projectId);
 
-    List<Sprint> getMySprintProject(int sprintId, int projectId);
+    List<Sprint> getSprintMember(int memberId);
 }

@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SprintDao implements ISprintDao {
@@ -50,7 +51,7 @@ public class SprintDao implements ISprintDao {
 
     @Override
     public List<Sprint> getAll() throws Exception {
-        List<Sprint> list = null;
+        List<Sprint> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Sprint";
             connection = getConnection();
@@ -122,7 +123,7 @@ public class SprintDao implements ISprintDao {
 
     @Override
     public List<Sprint> getAllSprintProject(int projectId) {
-        List<Sprint> list = null;
+        List<Sprint> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Sprint WHERE project_id = ?";
             connection = getConnection();
@@ -145,14 +146,17 @@ public class SprintDao implements ISprintDao {
         return list;
     }
     @Override
-    public List<Sprint> getMySprintProject(int sprintId, int projectId) {
-        List<Sprint> list = null;
+    public List<Sprint> getSprintMemberProject(int memberId) {
+        List<Sprint> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Sprint WHERE id = ? AND project_id = ?";
+            String sql = "SELECT * FROM Sprint as sp " +
+                    "JOIN Project as pr ON sp.project_id = pr.id " +
+                    "JOIN Member_Project as mp ON pr.id = mp.project_id " +
+                    "JOIN Member as me ON me.id = mp.member_id " +
+                    "WHERE me.id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, sprintId);
-            statement.setInt(2, projectId);
+            statement.setInt(1, memberId);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Sprint sprint = new Sprint();

@@ -78,8 +78,17 @@ public class ProjectMemberMenu {
         }
     }
     private void viewDocument() throws Exception {
-        int projectId = readInt("Enter project id: ");
-        serviceDocs.getDocument(projectId, memberId);
+        try {
+            int projectId = readInt("Enter project id: ");
+            Project project = serviceProject.getProject(projectId, memberId);
+            if (project != null) {
+                serviceDocs.getDocument(projectId);
+            } else {
+                printValueln("Project not found.");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     private void processMenuForSprintMember() {
         try {

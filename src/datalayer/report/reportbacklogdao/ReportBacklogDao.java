@@ -1,7 +1,6 @@
 package datalayer.report.reportbacklogdao;
 
 import bussinesslayer.entity.report.ReportBacklog;
-import datalayer.IDao;
 import datalayer.MySqlConnection;
 
 import java.sql.*;
@@ -34,7 +33,7 @@ public class ReportBacklogDao implements IReportBacklogDao {
                 reportBacklog.setTime(resultSet.getTime("time").toLocalTime());
                 reportBacklog.setDate(resultSet.getDate("date").toLocalDate());
                 reportBacklog.setDescription(resultSet.getString("Description"));
-                reportBacklog.setBacklog_id(resultSet.getInt("backlog_id"));
+                reportBacklog.setBacklogId(resultSet.getInt("backlog_id"));
                 return reportBacklog;
             }
         } catch (SQLException exception) {
@@ -57,7 +56,7 @@ public class ReportBacklogDao implements IReportBacklogDao {
                 reportBacklog.setTime(resultSet.getTime("time").toLocalTime());
                 reportBacklog.setDate(resultSet.getDate("date").toLocalDate());
                 reportBacklog.setDescription(resultSet.getString("Description"));
-                reportBacklog.setBacklog_id(resultSet.getInt("backlog_id"));
+                reportBacklog.setBacklogId(resultSet.getInt("backlog_id"));
                 list.add(reportBacklog);
             }
         } catch (SQLException e) {
@@ -73,7 +72,7 @@ public class ReportBacklogDao implements IReportBacklogDao {
             statement = connection.prepareStatement(sqlStatement);
             statement.setDate(1, Date.valueOf(space.getDate()));
             statement.setString(2, space.getDescription());
-            statement.setInt(3, space.getBacklog_id());
+            statement.setInt(3, space.getBacklogId());
             statement.setInt(5, space.getId());
             statement.executeUpdate();
         } catch (SQLException exception) {
@@ -89,7 +88,7 @@ public class ReportBacklogDao implements IReportBacklogDao {
             statement = connection.prepareStatement(sqlStatement);
             statement.setDate(1, Date.valueOf(space.getDate()));
             statement.setString(2, space.getDescription());
-            statement.setInt(3, space.getBacklog_id());
+            statement.setInt(3, space.getBacklogId());
             statement.setInt(5, space.getId());
             statement.executeUpdate();
         } catch (SQLException exception) {
@@ -107,5 +106,15 @@ public class ReportBacklogDao implements IReportBacklogDao {
         } catch (SQLException exception) {
             exception.printStackTrace();
         }
+    }
+
+    @Override
+    public List<ReportBacklog> getReport(int backlogId) {
+        return null;
+    }
+
+    @Override
+    public List<ReportBacklog> getAllReport(int projectId) {
+        return null;
     }
 }

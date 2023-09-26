@@ -1,13 +1,14 @@
-package bussinesslayer.service.user;
+package bussinesslayer.service.user.manager;
 
 import bussinesslayer.entity.user.Manager;
+import bussinesslayer.entity.user.Member;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class ManagerService implements IUserService<Manager> {
+public class ManagerService implements IManagerService {
     private IDao<Manager> managerDao;
     IDaoFactory managerDaoFactory;
 
@@ -79,7 +80,8 @@ public class ManagerService implements IUserService<Manager> {
     }
 
     @Override
-    public void viewAllMember(int managerId) {
+    public List<Member> viewAllMember(int managerId) {
 
+        return null;
     }
 }

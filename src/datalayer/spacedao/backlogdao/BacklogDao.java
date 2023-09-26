@@ -1,6 +1,5 @@
 package datalayer.spacedao.backlogdao;
 
-import datalayer.IConnection;
 import bussinesslayer.entity.space.Backlog;
 import datalayer.MySqlConnection;
 
@@ -8,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BacklogDao implements IBacklogDao {
@@ -45,7 +45,7 @@ public class BacklogDao implements IBacklogDao {
 
     @Override
     public List<Backlog> getAll() throws Exception {
-        List<Backlog> list = null;
+        List<Backlog> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Backlog";
             connection = getConnection();

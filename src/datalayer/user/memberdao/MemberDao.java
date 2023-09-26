@@ -27,7 +27,7 @@ public class MemberDao implements IMemberDao {
                 member.setPhoneNumber(resultSet.getString("phone_number"));
                 member.setAge(resultSet.getInt("age"));
                 member.setAddress(resultSet.getString("address"));
-                member.setGender(resultSet.getBoolean("gender"));
+                member.setGender(resultSet.getString("gender"));
                 member.setRole(resultSet.getString("role"));
             }
         } catch (SQLException e) {
@@ -52,7 +52,7 @@ public class MemberDao implements IMemberDao {
                 member.setPhoneNumber(resultSet.getString("phone_number"));
                 member.setAge(resultSet.getInt("age"));
                 member.setAddress(resultSet.getString("address"));
-                member.setGender(resultSet.getBoolean("gender"));
+                member.setGender(resultSet.getString("gender"));
                 member.setRole(resultSet.getString("role"));
                 list.add(member);
             }
@@ -73,7 +73,7 @@ public class MemberDao implements IMemberDao {
             statement.setString(3, space.getPhoneNumber());
             statement.setInt(4, space.getAge());
             statement.setString(5, space.getAddress());
-            statement.setBoolean(6, space.isGender());
+            statement.setString(6, space.isGender());
             statement.setString(7, space.getRole());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -92,7 +92,7 @@ public class MemberDao implements IMemberDao {
             statement.setString(3, space.getPhoneNumber());
             statement.setInt(4, space.getAge());
             statement.setString(5, space.getAddress());
-            statement.setBoolean(6, space.isGender());
+            statement.setString(6, space.isGender());
             statement.setString(7, space.getRole());
             statement.setInt(8, space.getId());
             statement.executeUpdate();

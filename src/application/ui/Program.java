@@ -3,11 +3,13 @@ package application.ui;
 import bussinesslayer.entity.user.Admin;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.entity.user.Member;
-import bussinesslayer.service.IService;
-import bussinesslayer.service.user.AdminService;
+import bussinesslayer.service.user.admin.AdminService;
 import bussinesslayer.service.user.IUserService;
-import bussinesslayer.service.user.ManagerService;
-import bussinesslayer.service.user.MemberService;
+import bussinesslayer.service.user.admin.IAdminService;
+import bussinesslayer.service.user.manager.IManagerService;
+import bussinesslayer.service.user.manager.ManagerService;
+import bussinesslayer.service.user.member.IMemberService;
+import bussinesslayer.service.user.member.MemberService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -21,9 +23,9 @@ public class Program {
     }
     public static void main(String[] args) throws Exception {
 
-        IUserService<Admin> adminService = new AdminService();
-        IUserService<Member> memberService = new MemberService();
-        IUserService<Manager> managerService = new ManagerService();
+        IAdminService adminService = new AdminService();
+        IMemberService memberService = new MemberService();
+        IManagerService managerService = new ManagerService();
 
         while (true) {
             printLineSeparate("Admin Menu");

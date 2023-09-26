@@ -75,77 +75,139 @@ public class TaskMangerMenu {
         }
     }
     private void createTask() throws Exception {
-        String name = readString("Enter task name: ");
-        String description = readString("Enter task description: ");
-        LocalDate startDate = readLocalDate("Enter task start date: ");
-        LocalDate endDate = readLocalDate("Enter task end date: ");
-        int sprintId = readInt("Enter task sprint id: ");
-        Task task = new Task(name, description, startDate, endDate, sprintId);
-        serviceTask.create(task);
-    }
-    private void updateTask() throws Exception {
-        int taskId = readInt("Enter task id: ");
-        Task task = serviceTask.getById(taskId);
-        task.setName(readString("Enter task name: "));
-        task.setDescription(readString("Enter task description: "));
-        task.setStartDate(readLocalDate("Enter task start date: "));
-        task.setEndDate(readLocalDate("Enter task end date: "));
-        task.setSprintId(readInt("Enter task sprint id: "));
-        serviceTask.update(task);
-    }
-    private void deleteTask() throws Exception {
-        int taskId = readInt("Enter task id: ");
-        serviceTask.delete(taskId);
-    }
-    private void viewTask() throws Exception {
-        int taskId = readInt("Enter task id: ");
-        Task task = serviceTask.getById(taskId);
-        printValue(new String[]{
-                String.valueOf(task.getId()),
-                task.getName(),
-                task.getDescription(),
-                task.getStartDate().toString(),
-                task.getEndDate().toString(),
-                String.valueOf(task.getSprintId()),
-        });
-    }
-    private void viewTaskProgressTracking() throws Exception {
-        List<Task> list = serviceTask.getAll();
-        for (Task task : list) {
-            printValue(new String[]{
-                    String.valueOf(task.getId()),
-                    Task.TASK_STATUS.values()[task.getStatus()].name().replace("_", " ").toUpperCase(),
-            });
+        try {
+            String name = readString("Enter task name: ");
+            String description = readString("Enter task description: ");
+            LocalDate startDate = readLocalDate("Enter task start date: ");
+            LocalDate endDate = readLocalDate("Enter task end date: ");
+            Task task = new Task(name, description, startDate, endDate, sprintId);
+            serviceTask.create(task);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
         }
     }
+    private void updateTask() throws Exception {
+        try {
+            int taskId = readInt("Enter task id: ");
+            Task task = serviceTask.getById(taskId);
+            if (task.getSprintId() == sprintId) {
+                task.setName(readString("Enter task name: "));
+                task.setDescription(readString("Enter task description: "));
+                task.setStartDate(readLocalDate("Enter task start date: "));
+                task.setEndDate(readLocalDate("Enter task end date: "));
+                task.setSprintId(readInt("Enter task sprint id: "));
+            } else {
+                printValueln("You are not manager of this task.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
+    }
+    private void deleteTask() throws Exception {
+        try {
+            int taskId = readInt("Enter task id: ");
+            if (serviceTask.getById(taskId).getSprintId() == sprintId) {
+                serviceTask.delete(taskId);
+            } else {
+                printValueln("You are not manager of this task.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
+    }
+    private void viewTask() throws Exception {
+        try {
+            List <Task> list = serviceTask.getAllTask(sprintId);
+            for (Task task1 : list) {
+                printValue(String.valueOf(task1));
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
+    }
+    private void viewTaskProgressTracking() throws Exception {
+        try {
+            List<ReportTask> list = reportTaskService.getTaskProgress(sprintId);
+            for (ReportTask reportTask : list) {
+                printValue(String.valueOf(reportTask));
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
+
+    }
     private void assignTaskToMember() throws Exception {
-        int taskId = readInt("Enter task id: ");
-        Task task = serviceTask.getById(taskId);
-        int memberId = readInt("Enter member id: ");
-        task.setMemberId(memberId);
-        serviceTask.update(task);
+        try {
+            int taskId = readInt("Enter task id: ");
+            Task task = serviceTask.getById(taskId);
+            if (task.getSprintId() == sprintId) {
+                int memberId = readInt("Enter member id: ");
+                task.setMemberId(memberId);
+                serviceTask.update(task);
+                printValueln("Task assigned to member.");
+            } else {
+                printValueln("You are not manager of this task.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void reassignTaskToMember() throws Exception {
-        int taskId = readInt("Enter task id: ");
-        Task task = serviceTask.getById(taskId);
-        int newMemberId = readInt("Enter new member id: ");
-        task.setMemberId(newMemberId);
-        serviceTask.update(task);
+        try {
+            int taskId = readInt("Enter task id: ");
+            Task task = serviceTask.getById(taskId);
+            if (task.getSprintId() == sprintId) {
+                int memberId = readInt("Enter member id: ");
+                task.setMemberId(memberId);
+                serviceTask.update(task);
+                printValueln("Task re-assigned to member.");
+                printValueln("Task re-assigned to member.");
+            } else {
+                printValueln("You are not manager of this task.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void createReport() throws Exception {
-        int taskId = readInt("Enter task id: ");
-        LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        String description = readString("Description: ");
-        ReportTask reportTask = new ReportTask(time, date, description, taskId);
-        reportTaskService.create(reportTask);
+        try {
+            int taskId = readInt("Enter task id: ");
+            Task task = serviceTask.getById(taskId);
+            if (task.getSprintId() == sprintId) {
+                LocalDate date = LocalDate.now();
+                LocalTime time = LocalTime.now();
+                String description = readString("Description: ");
+                ReportTask reportTask = new ReportTask(time, date, description, taskId);
+                reportTaskService.create(reportTask);
+            } else {
+                printValueln("You are not manager of this task.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void viewReport() throws Exception {
-        reportTaskService.viewAll();
+        try {
+            List<ReportTask> reportTaskList = reportTaskService.getReports(sprintId);
+            for (ReportTask reportTask : reportTaskList) {
+                printValue(String.valueOf(reportTask));
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void processMenuForSubtaskManager() throws Exception {
-        int taskId = readInt("Enter task id: ");
-        SubtaskManagerMenu subtaskManagerMenu = new SubtaskManagerMenu(taskId);
-        subtaskManagerMenu.processMenuForSubtaskManager();
+        try {
+            int taskId = readInt("Enter task id: ");
+            Task task = serviceTask.getById(taskId);
+            if (task.getSprintId() == sprintId) {
+                SubtaskManagerMenu subtaskManagerMenu = new SubtaskManagerMenu(taskId);
+                subtaskManagerMenu.processMenuForSubtaskManager();
+            } else {
+                printValueln("You are not manager of this task.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

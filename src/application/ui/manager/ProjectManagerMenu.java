@@ -183,9 +183,18 @@ public class ProjectManagerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void viewReport() throws Exception {
-        int projectId = readInt("Enter project id: ");
-//        reportProjectService.getReport(managerId, projectId);
+    private void viewReport() {
+        try {
+            int projectId = readInt("Enter project id: ");
+            Project project = serviceProject.getById(projectId);
+            if (project.getManagerId() == managerId) {
+                reportProjectService.getReportProject(projectId);
+            } else {
+                printValueln("You are not manager of this project.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void documentProject() {
         try {

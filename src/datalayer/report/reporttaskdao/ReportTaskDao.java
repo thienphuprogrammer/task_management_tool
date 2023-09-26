@@ -109,4 +109,51 @@ public class ReportTaskDao implements IReportTaskDao {
         }
     }
 
+    @Override
+    public List<ReportTask> getTaskProgress(int sprintId) {
+        List<ReportTask> list = new ArrayList<>();
+        try {
+            String sqlStatement = "SELECT * FROM Report_Task WHERE task_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sqlStatement);
+            statement.setInt(1, sprintId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                ReportTask reportTask = new ReportTask();
+                reportTask.setId(resultSet.getInt("id"));
+                reportTask.setDate(resultSet.getDate("date").toLocalDate());
+                reportTask.setTime(resultSet.getTime("time").toLocalTime());
+                reportTask.setDescription(resultSet.getString("Description"));
+                reportTask.setTaskId(resultSet.getInt("task_id"));
+                list.add(reportTask);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public List<ReportTask> getReports(int taskId) {
+        List<ReportTask> list = new ArrayList<>();
+        try {
+            String sqlStatement = "SELECT * FROM Report_Task WHERE task_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sqlStatement);
+            statement.setInt(1, taskId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                ReportTask reportTask = new ReportTask();
+                reportTask.setId(resultSet.getInt("id"));
+                reportTask.setDate(resultSet.getDate("date").toLocalDate());
+                reportTask.setTime(resultSet.getTime("time").toLocalTime());
+                reportTask.setDescription(resultSet.getString("Description"));
+                reportTask.setTaskId(resultSet.getInt("task_id"));
+                list.add(reportTask);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return list;
+    }
 }

@@ -1,5 +1,6 @@
 package application.ui.manager;
 
+import bussinesslayer.entity.report.ReportSprint;
 import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.service.report.reportsprint.IReportSprintService;
 import bussinesslayer.service.report.reportsprint.ReportSprintService;
@@ -7,6 +8,7 @@ import bussinesslayer.service.sapce.sprint.ISprintService;
 import bussinesslayer.service.sapce.sprint.SprintService;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
@@ -107,13 +109,21 @@ public class SprintManagerMenu {
     }
     private void viewSprint() {
         try {
-            sprintService.getAllSprintProject(projectId);
+            sprintService.getAllSprint(projectId);
         } catch (Exception e) {
             printValue(e.getMessage());
         }
     }
     private void viewReport() throws Exception {
-        int sprintId = readInt("Enter sprint id: ");
+        try {
+            int projectId = readInt("Enter project id: ");
+            Sprint sprint = sprintService.getById(projectId);
+            if (sprint.getProjectId() == projectId) {
+                List<ReportSprint> list = reportSprintService.getReports(projectId);
+            }
+        } catch (Exception e) {
+            printValue(e.getMessage());
+        }
     }
     private void processMenuForTaskManager() throws Exception {
         int sprintId = readInt("Enter sprint id: ");

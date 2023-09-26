@@ -1,13 +1,14 @@
-package bussinesslayer.service.user;
+package bussinesslayer.service.user.admin;
 
 import bussinesslayer.entity.user.Admin;
+import bussinesslayer.service.user.IUserService;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
 
 import java.util.List;
 
-public class AdminService implements IUserService<Admin> {
+public class AdminService implements IAdminService {
     // -------------------- Properties ------------------------
     private IDao<Admin> adminDao;
     IDaoFactory adminDaoFactory;
@@ -82,11 +83,6 @@ public class AdminService implements IUserService<Admin> {
 
     @Override
     public void changeEmail(int id, String email) {
-
-    }
-
-    @Override
-    public void viewAllMember(int managerId) {
 
     }
 }

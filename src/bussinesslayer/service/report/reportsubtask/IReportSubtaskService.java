@@ -3,8 +3,8 @@ package bussinesslayer.service.report.reportsubtask;
 import bussinesslayer.entity.report.ReportSubtask;
 import bussinesslayer.service.report.IReportService;
 
-public interface IReportSubtaskService extends IReportService<ReportSubtask> {
-    void createReport(ReportSubtask reportSubtask);
+import java.util.List;
 
-    void viewReport(int taskId);
+public interface IReportSubtaskService extends IReportService<ReportSubtask> {
+    List<ReportSubtask> getReport(int taskId);
 }

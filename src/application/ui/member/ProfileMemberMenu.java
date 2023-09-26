@@ -2,12 +2,13 @@ package application.ui.member;
 
 import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.user.IUserService;
+import bussinesslayer.service.user.member.IMemberService;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
 
 public class ProfileMemberMenu {
-    private IUserService<Member> serviceMember;
+    private IMemberService serviceMember;
     int memberId;
     public enum CHOICE_PROFILE_MEMBER_MENU {
         EXIT,
@@ -17,7 +18,7 @@ public class ProfileMemberMenu {
         VIEW_INFORMATION,
     }
     // -------------------- Constructor ------------------------
-    public ProfileMemberMenu(IUserService<Member> serviceMember, int memberId) {
+    public ProfileMemberMenu(IMemberService serviceMember, int memberId) {
         this.serviceMember = serviceMember;
         this.memberId = memberId;
     }
@@ -55,23 +56,39 @@ public class ProfileMemberMenu {
         }
     }
     private void viewInformation() throws Exception {
-        serviceMember.viewById(memberId);
+        try {
+            Member member = serviceMember.getById(memberId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void changePassword() {
-        String password = readString("Password: ");
-        serviceMember.changePassword(memberId, password);
+        try {
+            String password = readString("Password: ");
+            serviceMember.changePassword(memberId, password);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void changeEmail() {
-        String email = readString("Email: ");
-        serviceMember.changeEmail(memberId, email);
+        try {
+            String email = readString("Email: ");
+            serviceMember.changeEmail(memberId, email);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void changeInformation() throws Exception {
-        Member member = serviceMember.getById(memberId);
-        member.setName(readString("Name: "));
-        member.setAge(readInt("Age: "));
-        member.setPhoneNumber(readString("Phone number: "));
-        member.setGender(readBoolean("0 for male, 1 for female, Gender: "));
-        member.setAddress(readString("Address: "));
-        serviceMember.update(member);
+        try {
+            Member member = serviceMember.getById(memberId);
+            member.setName(readString("Name: "));
+            member.setAge(readInt("Age: "));
+            member.setPhoneNumber(readString("Phone number: "));
+            member.setGender(readString("Gender: "));
+            member.setAddress(readString("Address: "));
+            serviceMember.update(member);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

@@ -108,4 +108,28 @@ public class ReportSprintDao implements IReportSprintDao {
             exception.printStackTrace();
         }
     }
+
+    @Override
+    public List<ReportSprint> getReports(int projectId) {
+        List<ReportSprint> list = new ArrayList<>();
+        try {
+            String sqlStatement = "SELECT * FROM Report_Sprint WHERE sprint_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sqlStatement);
+            statement.setInt(1, projectId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                ReportSprint reportSprint = new ReportSprint();
+                reportSprint.setId(resultSet.getInt("id"));
+                reportSprint.setDate(resultSet.getDate("date").toLocalDate());
+                reportSprint.setTime(resultSet.getTime("time").toLocalTime());
+                reportSprint.setDescription(resultSet.getString("Description"));
+                reportSprint.setSprintId(resultSet.getInt("sprint_id"));
+                list.add(reportSprint);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return list;
+    }
 }

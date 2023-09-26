@@ -108,4 +108,27 @@ public class ReportProjectDao implements IReportProjectDao {
             exception.printStackTrace();
         }
     }
+
+    @Override
+    public List<ReportProject> getReport(int projectId) {
+        List<ReportProject> list = new ArrayList<>();
+        try {
+            String sqlStatement = "SELECT * FROM Report_Project WHERE project_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sqlStatement);
+            statement.setInt(1, projectId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                ReportProject reportProject = new ReportProject();
+                reportProject.setId(resultSet.getInt("id"));
+                reportProject.setDescription(resultSet.getString("Description"));
+                reportProject.setDate(resultSet.getDate("date").toLocalDate());
+                reportProject.setProject_id(resultSet.getInt("project_id"));
+                list.add(reportProject);
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+        return  list;
+    }
 }
