@@ -2,7 +2,6 @@ package bussinesslayer.service.sapce.task;
 
 import bussinesslayer.entity.space.Task;
 import datalayer.DaoFactory;
-import datalayer.IDao;
 import datalayer.IDaoFactory;
 import datalayer.spacedao.taskdao.ITaskDao;
 
@@ -64,40 +63,6 @@ public class TaskService implements ITaskService {
     public List<Task> getAll() throws Exception {
         return taskIDao.getAll();
     }
-
-    @Override
-    public void viewAll() throws Exception {
-        try {
-            List<Task> list = taskIDao.getAll();
-            for (Task task : list) {
-                viewById(task.getId());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public Task getTask(int taskId, int sprintId) throws Exception {
-        Task task = taskIDao.getById(taskId);
-        if (task.getSprintId() == sprintId) {
-            return task;
-        } else {
-            throw new Exception("Task is not in this sprint.");
-        }
-    }
-
-    @Override
-    public List<Task> getAllMyTaskMember(int sprintId, int memberId) {
-        return taskIDao.getAllMyTaskMember(sprintId, memberId);
-    }
-
-
-    @Override
-    public List<Task> getAllTaskProject(int sprintId) {
-        return taskIDao.getAllTaskProject(sprintId);
-    }
-
     @Override
     public void submitTask(int taskId) {
         taskIDao.submitTask(taskId);
@@ -109,15 +74,13 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public void viewById(int id) throws Exception {
-        Task task = taskIDao.getById(id);
-        System.out.println("| id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");
-        System.out.println("| Name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");
-        System.out.println("| Description: " + task.getDescription() + " ".repeat(36 - String.valueOf(task.getDescription()).length()) + "|");
-        System.out.println("| Start Date: " + task.getStartDate() + " ".repeat(43 - String.valueOf(task.getStartDate()).length()) + "|");
-        System.out.println("| End Date: " + task.getEndDate() + " ".repeat(43 - String.valueOf(task.getEndDate()).length()) + "|");
-        System.out.println("| Status: " + task.getStatus() + " ".repeat(43 - String.valueOf(task.getStatus()).length()) + "|");
-        System.out.println("| Member ID: " + task.getMemberId() + " ".repeat(43 - String.valueOf(task.getMemberId()).length()) + "|");
-        System.out.println("| Sprint ID: " + task.getSprintId() + " ".repeat(43 - String.valueOf(task.getSprintId()).length()) + "|");
+    public List<Task> getAllMyTaskMember(int sprintId, int memberId) {
+        return taskIDao.getAllMyTaskMember(sprintId, memberId);
     }
+
+    @Override
+    public List<Task> getTasks(int sprintId, int memberId) {
+        return taskIDao.getTasks(sprintId, memberId);
+    }
+
 }

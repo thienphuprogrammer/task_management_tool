@@ -1,8 +1,7 @@
 package bussinesslayer.service;
 
-import bussinesslayer.entity.Doc;
+import bussinesslayer.entity.Document;
 
-public interface IDocsService extends IService<Doc> {
-    void getDocument(int projectId);
-    void getDocument(int projectId, int userId) throws Exception;
+public interface IDocsService extends IService<Document> {
+    Document getDocument(int projectId) throws Exception;
 }

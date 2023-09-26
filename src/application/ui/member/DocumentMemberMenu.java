@@ -1,5 +1,6 @@
 package application.ui.member;
 
+import bussinesslayer.entity.Document;
 import bussinesslayer.service.DocsService;
 import bussinesslayer.service.IDocsService;
 
@@ -49,6 +50,10 @@ public class DocumentMemberMenu {
         }
     }
     private void viewDocument() {
-        serviceDoc.getDocument(projectId);
+        try {
+            Document document = serviceDoc.getDocument(projectId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

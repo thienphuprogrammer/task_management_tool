@@ -74,4 +74,9 @@ public class BacklogService implements IBacklogService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<Backlog> getAllBacklogInProject(int projectId) {
+        return null;
+    }
 }

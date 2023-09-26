@@ -1,9 +1,13 @@
 package application.ui.member;
 
+import bussinesslayer.entity.report.ReportTask;
+import bussinesslayer.entity.space.Task;
 import bussinesslayer.service.report.reporttask.IReportTaskService;
 import bussinesslayer.service.report.reporttask.ReportTaskService;
 import bussinesslayer.service.sapce.task.ITaskService;
 import bussinesslayer.service.sapce.task.TaskService;
+
+import java.util.List;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
@@ -18,7 +22,6 @@ public class TaskMemberMenu {
     public enum CHOICE_TASK_MEMBER_MENU {
         EXIT,
         SUBMIT_TASK,
-        VIEW_MY_TASK,
         VIEW_ALL_MY_TASK,
         VIEW_ALL_TASK,
         VIEW_REPORT_TASK,
@@ -50,7 +53,6 @@ public class TaskMemberMenu {
                     switch (CHOICE_TASK_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
                         case VIEW_REPORT_TASK -> this.viewReportTask();
-                        case VIEW_MY_TASK -> this.viewMyTask();
                         case VIEW_ALL_TASK -> this.viewAllTask();
                         case SUBMIT_TASK -> this.submitTask();
                         case SUBTASK_MEMBER -> this.processMenuForSubtaskManager();
@@ -65,36 +67,56 @@ public class TaskMemberMenu {
     private void viewReportTask()  {
         try {
             int taskId = readInt("Enter task id: ");
-            reportTaskService.viewReportSprint(taskId, sprintId);
-        } catch (Exception e) {
-            printValueln(e.getMessage());
-        }
-    }
-    private void viewMyTask()  {
-        try {
-            int taskId = readInt("Enter task id: ");
-            taskService.getTask(taskId, sprintId);
+            Task task = taskService.getById(taskId);
+            if (task != null && task.getSprintId() == this.sprintId) {
+                List<ReportTask> reportTaskList = reportTaskService.getReports(taskId);
+                for (ReportTask reportTask : reportTaskList) {
+                    printValue(reportTask.toString());
+                }
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
     }
     private void viewAllMyTask() {
         try {
-            taskService.getAllMyTaskMember(sprintId, memberId);
+            List<Task> taskList = taskService.getAllMyTaskMember(sprintId, memberId);
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
     }
     private void viewAllTask() {
-        taskService.getAllTaskProject(sprintId);
+        try {
+            List<Task> taskList = taskService.getAllTask(sprintId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void submitTask() throws Exception {
-        int taskId = readInt("Enter task id: ");
-        taskService.submitTask(taskId);
+        try {
+            int taskId = readInt("Enter task id: ");
+            Task task = taskService.getById(taskId);
+            if (task != null && task.getSprintId() == this.sprintId) {
+                taskService.submitTask(taskId);
+            } else {
+                printValueln("Task not found.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void processMenuForSubtaskManager() throws Exception {
-        int taskId = readInt("Enter task id: ");
-        SubtaskMemberMenu subtaskMemberMenu = new SubtaskMemberMenu(taskId, memberId);
-        subtaskMemberMenu.processMenuForSubtaskMember();
+        try {
+            int taskId = readInt("Enter task id: ");
+            Task task = taskService.getById(taskId);
+            if (task != null && task.getSprintId() == this.sprintId) {
+                SubtaskMemberMenu subtaskMemberMenu = new SubtaskMemberMenu(taskId, memberId);
+                subtaskMemberMenu.processMenuForSubtaskMember();
+            } else {
+                printValueln("Task not found.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

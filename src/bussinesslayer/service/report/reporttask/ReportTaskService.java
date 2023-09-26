@@ -52,14 +52,4 @@ public class ReportTaskService implements IReportTaskService {
     public List<ReportTask> getReports(int sprintId) {
         return reportTaskIDao.getReports(sprintId);
     }
-
-    @Override
-    public void viewReport(int id) throws Exception {
-
-    }
-
-    @Override
-    public void viewReportSprint(int taskId, int sprintId) {
-
-    }
 }

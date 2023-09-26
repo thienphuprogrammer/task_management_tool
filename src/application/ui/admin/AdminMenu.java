@@ -1,32 +1,34 @@
 package application.ui.admin;
 
-import application.ui.manager.ProjectManagerMenu;
+import application.ui.manager.BacklogManagerMenu;
 import bussinesslayer.entity.user.Admin;
-import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.IService;
-import bussinesslayer.service.user.IUserService;
-import bussinesslayer.service.user.ManagerService;
-import bussinesslayer.service.user.MemberService;
+import bussinesslayer.service.user.admin.AdminService;
+import bussinesslayer.service.user.admin.IAdminService;
+import bussinesslayer.service.user.manager.ManagerService;
+import bussinesslayer.service.user.member.IMemberService;
+import bussinesslayer.service.user.member.MemberService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
 
 public class AdminMenu {
-    private final ManagerService serviceManager = new ManagerService();
-    private final IUserService<Member> serviceMember = new MemberService();
     public enum CHOICE_ADMIN_MENU {
         EXIT,
         VIEW_ALL_MANAGER,
         VIEW_ALL_MEMBER,
+        REPORT_BACKLOG_MANAGER,
         REPORT_PROJECT_MANAGER,
         REPORT_SPRINT_MANAGER,
     }
 
     // -------------------- Properties ------------------------
-    IService<Admin> service;
+    private final ManagerService serviceManager = new ManagerService();
+    private final IMemberService serviceMember = new MemberService();
+    private IAdminService service = new AdminService();
 
     // -------------------- Constructor ------------------------
-    public AdminMenu(IService<Admin> service) throws Exception {
+    public AdminMenu(IAdminService service) throws Exception {
         this.service = service;
     }
     public void processMenuForAdmin() {
@@ -49,6 +51,7 @@ public class AdminMenu {
                         case VIEW_ALL_MEMBER -> this.viewAllMember();
                         case REPORT_PROJECT_MANAGER -> this.reportProjectManager();
                         case REPORT_SPRINT_MANAGER -> this.reportSprintManager();
+                        case REPORT_BACKLOG_MANAGER -> this.reportBacklogManager();
                         default -> {
                         }
                     }
@@ -58,6 +61,12 @@ public class AdminMenu {
             }
         }
     }
+
+    private void reportBacklogManager() throws Exception {
+        BacklogAdminMenu backlogManagerMenu = new BacklogAdminMenu();
+        backlogManagerMenu.processMenuForBacklogAdmin();
+    }
+
     private void viewAllManager() throws Exception {
         serviceManager.viewAll();
     }

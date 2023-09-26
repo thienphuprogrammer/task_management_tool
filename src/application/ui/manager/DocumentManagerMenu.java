@@ -1,6 +1,6 @@
 package application.ui.manager;
 
-import bussinesslayer.entity.Doc;
+import bussinesslayer.entity.Document;
 import bussinesslayer.service.IDocsService;
 
 import static application.utilities.InputUtil.*;
@@ -34,7 +34,8 @@ public class DocumentManagerMenu {
     private void checkDocumentNone() throws Exception {
         if (docsService.getAll().size() == 0) {
             printValueln("Document is empty.");
-            docsService.create(new Doc());
+            docsService.create(new Document());
+            documentId = docsService.getAll().get(0).getId();
         }
     }
 
@@ -66,7 +67,7 @@ public class DocumentManagerMenu {
     }
     private void updateDocument() throws Exception {
         try {
-            Doc doc = docsService.getById(documentId);
+            Document doc = docsService.getById(documentId);
             doc.setTitle(readString("Title: "));
             doc.setDescription(readString("Description: "));
             doc.setContent(readString("Content: "));
@@ -78,7 +79,7 @@ public class DocumentManagerMenu {
     }
     private void viewDocument() {
         try {
-            docsService.getDocument(projectId);
+            Document doc = docsService.getDocument(projectId);
         } catch (Exception e) {
             printValue(e.getMessage());
         }

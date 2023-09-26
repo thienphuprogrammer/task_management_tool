@@ -1,7 +1,11 @@
 package application.ui.manager;
 
 import bussinesslayer.entity.user.Manager;
+import bussinesslayer.entity.user.Member;
 import bussinesslayer.service.user.IUserService;
+import bussinesslayer.service.user.manager.IManagerService;
+
+import java.util.List;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -16,11 +20,11 @@ public class ManagerMenu {
         VIEW_ALL_MEMBER
     }
     // -------------------- Properties ------------------------
-    IUserService<Manager> serviceManager;
+    IManagerService serviceManager;
     private int managerId;
 
     // -------------------- Constructor ------------------------
-    public ManagerMenu(IUserService <Manager> service) {
+    public ManagerMenu(IManagerService service) {
         this.serviceManager = service;
     }
     public void processMenuForManager() {
@@ -64,6 +68,13 @@ public class ManagerMenu {
         profileManagerMenu.processMenuForProfileManager();
     }
     private void viewAllMember() throws Exception {
-        serviceManager.viewAllMember(managerId);
+        try {
+            List<Member> list = serviceManager.viewAllMember(managerId);
+            for (Member member : list) {
+                printValue(member.toString());
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

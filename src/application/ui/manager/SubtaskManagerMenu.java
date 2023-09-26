@@ -2,15 +2,14 @@ package application.ui.manager;
 
 import bussinesslayer.entity.report.ReportSubtask;
 import bussinesslayer.entity.space.Subtask;
-import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.report.reportsubtask.IReportSubtaskService;
 import bussinesslayer.service.report.reportsubtask.ReportSubtaskService;
 import bussinesslayer.service.sapce.subtask.ISubtaskService;
 import bussinesslayer.service.sapce.subtask.SubtaskService;
-import bussinesslayer.service.user.IUserService;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
@@ -26,8 +25,6 @@ public class SubtaskManagerMenu {
         UPDATE_SUBTASK,
         DELETE_SUBTASK,
         VIEW_SUBTASK,
-        VIEW_ALL_MY_SUBTASK,
-        VIEW_ALL_SUBTASK,
         ASSIGN_SUBTASK_TO_MEMBER,
         REASSIGN_SUBTASK_TO_MEMBER,
         CREATE_REPORT,
@@ -65,8 +62,6 @@ public class SubtaskManagerMenu {
                         case REASSIGN_SUBTASK_TO_MEMBER -> this.reassignSubtaskToMember();
                         case CREATE_REPORT -> this.createReport();
                         case VIEW_REPORT -> this.viewReport();
-                        case VIEW_ALL_MY_SUBTASK -> this.viewAllMySubtask();
-                        case VIEW_ALL_SUBTASK -> this.viewAllSubtask();
                     }
                 }
             } catch (Exception e) {
@@ -94,24 +89,10 @@ public class SubtaskManagerMenu {
     }
     private void viewSubtask() {
         try {
-            int subtaskId = readInt("Enter subtask id: ");
-            subtaskManager.getSubtaskProject(subtaskId, taskId);
-        } catch (Exception e) {
-            printValueln(e.getMessage());
-        }
-    }
-
-    private void viewAllMySubtask() {
-        try {
-            int memberId = readInt("Enter member id: ");
-            subtaskManager.getAllMySubtask(memberId, taskId);
-        } catch (Exception e) {
-            printValueln(e.getMessage());
-        }
-    }
-    private void viewAllSubtask() {
-        try {
-            subtaskManager.getAllSubtask(taskId);
+           List<Subtask> subtaskList = subtaskManager.getAllSubtask(taskId);
+           for (Subtask subtask : subtaskList) {
+               printValue(String.valueOf(subtask));
+           }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
@@ -160,14 +141,31 @@ public class SubtaskManagerMenu {
         }
     }
     private void createReport() throws Exception {
-        int subtaskId = readInt("Enter subtask id: ");
-        LocalDate date = LocalDate.now();
-        LocalTime time = LocalTime.now();
-        String description = readString("Description: ");
-        ReportSubtask reportSubtask = new ReportSubtask(time, date, description, subtaskId);
-        reportSubtaskService.createReport(reportSubtask);
+        try {
+            int subtaskId = readInt("Enter subtask id: ");
+            Subtask subtask = subtaskManager.getById(subtaskId);
+            if (subtask != null && subtask.getTaskId() == taskId) {
+                LocalDate date = LocalDate.now();
+                LocalTime time = LocalTime.now();
+                String description = readString("Description: ");
+                ReportSubtask reportSubtask = new ReportSubtask(time, date, description, subtaskId);
+                reportSubtaskService.create(reportSubtask);
+            } else {
+                printValueln("Subtask is not in this task.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
+
     }
     private void viewReport() {
-        reportSubtaskService.viewReport(taskId);
+        try {
+            List<ReportSubtask> reportSubtaskList = reportSubtaskService.getReport(taskId);
+            for (ReportSubtask reportSubtask : reportSubtaskList) {
+                printValue(String.valueOf(reportSubtask));
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

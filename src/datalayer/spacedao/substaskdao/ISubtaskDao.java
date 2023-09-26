@@ -6,7 +6,7 @@ import datalayer.spacedao.ISpaceDao;
 import java.util.List;
 
 public interface ISubtaskDao extends ISpaceDao<Subtask> {
-    List<Subtask> getAllSubtaskProject(int subtaskId);
+    List<Subtask> getAllSubtaskProject(int taskId);
 
     List<Subtask> getAllMySubtask(int memberId, int taskId);
 

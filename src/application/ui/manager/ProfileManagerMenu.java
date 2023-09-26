@@ -2,7 +2,7 @@ package application.ui.manager;
 
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.service.user.IUserService;
-import bussinesslayer.service.user.ManagerService;
+import bussinesslayer.service.user.manager.ManagerService;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;

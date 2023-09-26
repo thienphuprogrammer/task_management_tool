@@ -1,6 +1,7 @@
 package application.ui.admin;
 
 import bussinesslayer.entity.report.ReportBacklog;
+import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.service.report.reportbacklog.IReportBacklogService;
 import bussinesslayer.service.report.reportbacklog.ReportBacklogService;
 import bussinesslayer.service.sapce.backog.BacklogService;
@@ -8,15 +9,16 @@ import bussinesslayer.service.sapce.backog.IBacklogService;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
 
-public class BacklogManagerMenu {
+public class BacklogAdminMenu {
     private final IBacklogService serviceBacklog = new BacklogService();
     private final IReportBacklogService reportBacklogService = new ReportBacklogService();
 
-    public BacklogManagerMenu() throws Exception {
+    public BacklogAdminMenu() throws Exception {
     }
 
     public enum CHOICE_BACKLOG_ADMIN_MENU {
@@ -26,7 +28,7 @@ public class BacklogManagerMenu {
         VIEW_REPORT
     }
 
-    public void processMenuBacklogAdmin() {
+    public void processMenuForBacklogAdmin() {
         boolean exit = false;
         while (!exit) {
             printLineSeparate("Report Project Admin Menu");
@@ -53,18 +55,38 @@ public class BacklogManagerMenu {
             }
         }
     }
-    private void createReport() throws Exception {
-        int backlogId = readInt("Enter backlog id: ");
-        LocalTime time = LocalTime.now();
-        LocalDate date = LocalDate.now();
-        String description = readString("Enter description: ");
-        ReportBacklog reportBacklog = new ReportBacklog(time, date, description, backlogId);
-        reportBacklogService.create(reportBacklog);
+
+    private void createReport() {
+        try {
+            int backlogId = readInt("Enter backlog id: ");
+            LocalTime time = LocalTime.now();
+            LocalDate date = LocalDate.now();
+            String description = readString("Enter description: ");
+            ReportBacklog reportBacklog = new ReportBacklog(time, date, description, backlogId);
+            reportBacklogService.create(reportBacklog);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
+
     private void viewReport() throws Exception {
-        reportBacklogService.viewAll();
+        try {
+            int projectId = readInt("Enter project id: ");
+            reportBacklogService.getAllReport(projectId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
+
     private void viewBacklog() throws Exception {
-        serviceBacklog.viewAll();
+        try {
+            int projectId = readInt("Enter project id: ");
+            List<Backlog> backlogs = serviceBacklog.getAllBacklogInProject(projectId);
+            for (Backlog backlog : backlogs) {
+                printValueln(String.valueOf(backlog.getId()));
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

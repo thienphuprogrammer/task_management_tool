@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TaskDao implements ITaskDao {
@@ -48,7 +49,7 @@ public class TaskDao implements ITaskDao {
 
     @Override
     public List<Task> getAll() throws Exception {
-        List<Task> list = null;
+        List<Task> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Task";
             connection = getConnection();
@@ -126,7 +127,7 @@ public class TaskDao implements ITaskDao {
 
     @Override
     public List<Task> getAllMyTaskMember(int sprintId, int memberId) {
-        List<Task> list = null;
+        List<Task> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Task WHERE sprint_id = ? AND member_id = ?";
             connection = getConnection();
@@ -167,7 +168,7 @@ public class TaskDao implements ITaskDao {
 
     @Override
     public List<Task> getAllTask(int backlogId) {
-        List<Task> list = null;
+        List<Task> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Task WHERE backlog_id = ?";
             connection = getConnection();
@@ -193,13 +194,14 @@ public class TaskDao implements ITaskDao {
     }
 
     @Override
-    public List<Task> getAllTaskProject(int sprintId) {
-        List<Task> list = null;
+    public List<Task> getTasks(int sprintId, int memberId) {
+        List<Task> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Task WHERE sprint_id = ?";
+            String sql = "SELECT * FROM Task WHERE sprint_id = ? AND member_id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
             statement.setInt(1, sprintId);
+            statement.setInt(2, memberId);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Task task = new Task();

@@ -1,9 +1,12 @@
 package application.ui.member;
 
+import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.service.report.reportsprint.IReportSprintService;
 import bussinesslayer.service.report.reportsprint.ReportSprintService;
 import bussinesslayer.service.sapce.sprint.ISprintService;
 import bussinesslayer.service.sapce.sprint.SprintService;
+
+import java.util.List;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
@@ -45,7 +48,7 @@ public class SprintMemberMenu {
                 } else {
                     switch (CHOICE_SPRINT_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case VIEW_MY_SPRINT -> this.getMySprint();
+                        case VIEW_MY_SPRINT -> this.viewMySprint();
                         case VIEW_ALL_SPRINT -> this.viewAllSprint();
                         case TASK_MEMBER -> this.processMenuForTaskMember();
                         default -> {
@@ -57,16 +60,33 @@ public class SprintMemberMenu {
             }
         }
     }
-    private void getMySprint() throws Exception {
-        int sprintId = readInt("Enter sprint id: ");
-        sprintService.getMySprintProject(sprintId, projectId);
+    private void viewMySprint() throws Exception {
+        try {
+            List<Sprint> sprintList = sprintService.getSprintMember(memberId);
+
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void viewAllSprint() {
-        sprintService.getAllSprintProject(projectId);
+        try {
+            List<Sprint> sprintList = sprintService.getAllSprint(projectId);
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
     private void processMenuForTaskMember() throws Exception {
-        int sprintId = readInt("Enter sprint id: ");
-        TaskMemberMenu taskMemberMenu = new TaskMemberMenu(sprintId, memberId);
-        taskMemberMenu.processMenuForTaskMember();
+        try {
+            int sprintId = readInt("Enter sprint id: ");
+            Sprint sprint = sprintService.getById(sprintId);
+            if (sprint != null && sprint.getProjectId() == projectId) {
+                TaskMemberMenu taskMemberMenu = new TaskMemberMenu(sprintId, memberId);
+                taskMemberMenu.processMenuForTaskMember();
+            } else {
+                printValueln("Sprint not found.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

@@ -1,6 +1,7 @@
 package application.ui.admin;
 
 import bussinesslayer.entity.report.ReportProject;
+import bussinesslayer.entity.space.Project;
 import bussinesslayer.service.report.reportproject.IReportProjectService;
 import bussinesslayer.service.report.reportproject.ReportProjectService;
 import bussinesslayer.service.sapce.project.IProjectService;
@@ -8,6 +9,7 @@ import bussinesslayer.service.sapce.project.ProjectService;
 
 import java.time.LocalTime;
 import java.time.LocalDate;
+import java.util.List;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
@@ -61,10 +63,25 @@ public class ProjectAdminMenu {
         ReportProject reportProject = new ReportProject(time, date, description, projectId);
         reportProjectService.create(reportProject);
     }
-    private void viewReport() throws Exception {
-        reportProjectService.viewAll();
+    private void viewReport() {
+        try {
+            int projectId = readInt("Enter project id: ");
+            List<ReportProject> reportProjects = reportProjectService.getReportProject(projectId);
+            for (ReportProject reportProject : reportProjects) {
+                printLineSeparate(reportProject.toString());
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
-    private void viewProject() throws Exception {
-        serviceProject.viewAll();
+    private void viewProject() {
+        try {
+            List<Project> projects = serviceProject.getAll();
+            for (Project project : projects) {
+                printLineSeparate(project.toString());
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

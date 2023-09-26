@@ -1,16 +1,16 @@
 package bussinesslayer.service.user.admin;
 
 import bussinesslayer.entity.user.Admin;
+import bussinesslayer.service.user.IUserService;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
-import datalayer.user.admindao.IAdminDao;
 
 import java.util.List;
 
 public class AdminService implements IAdminService {
     // -------------------- Properties ------------------------
-    private IAdminDao adminDao;
+    private IDao<Admin> adminDao;
     IDaoFactory adminDaoFactory;
     // -------------------- Constructor ------------------------
     public AdminService() throws Exception {
@@ -18,11 +18,11 @@ public class AdminService implements IAdminService {
         this.adminDao = adminDaoFactory.getAdminDao();
     }
     // -------------------- Getters and Setters ------------------------
-    public IAdminDao getAdminDao() {
+    public IDao<Admin> getAdminDao() {
         return adminDao;
     }
 
-    public void setAdminDao(IAdminDao adminDao) {
+    public void setAdminDao(IDao<Admin> adminDao) {
         this.adminDao = adminDao;
     }
     // --------------------- Override Methods ----------------------
@@ -84,10 +84,5 @@ public class AdminService implements IAdminService {
     @Override
     public void changeEmail(int id, String email) {
 
-    }
-
-    @Override
-    public Admin loginAdmin(String email, String password) {
-        return adminDao.login(email, password);
     }
 }

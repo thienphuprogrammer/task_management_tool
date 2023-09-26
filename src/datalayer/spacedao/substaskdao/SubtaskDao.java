@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubtaskDao implements ISubtaskDao {
@@ -52,7 +53,7 @@ public class SubtaskDao implements ISubtaskDao {
 
     @Override
     public List<Subtask> getAll() throws Exception {
-        List<Subtask> list = null;
+        List<Subtask> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM SubTask";
             connection = getConnection();
@@ -129,13 +130,13 @@ public class SubtaskDao implements ISubtaskDao {
     }
 
     @Override
-    public List<Subtask> getAllSubtaskProject(int subtaskId) {
-        List<Subtask> list = null;
+    public List<Subtask> getAllSubtaskProject(int taskId) {
+        List<Subtask> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM SubTask WHERE task_id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, subtaskId);
+            statement.setInt(1, taskId);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Subtask subTask = new Subtask();
@@ -157,7 +158,7 @@ public class SubtaskDao implements ISubtaskDao {
 
     @Override
     public List<Subtask> getAllMySubtask(int memberId, int taskId) {
-        List<Subtask> list = null;
+        List<Subtask> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM SubTask WHERE member_id = ? AND task_id = ?";
             connection = getConnection();
@@ -185,7 +186,7 @@ public class SubtaskDao implements ISubtaskDao {
 
     @Override
     public List<Subtask> getAllSubtask(int taskId) {
-        List<Subtask> list = null;
+        List<Subtask> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM SubTask WHERE task_id = ?";
             connection = getConnection();
@@ -212,7 +213,7 @@ public class SubtaskDao implements ISubtaskDao {
 
     @Override
     public List<Subtask> getAllMySubtaskProject(int taskId, int memberId) {
-        List<Subtask> list = null;
+        List<Subtask> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM SubTask WHERE task_id = ? AND member_id = ?";
             connection = getConnection();

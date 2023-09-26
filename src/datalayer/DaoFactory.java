@@ -6,6 +6,8 @@ import datalayer.report.reportprojectdao.IReportProjectDao;
 import datalayer.report.reportprojectdao.ReportProjectDao;
 import datalayer.report.reportsprintdao.IReportSprintDao;
 import datalayer.report.reportsprintdao.ReportSprintDao;
+import datalayer.report.reportsubtaskdao.IReportSubtaskDao;
+import datalayer.report.reportsubtaskdao.ReportSubtaskDao;
 import datalayer.report.reporttaskdao.IReportTaskDao;
 import datalayer.report.reporttaskdao.ReportTaskDao;
 import datalayer.spacedao.backlogdao.BacklogDao;
@@ -96,6 +98,11 @@ public class DaoFactory implements IDaoFactory {
     @Override
     public IReportTaskDao getReportTaskDao() throws Exception {
         return new ReportTaskDao();
+    }
+
+    @Override
+    public IReportSubtaskDao getReportSubtaskDao() throws Exception {
+        return new ReportSubtaskDao();
     }
 
     @Override
