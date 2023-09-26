@@ -78,6 +78,7 @@ public class ProjectManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
+        waitForInput();
     }
     private void editProject() {
         try {
@@ -122,7 +123,7 @@ public class ProjectManagerMenu {
     }
     private void viewProject() {
         try {
-            List<Project> list = serviceProject.getAllProject(managerId);
+            List<Project> list = serviceProject.getAllProjectManager(managerId);
             for (Project project : list) {
                 printValue("id: " + project.getId() + " ".repeat(40 - String.valueOf(project.getId()).length()) + "|");
                 printValue("name: " + project.getName() + " ".repeat(40 - String.valueOf(project.getName()).length()) + "|");

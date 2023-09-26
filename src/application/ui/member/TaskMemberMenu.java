@@ -62,6 +62,7 @@ public class TaskMemberMenu {
             } catch (Exception e) {
                 printValueln("Invalid choice.");
             }
+            waitForInput();
         }
     }
     private void viewReportTask()  {

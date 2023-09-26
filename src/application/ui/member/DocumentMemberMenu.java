@@ -48,6 +48,7 @@ public class DocumentMemberMenu {
                 printValueln("Invalid choice.");
             }
         }
+        waitForInput();
     }
     private void viewDocument() {
         try {

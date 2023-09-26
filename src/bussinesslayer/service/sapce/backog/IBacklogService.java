@@ -12,5 +12,5 @@ public interface IBacklogService extends IService<Backlog> {
 
     List<Backlog> getAllBacklogInProject(int projectId);
 
-    List<Task> getTasksInBacklog(int projectId);
+    List<Task> getTasksInBacklog(int backlogId);
 }

@@ -55,6 +55,7 @@ public class SprintAdminMenu {
                 printValueln("Invalid choice.");
             }
         }
+        waitForInput();
     }
     private void createReport()  {
         try {

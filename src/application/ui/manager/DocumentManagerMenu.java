@@ -75,7 +75,7 @@ public class DocumentManagerMenu {
         } catch (Exception e) {
             printValue(e.getMessage());
         }
-
+        waitForInput();
     }
     private void viewDocument() {
         try {

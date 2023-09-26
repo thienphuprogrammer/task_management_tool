@@ -68,6 +68,7 @@ public class SubtaskManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
+        waitForInput();
     }
     private void assignSubtaskToMember() {
         try {

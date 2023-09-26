@@ -16,11 +16,10 @@ public class ProjectMemberMenu {
     // -------------------- Properties ------------------------
     private final IProjectService serviceProject = new ProjectService();
     private final IDocsService serviceDocs = new DocsService();
-    private int memberId;
+    private int memberId = 1;
     public enum CHOICE_PROJECT_MEMBER_MENU {
         EXIT,
         VIEW_ALL_MY_PROJECT,
-        VIEW_PROJECT,
         VIEW_DOCUMENT,
         SPRINT_MEMBER
     }
@@ -51,7 +50,6 @@ public class ProjectMemberMenu {
                         case VIEW_ALL_MY_PROJECT -> this.viewAllProject();
                         case VIEW_DOCUMENT -> this.viewDocument();
                         case SPRINT_MEMBER -> this.processMenuForSprintMember();
-                        case VIEW_PROJECT -> this.viewProject();
                         default -> {
                         }
                     }
@@ -59,11 +57,12 @@ public class ProjectMemberMenu {
             } catch (Exception e) {
                 printValueln("Invalid choice.");
             }
+            waitForInput();
         }
     }
     private void viewAllProject() {
         try {
-            List<Project> projects = serviceProject.getAllProject(memberId);
+            List<Project> projects = serviceProject.getAllProjectMember(memberId);
             for (Project project : projects) {
                 printLineSeparate("Project");
                 printValue("id: " + project.getId() + " ".repeat(40 - String.valueOf(project.getId()).length()) + "|");
@@ -94,24 +93,6 @@ public class ProjectMemberMenu {
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }
-    }
-    private void viewProject() {
-        try {
-            List<Project> list = serviceProject.getProjectMember(memberId);
-            if (list != null) {
-                for (Project project : list) {
-                    printValue("id: " + project.getId() + " ".repeat(40 - String.valueOf(project.getId()).length()) + "|");
-                    printValue("Description: " + project.getDescription() + " ".repeat(40 - String.valueOf(project.getDescription()).length()) + "|");
-                    printValue("Start date: " + project.getStartDate() + " ".repeat(40 - String.valueOf(project.getStartDate()).length()) + "|");
-                    printValue("End date: " + project.getEndDate() + " ".repeat(40 - String.valueOf(project.getEndDate()).length()) + "|");
-                    printValueln("Manager id: " + project.getManagerId() + " ".repeat(40 - String.valueOf(project.getManagerId()).length()) + "|");
-                }
-            } else {
-                printValueln("Project is null.");
-            }
-        } catch (Exception e) {
-            printValueln(e.getMessage());
         }
     }
     private void processMenuForSprintMember() {

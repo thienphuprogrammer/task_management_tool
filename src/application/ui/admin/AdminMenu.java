@@ -1,10 +1,7 @@
 package application.ui.admin;
 
-import application.ui.manager.BacklogManagerMenu;
-import bussinesslayer.entity.user.Admin;
 import bussinesslayer.entity.user.Manager;
 import bussinesslayer.entity.user.Member;
-import bussinesslayer.service.IService;
 import bussinesslayer.service.user.admin.AdminService;
 import bussinesslayer.service.user.admin.IAdminService;
 import bussinesslayer.service.user.manager.ManagerService;
@@ -63,6 +60,7 @@ public class AdminMenu {
             } catch (Exception e) {
                 printValueln("Invalid choice.");
             }
+            waitForInput();
         }
     }
 

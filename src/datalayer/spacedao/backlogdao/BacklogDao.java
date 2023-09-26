@@ -2,6 +2,7 @@ package datalayer.spacedao.backlogdao;
 
 import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.entity.space.Task;
+import bussinesslayer.entity.user.Member;
 import datalayer.MySqlConnection;
 
 import java.sql.Connection;
@@ -122,14 +123,15 @@ public class BacklogDao implements IBacklogDao {
     }
 
     @Override
-    public List<Task> getTasksInBacklog(int projectId) {
+    public List<Task> getTasksInBacklog(int backlogId) {
         List<Task> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Backlog as bl " +
                     "JOIN Task as t on t.backlog_id = bl.id " +
-                    "WHERE bl.id = 1";
+                    "WHERE bl.id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
+            statement.setInt(1, backlogId);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Task task = new Task();

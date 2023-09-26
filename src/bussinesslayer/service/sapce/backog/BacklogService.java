@@ -81,7 +81,7 @@ public class BacklogService implements IBacklogService {
     }
 
     @Override
-    public List<Task> getTasksInBacklog(int projectId) {
-        return backlogIDao.getTasksInBacklog(projectId);
+    public List<Task> getTasksInBacklog(int backlogId) {
+        return backlogIDao.getTasksInBacklog(backlogId);
     }
 }

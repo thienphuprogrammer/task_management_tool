@@ -56,6 +56,7 @@ public class BacklogAdminMenu {
             } catch (Exception e) {
                 printValueln("Invalid choice.");
             }
+            waitForInput();
         }
     }
     private void createReport() {
@@ -93,8 +94,8 @@ public class BacklogAdminMenu {
 
     private void viewTasksInBacklog() throws Exception {
         try {
-            int projectId = readInt("Enter project id: ");
-            List<Task> list = serviceBacklog.getTasksInBacklog(projectId);
+            int backlogId = readInt("Enter backlog id: ");
+            List<Task> list = serviceBacklog.getTasksInBacklog(backlogId);
             for (Task task : list) {
                 printValue("id: " + task.getId() + "| ");
                 printValue("name: " + task.getName() + "| ");

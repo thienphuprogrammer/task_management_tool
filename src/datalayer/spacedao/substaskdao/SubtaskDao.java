@@ -41,7 +41,14 @@ public class SubtaskDao implements ISubtaskDao {
                 subTask.setName(resultSet.getString("name"));
                 subTask.setStartDate(resultSet.getDate("start_date").toLocalDate());
                 subTask.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                subTask.setStatus(resultSet.getInt("status"));
+                String status = resultSet.getString("status");
+                switch (status) {
+                    case "Open" -> subTask.setStatus(0);
+                    case "In Progress" -> subTask.setStatus(1);
+                    case "Completed" -> subTask.setStatus(2);
+                    case "On Hold" -> subTask.setStatus(3);
+                    case "Cancelled" -> subTask.setStatus(4);
+                }
                 subTask.setMemberId(resultSet.getInt("member_id"));
                 subTask.setTaskId(resultSet.getInt("task_id"));
             }
@@ -66,7 +73,14 @@ public class SubtaskDao implements ISubtaskDao {
                 subTask.setName(resultSet.getString("name"));
                 subTask.setStartDate(resultSet.getDate("start_date").toLocalDate());
                 subTask.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                subTask.setStatus(resultSet.getInt("status"));
+                String status = resultSet.getString("status");
+                switch (status) {
+                    case "Open" -> subTask.setStatus(0);
+                    case "In Progress" -> subTask.setStatus(1);
+                    case "Completed" -> subTask.setStatus(2);
+                    case "On Hold" -> subTask.setStatus(3);
+                    case "Cancelled" -> subTask.setStatus(4);
+                }
                 subTask.setMemberId(resultSet.getInt("member_id"));
                 subTask.setTaskId(resultSet.getInt("task_id"));
                 list.add(subTask);
@@ -87,7 +101,15 @@ public class SubtaskDao implements ISubtaskDao {
             statement.setString(2, space.getName());
             statement.setDate(3, java.sql.Date.valueOf(space.getStartDate()));
             statement.setDate(4, java.sql.Date.valueOf(space.getEndDate()));
-            statement.setInt(5, space.getStatus());
+            String status = "";
+            switch (space.getStatus()) {
+                case 0 -> status = "Open";
+                case 1 -> status = "In Progress";
+                case 2 -> status = "Completed";
+                case 3 -> status = "On Hold";
+                case 4 -> status = "Cancelled";
+            }
+            statement.setString(5, status);
             statement.setInt(6, space.getMemberId());
             statement.setInt(7, space.getTaskId());
             statement.executeUpdate();
@@ -106,7 +128,15 @@ public class SubtaskDao implements ISubtaskDao {
             statement.setString(2, space.getName());
             statement.setDate(3, java.sql.Date.valueOf(space.getStartDate()));
             statement.setDate(4, java.sql.Date.valueOf(space.getEndDate()));
-            statement.setInt(5, space.getStatus());
+            String status = "";
+            switch (space.getStatus()) {
+                case 0 -> status = "Open";
+                case 1 -> status = "In Progress";
+                case 2 -> status = "Completed";
+                case 3 -> status = "On Hold";
+                case 4 -> status = "Cancelled";
+            }
+            statement.setString(5, status);
             statement.setInt(6, space.getMemberId());
             statement.setInt(7, space.getTaskId());
             statement.setInt(8, space.getId());
@@ -145,7 +175,14 @@ public class SubtaskDao implements ISubtaskDao {
                 subTask.setName(resultSet.getString("name"));
                 subTask.setStartDate(resultSet.getDate("start_date").toLocalDate());
                 subTask.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                subTask.setStatus(resultSet.getInt("status"));
+                String status = resultSet.getString("status");
+                switch (status) {
+                    case "Open" -> subTask.setStatus(0);
+                    case "In Progress" -> subTask.setStatus(1);
+                    case "Completed" -> subTask.setStatus(2);
+                    case "On Hold" -> subTask.setStatus(3);
+                    case "Cancelled" -> subTask.setStatus(4);
+                }
                 subTask.setMemberId(resultSet.getInt("member_id"));
                 subTask.setTaskId(resultSet.getInt("task_id"));
                 list.add(subTask);
@@ -173,7 +210,14 @@ public class SubtaskDao implements ISubtaskDao {
                 subTask.setName(resultSet.getString("name"));
                 subTask.setStartDate(resultSet.getDate("start_date").toLocalDate());
                 subTask.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                subTask.setStatus(resultSet.getInt("status"));
+                String status = resultSet.getString("status");
+                switch (status) {
+                    case "Open" -> subTask.setStatus(0);
+                    case "In Progress" -> subTask.setStatus(1);
+                    case "Completed" -> subTask.setStatus(2);
+                    case "On Hold" -> subTask.setStatus(3);
+                    case "Cancelled" -> subTask.setStatus(4);
+                }
                 subTask.setMemberId(resultSet.getInt("member_id"));
                 subTask.setTaskId(resultSet.getInt("task_id"));
                 list.add(subTask);
@@ -200,7 +244,14 @@ public class SubtaskDao implements ISubtaskDao {
                 subTask.setName(resultSet.getString("name"));
                 subTask.setStartDate(resultSet.getDate("start_date").toLocalDate());
                 subTask.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                subTask.setStatus(resultSet.getInt("status"));
+                String status = resultSet.getString("status");
+                switch (status) {
+                    case "Open" -> subTask.setStatus(0);
+                    case "In Progress" -> subTask.setStatus(1);
+                    case "Completed" -> subTask.setStatus(2);
+                    case "On Hold" -> subTask.setStatus(3);
+                    case "Cancelled" -> subTask.setStatus(4);
+                }
                 subTask.setMemberId(resultSet.getInt("member_id"));
                 subTask.setTaskId(resultSet.getInt("task_id"));
                 list.add(subTask);
@@ -228,7 +279,14 @@ public class SubtaskDao implements ISubtaskDao {
                 subTask.setName(resultSet.getString("name"));
                 subTask.setStartDate(resultSet.getDate("start_date").toLocalDate());
                 subTask.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                subTask.setStatus(resultSet.getInt("status"));
+                String status = resultSet.getString("status");
+                switch (status) {
+                    case "Open" -> subTask.setStatus(0);
+                    case "In Progress" -> subTask.setStatus(1);
+                    case "Completed" -> subTask.setStatus(2);
+                    case "On Hold" -> subTask.setStatus(3);
+                    case "Cancelled" -> subTask.setStatus(4);
+                }
                 subTask.setMemberId(resultSet.getInt("member_id"));
                 subTask.setTaskId(resultSet.getInt("task_id"));
                 list.add(subTask);
@@ -242,7 +300,7 @@ public class SubtaskDao implements ISubtaskDao {
     @Override
     public void submitSubtask(int subtaskId) {
         try {
-            String sql = "UPDATE SubTask SET status = 1 WHERE id = ?";
+            String sql = "UPDATE SubTask SET status = \"Completed\" WHERE id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
             statement.setInt(1, subtaskId);

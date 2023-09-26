@@ -5,11 +5,12 @@ import bussinesslayer.entity.user.Member;
 import datalayer.DaoFactory;
 import datalayer.IDao;
 import datalayer.IDaoFactory;
+import datalayer.user.managerdao.IManagerDao;
 
 import java.util.List;
 
 public class ManagerService implements IManagerService {
-    private IDao<Manager> managerDao;
+    private IManagerDao managerDao;
     IDaoFactory managerDaoFactory;
 
     public ManagerService() throws Exception {
@@ -81,7 +82,6 @@ public class ManagerService implements IManagerService {
 
     @Override
     public List<Member> viewAllMember(int managerId) {
-
-        return null;
+        return managerDao.viewAllMember(managerId);
     }
 }

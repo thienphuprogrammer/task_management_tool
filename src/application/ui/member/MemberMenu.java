@@ -18,7 +18,7 @@ public class MemberMenu {
     }
     // -------------------- Properties ------------------------
     IMemberService service;
-    private int memberId;
+    private int memberId = 1;
     // -------------------- Constructor ------------------------
     public MemberMenu(IMemberService service) {
         this.service = service;
@@ -48,6 +48,7 @@ public class MemberMenu {
                 printValueln("Invalid choice.");
             }
         }
+        waitForInput();
     }
     private void processMenuForProject() throws Exception {
         ProjectMemberMenu projectMemberMenu = new ProjectMemberMenu(memberId);

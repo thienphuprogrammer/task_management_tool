@@ -73,6 +73,7 @@ public class TaskMangerMenu {
                 printValueln("Invalid choice.");
             }
         }
+        waitForInput();
     }
     private void createTask() throws Exception {
         try {
@@ -117,7 +118,7 @@ public class TaskMangerMenu {
     }
     private void viewTask() throws Exception {
         try {
-            List <Task> list = serviceTask.getAllTask(sprintId);
+            List <Task> list = serviceTask.getAllTasksMamager(sprintId);
             for (Task task1 : list) {
                 printValue("id: " + task1.getId() + " ".repeat(40 - String.valueOf(task1.getId()).length()) + "|");
                 printValue("name: " + task1.getName() + " ".repeat(40 - String.valueOf(task1.getName()).length()) + "|");

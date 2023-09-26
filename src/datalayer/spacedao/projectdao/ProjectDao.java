@@ -154,7 +154,10 @@ public class ProjectDao implements IProjectDao {
     public List<Member> getAllMemberProject(int projectId, int managerId) {
         List<Member> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Member_Project WHERE project_id = ? AND manager_id = ?";
+            String sql = "SELECT * FROM Member_Project as mp " +
+                    "JOIN Project as p on p.id = mp.project_id " +
+                    "JOIN Member as m on m.id = mp.member_id " +
+                    "WHERE p.id = ? AND p.manager_id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
             statement.setInt(1, projectId);
@@ -257,5 +260,33 @@ public class ProjectDao implements IProjectDao {
             e.printStackTrace();
         }
         return project;
+    }
+
+    @Override
+    public List<Project> getAllProjectMember(int memberId) {
+        List<Project> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Project as pr " +
+                    "JOIN Member_Project as mp ON pr.id = mp.project_id " +
+                    "JOIN Member as mb ON mp.member_id = mb.id " +
+                    "WHERE mb.id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, memberId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Project project = new Project();
+                project.setId(resultSet.getInt("id"));
+                project.setDescription(resultSet.getString("description"));
+                project.setName(resultSet.getString("name"));
+                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                project.setManagerId(resultSet.getInt("manager_id"));
+                list.add(project);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }

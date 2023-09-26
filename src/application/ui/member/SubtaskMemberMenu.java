@@ -58,6 +58,7 @@ public class SubtaskMemberMenu {
             } catch (Exception e) {
                 printValueln("Invalid choice.");
             }
+            waitForInput();
         }
     }
     private void viewReportSubtask() throws Exception {

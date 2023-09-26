@@ -18,7 +18,9 @@ public interface IProjectService extends IService<Project> {
     List<Project> getProjectMember(int memberId) throws Exception;
 
     List<Member> getAllMember(int projectId, int memberId) throws Exception;
-    List<Project> getAllProject(int managerId) throws Exception;
+    List<Project> getAllProjectManager(int managerId) throws Exception;
 
     Project getMemberByProjectId(int projectId, int memberId);
+
+    List<Project> getAllProjectMember(int memberId);
 }

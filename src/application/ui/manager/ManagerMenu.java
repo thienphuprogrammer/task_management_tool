@@ -21,7 +21,7 @@ public class ManagerMenu {
     }
     // -------------------- Properties ------------------------
     IManagerService serviceManager;
-    private int managerId;
+    private int managerId = 1;
 
     // -------------------- Constructor ------------------------
     public ManagerMenu(IManagerService service) {
@@ -56,6 +56,7 @@ public class ManagerMenu {
                 printValueln("Invalid choice.");
             }
         }
+        waitForInput();
     }
 
     private void manageProject() throws Exception {
@@ -71,12 +72,12 @@ public class ManagerMenu {
         try {
             List<Member> list = serviceManager.viewAllMember(managerId);
             for (Member member : list) {
-                printValue("Id: " + member.getId() + " ".repeat(40 - String.valueOf(member.getId()).length()) + "|");
-                printValue("Name: " + member.getName() + " ".repeat(40 - String.valueOf(member.getName()).length()) + "|");
+                printValue("Id: " + member.getId() + " ".repeat(10 - String.valueOf(member.getId()).length()) + "|");
+                printValue("Name: " + member.getName() + " ".repeat(20 - String.valueOf(member.getName()).length()) + "|");
                 printValue("Email: " + member.getEmail() + " ".repeat(40 - String.valueOf(member.getEmail()).length()) + "|");
-                printValue("Phone: " + member.getPhoneNumber() + " ".repeat(40 - String.valueOf(member.getPhoneNumber()).length()) + "|");
-                printValue("Address: " + member.getAddress() + " ".repeat(40 - String.valueOf(member.getAddress()).length()) + "|");
-                printValue("Role: " + member.getRole() + " ".repeat(40 - String.valueOf(member.getRole()).length()) + "|");
+                printValue("Phone: " + member.getPhoneNumber() + " ".repeat(20 - String.valueOf(member.getPhoneNumber()).length()) + "|");
+                printValue("Address: " + member.getAddress() + " ".repeat(20 - String.valueOf(member.getAddress()).length()) + "|");
+                printValueln("Role: " + member.getRole() + " ".repeat(10 - String.valueOf(member.getRole()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());

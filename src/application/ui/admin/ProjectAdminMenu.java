@@ -53,6 +53,7 @@ public class ProjectAdminMenu {
             } catch (Exception e) {
                 printValueln("Invalid choice.");
             }
+            waitForInput();
         }
     }
     private void createReport() throws Exception {
