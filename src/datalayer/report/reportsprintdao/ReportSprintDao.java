@@ -65,14 +65,14 @@ public class ReportSprintDao implements IReportSprintDao {
     @Override
     public void addNew(ReportSprint space) throws Exception {
         try {
-            String sqlStatement = "INSERT INTO Report_Sprint(id, date, time, description, sprint_id) SET (?, ?, ?, ?, ?)";
+            String sqlStatement = "INSERT INTO Report_Sprint (id, date, description, sprint_id, time) VALUES (?, ?, ?, ?, ?)";
             connection = getConnection();
             statement = connection.prepareStatement(sqlStatement);
             statement.setInt(1, space.getId());
             statement.setDate(2, Date.valueOf(space.getDate()));
-            statement.setTime(3, Time.valueOf(space.getTime()));
-            statement.setString(4, space.getDescription());
-            statement.setInt(5, space.getSprintId());
+            statement.setTime(5, Time.valueOf(space.getTime()));
+            statement.setString(3, space.getDescription());
+            statement.setInt(4, space.getSprintId());
             statement.executeUpdate();
         } catch (SQLException exception) {
             exception.printStackTrace();
