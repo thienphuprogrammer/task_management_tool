@@ -110,6 +110,13 @@ public class ProjectManagerMenu {
      * Check project exist
      * check project managed by manager
      * Ask user to confirm
+     * Delete all report has project_id of this project
+     * Delete all task has project_id of this project
+     * Delete all member has project_id of this project
+     * Delete all Sprint has project_id of this project
+     * Delete backlog has project_id of this project
+     * Delete all document has project_id of this project
+     * Delete all report Task of Task has project_id of this project
      */
     private void deleteProject()  {
         try {

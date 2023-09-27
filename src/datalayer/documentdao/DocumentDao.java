@@ -102,7 +102,7 @@ public class DocumentDao implements IDocumentDao {
         }
     }
     @Override
-    public List<Document> getDocument(int projectId) {
+    public List<Document> getAllDocumentsByProjectId(int projectId) {
         return null;
     }
 }
