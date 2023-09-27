@@ -42,14 +42,13 @@ public class ReportTaskService implements IReportTaskService {
     public List<ReportTask> getAll() throws Exception {
         return reportTaskIDao.getAll();
     }
-
-    @Override
-    public List<ReportTask> getTaskProgress(int sprintId) {
-        return reportTaskIDao.getTaskProgress(sprintId);
-    }
-
     @Override
     public List<ReportTask> getReportsBySprintId(int sprintId) {
         return reportTaskIDao.getReports(sprintId);
+    }
+
+    @Override
+    public List<ReportTask> getReportsByTaskId(int taskId) {
+        return null;
     }
 }

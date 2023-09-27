@@ -74,7 +74,6 @@ public class AdminMenu {
                     printValue("| email: " + manager.getEmail() + " ".repeat(30 - String.valueOf(manager.getEmail()).length()) + "|");
                     printValue("| phone number: " + manager.getPhoneNumber() + " ".repeat(20 - String.valueOf(manager.getPhoneNumber()).length()) + "|");
                     printValue("| address: " + manager.getAddress() + " ".repeat(30 - String.valueOf(manager.getAddress()).length()) + "|");
-                    printValue("| role: " + manager.getRole() + " ".repeat(10 - String.valueOf(manager.getRole()).length()) + "|");
                     printValueln("| gender: " + manager.isGender() + " ".repeat(10 - String.valueOf(manager.isGender()).length()) + "|");
 
                 }

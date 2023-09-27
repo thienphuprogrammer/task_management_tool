@@ -55,7 +55,6 @@ public class ManagerService implements IManagerService {
         System.out.println("| password: " + manager.getPassword() + " ".repeat(43 - String.valueOf(manager.getPassword()).length()) + "|");
         System.out.println("| phone number: " + manager.getPhoneNumber() + " ".repeat(43 - String.valueOf(manager.getPhoneNumber()).length()) + "|");
         System.out.println("| address: " + manager.getAddress() + " ".repeat(43 - String.valueOf(manager.getAddress()).length()) + "|");
-        System.out.println("| role: " + manager.getRole() + " ".repeat(43 - String.valueOf(manager.getRole()).length()) + "|");
         System.out.println("| gender: " + manager.isGender() + " ".repeat(43 - String.valueOf(manager.isGender()).length()) + "|");
 
     }

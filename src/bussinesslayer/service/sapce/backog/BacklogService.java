@@ -62,4 +62,34 @@ public class BacklogService implements IBacklogService {
     public void viewById(int id) throws Exception {
         backlogIDao.getById(id);
     }
+
+    @Override
+    public void addTaskInBacklogToSprint(int backlogId, int taskId, int sprintId) {
+
+    }
+
+    @Override
+    public void createTaskInBacklog(Task task) {
+
+    }
+
+    @Override
+    public Task getTaskInBacklogByTaskId(int taskId) {
+        return null;
+    }
+
+    @Override
+    public void updateTaskInBacklog(Task task) {
+
+    }
+
+    @Override
+    public void deleteTaskInBacklog(int taskId) {
+
+    }
+
+    @Override
+    public List<Task> getAllTasksInBacklog(int backlogId) {
+        return null;
+    }
 }

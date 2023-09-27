@@ -31,7 +31,6 @@ public class ManagerDao implements IManagerDao {
                 manager.setPassword(resultSet.getString("password"));
                 manager.setPhoneNumber(resultSet.getString("phone_number"));
                 manager.setAddress(resultSet.getString("address"));
-                manager.setRole(resultSet.getString("role"));
                 manager.setGender(resultSet.getString("gender"));
             }
         } catch (SQLException e) {
@@ -57,7 +56,6 @@ public class ManagerDao implements IManagerDao {
                 manager.setPassword(resultSet.getString("password"));
                 manager.setPhoneNumber(resultSet.getString("phone_number"));
                 manager.setAddress(resultSet.getString("address"));
-                manager.setRole(resultSet.getString("role"));
                 manager.setGender(resultSet.getString("gender"));
                 list.add(manager);
             }
@@ -79,7 +77,6 @@ public class ManagerDao implements IManagerDao {
             statement.setString(4, space.getPassword());
             statement.setString(5, space.getPhoneNumber());
             statement.setString(6, space.getAddress());
-            statement.setString(7, space.getRole());
             statement.setString(8, space.isGender());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -99,7 +96,6 @@ public class ManagerDao implements IManagerDao {
             statement.setString(4, space.getPassword());
             statement.setString(5, space.getPhoneNumber());
             statement.setString(6, space.getAddress());
-            statement.setString(7, space.getRole());
             statement.setString(8, space.isGender());
             statement.setInt(9, space.getId());
             statement.executeUpdate();
@@ -171,7 +167,6 @@ public class ManagerDao implements IManagerDao {
                 manager.setPassword(resultSet.getString("password"));
                 manager.setPhoneNumber(resultSet.getString("phone_number"));
                 manager.setAddress(resultSet.getString("address"));
-                manager.setRole(resultSet.getString("role"));
                 manager.setGender(resultSet.getString("gender"));
             }
         } catch (SQLException e) {

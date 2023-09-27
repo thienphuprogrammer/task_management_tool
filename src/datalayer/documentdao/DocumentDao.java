@@ -102,24 +102,7 @@ public class DocumentDao implements IDocumentDao {
         }
     }
     @Override
-    public Document getDocument(int projectId) {
-        Document doc = new Document();
-        try {
-            String sql = "SELECT * FROM doc WHERE project_id = ?";
-            Connection connection = MySqlConnection.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, projectId);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                doc.setId(resultSet.getInt("id"));
-                doc.setTitle(resultSet.getString("title"));
-                doc.setDescription(resultSet.getString("description"));
-                doc.setContent(resultSet.getString("content"));
-                doc.setProjectId(resultSet.getInt("project_id"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return doc;
+    public List<Document> getDocument(int projectId) {
+        return null;
     }
 }

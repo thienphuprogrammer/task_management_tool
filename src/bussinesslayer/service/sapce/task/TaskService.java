@@ -69,28 +69,8 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public List<Task> getAllTaskBacklog(int backlogId) {
-        return taskIDao.getAllTaskBacklog(backlogId);
-    }
-
-    @Override
     public List<Task> getAllTasksOfMember(int sprintId, int memberId) {
         return taskIDao.getAllMyTaskMember(sprintId, memberId);
-    }
-
-    @Override
-    public List<Task> getTasks(int sprintId, int memberId) {
-        return taskIDao.getTasksMember(sprintId, memberId);
-    }
-
-    @Override
-    public List<Task> getTaskProgress(int sprintId) {
-        return taskIDao.getTaskProgress(sprintId);
-    }
-
-    @Override
-    public List<Task> getAllTasksOfManagerBySprintId(int sprintId) {
-        return taskIDao.getAllTasksMamager(sprintId);
     }
 
     @Override

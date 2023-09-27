@@ -57,4 +57,9 @@ public class DocumentService implements IDocumentService {
     public List<Document> getAllDocumentsByProjectId(int projectId) throws Exception {
         return docIDao.getDocument(projectId);
     }
+
+    @Override
+    public Document getDocument(int projectId, int documentId) {
+        return null;
+    }
 }
