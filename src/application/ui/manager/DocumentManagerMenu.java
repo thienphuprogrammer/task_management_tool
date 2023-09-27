@@ -3,6 +3,8 @@ package application.ui.manager;
 import bussinesslayer.entity.Document;
 import bussinesslayer.service.document.IDocumentService;
 
+import java.util.List;
+
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
 
@@ -13,8 +15,10 @@ public class DocumentManagerMenu {
     private int documentId;
     public enum CHOICE_DOCUMENT_MANAGER_MENU {
         EXIT,
+        CREATE_DOCUMENT,
         UPDATE_DOCUMENT,
-        VIEW_DOCUMENT
+        DELETE_DOCUMENT,
+        VIEW_ALL_DOCUMENT_IN_PROJECT
     }
     // -------------------- Constructor ------------------------
 
@@ -31,17 +35,9 @@ public class DocumentManagerMenu {
         this.docsService = docsService;
     }
     // -------------------- Methods ------------------------
-    private void checkDocumentNone() throws Exception {
-        if (docsService.getAll().size() == 0) {
-            printValueln("Document is empty.");
-            docsService.create(new Document());
-            documentId = docsService.getAll().get(0).getId();
-        }
-    }
 
     public void processMenuForDocumentManager() throws Exception {
         boolean exit = false;
-        checkDocumentNone();
         while (!exit) {
             printLineSeparate("Document Manager Menu");
             printValueMenu("Manager\\Project\\Document");
@@ -57,7 +53,9 @@ public class DocumentManagerMenu {
                     switch (CHOICE_DOCUMENT_MANAGER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
                         case UPDATE_DOCUMENT -> this.updateDocument();
-                        case VIEW_DOCUMENT -> this.viewDocument();
+                        case VIEW_ALL_DOCUMENT_IN_PROJECT -> this.viewDocument();
+                        case CREATE_DOCUMENT -> this.createDocument();
+                        case DELETE_DOCUMENT -> this.deleteDocument();
                     }
                 }
             } catch (Exception e) {
@@ -65,32 +63,66 @@ public class DocumentManagerMenu {
             }
         }
     }
-    private void updateDocument() throws Exception {
+
+    /*
+     * update document
+     * check document_id exist
+     * press enter to keep old info
+     * check Document exist in project
+     * Ask user to confirm
+     */
+    private void updateDocument() {
         try {
-            Document doc = docsService.getById(documentId);
-            doc.setTitle(readString("Title: "));
-            doc.setDescription(readString("Description: "));
-            doc.setContent(readString("Content: "));
-            docsService.update(doc);
+            int documentId = readInt("Enter document id: ");
+            Document doc = docsService.getDocument(projectId, documentId);
+            if (doc != null) {
+                doc.setTitle(readString("Title: "));
+                doc.setDescription(readString("Description: "));
+                doc.setContent(readString("Content: "));
+                docsService.update(doc);
+            } else {
+                printValueln("Document not found.");
+            }
         } catch (Exception e) {
             printValue(e.getMessage());
         }
-        waitForInput();
     }
+    /*
+     * view document
+     * check
+     */
     private void viewDocument() {
         try {
-            Document doc = docsService.getDocument(projectId);
-            if (doc != null) {
+            List<Document> list = docsService.getAllDocumentsByProjectId(projectId);
+            for (Document doc : list) {
                 printLineSeparate("Document");
                 printValue("id: " + doc.getId() + " ".repeat(40 - String.valueOf(doc.getId()).length()) + "|");
                 printValue("Title: " + doc.getTitle());
                 printValueln("Description: " + doc.getDescription());
                 printValueln("Content: " + doc.getContent());
                 printLineSeparate("");
-
             }
         } catch (Exception e) {
             printValue(e.getMessage());
         }
+    }
+
+    /*
+    * create document
+    * Press enter to skip old info
+    * check validation
+    */
+    private void createDocument() {
+
+    }
+
+    /*
+    * delete document
+    * check document_id exist
+    * check document exist in project
+    * Ask user to confirm
+    */
+    private void deleteDocument() {
+
     }
 }

@@ -6,7 +6,7 @@ import bussinesslayer.service.report.IReportService;
 import java.util.List;
 
 public interface IReportTaskService extends IReportService<ReportTask> {
-    List<ReportTask> getTaskProgress(int sprintId);
+    List<ReportTask> getReportsBySprintId(int sprintId);
 
-    List<ReportTask> getReports(int sprintId);
+    List<ReportTask> getReportsByTaskId(int taskId);
 }

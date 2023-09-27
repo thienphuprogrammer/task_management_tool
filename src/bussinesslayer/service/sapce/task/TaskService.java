@@ -74,7 +74,7 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public List<Task> getAllMyTaskMember(int sprintId, int memberId) {
+    public List<Task> getAllTasksOfMember(int sprintId, int memberId) {
         return taskIDao.getAllMyTaskMember(sprintId, memberId);
     }
 
@@ -89,7 +89,7 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public List<Task> getAllTasksMamager(int sprintId) {
+    public List<Task> getAllTasksOfManagerBySprintId(int sprintId) {
         return taskIDao.getAllTasksMamager(sprintId);
     }
 

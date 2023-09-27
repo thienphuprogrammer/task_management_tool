@@ -91,7 +91,7 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public List<Member> getMember(int projectId, int managerId) throws Exception {
+    public List<Member> getAllMembersInProject(int projectId, int managerId) throws Exception {
         List<Member> list = new ArrayList<>();
         Project project = projectIDao.getById(projectId);
         if (project.getManagerId() == managerId) {
@@ -119,17 +119,17 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public List<Project> getAllProjectManager(int userId) throws Exception {
+    public List<Project> getAllProjectsOfManager(int userId) throws Exception {
         return projectIDao.getAllProject(userId);
     }
 
     @Override
-    public Project getMemberByProjectId(int projectId, int memberId) {
+    public Project getProjectByMemberId(int projectId, int memberId) {
         return projectIDao.getMemberByProjectId(projectId, memberId);
     }
 
     @Override
-    public List<Project> getAllProjectMember(int memberId) {
+    public List<Project> getAllProjectsOfMember(int memberId) {
         return projectIDao.getAllProjectMember(memberId);
     }
 

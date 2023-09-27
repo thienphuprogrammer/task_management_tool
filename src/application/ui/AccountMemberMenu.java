@@ -48,7 +48,12 @@ public class AccountMemberMenu {
         }
         return null;
     }
-    private Member loginMember() throws Exception {
+
+    /*
+     * Login member
+     * check validation
+     */
+    private Member loginMember() {
         Member member = null;
         try {
             String email = readString("Enter your email: ");
@@ -59,7 +64,14 @@ public class AccountMemberMenu {
         }
         return member;
     }
-    private void signupMember() throws Exception {
+    /*
+     * Signup member
+     * check validation
+     * check email is exist
+     * check password
+     * check gender only Male or Female
+     */
+    private void signupMember() {
         try {
             String name = readString("Enter your name: ");
             int age = readInt("Enter your age: ");
@@ -68,7 +80,7 @@ public class AccountMemberMenu {
             String phone_number = readString("Enter your phone number: ");
             String address = readString("Enter your address: ");
             String gender = readString("Male or Female? Enter your gender: ");
-            Member member = new Member(name, age, email, password, phone_number, address, "Member",gender);
+            Member member = new Member(name, age, email, password, phone_number, address,gender);
             managerService.signupMember(member);
         } catch (Exception e) {
             printValueln(e.getMessage());

@@ -62,21 +62,4 @@ public class BacklogService implements IBacklogService {
     public void viewById(int id) throws Exception {
         backlogIDao.getById(id);
     }
-
-    @Override
-    public void viewAll() throws Exception {
-        try {
-            List<Backlog> list = backlogIDao.getAll();
-            for (Backlog backlog : list) {
-                viewById(backlog.getId());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public List<Task> getTasksInBacklog(int backlogId) {
-        return backlogIDao.getTasksInBacklog(backlogId);
-    }
 }

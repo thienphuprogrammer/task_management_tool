@@ -49,7 +49,7 @@ public class ReportTaskService implements IReportTaskService {
     }
 
     @Override
-    public List<ReportTask> getReports(int sprintId) {
+    public List<ReportTask> getReportsBySprintId(int sprintId) {
         return reportTaskIDao.getReports(sprintId);
     }
 }

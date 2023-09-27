@@ -56,23 +56,12 @@ public class SprintService implements ISprintService {
     }
 
     @Override
-    public void viewAll() throws Exception {
-        try {
-            List<Sprint> list = sprintIDao.getAll();
-            for (Sprint sprint : list) {
-                viewById(sprint.getId());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @Override
-    public List<Sprint> getAllSprint(int projectId) {
+    public List<Sprint> getAllSprintsOfProject(int projectId) {
         return sprintIDao.getAllSprintProject(projectId);
     }
 
     @Override
-    public List<Sprint> getSprintMember(int projectId, int memberId) {
+    public List<Sprint> getAllSprintsInProjectOfMember(int projectId, int memberId) {
         return sprintIDao.getSprintMemberProject(projectId, memberId);
     }
 

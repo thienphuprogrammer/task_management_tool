@@ -78,7 +78,7 @@ public class ProjectAdminMenu {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getById(projectId);
             if (project != null) {
-                List<ReportProject> reportProjects = reportProjectService.getReportsProject(projectId);
+                List<ReportProject> reportProjects = reportProjectService.getReportsByProjectId(projectId);
                 for (ReportProject reportProject : reportProjects) {
                     printValue("id: " + reportProject.getId() + " ".repeat(30 - String.valueOf(reportProject.getId()).length()) + "|");
                     printValue("time: " + reportProject.getTime() + " ".repeat(30 - String.valueOf(reportProject.getTime()).length()) + "|");

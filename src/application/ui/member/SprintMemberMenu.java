@@ -16,8 +16,8 @@ public class SprintMemberMenu {
     private int memberId;
     public enum CHOICE_SPRINT_MEMBER_MENU {
         EXIT,
-        VIEW_MY_SPRINT,
-        VIEW_ALL_SPRINT,
+        VIEW_ALL_MY_SPRINTS,
+        VIEW_ALL_SPRINTS_IN_PROJECT,
         TASK_MEMBER
     }
     // -------------------- Constructor ------------------------
@@ -45,8 +45,8 @@ public class SprintMemberMenu {
                 } else {
                     switch (CHOICE_SPRINT_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case VIEW_MY_SPRINT -> this.viewMySprint();
-                        case VIEW_ALL_SPRINT -> this.viewAllSprint();
+                        case VIEW_ALL_MY_SPRINTS -> this.viewAllMySprints();
+                        case VIEW_ALL_SPRINTS_IN_PROJECT -> this.viewAllSprints();
                         case TASK_MEMBER -> this.processMenuForTaskMember();
                         default -> {
                         }
@@ -57,23 +57,34 @@ public class SprintMemberMenu {
             }
         }
     }
-    private void viewMySprint() throws Exception {
+
+    /*
+     * View my sprint
+     * check list is null ?
+     * get all sprint which member is assigned
+     */
+    private void viewAllMySprints() {
         try {
-            List<Sprint> sprintList = sprintService.getSprintMember(projectId, memberId);
+            List<Sprint> sprintList = sprintService.getAllSprintsInProjectOfMember(projectId, memberId);
             for (Sprint sprint : sprintList) {
                 printValue("Sprint id: " + sprint.getId() + " ".repeat(10 - String.valueOf(sprint.getId()).length()) + "|");
                 printValue("Sprint name: " + sprint.getName() + " ".repeat(20 - String.valueOf(sprint.getName()).length()) + "|");
                 printValue("Sprint description: " + sprint.getDescription() + " ".repeat(30 - String.valueOf(sprint.getDescription()).length()) + "|");
-                printValue("Sprint start date: " + sprint.getStartDate() + " ".repeat(20 - String.valueOf(sprint.getStartDate()).length()) + "|");
-                printValueln("Sprint end date: " + sprint.getEndDate() + " ".repeat(20 - String.valueOf(sprint.getEndDate()).length()) + "|");
+                printValue("Sprint start date: " + sprint.getStartDate() + " ".repeat(10 - String.valueOf(sprint.getStartDate()).length()) + "|");
+                printValueln("Sprint end date: " + sprint.getEndDate() + " ".repeat(10 - String.valueOf(sprint.getEndDate()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
     }
-    private void viewAllSprint() {
+    /*
+     * View all sprint
+     * check list is null ?
+     * get all sprint in project
+     */
+    private void viewAllSprints() {
         try {
-            List<Sprint> sprintList = sprintService.getAllSprint(projectId);
+            List<Sprint> sprintList = sprintService.getAllSprintsOfProject(projectId);
             for (Sprint sprint : sprintList) {
                 printValue("Sprint id: " + sprint.getId() + " ".repeat(40 - String.valueOf(sprint.getId()).length()) + "|");
                 printValue("Sprint name: " + sprint.getName() + " ".repeat(40 - String.valueOf(sprint.getName()).length()) + "|");
@@ -85,6 +96,11 @@ public class SprintMemberMenu {
             printValueln(e.getMessage());
         }
     }
+    /*
+     * Process menu for task member
+     * check sprintId exist
+     * check sprint in project
+     */
     private void processMenuForTaskMember() throws Exception {
         try {
             int sprintId = readInt("Enter sprint id: ");

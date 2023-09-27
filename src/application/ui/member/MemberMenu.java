@@ -10,8 +10,8 @@ public class MemberMenu {
     public enum CHOICE_MEMBER_MENU {
         EXIT,
         // Project
-        PROJECT_MEMBER,
-        PROFILE_MEMBER
+        INTO_PROJECT_MEMBER,
+        INTO_PROFILE_MEMBER
     }
     // -------------------- Properties ------------------------
     IMemberService service = new MemberService();
@@ -41,8 +41,8 @@ public class MemberMenu {
                 } else {
                     switch (CHOICE_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case PROJECT_MEMBER -> this.processMenuForProject();
-                        case PROFILE_MEMBER -> this.processMenuForProfile();
+                        case INTO_PROJECT_MEMBER -> this.processMenuForProject();
+                        case INTO_PROFILE_MEMBER -> this.processMenuForProfile();
                         default -> {
                         }
                     }
@@ -52,10 +52,16 @@ public class MemberMenu {
             }
         }
     }
+    /*
+     * Process menu for project
+     */
     private void processMenuForProject() throws Exception {
         ProjectMemberMenu projectMemberMenu = new ProjectMemberMenu(memberId);
         projectMemberMenu.processMenuForProjectMember();
     }
+    /*
+     * Process menu for profile
+     */
     private void processMenuForProfile() {
         ProfileMemberMenu profileMemberMenu = new ProfileMemberMenu(service, memberId);
         profileMemberMenu.processMenuForProfileMember();

@@ -30,7 +30,7 @@ public class Program {
                     }
                 }
             } catch (Exception e) {
-                printValueln("Invalid choice.");
+                printValueln(e.getMessage());
             }
         }
     }

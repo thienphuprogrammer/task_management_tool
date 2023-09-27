@@ -54,6 +54,9 @@ public class ProfileMemberMenu {
             }
         }
     }
+    /*
+     * View information
+     */
     private void viewInformation()  {
         try {
             Member member = serviceMember.getById(memberId);
@@ -66,11 +69,16 @@ public class ProfileMemberMenu {
             printValueMenu("Address: " + member.getAddress());
             printValueMenu("Email: " + member.getEmail());
             printValueMenu("Password: " + member.getPassword());
-            printValueMenu("Role: " + member.getRole());
+            printLineSeparate();
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
     }
+
+    /*
+     * Change password
+     * check password is correct
+     */
     private void changePassword() {
         try {
             String password = readString("Password: ");
@@ -79,6 +87,12 @@ public class ProfileMemberMenu {
             printValueln(e.getMessage());
         }
     }
+
+    /*
+     * Change email
+     * check email is validation
+     * check email is exist
+     */
     private void changeEmail() {
         try {
             String email = readString("Email: ");
@@ -87,6 +101,13 @@ public class ProfileMemberMenu {
             printValueln(e.getMessage());
         }
     }
+
+    /*
+     * Change information
+     * check validation
+     * press enter to keep old info
+     * check Gender is only Male or Female
+     */
     private void changeInformation() throws Exception {
         try {
             Member member = serviceMember.getById(memberId);

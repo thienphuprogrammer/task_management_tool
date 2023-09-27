@@ -140,7 +140,6 @@ public class ManagerDao implements IManagerDao {
                 member.setName(resultSet.getString("name"));
                 member.setAge(resultSet.getInt("age"));
                 member.setGender(resultSet.getString("gender"));
-                member.setRole(resultSet.getString("role"));
                 member.setEmail(resultSet.getString("email"));
                 member.setPassword(resultSet.getString("password"));
                 member.setPhoneNumber(resultSet.getString("phone_number"));

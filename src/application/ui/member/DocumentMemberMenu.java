@@ -4,6 +4,8 @@ import bussinesslayer.entity.Document;
 import bussinesslayer.service.document.DocumentService;
 import bussinesslayer.service.document.IDocumentService;
 
+import java.util.List;
+
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
 
@@ -13,7 +15,7 @@ public class DocumentMemberMenu {
     private int projectId;
     public enum CHOICE_DOCUMENT_MEMBER_MENU {
         EXIT,
-        VIEW_DOCUMENT
+        VIEW_ALL_DOCUMENTS
     }
     // -------------------- Constructor ------------------------
 
@@ -39,7 +41,7 @@ public class DocumentMemberMenu {
                 } else {
                     switch (CHOICE_DOCUMENT_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case VIEW_DOCUMENT -> this.viewDocument();
+                        case VIEW_ALL_DOCUMENTS -> this.viewDocument();
                         default -> {
                         }
                     }
@@ -49,15 +51,22 @@ public class DocumentMemberMenu {
             }
         }
     }
+
+    /*
+     * View document
+     * check list is null ?
+     */
     private void viewDocument() {
         try {
-            Document doc = serviceDoc.getDocument(projectId);
-            printLineSeparate("Document");
-            printValue("id: " + doc.getId() + " ".repeat(40 - String.valueOf(doc.getId()).length()) + "|");
-            printValue("Title: " + doc.getTitle());
-            printValueln("Description: " + doc.getDescription());
-            printValueln("Content: " + doc.getContent());
-            printLineSeparate("");
+            List<Document> list = serviceDoc.getAllDocumentsByProjectId(projectId);
+            for (Document doc : list) {
+                printLineSeparate("Document");
+                printValue("id: " + doc.getId() + " ".repeat(40 - String.valueOf(doc.getId()).length()) + "|");
+                printValue("Title: " + doc.getTitle());
+                printValueln("Description: " + doc.getDescription());
+                printValueln("Content: " + doc.getContent());
+                printLineSeparate("");
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }

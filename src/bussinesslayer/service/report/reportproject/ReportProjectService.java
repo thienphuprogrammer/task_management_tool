@@ -44,7 +44,7 @@ public class ReportProjectService implements IReportProjectService {
     }
 
     @Override
-    public List<ReportProject> getReportsProject(int projectId) {
+    public List<ReportProject> getReportsByProjectId(int projectId) {
         return reportProjectIDao.getReport(projectId);
     }
 }
