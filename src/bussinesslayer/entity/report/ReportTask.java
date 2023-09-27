@@ -7,12 +7,12 @@ public class ReportTask extends Report{
     // -------------------- Properties ------------------------
     private int task_id;
     // -------------------- Constructor ------------------------
-    public ReportTask(int id, LocalTime time, LocalDate date, String description, int task_id) {
+    public ReportTask(int id, String description, int task_id) {
         super(id, description);
         this.task_id = task_id;
     }
 
-    public ReportTask(LocalTime time, LocalDate date, String description, int task_id) {
+    public ReportTask(String description, int task_id) {
         super(description);
         this.task_id = task_id;
     }

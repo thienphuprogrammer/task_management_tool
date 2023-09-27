@@ -7,7 +7,7 @@ import bussinesslayer.service.user.IUserService;
 import java.util.List;
 
 public interface IManagerService extends IUserService<Manager> {
-    List<Member> viewAllMember(int managerId);
+    List<Member> getAllMembers(int managerId);
     Manager loginManager(String email, String password);
     void signupManager(Manager manager) throws Exception;
 }

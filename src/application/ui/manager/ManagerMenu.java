@@ -74,7 +74,7 @@ public class ManagerMenu {
      */
     private void viewAllMember() throws Exception {
         try {
-            List<Member> list = serviceManager.viewAllMember(managerId);
+            List<Member> list = serviceManager.getAllMembers(managerId);
             for (Member member : list) {
                 printValue("Id: " + member.getId() + " ".repeat(10 - String.valueOf(member.getId()).length()) + "|");
                 printValue("Name: " + member.getName() + " ".repeat(30 - String.valueOf(member.getName()).length()) + "|");

@@ -214,10 +214,8 @@ public class TaskMangerMenu {
             int taskId = readInt("Enter task id: ");
             Task task = serviceTask.getById(taskId);
             if (task.getSprintId() == sprintId) {
-                LocalDate date = LocalDate.now();
-                LocalTime time = LocalTime.now();
                 String description = readString("Description: ");
-                ReportTask reportTask = new ReportTask(time, date, description, taskId);
+                ReportTask reportTask = new ReportTask(description, taskId);
                 reportTaskService.create(reportTask);
             } else {
                 printValueln("You are not manager of this task.");
