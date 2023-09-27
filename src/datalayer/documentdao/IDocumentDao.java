@@ -6,5 +6,5 @@ import datalayer.IDao;
 import java.util.List;
 
 public interface IDocumentDao extends IDao<Document> {
-    List<Document> getDocument(int projectId);
+    List<Document> getAllDocumentsByProjectId(int projectId);
 }

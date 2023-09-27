@@ -108,9 +108,12 @@ public class BacklogManagerMenu {
         }
     }
 
-    // Delete Task
-    // Check task_id must be in this backlog
-    private void deleteTaskInBacklog() throws Exception {
+    /*
+     * Delete Task
+     * Check task_id must be in this backlog
+     * set backlog_id in task = -1
+     */
+    private void deleteTaskInBacklog() {
         try {
             int taskId = readInt("Task ID: ");
             Task task = serviceBacklog.getTaskInBacklogByTaskId(taskId);
@@ -145,10 +148,12 @@ public class BacklogManagerMenu {
         }
     }
 
-    // Add Task in Backlog
-    // Check sprint_id and task_id
-    // Check task_id must be in this backlog
-    // Check sprint_id must be in this project
+    /*
+     * Add Task in Backlog
+     * Check sprint_id and task_id
+     * Check task_id must be in this backlog
+     * Check sprint_id must be in this project
+     */
     private void addTaskInBacklogToSprint() {
         try {
             int taskId = readInt("Task ID: ");

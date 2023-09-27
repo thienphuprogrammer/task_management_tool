@@ -110,6 +110,8 @@ public class SprintManagerMenu {
      * check sprint in project
      * check validation
      * ask user to confirms
+     * Delete all task has sprint_id of this sprint
+     * Delete report of Task has sprint_id of this sprint
      */
     private void deleteSprint() {
         try {

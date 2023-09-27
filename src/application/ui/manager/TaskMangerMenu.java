@@ -118,6 +118,7 @@ public class TaskMangerMenu {
      * check task_id exist
      * check task exist in sprint
      * ask user to confirm
+     * delete all report has task_id of this task
      */
     private void deleteTask() throws Exception {
         try {
