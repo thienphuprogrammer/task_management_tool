@@ -15,7 +15,6 @@ public abstract class User {
         this.age = age;
         this.email = email;
         this.password = password;
-
         this.phoneNumber = phone_number;
         this.address = address;
     }

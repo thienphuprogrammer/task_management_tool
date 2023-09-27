@@ -1,4 +1,4 @@
-package bussinesslayer.service;
+package bussinesslayer.service.document;
 
 import bussinesslayer.entity.Document;
 import datalayer.IDao;
@@ -7,15 +7,15 @@ import datalayer.documentdao.IDocumentDao;
 
 import java.util.List;
 
-public class DocsService implements IDocsService {
+public class DocumentService implements IDocumentService {
     // -------------------- Properties ------------------------
     private IDocumentDao docIDao = new DocumentDao();
     // -------------------- Constructor ------------------------
-    public DocsService(IDocumentDao docIDao) {
+    public DocumentService(IDocumentDao docIDao) {
         this.docIDao = docIDao;
     }
 
-    public DocsService() {
+    public DocumentService() {
     }
     // -------------------- Getters and Setters ------------------------
 

@@ -1,14 +1,14 @@
 package application.ui.manager;
 
 import bussinesslayer.entity.Document;
-import bussinesslayer.service.IDocsService;
+import bussinesslayer.service.document.IDocumentService;
 
 import static application.utilities.InputUtil.*;
 import static application.utilities.OutputUtil.*;
 
 public class DocumentManagerMenu {
     // -------------------- Properties ------------------------
-    private IDocsService docsService;
+    private IDocumentService docsService;
     private int projectId;
     private int documentId;
     public enum CHOICE_DOCUMENT_MANAGER_MENU {
@@ -23,11 +23,11 @@ public class DocumentManagerMenu {
     }
 
     // -------------------- Getters and Setters ------------------------
-    public IDocsService getDocsService() {
+    public IDocumentService getDocsService() {
         return docsService;
     }
 
-    public void setDocsService(IDocsService docsService) {
+    public void setDocsService(IDocumentService docsService) {
         this.docsService = docsService;
     }
     // -------------------- Methods ------------------------

@@ -2,8 +2,8 @@ package application.ui.member;
 
 import bussinesslayer.entity.Document;
 import bussinesslayer.entity.space.Project;
-import bussinesslayer.service.DocsService;
-import bussinesslayer.service.IDocsService;
+import bussinesslayer.service.document.DocumentService;
+import bussinesslayer.service.document.IDocumentService;
 import bussinesslayer.service.sapce.project.IProjectService;
 import bussinesslayer.service.sapce.project.ProjectService;
 
@@ -15,7 +15,7 @@ import static application.utilities.OutputUtil.*;
 public class ProjectMemberMenu {
     // -------------------- Properties ------------------------
     private final IProjectService serviceProject = new ProjectService();
-    private final IDocsService serviceDocs = new DocsService();
+    private final IDocumentService serviceDocs = new DocumentService();
     private int memberId = 1;
     public enum CHOICE_PROJECT_MEMBER_MENU {
         EXIT,

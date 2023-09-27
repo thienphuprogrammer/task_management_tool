@@ -16,6 +16,7 @@ public class Task extends Space {
     private int sprintId = -1;
     private int backlogId;
     private int status = TASK_STATUS.OPEN.ordinal();
+
     // -------------------- Constructor ------------------------
     public Task(String name, String description, LocalDate startDate, LocalDate endDate, int sprintId) {
         super(name, description, startDate, endDate);

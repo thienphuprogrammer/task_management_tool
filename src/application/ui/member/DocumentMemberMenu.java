@@ -1,15 +1,15 @@
 package application.ui.member;
 
 import bussinesslayer.entity.Document;
-import bussinesslayer.service.DocsService;
-import bussinesslayer.service.IDocsService;
+import bussinesslayer.service.document.DocumentService;
+import bussinesslayer.service.document.IDocumentService;
 
 import static application.utilities.InputUtil.readInt;
 import static application.utilities.OutputUtil.*;
 
 public class DocumentMemberMenu {
     // -------------------- Properties ------------------------
-    private final IDocsService serviceDoc = new DocsService();
+    private final IDocumentService serviceDoc = new DocumentService();
     private int projectId;
     public enum CHOICE_DOCUMENT_MEMBER_MENU {
         EXIT,
