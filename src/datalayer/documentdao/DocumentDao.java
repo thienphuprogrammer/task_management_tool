@@ -1,6 +1,6 @@
 package datalayer.documentdao;
 
-import bussinesslayer.entity.Document;
+import bussinesslayer.entity.document.Document;
 import datalayer.MySqlConnection;
 
 import java.sql.Connection;

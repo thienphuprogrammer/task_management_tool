@@ -1,6 +1,6 @@
 package application.ui.member;
 
-import bussinesslayer.entity.Document;
+import bussinesslayer.entity.document.Document;
 import bussinesslayer.entity.space.Project;
 import bussinesslayer.service.document.DocumentService;
 import bussinesslayer.service.document.IDocumentService;

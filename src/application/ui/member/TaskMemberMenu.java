@@ -2,6 +2,7 @@ package application.ui.member;
 
 import bussinesslayer.entity.report.ReportTask;
 import bussinesslayer.entity.space.Task;
+import bussinesslayer.entity.submission.SubmissionTask;
 import bussinesslayer.service.report.reporttask.IReportTaskService;
 import bussinesslayer.service.report.reporttask.ReportTaskService;
 import bussinesslayer.service.sapce.task.ITaskService;
@@ -134,7 +135,9 @@ public class TaskMemberMenu {
             int taskId = readInt("Enter task id: ");
             Task task = taskService.getById(taskId);
             if (task != null && task.getSprintId() == this.sprintId) {
-                taskService.submitTask(taskId);
+                String content = readString("Content of task: ");
+                SubmissionTask SubmissionTask = new SubmissionTask(content, taskId);
+                taskService.submitTask(SubmissionTask, taskId);
             } else {
                 printValueln("Task not found.");
             }

@@ -8,12 +8,12 @@ public class ReportTask extends Report{
     private int task_id;
     // -------------------- Constructor ------------------------
     public ReportTask(int id, LocalTime time, LocalDate date, String description, int task_id) {
-        super(id, time, date, description);
+        super(id, description);
         this.task_id = task_id;
     }
 
     public ReportTask(LocalTime time, LocalDate date, String description, int task_id) {
-        super(time, date, description);
+        super(description);
         this.task_id = task_id;
     }
 

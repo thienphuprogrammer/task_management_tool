@@ -1,6 +1,6 @@
 package bussinesslayer.service.document;
 
-import bussinesslayer.entity.Document;
+import bussinesslayer.entity.document.Document;
 import bussinesslayer.service.IService;
 
 import java.util.List;

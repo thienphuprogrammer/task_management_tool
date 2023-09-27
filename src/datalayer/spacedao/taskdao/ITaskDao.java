@@ -1,6 +1,7 @@
 package datalayer.spacedao.taskdao;
 
 import bussinesslayer.entity.space.Task;
+import bussinesslayer.entity.submission.SubmissionTask;
 import datalayer.spacedao.ISpaceDao;
 
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
 public interface ITaskDao extends ISpaceDao<Task> {
     List<Task> getAllMyTaskMember(int sprintId, int memberId);
 
-    void submitTask(int taskId);
+    void submitTask(SubmissionTask submissionTask, int taskId);
 
     List<Task> getAllTaskBacklog(int backlogId);
 

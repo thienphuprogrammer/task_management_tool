@@ -1,6 +1,6 @@
 package application.ui.manager;
 
-import bussinesslayer.entity.Document;
+import bussinesslayer.entity.document.Document;
 import bussinesslayer.service.document.IDocumentService;
 
 import java.util.List;

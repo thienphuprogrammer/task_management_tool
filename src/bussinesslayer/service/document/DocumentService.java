@@ -1,6 +1,6 @@
 package bussinesslayer.service.document;
 
-import bussinesslayer.entity.Document;
+import bussinesslayer.entity.document.Document;
 import datalayer.IDao;
 import datalayer.documentdao.DocumentDao;
 import datalayer.documentdao.IDocumentDao;

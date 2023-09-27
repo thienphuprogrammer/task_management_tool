@@ -1,6 +1,7 @@
 package bussinesslayer.service.sapce.task;
 
 import bussinesslayer.entity.space.Task;
+import bussinesslayer.entity.submission.SubmissionTask;
 import datalayer.DaoFactory;
 import datalayer.IDaoFactory;
 import datalayer.spacedao.taskdao.ITaskDao;
@@ -64,8 +65,8 @@ public class TaskService implements ITaskService {
         return taskIDao.getAll();
     }
     @Override
-    public void submitTask(int taskId) {
-        taskIDao.submitTask(taskId);
+    public void submitTask(SubmissionTask submissionTask, int taskId) {
+        taskIDao.submitTask(submissionTask, taskId);
     }
 
     @Override

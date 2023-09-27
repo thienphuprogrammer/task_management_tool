@@ -1,6 +1,7 @@
 package datalayer.spacedao.taskdao;
 
 import bussinesslayer.entity.space.Task;
+import bussinesslayer.entity.submission.SubmissionTask;
 import datalayer.MySqlConnection;
 
 import java.sql.Connection;
@@ -184,7 +185,7 @@ public class TaskDao implements ITaskDao {
     }
 
     @Override
-    public void submitTask(int taskId) {
+    public void submitTask(SubmissionTask submissionTask, int taskId) {
         try {
             String sql = "UPDATE Task SET status = \"Completed\" WHERE id = ?";
             connection = getConnection();
