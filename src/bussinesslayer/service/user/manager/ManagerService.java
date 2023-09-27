@@ -105,13 +105,13 @@ public class ManagerService implements IManagerService {
         if (list.size() > 0) {
             throw new Exception("Email already exists");
         }
-        if(!isValidPassword(manager.getPassword())) {
+        if(isValidPassword(manager.getPassword())) {
             throw new Exception("Invalid password");
         }
-        if (!isValidName(manager.getName())) {
+        if (isValidName(manager.getName())) {
             throw new Exception("Invalid name");
         }
-        if (!isValidPhoneNumber(manager.getPhoneNumber())) {
+        if (isValidPhoneNumber(manager.getPhoneNumber())) {
             throw new Exception("Invalid phone number");
         }
         managerDao.addNew(manager);

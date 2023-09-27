@@ -108,7 +108,7 @@ public class ProjectManagerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void createProject() {
+    private void createProject() throws Exception {
         try {
             String name = readString("Enter project name: ");
             String description = readString("Enter project description: ");
@@ -154,7 +154,7 @@ public class ProjectManagerMenu {
         }
 
     }
-    private void viewMember() {
+    private void viewMember() throws Exception {
         try {
             int projectId = readInt("Enter project id: ");
             List<Member> list = serviceProject.getMember(projectId, managerId);

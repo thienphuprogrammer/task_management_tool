@@ -65,7 +65,7 @@ public class DocumentManagerMenu {
             }
         }
     }
-    private void updateDocument() {
+    private void updateDocument() throws Exception {
         try {
             Document doc = docsService.getById(documentId);
             doc.setTitle(readString("Title: "));
@@ -75,6 +75,7 @@ public class DocumentManagerMenu {
         } catch (Exception e) {
             printValue(e.getMessage());
         }
+        waitForInput();
     }
     private void viewDocument() {
         try {

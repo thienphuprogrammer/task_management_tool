@@ -1,5 +1,6 @@
 package application.ui.manager;
 
+import bussinesslayer.entity.report.ReportSprint;
 import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.service.sapce.sprint.ISprintService;
 import bussinesslayer.service.sapce.sprint.SprintService;

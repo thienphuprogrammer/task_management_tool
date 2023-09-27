@@ -87,7 +87,7 @@ public class ProfileMemberMenu {
             printValueln(e.getMessage());
         }
     }
-    private void changeInformation() {
+    private void changeInformation() throws Exception {
         try {
             Member member = serviceMember.getById(memberId);
             member.setName(readString("Name: "));

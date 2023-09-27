@@ -18,14 +18,15 @@ public class AdminMenu {
         EXIT,
         VIEW_ALL_MANAGER,
         VIEW_ALL_MEMBER,
-        REPORT_PROJECT_MANAGER
+        REPORT_PROJECT_OF_MANAGER,
+        ADD_MANAGER,
     }
 
     // -------------------- Properties ------------------------
     private final ManagerService serviceManager = new ManagerService();
     private final IMemberService serviceMember = new MemberService();
     private IAdminService serviceAdmin = new AdminService();
-    private int adminId = 1;
+    private int adminId = 0;
     // -------------------- Constructor ------------------------
     public AdminMenu(int admin) throws Exception {
         this.adminId = admin;
@@ -49,7 +50,7 @@ public class AdminMenu {
                         case EXIT -> exit = true;
                         case VIEW_ALL_MANAGER -> this.viewAllManager();
                         case VIEW_ALL_MEMBER -> this.viewAllMember();
-                        case REPORT_PROJECT_MANAGER -> this.reportProjectManager();
+                        case REPORT_PROJECT_OF_MANAGER -> this.reportProjectManager();
                         default -> {
                         }
                     }
@@ -63,16 +64,21 @@ public class AdminMenu {
     private void viewAllManager() throws Exception {
         try {
             List<Manager> list = serviceManager.getAll();
-            for (Manager manager : list) {
-                printValue("| id: " + manager.getId() + " ".repeat(10 - String.valueOf(manager.getId()).length()) + "|");
-                printValue("| Name: " + manager.getName() + " ".repeat(20 - String.valueOf(manager.getName()).length()) + "|");
-                printValue("| age: " + manager.getAge() + " ".repeat(10 - String.valueOf(manager.getAge()).length()) + "|");
-                printValue("| email: " + manager.getEmail() + " ".repeat(30 - String.valueOf(manager.getEmail()).length()) + "|");
-                printValue("| phone number: " + manager.getPhoneNumber() + " ".repeat(20 - String.valueOf(manager.getPhoneNumber()).length()) + "|");
-                printValue("| address: " + manager.getAddress() + " ".repeat(30 - String.valueOf(manager.getAddress()).length()) + "|");
-                printValue("| role: " + manager.getRole() + " ".repeat(10 - String.valueOf(manager.getRole()).length()) + "|");
-                printValueln("| gender: " + manager.isGender() + " ".repeat(10 - String.valueOf(manager.isGender()).length()) + "|");
+            if (list.isEmpty()) {
+                printValueln("List is empty.");
+            }
+            else {
+                for (Manager manager : list) {
+                    printValue("| id: " + manager.getId() + " ".repeat(10 - String.valueOf(manager.getId()).length()) + "|");
+                    printValue("| Name: " + manager.getName() + " ".repeat(20 - String.valueOf(manager.getName()).length()) + "|");
+                    printValue("| age: " + manager.getAge() + " ".repeat(10 - String.valueOf(manager.getAge()).length()) + "|");
+                    printValue("| email: " + manager.getEmail() + " ".repeat(30 - String.valueOf(manager.getEmail()).length()) + "|");
+                    printValue("| phone number: " + manager.getPhoneNumber() + " ".repeat(20 - String.valueOf(manager.getPhoneNumber()).length()) + "|");
+                    printValue("| address: " + manager.getAddress() + " ".repeat(30 - String.valueOf(manager.getAddress()).length()) + "|");
+                    printValue("| role: " + manager.getRole() + " ".repeat(10 - String.valueOf(manager.getRole()).length()) + "|");
+                    printValueln("| gender: " + manager.isGender() + " ".repeat(10 - String.valueOf(manager.isGender()).length()) + "|");
 
+                }
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -81,15 +87,19 @@ public class AdminMenu {
     private  void viewAllMember() throws Exception {
         try {
             List<Member> list = serviceMember.getAll();
-            for (Member member : list) {
-                printValue("| id: " + member.getId() + " ".repeat(10 - String.valueOf(member.getId()).length()) + "|");
-                printValue("| Name: " + member.getName() + " ".repeat(20 - String.valueOf(member.getName()).length()) + "|");
-                printValue("| age: " + member.getAge() + " ".repeat(10 - String.valueOf(member.getAge()).length()) + "|");
-                printValue("| email: " + member.getEmail() + " ".repeat(30 - String.valueOf(member.getEmail()).length()) + "|");
-                printValue("| phone number: " + member.getPhoneNumber() + " ".repeat(20 - String.valueOf(member.getPhoneNumber()).length()) + "|");
-                printValue("| address: " + member.getAddress() + " ".repeat(30 - String.valueOf(member.getAddress()).length()) + "|");
-                printValue("| role: " + member.getRole() + " ".repeat(10 - String.valueOf(member.getRole()).length()) + "|");
-                printValueln("| gender: " + member.isGender() + " ".repeat(10 - String.valueOf(member.isGender()).length()) + "|");
+            if (list.isEmpty()) {
+                printValueln("List is empty.");
+            } else {
+                for (Member member : list) {
+                    printValue("| id: " + member.getId() + " ".repeat(10 - String.valueOf(member.getId()).length()) + "|");
+                    printValue("| Name: " + member.getName() + " ".repeat(20 - String.valueOf(member.getName()).length()) + "|");
+                    printValue("| age: " + member.getAge() + " ".repeat(10 - String.valueOf(member.getAge()).length()) + "|");
+                    printValue("| email: " + member.getEmail() + " ".repeat(30 - String.valueOf(member.getEmail()).length()) + "|");
+                    printValue("| phone number: " + member.getPhoneNumber() + " ".repeat(20 - String.valueOf(member.getPhoneNumber()).length()) + "|");
+                    printValue("| address: " + member.getAddress() + " ".repeat(30 - String.valueOf(member.getAddress()).length()) + "|");
+                    printValue("| role: " + member.getRole() + " ".repeat(10 - String.valueOf(member.getRole()).length()) + "|");
+                    printValueln("| gender: " + member.isGender() + " ".repeat(10 - String.valueOf(member.isGender()).length()) + "|");
+                }
             }
         } catch (Exception e) {
             printValueln(e.getMessage());

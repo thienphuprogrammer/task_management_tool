@@ -25,6 +25,7 @@ public class TaskMemberMenu {
         VIEW_ALL_MY_TASK,
         VIEW_ALL_TASK,
         VIEW_REPORT_TASK,
+        SUBTASK_MEMBER
     }
     // -------------------- Constructor ------------------------
 
@@ -62,7 +63,7 @@ public class TaskMemberMenu {
             }
         }
     }
-    private void viewReportTask() {
+    private void viewReportTask()  {
         try {
             int taskId = readInt("Enter task id: ");
             Task task = taskService.getById(taskId);
