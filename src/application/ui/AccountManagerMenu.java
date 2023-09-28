@@ -47,6 +47,11 @@ public class AccountManagerMenu {
         }
         return null;
     }
+
+    /*
+     * Login manager
+     * check validation
+     */
     public Manager loginManager() throws Exception {
         Manager manager = null;
         try {
@@ -58,6 +63,13 @@ public class AccountManagerMenu {
         }
         return manager;
     }
+    /*
+     * Signup manager
+     * check validation
+     * check email is exist
+     * check password
+     * check gender only Male or Female
+     */
     public void signupManager() throws Exception {
         try {
             String name = readString("Enter your name: ");
@@ -67,7 +79,7 @@ public class AccountManagerMenu {
             String PhoneNumber = readString("Enter your phone number: ");
             String address = readString("Enter your address: ");
             String gender = readString("Male or Female? Enter your gender: ");
-            Manager manager = new Manager(name, age, email, password, PhoneNumber, address, "Manager",gender);
+            Manager manager = new Manager(name, age, email, password, PhoneNumber, address,gender);
             managerService.signupManager(manager);
         } catch (Exception e) {
             printValueln(e.getMessage());

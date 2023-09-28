@@ -8,6 +8,15 @@ import java.util.List;
 
 public interface IBacklogService extends IService<Backlog> {
     void viewById(int id) throws Exception;
-    void viewAll() throws Exception;
-    List<Task> getTasksInBacklog(int backlogId);
+    void addTaskInBacklogToSprint(int backlogId, int taskId, int sprintId);
+
+    void createTaskInBacklog(Task task);
+
+    Task getTaskInBacklogByTaskId(int taskId);
+
+    void updateTaskInBacklog(Task task);
+
+    void deleteTaskInBacklog(int taskId);
+
+    List<Task> getAllTasksInBacklog(int backlogId);
 }

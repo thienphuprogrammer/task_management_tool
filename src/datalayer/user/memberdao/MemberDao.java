@@ -28,7 +28,6 @@ public class MemberDao implements IMemberDao {
                 member.setAge(resultSet.getInt("age"));
                 member.setAddress(resultSet.getString("address"));
                 member.setGender(resultSet.getString("gender"));
-                member.setRole(resultSet.getString("role"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -53,7 +52,6 @@ public class MemberDao implements IMemberDao {
                 member.setAge(resultSet.getInt("age"));
                 member.setAddress(resultSet.getString("address"));
                 member.setGender(resultSet.getString("gender"));
-                member.setRole(resultSet.getString("role"));
                 list.add(member);
             }
         } catch (SQLException e) {
@@ -74,7 +72,6 @@ public class MemberDao implements IMemberDao {
             statement.setInt(4, space.getAge());
             statement.setString(5, space.getAddress());
             statement.setString(6, space.isGender());
-            statement.setString(7, space.getRole());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,7 +90,6 @@ public class MemberDao implements IMemberDao {
             statement.setInt(4, space.getAge());
             statement.setString(5, space.getAddress());
             statement.setString(6, space.isGender());
-            statement.setString(7, space.getRole());
             statement.setInt(8, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -132,7 +128,6 @@ public class MemberDao implements IMemberDao {
                 member.setAge(resultSet.getInt("age"));
                 member.setAddress(resultSet.getString("address"));
                 member.setGender(resultSet.getString("gender"));
-                member.setRole(resultSet.getString("role"));
                 list.add(member);
             }
         } catch (SQLException e) {
@@ -160,7 +155,6 @@ public class MemberDao implements IMemberDao {
                 member.setAge(resultSet.getInt("age"));
                 member.setAddress(resultSet.getString("address"));
                 member.setGender(resultSet.getString("gender"));
-                member.setRole(resultSet.getString("role"));
             }
         } catch (SQLException e) {
             e.printStackTrace();

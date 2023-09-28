@@ -34,7 +34,6 @@ public class ProfileManagerMenu {
         this.serviceManager = serviceManager;
     }
     // -------------------- Methods ------------------------
-
     public void processMenuForProfileManager() {
         boolean exit = false;
         while (!exit) {
@@ -65,7 +64,9 @@ public class ProfileManagerMenu {
             }
         }
     }
-
+    /*
+     * View information
+     */
     private void viewInformation() throws Exception {
         try {
             Manager manager = serviceManager.getById(managerId);
@@ -82,6 +83,10 @@ public class ProfileManagerMenu {
             e.printStackTrace();
         }
     }
+    /*
+     * Change password
+     * Check password correct
+     */
     private void changePassword() {
         try {
             String password = readString("Password: ");
@@ -90,6 +95,11 @@ public class ProfileManagerMenu {
             e.printStackTrace();
         }
     }
+    /*
+     * Change email
+     * Check email is validation
+     * Check email is exist
+     */
     private void changeEmail() {
         try {
             String email = readString("Email: ");
@@ -98,6 +108,13 @@ public class ProfileManagerMenu {
             e.printStackTrace();
         }
     }
+
+    /*
+     * Change information
+     * Press enter to keep old info
+     * Check validation
+     * check Gender is only Male or Female
+     */
     private void changeInformation() {
         try {
             Manager manager = serviceManager.getById(managerId);

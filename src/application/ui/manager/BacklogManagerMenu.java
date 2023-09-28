@@ -1,15 +1,11 @@
 package application.ui.manager;
 
-import bussinesslayer.entity.report.ReportBacklog;
 import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.entity.space.Task;
 import bussinesslayer.service.sapce.backog.BacklogService;
 import bussinesslayer.service.sapce.backog.IBacklogService;
-import bussinesslayer.service.sapce.task.ITaskService;
-import bussinesslayer.service.sapce.task.TaskService;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import static application.utilities.InputUtil.*;
@@ -18,7 +14,6 @@ import static application.utilities.OutputUtil.*;
 public class BacklogManagerMenu {
     // -------------------- Properties ------------------------
     private final IBacklogService serviceBacklog = new BacklogService();
-    private final ITaskService serviceTask = new TaskService();
     private int projectId;
     private int backlogId;
     public enum CHOICE_BACKLOG_MANAGER_MENU {
@@ -27,8 +22,7 @@ public class BacklogManagerMenu {
         UPDATE_TASK_IN_BACKLOG,
         DELETE_TASK_IN_BACKLOG,
         VIEW_ALL_TASK_IN_BACKLOG,
-        VIEW_REPORT_BACKLOG,
-        UPDATE_REPORT_BACKLOG
+        ADD_TASK_IN_BACKLOG_TO_SPRINT
     }
     // -------------------- Constructor ------------------------
     public BacklogManagerMenu(int projectId) throws Exception {
@@ -65,10 +59,11 @@ public class BacklogManagerMenu {
                 } else {
                     switch (CHOICE_BACKLOG_MANAGER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case CREATE_TASK_IN_BACKLOG -> this.createTask();
-                        case UPDATE_TASK_IN_BACKLOG -> this.updateTask();
-                        case DELETE_TASK_IN_BACKLOG -> this.deleteTask();
-                        case VIEW_ALL_TASK_IN_BACKLOG -> this.viewAllTask();
+                        case CREATE_TASK_IN_BACKLOG -> this.createTaskInBacklog();
+                        case UPDATE_TASK_IN_BACKLOG -> this.updateTaskInBacklog();
+                        case DELETE_TASK_IN_BACKLOG -> this.deleteTaskInBacklog();
+                        case VIEW_ALL_TASK_IN_BACKLOG -> this.viewAllTaskInBacklog();
+                        case ADD_TASK_IN_BACKLOG_TO_SPRINT -> this.addTaskInBacklogToSprint();
                     }
                 }
             } catch (Exception e) {
@@ -76,7 +71,10 @@ public class BacklogManagerMenu {
             }
         }
     }
-    private void createTask()  {
+
+    // Create Task in Backlog and set sprint_id = -1 and member_id = -1
+    // Check sprint_id and member_id
+    private void createTaskInBacklog()  {
         try {
             String name = readString("Name: ");
             String description = readString("Description: ");
@@ -85,21 +83,23 @@ public class BacklogManagerMenu {
             int memberId = -1;
             int sprintId = -1;
             Task task = new Task(name, description, startDate, endDate, memberId, sprintId, backlogId);
-            serviceTask.create(task);
+            serviceBacklog.createTaskInBacklog(task);
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
     }
-    private void updateTask() {
+    // Update Task
+    // Check task_id must be in this backlog
+    private void updateTaskInBacklog() {
         try {
             int taskId = readInt("Task ID: ");
-            Task task = serviceTask.getById(taskId);
+            Task task = serviceBacklog.getTaskInBacklogByTaskId(taskId);
             if (task.getBacklogId() == backlogId) {
                 task.setName(readString("Name: "));
                 task.setDescription(readString("Description: "));
                 task.setStartDate(readLocalDate("Start date: "));
                 task.setEndDate(readLocalDate("End date: "));
-                serviceTask.update(task);
+                serviceBacklog.updateTaskInBacklog(task);
             } else {
                 printValueln("Task is not in this backlog.");
             }
@@ -107,12 +107,18 @@ public class BacklogManagerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void deleteTask() throws Exception {
+
+    /*
+     * Delete Task
+     * Check task_id must be in this backlog
+     * set backlog_id in task = -1
+     */
+    private void deleteTaskInBacklog() {
         try {
             int taskId = readInt("Task ID: ");
-            Task task = serviceTask.getById(taskId);
+            Task task = serviceBacklog.getTaskInBacklogByTaskId(taskId);
             if (task.getBacklogId() == backlogId) {
-                serviceTask.delete(taskId);
+                serviceBacklog.deleteTaskInBacklog(taskId);
             } else {
                 printValueln("Task is not in this backlog.");
             }
@@ -120,9 +126,11 @@ public class BacklogManagerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void viewAllTask() {
+
+    // View All Task in Backlog
+    private void viewAllTaskInBacklog() {
         try {
-            List<Task> list = serviceTask.getAllTaskBacklog(backlogId);
+            List<Task> list = serviceBacklog.getAllTasksInBacklog(backlogId);
             for (Task task : list) {
                 printLineSeparate();
                 printValue(("Task ID: " + task.getId() + " ".repeat(10 - String.valueOf(task.getId()).length()) + "|"));
@@ -135,6 +143,22 @@ public class BacklogManagerMenu {
                 printValue("Sprint ID: " + task.getSprintId() + " ".repeat(10 - String.valueOf(task.getSprintId()).length()) + "|");
                 printLineSeparate();
             }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
+    }
+
+    /*
+     * Add Task in Backlog
+     * Check sprint_id and task_id
+     * Check task_id must be in this backlog
+     * Check sprint_id must be in this project
+     */
+    private void addTaskInBacklogToSprint() {
+        try {
+            int taskId = readInt("Task ID: ");
+            int sprintId = readInt("Sprint ID: ");
+            serviceBacklog.addTaskInBacklogToSprint(backlogId, taskId, sprintId);
         } catch (Exception e) {
             printValueln(e.getMessage());
         }

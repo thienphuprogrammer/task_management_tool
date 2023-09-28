@@ -46,6 +46,10 @@ public class AccountAdminMenu {
         }
         return null;
     }
+    /*
+     * Login admin
+     * check validation
+     */
     private Admin loginAdmin() throws Exception {
         Admin admin = null;
         try {

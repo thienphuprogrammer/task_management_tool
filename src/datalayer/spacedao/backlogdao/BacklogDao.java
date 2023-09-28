@@ -37,6 +37,7 @@ public class BacklogDao implements IBacklogDao {
             if (resultSet.next()) {
                 Backlog backlog = new Backlog();
                 backlog.setId(resultSet.getInt("id"));
+                backlog.setProjectId(resultSet.getInt("project_id"));
                 return backlog;
             }
         } catch (SQLException e) {

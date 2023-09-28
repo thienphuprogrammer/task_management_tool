@@ -46,33 +46,6 @@ public class ManagerService implements IManagerService {
     }
 
     @Override
-    public void viewById(int id) throws Exception {
-        Manager manager = getById(id);
-        System.out.println("| id: " + manager.getId() + " ".repeat(40 - String.valueOf(manager.getId()).length()) + "|");
-        System.out.println("| Name: " + manager.getName() + " ".repeat(40 - String.valueOf(manager.getName()).length()) + "|");
-        System.out.println("| age: " + manager.getAge() + " ".repeat(36 - String.valueOf(manager.getAge()).length()) + "|");
-        System.out.println("| email: " + manager.getEmail() + " ".repeat(43 - String.valueOf(manager.getEmail()).length()) + "|");
-        System.out.println("| password: " + manager.getPassword() + " ".repeat(43 - String.valueOf(manager.getPassword()).length()) + "|");
-        System.out.println("| phone number: " + manager.getPhoneNumber() + " ".repeat(43 - String.valueOf(manager.getPhoneNumber()).length()) + "|");
-        System.out.println("| address: " + manager.getAddress() + " ".repeat(43 - String.valueOf(manager.getAddress()).length()) + "|");
-        System.out.println("| role: " + manager.getRole() + " ".repeat(43 - String.valueOf(manager.getRole()).length()) + "|");
-        System.out.println("| gender: " + manager.isGender() + " ".repeat(43 - String.valueOf(manager.isGender()).length()) + "|");
-
-    }
-
-    @Override
-    public void viewAll() throws Exception {
-        try {
-            List<Manager> list = getAll();
-            for (Manager manager : list) {
-                viewById(manager.getId());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public void changePassword(int id, String password) {
         managerDao.changePassword(id, password);
     }
@@ -87,7 +60,7 @@ public class ManagerService implements IManagerService {
     }
 
     @Override
-    public List<Member> viewAllMember(int managerId) {
+    public List<Member> getAllMembers(int managerId) {
         return managerDao.viewAllMember(managerId);
     }
 
@@ -105,13 +78,13 @@ public class ManagerService implements IManagerService {
         if (list.size() > 0) {
             throw new Exception("Email already exists");
         }
-        if(isValidPassword(manager.getPassword())) {
+        if(!isValidPassword(manager.getPassword())) {
             throw new Exception("Invalid password");
         }
-        if (isValidName(manager.getName())) {
+        if (!isValidName(manager.getName())) {
             throw new Exception("Invalid name");
         }
-        if (isValidPhoneNumber(manager.getPhoneNumber())) {
+        if (!isValidPhoneNumber(manager.getPhoneNumber())) {
             throw new Exception("Invalid phone number");
         }
         managerDao.addNew(manager);

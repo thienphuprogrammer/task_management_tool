@@ -1,21 +1,21 @@
-package bussinesslayer.service;
+package bussinesslayer.service.document;
 
-import bussinesslayer.entity.Document;
+import bussinesslayer.entity.document.Document;
 import datalayer.IDao;
 import datalayer.documentdao.DocumentDao;
 import datalayer.documentdao.IDocumentDao;
 
 import java.util.List;
 
-public class DocsService implements IDocsService {
+public class DocumentService implements IDocumentService {
     // -------------------- Properties ------------------------
     private IDocumentDao docIDao = new DocumentDao();
     // -------------------- Constructor ------------------------
-    public DocsService(IDocumentDao docIDao) {
+    public DocumentService(IDocumentDao docIDao) {
         this.docIDao = docIDao;
     }
 
-    public DocsService() {
+    public DocumentService() {
     }
     // -------------------- Getters and Setters ------------------------
 
@@ -54,7 +54,12 @@ public class DocsService implements IDocsService {
     }
 
     @Override
-    public Document getDocument(int projectId) throws Exception {
-        return docIDao.getDocument(projectId);
+    public List<Document> getAllDocumentsByProjectId(int projectId) throws Exception {
+        return docIDao.getAllDocumentsByProjectId(projectId);
+    }
+
+    @Override
+    public Document getDocument(int projectId, int documentId) {
+        return null;
     }
 }

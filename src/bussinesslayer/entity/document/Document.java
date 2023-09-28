@@ -1,4 +1,4 @@
-package bussinesslayer.entity;
+package bussinesslayer.entity.document;
 
 public class Document {
     // -------------------- Properties ------------------------

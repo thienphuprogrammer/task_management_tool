@@ -56,15 +56,19 @@ public class ProjectAdminMenu {
             }
         }
     }
-    private void createReport() throws Exception {
+
+    /*
+     * Create report
+     * check project exist
+     * check project is managed by manager
+     */
+    private void createReport() {
         try {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getById(projectId);
             if (project != null) {
-                LocalTime time = LocalTime.now();
-                LocalDate date = LocalDate.now();
                 String description = readString("Enter description: ");
-                ReportProject reportProject = new ReportProject(time, date, description, projectId);
+                ReportProject reportProject = new ReportProject(description, projectId);
                 reportProjectService.create(reportProject);
             } else {
                 printValueln("Project not found.");
@@ -73,12 +77,16 @@ public class ProjectAdminMenu {
             printValueln(e.getMessage());
         }
     }
+    /*
+     * View report
+     * check report exist
+     */
     private void viewReport() {
         try {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getById(projectId);
             if (project != null) {
-                List<ReportProject> reportProjects = reportProjectService.getReportsProject(projectId);
+                List<ReportProject> reportProjects = reportProjectService.getReportsByProjectId(projectId);
                 for (ReportProject reportProject : reportProjects) {
                     printValue("id: " + reportProject.getId() + " ".repeat(30 - String.valueOf(reportProject.getId()).length()) + "|");
                     printValue("time: " + reportProject.getTime() + " ".repeat(30 - String.valueOf(reportProject.getTime()).length()) + "|");

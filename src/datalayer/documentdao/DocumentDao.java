@@ -1,6 +1,6 @@
 package datalayer.documentdao;
 
-import bussinesslayer.entity.Document;
+import bussinesslayer.entity.document.Document;
 import datalayer.MySqlConnection;
 
 import java.sql.Connection;
@@ -102,24 +102,7 @@ public class DocumentDao implements IDocumentDao {
         }
     }
     @Override
-    public Document getDocument(int projectId) {
-        Document doc = new Document();
-        try {
-            String sql = "SELECT * FROM doc WHERE project_id = ?";
-            Connection connection = MySqlConnection.getInstance().getConnection();
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setInt(1, projectId);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                doc.setId(resultSet.getInt("id"));
-                doc.setTitle(resultSet.getString("title"));
-                doc.setDescription(resultSet.getString("description"));
-                doc.setContent(resultSet.getString("content"));
-                doc.setProjectId(resultSet.getInt("project_id"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return doc;
+    public List<Document> getAllDocumentsByProjectId(int projectId) {
+        return null;
     }
 }

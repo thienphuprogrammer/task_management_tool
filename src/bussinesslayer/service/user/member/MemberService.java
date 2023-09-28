@@ -48,32 +48,6 @@ public class MemberService implements IMemberService {
     }
 
     @Override
-    public void viewById(int id) throws Exception {
-        Member member = getById(id);
-        System.out.println("| id: " + member.getId() + " ".repeat(40 - String.valueOf(member.getId()).length()) + "|");
-        System.out.println("| Name: " + member.getName() + " ".repeat(40 - String.valueOf(member.getName()).length()) + "|");
-        System.out.println("| age: " + member.getAge() + " ".repeat(36 - String.valueOf(member.getAge()).length()) + "|");
-        System.out.println("| email: " + member.getEmail() + " ".repeat(43 - String.valueOf(member.getEmail()).length()) + "|");
-        System.out.println("| password: " + member.getPassword() + " ".repeat(43 - String.valueOf(member.getPassword()).length()) + "|");
-        System.out.println("| phone number: " + member.getPhoneNumber() + " ".repeat(43 - String.valueOf(member.getPhoneNumber()).length()) + "|");
-        System.out.println("| address: " + member.getAddress() + " ".repeat(43 - String.valueOf(member.getAddress()).length()) + "|");
-        System.out.println("| role: " + member.getRole() + " ".repeat(43 - String.valueOf(member.getRole()).length()) + "|");
-        System.out.println("| gender: " + member.isGender() + " ".repeat(43 - String.valueOf(member.isGender()).length()) + "|");
-    }
-
-    @Override
-    public void viewAll() throws Exception {
-        try {
-            List<Member> list = getAll();
-            for (Member member : list) {
-                viewById(member.getId());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public void changePassword(int id, String password) {
         memberIDao.changePassword(id, password);
     }

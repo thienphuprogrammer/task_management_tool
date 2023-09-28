@@ -18,8 +18,7 @@ public class AdminMenu {
         EXIT,
         VIEW_ALL_MANAGER,
         VIEW_ALL_MEMBER,
-        REPORT_PROJECT_OF_MANAGER,
-        ADD_MANAGER,
+        REPORT_PROJECT_OF_MANAGER
     }
 
     // -------------------- Properties ------------------------
@@ -75,7 +74,6 @@ public class AdminMenu {
                     printValue("| email: " + manager.getEmail() + " ".repeat(30 - String.valueOf(manager.getEmail()).length()) + "|");
                     printValue("| phone number: " + manager.getPhoneNumber() + " ".repeat(20 - String.valueOf(manager.getPhoneNumber()).length()) + "|");
                     printValue("| address: " + manager.getAddress() + " ".repeat(30 - String.valueOf(manager.getAddress()).length()) + "|");
-                    printValue("| role: " + manager.getRole() + " ".repeat(10 - String.valueOf(manager.getRole()).length()) + "|");
                     printValueln("| gender: " + manager.isGender() + " ".repeat(10 - String.valueOf(manager.isGender()).length()) + "|");
 
                 }
@@ -97,7 +95,6 @@ public class AdminMenu {
                     printValue("| email: " + member.getEmail() + " ".repeat(30 - String.valueOf(member.getEmail()).length()) + "|");
                     printValue("| phone number: " + member.getPhoneNumber() + " ".repeat(20 - String.valueOf(member.getPhoneNumber()).length()) + "|");
                     printValue("| address: " + member.getAddress() + " ".repeat(30 - String.valueOf(member.getAddress()).length()) + "|");
-                    printValue("| role: " + member.getRole() + " ".repeat(10 - String.valueOf(member.getRole()).length()) + "|");
                     printValueln("| gender: " + member.isGender() + " ".repeat(10 - String.valueOf(member.isGender()).length()) + "|");
                 }
             }

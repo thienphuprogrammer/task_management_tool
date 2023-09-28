@@ -24,17 +24,17 @@ public class ProjectManagerMenu {
         EDIT_PROJECT,
         DELETE_PROJECT,
         CREATE_PROJECT,
-        VIEW_PROJECT,
+        VIEW_ALL_PROJECTS,
         ADD_MEMBER_TO_PROJECT,
         REMOVE_MEMBER_FROM_PROJECT,
-        VIEW_MEMBER,
-        VIEW_REPORT,
+        VIEW_ALL_MEMBER_IN_PROJECT,
+        VIEW_REPORT_OF_PROJECT,
         // Backlog
-        BACKLOG_MANAGER,
+        INTO_BACKLOG_MANAGER,
 
         // Sprint
-        SPRINT_MANAGER,
-        DOCUMENT_PROJECT
+        INTO_SPRINT_MANAGER,
+        INTO_DOCUMENT_PROJECT_MANAGER
     }
     // -------------------- Constructor ------------------------
 
@@ -64,14 +64,14 @@ public class ProjectManagerMenu {
                         case EDIT_PROJECT -> this.editProject();
                         case DELETE_PROJECT -> this.deleteProject();
                         case CREATE_PROJECT -> this.createProject();
-                        case VIEW_PROJECT -> this.viewProject();
+                        case VIEW_ALL_PROJECTS -> this.viewAllProjects();
                         case ADD_MEMBER_TO_PROJECT -> this.addMemberToProject();
                         case REMOVE_MEMBER_FROM_PROJECT -> this.removeMemberFromProject();
-                        case VIEW_MEMBER -> this.viewMember();
-                        case BACKLOG_MANAGER -> this.processMenuForBacklogManager();
-                        case SPRINT_MANAGER -> this.processMenuForSprintManager();
-                        case VIEW_REPORT -> this.viewReport();
-                        case DOCUMENT_PROJECT -> this.documentProject();
+                        case VIEW_ALL_MEMBER_IN_PROJECT -> this.viewAllMembersInProject();
+                        case INTO_BACKLOG_MANAGER -> this.processMenuForBacklogManager();
+                        case INTO_SPRINT_MANAGER -> this.processMenuForSprintManager();
+                        case VIEW_REPORT_OF_PROJECT -> this.viewReports();
+                        case INTO_DOCUMENT_PROJECT_MANAGER -> this.documentProject();
                     }
                 }
             } catch (Exception e) {
@@ -79,15 +79,52 @@ public class ProjectManagerMenu {
             }
         }
     }
+
+    /*
+     * Edit project
+     * Press enter to keep old info
+     * check project exist
+     * check validation
+     * check project managed by manager ?
+     */
     private void editProject() {
         try {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getById(projectId);
+            String updatedName;
+            String updatedDescription;
+            LocalDate updatedStartDate;
+            LocalDate updatedEndDate;
             if (project.getManagerId() == managerId) {
-                project.setName(readString("Enter new project name: "));
-                project.setDescription(readString("Enter new project description: "));
-                project.setStartDate(readLocalDate("Enter new project start date: "));
-                project.setEndDate(readLocalDate("Enter new project end date: "));
+                if(!(updatedName = readString("Enter new project name: ")).isBlank()) {
+                    project.setName(updatedName);
+                    printValue("Changed to " + updatedName);
+                } else {
+                    printValue("Nothing change");
+                }
+
+                if(!(updatedDescription = readString("Enter new project description: ")).isBlank()) {
+                    project.setDescription(updatedDescription);
+                    printValue("Changed to " + updatedDescription);
+                } else {
+                    printValue("Nothing change");
+                }
+
+                updatedStartDate = readLocalDate("Enter new project start Date");
+                if (updatedStartDate != null) {
+                    project.setStartDate(updatedStartDate);
+                    printValue("Changed to " + updatedStartDate);
+                } else {
+                    printValue("Nothing change");
+                }
+
+                updatedEndDate = readLocalDate("Enter new project end date: ");
+                if (updatedEndDate != null) {
+                    project.setEndDate(updatedEndDate);
+                    printValue("Changed to " + updatedEndDate);
+                } else {
+                    printValue("Nothing change");
+                }
                 serviceProject.update(project);
             } else {
                 printValueln("You are not manager of this project.");
@@ -96,6 +133,20 @@ public class ProjectManagerMenu {
             printValueln(e.getMessage());
         }
     }
+
+    /*
+     * Delete project
+     * Check project exist
+     * check project managed by manager
+     * Ask user to confirm
+     * Delete all report has project_id of this project
+     * Delete all task has project_id of this project
+     * Delete all member has project_id of this project
+     * Delete all Sprint has project_id of this project
+     * Delete backlog has project_id of this project
+     * Delete all document has project_id of this project
+     * Delete all report Task of Task has project_id of this project
+     */
     private void deleteProject()  {
         try {
             int projectId = readInt("Enter project id: ");
@@ -108,6 +159,12 @@ public class ProjectManagerMenu {
             printValueln(e.getMessage());
         }
     }
+
+    /*
+     * Create project
+     * check validation
+     * check start date < end date
+     */
     private void createProject() throws Exception {
         try {
             String name = readString("Enter project name: ");
@@ -120,9 +177,14 @@ public class ProjectManagerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void viewProject() {
+
+    /*
+     * View project
+     * check project managed by manager
+     */
+    private void viewAllProjects() {
         try {
-            List<Project> list = serviceProject.getAllProjectManager(managerId);
+            List<Project> list = serviceProject.getAllProjectsOfManager(managerId);
             for (Project project : list) {
                 printValue("id: " + project.getId() + " ".repeat(10 - String.valueOf(project.getId()).length()) + "|");
                 printValue("name: " + project.getName() + " ".repeat(20 - String.valueOf(project.getName()).length()) + "|");
@@ -135,6 +197,14 @@ public class ProjectManagerMenu {
             printValueln(e.getMessage());
         }
     }
+
+    /*
+     * Add member to project
+     * check member exist
+     * check member managed by manager
+     * check project exist
+     * check project managed by manager
+     */
     private void addMemberToProject() {
         try {
             int projectId = readInt("Enter project id: ");
@@ -144,6 +214,15 @@ public class ProjectManagerMenu {
             printValueln(e.getMessage());
         }
     }
+
+    /*
+     * Remove member from project
+     * check member exist
+     * check member managed by manager
+     * check project exist
+     * check project managed by manager
+     * ask user to confirm this
+     */
     private void removeMemberFromProject() {
         try {
             int projectId = readInt("Enter project id: ");
@@ -154,10 +233,16 @@ public class ProjectManagerMenu {
         }
 
     }
-    private void viewMember() throws Exception {
+
+    /*
+     * View member
+     * check project exist
+     * check project managed by manager
+     */
+    private void viewAllMembersInProject() {
         try {
             int projectId = readInt("Enter project id: ");
-            List<Member> list = serviceProject.getMember(projectId, managerId);
+            List<Member> list = serviceProject.getAllMembersInProject(projectId, managerId);
             for (Member member : list) {
                 printValue("id: " + member.getId() + " ".repeat(10 - String.valueOf(member.getId()).length()) + "|");
                 printValue("name: " + member.getName() + " ".repeat(20 - String.valueOf(member.getName()).length()) + "|");
@@ -170,6 +255,11 @@ public class ProjectManagerMenu {
         }
     }
 
+    /*
+     * Into Backlog
+     * check project exist
+     * check project managed by manager
+     */
     private void processMenuForBacklogManager() {
         try {
             int projectId = readInt("Enter project id: ");
@@ -184,6 +274,12 @@ public class ProjectManagerMenu {
             printValueln(e.getMessage());
         }
     }
+
+    /*
+     * Into Sprint
+     * check project exist
+     * check project managed by manager
+     */
     private void processMenuForSprintManager()  {
         try {
             int projectId = readInt("Enter project id: ");
@@ -198,12 +294,18 @@ public class ProjectManagerMenu {
             printValueln(e.getMessage());
         }
     }
-    private void viewReport() {
+
+    /*
+     * View report
+     * check project exist
+     * check project managed by manager
+     */
+    private void viewReports() {
         try {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getById(projectId);
             if (project.getManagerId() == managerId) {
-                List<ReportProject> reportProjects = reportProjectService.getReportsProject(projectId);
+                List<ReportProject> reportProjects = reportProjectService.getReportsByProjectId(projectId);
                 for (ReportProject reportProject : reportProjects) {
                     printValue("id: " + reportProject.getId() + " ".repeat(40 - String.valueOf(reportProject.getId()).length()) + "|");
                     printValue("name: " + reportProject.getDescription() + " ".repeat(40 - String.valueOf(reportProject.getDescription()).length()) + "|");
@@ -218,6 +320,12 @@ public class ProjectManagerMenu {
             printValueln(e.getMessage());
         }
     }
+
+    /*
+     * Into Document
+     * check project exist
+     * check project managed by manager
+     */
     private void documentProject() {
         try {
             int projectId = readInt("Enter project id: ");

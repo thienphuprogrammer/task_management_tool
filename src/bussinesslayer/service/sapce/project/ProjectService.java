@@ -69,18 +69,6 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public void viewAll() throws Exception {
-        try {
-            List<Project> list = projectIDao.getAll();
-            for (Project project : list) {
-                viewById(project.getId());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
     public void addMemberToProject(int projectId, int memberId, int managerId) throws Exception {
         projectIDao.addMemberToProject(projectId, memberId);
     }
@@ -91,7 +79,7 @@ public class ProjectService implements IProjectService {
     }
 
     @Override
-    public List<Member> getMember(int projectId, int managerId) throws Exception {
+    public List<Member> getAllMembersInProject(int projectId, int managerId) throws Exception {
         List<Member> list = new ArrayList<>();
         Project project = projectIDao.getById(projectId);
         if (project.getManagerId() == managerId) {
@@ -101,46 +89,19 @@ public class ProjectService implements IProjectService {
         }
         return list;
     }
-    @Override
-    public List<Project> getProjectMember(int memberId) throws Exception {
-        return projectIDao.getProjectMember(memberId);
-    }
 
     @Override
-    public List<Member> getAllMember(int projectId, int memberId) throws Exception {
-        Project project = projectIDao.getById(projectId);
-        List<Member> list = new ArrayList<>();
-        if (project.getManagerId() == memberId) {
-            list = projectIDao.getAllMemberProject(projectId, memberId);
-        } else {
-            throw new Exception("You don't manager of this project");
-        }
-        return list;
-    }
-
-    @Override
-    public List<Project> getAllProjectManager(int userId) throws Exception {
+    public List<Project> getAllProjectsOfManager(int userId) throws Exception {
         return projectIDao.getAllProject(userId);
     }
 
     @Override
-    public Project getMemberByProjectId(int projectId, int memberId) {
+    public Project getProjectByMemberId(int projectId, int memberId) {
         return projectIDao.getMemberByProjectId(projectId, memberId);
     }
 
     @Override
-    public List<Project> getAllProjectMember(int memberId) {
+    public List<Project> getAllProjectsOfMember(int memberId) {
         return projectIDao.getAllProjectMember(memberId);
-    }
-
-    @Override
-    public void viewById(int id) throws Exception {
-        Project project = projectIDao.getById(id);
-        System.out.println("| id: " + project.getId() + " ".repeat(40 - String.valueOf(project.getId()).length()) + "|");
-        System.out.println("| Name: " + project.getName() + " ".repeat(40 - String.valueOf(project.getName()).length()) + "|");
-        System.out.println("| Description: " + project.getDescription() + " ".repeat(36 - String.valueOf(project.getDescription()).length()) + "|");
-        System.out.println("| Start Date: " + project.getStartDate() + " ".repeat(43 - String.valueOf(project.getStartDate()).length()) + "|");
-        System.out.println("| End Date: " + project.getEndDate() + " ".repeat(43 - String.valueOf(project.getEndDate()).length()) + "|");
-        System.out.println("| Manager ID: " + project.getManagerId() + " ".repeat(43 - String.valueOf(project.getManagerId()).length()) + "|");
     }
 }

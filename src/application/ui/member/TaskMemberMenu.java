@@ -2,6 +2,7 @@ package application.ui.member;
 
 import bussinesslayer.entity.report.ReportTask;
 import bussinesslayer.entity.space.Task;
+import bussinesslayer.entity.submission.SubmissionTask;
 import bussinesslayer.service.report.reporttask.IReportTaskService;
 import bussinesslayer.service.report.reporttask.ReportTaskService;
 import bussinesslayer.service.sapce.task.ITaskService;
@@ -22,10 +23,9 @@ public class TaskMemberMenu {
     public enum CHOICE_TASK_MEMBER_MENU {
         EXIT,
         SUBMIT_TASK,
-        VIEW_ALL_MY_TASK,
-        VIEW_ALL_TASK,
-        VIEW_REPORT_TASK,
-        SUBTASK_MEMBER
+        VIEW_ALL_MY_TASKS,
+        VIEW_ALL_TASKS,
+        VIEW_REPORT_TASKS
     }
     // -------------------- Constructor ------------------------
 
@@ -52,10 +52,10 @@ public class TaskMemberMenu {
                 } else {
                     switch (CHOICE_TASK_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case VIEW_REPORT_TASK -> this.viewReportTask();
-                        case VIEW_ALL_TASK -> this.viewAllTask();
+                        case VIEW_REPORT_TASKS -> this.viewReportTask();
+                        case VIEW_ALL_TASKS -> this.viewAllTask();
                         case SUBMIT_TASK -> this.submitTask();
-                        case VIEW_ALL_MY_TASK -> this.viewAllMyTask();
+                        case VIEW_ALL_MY_TASKS -> this.viewAllMyTasks();
                     }
                 }
             } catch (Exception e) {
@@ -63,12 +63,18 @@ public class TaskMemberMenu {
             }
         }
     }
+    /*
+     * view report task
+     * check list is null ?
+     * check task_id exist
+     * check task exist in sprint
+     */
     private void viewReportTask()  {
         try {
             int taskId = readInt("Enter task id: ");
             Task task = taskService.getById(taskId);
             if (task != null && task.getSprintId() == this.sprintId) {
-                List<ReportTask> reportTaskList = reportTaskService.getReports(taskId);
+                List<ReportTask> reportTaskList = reportTaskService.getReportsByTaskId(taskId);
                 for (ReportTask reportTask : reportTaskList) {
                     printValue("Report task id: " + reportTask.getId() + " ".repeat(10 - String.valueOf(reportTask.getId()).length()) + "|");
                     printValue("Report time: " + reportTask.getTime() + " ".repeat(20 - String.valueOf(reportTask.getTime()).length()) + "|");
@@ -80,21 +86,29 @@ public class TaskMemberMenu {
             printValueln(e.getMessage());
         }
     }
-    private void viewAllMyTask() {
+    /*
+     * view all task
+     * check list is null
+     */
+    private void viewAllMyTasks() {
         try {
-            List<Task> taskList = taskService.getAllMyTaskMember(sprintId, memberId);
+            List<Task> taskList = taskService.getAllTasksOfMember(sprintId, memberId);
             for (Task task : taskList) {
-                printValue("Task id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");
-                printValue("Task name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");
+                printValue("Task id: " + task.getId() + " ".repeat(10 - String.valueOf(task.getId()).length()) + "|");
+                printValue("Task name: " + task.getName() + " ".repeat(30 - String.valueOf(task.getName()).length()) + "|");
                 printValue("Task description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
-                printValue("Task start date: " + task.getStartDate() + " ".repeat(40 - String.valueOf(task.getStartDate()).length()) + "|");
-                printValue("Task end date: " + task.getEndDate() + " ".repeat(40 - String.valueOf(task.getEndDate()).length()) + "|");
-                printValueln("Task status: " + task.getStatus() + " ".repeat(40 - String.valueOf(task.getStatus()).length()) + "|");
+                printValue("Task start date: " + task.getStartDate() + " ".repeat(10 - String.valueOf(task.getStartDate()).length()) + "|");
+                printValue("Task end date: " + task.getEndDate() + " ".repeat(10 - String.valueOf(task.getEndDate()).length()) + "|");
+                printValueln("Task status: " + task.getStatus() + " ".repeat(10 - String.valueOf(task.getStatus()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
     }
+    /*
+     * view all task
+     * check list is null
+     */
     private void viewAllTask() {
         try {
             List<Task> taskList = taskService.getAllTasks(sprintId);
@@ -110,12 +124,20 @@ public class TaskMemberMenu {
             printValueln(e.getMessage());
         }
     }
+    /*
+     * submit task
+     * check task_id exist
+     * check task exist in sprint
+     * check validation
+     */
     private void submitTask() throws Exception {
         try {
             int taskId = readInt("Enter task id: ");
             Task task = taskService.getById(taskId);
             if (task != null && task.getSprintId() == this.sprintId) {
-                taskService.submitTask(taskId);
+                String content = readString("Content of task: ");
+                SubmissionTask SubmissionTask = new SubmissionTask(content, taskId);
+                taskService.submitTask(SubmissionTask, taskId);
             } else {
                 printValueln("Task not found.");
             }

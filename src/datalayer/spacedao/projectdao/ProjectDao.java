@@ -172,7 +172,6 @@ public class ProjectDao implements IProjectDao {
                 member.setAge(resultSet.getInt("age"));
                 member.setAddress(resultSet.getString("address"));
                 member.setGender(resultSet.getString("gender"));
-                member.setRole(resultSet.getString("role"));
                 list.add(member);
             }
         } catch (SQLException e) {

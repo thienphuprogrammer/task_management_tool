@@ -56,35 +56,12 @@ public class SprintService implements ISprintService {
     }
 
     @Override
-    public void viewAll() throws Exception {
-        try {
-            List<Sprint> list = sprintIDao.getAll();
-            for (Sprint sprint : list) {
-                viewById(sprint.getId());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @Override
-    public List<Sprint> getAllSprint(int projectId) {
+    public List<Sprint> getAllSprintsOfProject(int projectId) {
         return sprintIDao.getAllSprintProject(projectId);
     }
 
     @Override
-    public List<Sprint> getSprintMember(int projectId, int memberId) {
+    public List<Sprint> getAllSprintsInProjectOfMember(int projectId, int memberId) {
         return sprintIDao.getSprintMemberProject(projectId, memberId);
-    }
-
-    @Override
-    public void viewById(int id) throws Exception {
-        Sprint sprint = sprintIDao.getById(id);
-        System.out.println("| id: " + sprint.getId() + " ".repeat(40 - String.valueOf(sprint.getId()).length()) + "|");
-        System.out.println("| Name: " + sprint.getName() + " ".repeat(40 - String.valueOf(sprint.getName()).length()) + "|");
-        System.out.println("| Description: " + sprint.getDescription() + " ".repeat(36 - String.valueOf(sprint.getDescription()).length()) + "|");
-        System.out.println("| Start Date: " + sprint.getStartDate() + " ".repeat(43 - String.valueOf(sprint.getStartDate()).length()) + "|");
-        System.out.println("| End Date: " + sprint.getEndDate() + " ".repeat(43 - String.valueOf(sprint.getEndDate()).length()) + "|");
-        System.out.println("| Manager ID: " + sprint.getProjectId() + " ".repeat(43 - String.valueOf(sprint.getProjectId()).length()) + "|");
-
     }
 }

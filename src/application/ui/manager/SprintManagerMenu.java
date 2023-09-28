@@ -1,6 +1,5 @@
 package application.ui.manager;
 
-import bussinesslayer.entity.report.ReportSprint;
 import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.service.sapce.sprint.ISprintService;
 import bussinesslayer.service.sapce.sprint.SprintService;
@@ -20,8 +19,8 @@ public class SprintManagerMenu {
         CREATE_SPRINT,
         UPDATE_SPRINT,
         DELETE_SPRINT,
-        VIEW_SPRINT,
-        TASK_MANAGER
+        VIEW_ALL_SPRINTS,
+        INTO_TASK_MANAGER
     }
     // -------------------- Constructor ------------------------
 
@@ -51,8 +50,8 @@ public class SprintManagerMenu {
                         case CREATE_SPRINT -> this.createSprint();
                         case UPDATE_SPRINT -> this.updateSprint();
                         case DELETE_SPRINT -> this.deleteSprint();
-                        case VIEW_SPRINT -> this.viewSprint();
-                        case TASK_MANAGER -> this.processMenuForTaskManager();
+                        case VIEW_ALL_SPRINTS -> this.viewAllSprints();
+                        case INTO_TASK_MANAGER -> this.processMenuForTaskManager();
                     }
                 }
             } catch (Exception e) {
@@ -60,6 +59,12 @@ public class SprintManagerMenu {
             }
         }
     }
+
+    /*
+     * Create Sprint
+     * check validation
+     * check StartDate < EndDate
+     */
     private void createSprint() {
         try {
             String name = readString("Name: ");
@@ -72,6 +77,14 @@ public class SprintManagerMenu {
             printValueln(e.getMessage());
         }
     }
+
+    /*
+     * Update Sprint
+     * check sprintId exist
+     * check sprint in project
+     * check StartDate < EndDate
+     * check validation
+     */
     private void updateSprint() {
         try {
             int sprintId = readInt("Enter sprint id: ");
@@ -90,6 +103,16 @@ public class SprintManagerMenu {
         }
 
     }
+
+    /*
+     * Delete Sprint
+     * check sprintId exist
+     * check sprint in project
+     * check validation
+     * ask user to confirms
+     * Delete all task has sprint_id of this sprint
+     * Delete report of Task has sprint_id of this sprint
+     */
     private void deleteSprint() {
         try {
             int sprintId = readInt("Enter sprint id: ");
@@ -102,20 +125,31 @@ public class SprintManagerMenu {
             printValue(e.getMessage());
         }
     }
-    private void viewSprint() {
+
+    /*
+     * View All Sprint
+     * list is null ?
+     */
+    private void viewAllSprints() {
         try {
-            List<Sprint> sprintList = sprintService.getAllSprint(projectId);
+            List<Sprint> sprintList = sprintService.getAllSprintsOfProject(projectId);
             for (Sprint sprint : sprintList) {
-                printValue("id: " + sprint.getId() + " ".repeat(40 - String.valueOf(sprint.getId()).length()) + "|");
-                printValue("name: " + sprint.getName() + " ".repeat(40 - String.valueOf(sprint.getName()).length()) + "|");
-                printValue("start date: " + sprint.getStartDate() + " ".repeat(40 - String.valueOf(sprint.getStartDate()).length()) + "|");
-                printValue("end date: " + sprint.getEndDate() + " ".repeat(40 - String.valueOf(sprint.getEndDate()).length()) + "|");
-                printValueln("description: " + sprint.getDescription() + " ".repeat(40 - String.valueOf(sprint.getDescription()).length()) + "|");
+                printValue("id: " + sprint.getId() + " ".repeat(10 - String.valueOf(sprint.getId()).length()) + "|");
+                printValue("name: " + sprint.getName() + " ".repeat(20 - String.valueOf(sprint.getName()).length()) + "|");
+                printValue("start date: " + sprint.getStartDate() + " ".repeat(10 - String.valueOf(sprint.getStartDate()).length()) + "|");
+                printValue("end date: " + sprint.getEndDate() + " ".repeat(10 - String.valueOf(sprint.getEndDate()).length()) + "|");
+                printValueln("description: " + sprint.getDescription() + " ".repeat(30 - String.valueOf(sprint.getDescription()).length()) + "|");
             }
         } catch (Exception e) {
             printValue(e.getMessage());
         }
     }
+
+    /*
+     * Process Menu for Task Manager
+     * check sprintId exist
+     * check sprint in project
+     */
     private void processMenuForTaskManager() throws Exception {
         int sprintId = readInt("Enter sprint id: ");
         TaskMangerMenu taskMangerMenu = new TaskMangerMenu(sprintId);

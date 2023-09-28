@@ -7,16 +7,16 @@ public abstract class Report {
     protected LocalTime time;
     protected LocalDate date;
     protected String description;
-    public Report(int id, LocalTime time, LocalDate date, String description){
+    public Report(int id,String description){
         this.id = id;
-        this.time = time;
-        this.date = date;
+        this.time = LocalTime.now();
+        this.date = LocalDate.now();
         this.description = description;
     }
 
-    public Report(LocalTime time, LocalDate date, String description) {
-        this.time = time;
-        this.date = date;
+    public Report(String description) {
+        this.time = LocalTime.now();
+        this.date = LocalDate.now();
         this.description = description;
     }
 

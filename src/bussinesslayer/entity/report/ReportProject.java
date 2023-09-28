@@ -6,13 +6,8 @@ import java.time.LocalTime;
 public class ReportProject extends Report {
     private int project_id;
 
-    public ReportProject(int id, LocalTime time, LocalDate date, String description, int project_id) {
-        super(id, time, date, description);
-        this.project_id = project_id;
-    }
-
-    public ReportProject(LocalTime time, LocalDate date, String description, int project_id) {
-        super(time, date, description);
+    public ReportProject(String description, int project_id) {
+        super(description);
         this.project_id = project_id;
     }
 
