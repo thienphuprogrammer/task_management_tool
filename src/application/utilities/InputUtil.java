@@ -7,12 +7,24 @@ import java.util.Scanner;
 public class InputUtil {
     private static final Scanner scanner = new Scanner(System.in);
 
+    // Read int
     public static int readInt(String message) throws Exception {
-        int number = 0;
+        int number;
         System.out.print(message);
         String input = scanner.nextLine();
-        if(input.isBlank()) {
-            return 0;
+        if (!input.matches("[-+]?\\d+")) {
+            throw new Exception("Data invalid.");
+        } else {
+            number = Integer.parseInt(input);
+        }
+        return number;
+    }
+    public static int readInt(String message, int defaultValue) throws Exception {
+        int number;
+        System.out.print(message);
+        String input = scanner.nextLine();
+        if (input.isBlank()) {
+            return defaultValue;
         }
         if (!input.matches("[-+]?\\d+")) {
             throw new Exception("Data invalid.");
@@ -22,6 +34,7 @@ public class InputUtil {
         return number;
     }
 
+    // Read string
     public static String readString(String message) {
         System.out.print(message);
         String input = scanner.nextLine();
@@ -30,13 +43,33 @@ public class InputUtil {
         }
         return input;
     }
-
-    public static double readDouble(String message) throws Exception {
+    public static String readString(String message, String defaultValue) {
         System.out.print(message);
-        double number = 0.0;
         String input = scanner.nextLine();
         if(input.isBlank()) {
-            return -1;
+            return defaultValue;
+        }
+        return input;
+    }
+
+    // Read double
+    public static double readDouble(String message) throws Exception {
+        System.out.print(message);
+        double number;
+        String input = scanner.nextLine();
+        if (!input.matches("^[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?$")) {
+            throw new Exception("Data invalid.");
+        } else {
+            number = Double.parseDouble(input);
+        }
+        return number;
+    }
+    public static double readDouble(String message, double defaultValue) throws Exception {
+        System.out.print(message);
+        double number;
+        String input = scanner.nextLine();
+        if (input.isBlank()) {
+            return defaultValue;
         }
         if (!input.matches("^[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?$")) {
             throw new Exception("Data invalid.");
@@ -46,19 +79,23 @@ public class InputUtil {
         return number;
     }
 
-    // Các phương thức khác cho việc đọc các kiểu dữ liệu khác như boolean, long, vv. có thể được thêm vào
-
-    public static void closeScanner() {
-        scanner.close();
-    }
-
     public static LocalDate readLocalDate(String message) throws Exception {
         System.out.print(message);
         String input = scanner.nextLine();
-        LocalDate date = null;
-
-        if(input.isBlank()) {
-            return null;
+        LocalDate date;
+        if (!input.matches("^\\d{4}-\\d{2}-\\d{2}$")) { // YYYY-MM-DD
+            throw new Exception("Data invalid.");
+        }else {
+            date = LocalDate.parse(input);
+        }
+        return date;
+    }
+    public static LocalDate readLocalDate(String message, LocalDate defaultValue) throws Exception {
+        System.out.print(message);
+        String input = scanner.nextLine();
+        LocalDate date;
+        if (input.isBlank()) {
+            return defaultValue;
         }
         if (!input.matches("^\\d{4}-\\d{2}-\\d{2}$")) { // YYYY-MM-DD
             throw new Exception("Data invalid.");
@@ -67,12 +104,28 @@ public class InputUtil {
         }
         return date;
     }
+
     public static LocalTime readLocalTime(String message) throws Exception {
         System.out.print(message);
         String input = scanner.nextLine();
-        LocalTime time = null;
+        LocalTime time;
         if(input.isBlank()) {
-            return null;
+                return null;
+            }
+        if (!input.matches("^\\d{2}:\\d{2}$")) { // HH:MM
+            throw new Exception("Data invalid.");
+        }else {
+            time = LocalTime.parse(input);
+        }
+        return time;
+    }
+
+    public static LocalTime readLocalTime(String message, LocalTime defaultValue) throws Exception {
+        System.out.print(message);
+        String input = scanner.nextLine();
+        LocalTime time;
+        if (input.isBlank()) {
+            return defaultValue;
         }
         if (!input.matches("^\\d{2}:\\d{2}$")) { // HH:MM
             throw new Exception("Data invalid.");
@@ -81,10 +134,11 @@ public class InputUtil {
         }
         return time;
     }
+
     public static boolean readBoolean(String message) throws Exception {
         System.out.print(message);
         String input = scanner.nextLine();
-        boolean bool = false;
+        boolean bool;
         if(input.isBlank()) {
             return false;
         }
@@ -94,5 +148,23 @@ public class InputUtil {
             bool = Boolean.parseBoolean(input);
         }
         return bool;
+    }
+    public static boolean readBoolean(String message, boolean defaultValue) throws Exception {
+        System.out.print(message);
+        String input = scanner.nextLine();
+        boolean bool;
+        if (input.isBlank()) {
+            return defaultValue;
+        }
+        if (!input.matches("true|false")) {
+            throw new Exception("Data invalid.");
+        } else {
+            bool = Boolean.parseBoolean(input);
+        }
+        return bool;
+    }
+
+    public static void closeScanner() {
+        scanner.close();
     }
 }
