@@ -91,11 +91,40 @@ public class ProjectManagerMenu {
         try {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getById(projectId);
+            String updatedName;
+            String updatedDescription;
+            LocalDate updatedStartDate;
+            LocalDate updatedEndDate;
             if (project.getManagerId() == managerId) {
-                project.setName(readString("Enter new project name: "));
-                project.setDescription(readString("Enter new project description: "));
-                project.setStartDate(readLocalDate("Enter new project start date: "));
-                project.setEndDate(readLocalDate("Enter new project end date: "));
+                if(!(updatedName = readString("Enter new project name: ")).isBlank()) {
+                    project.setName(updatedName);
+                    printValue("Changed to " + updatedName);
+                } else {
+                    printValue("Nothing change");
+                }
+
+                if(!(updatedDescription = readString("Enter new project description: ")).isBlank()) {
+                    project.setDescription(updatedDescription);
+                    printValue("Changed to " + updatedDescription);
+                } else {
+                    printValue("Nothing change");
+                }
+
+                updatedStartDate = readLocalDate("Enter new project start Date");
+                if (updatedStartDate != null) {
+                    project.setStartDate(updatedStartDate);
+                    printValue("Changed to " + updatedStartDate);
+                } else {
+                    printValue("Nothing change");
+                }
+
+                updatedEndDate = readLocalDate("Enter new project end date: ");
+                if (updatedEndDate != null) {
+                    project.setEndDate(updatedEndDate);
+                    printValue("Changed to " + updatedEndDate);
+                } else {
+                    printValue("Nothing change");
+                }
                 serviceProject.update(project);
             } else {
                 printValueln("You are not manager of this project.");

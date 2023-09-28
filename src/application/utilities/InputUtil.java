@@ -11,6 +11,9 @@ public class InputUtil {
         int number = 0;
         System.out.print(message);
         String input = scanner.nextLine();
+        if(input.isBlank()) {
+            return 0;
+        }
         if (!input.matches("[-+]?\\d+")) {
             throw new Exception("Data invalid.");
         } else {
@@ -22,6 +25,9 @@ public class InputUtil {
     public static String readString(String message) {
         System.out.print(message);
         String input = scanner.nextLine();
+        if(input.isBlank()) {
+            return "";
+        }
         return input;
     }
 
@@ -29,6 +35,9 @@ public class InputUtil {
         System.out.print(message);
         double number = 0.0;
         String input = scanner.nextLine();
+        if(input.isBlank()) {
+            return -1;
+        }
         if (!input.matches("^[-+]?\\d*\\.?\\d+([eE][-+]?\\d+)?$")) {
             throw new Exception("Data invalid.");
         } else {
@@ -47,6 +56,10 @@ public class InputUtil {
         System.out.print(message);
         String input = scanner.nextLine();
         LocalDate date = null;
+
+        if(input.isBlank()) {
+            return null;
+        }
         if (!input.matches("^\\d{4}-\\d{2}-\\d{2}$")) { // YYYY-MM-DD
             throw new Exception("Data invalid.");
         }else {
@@ -58,6 +71,9 @@ public class InputUtil {
         System.out.print(message);
         String input = scanner.nextLine();
         LocalTime time = null;
+        if(input.isBlank()) {
+            return null;
+        }
         if (!input.matches("^\\d{2}:\\d{2}$")) { // HH:MM
             throw new Exception("Data invalid.");
         }else {
@@ -69,6 +85,9 @@ public class InputUtil {
         System.out.print(message);
         String input = scanner.nextLine();
         boolean bool = false;
+        if(input.isBlank()) {
+            return false;
+        }
         if (!input.matches("true|false")) {
             throw new Exception("Data invalid.");
         } else {
