@@ -17,6 +17,10 @@ public class SubmissionTask {
         this.taskId = taskId;
     }
 
+    public SubmissionTask() {
+
+    }
+
     public int getId() {
         return id;
     }

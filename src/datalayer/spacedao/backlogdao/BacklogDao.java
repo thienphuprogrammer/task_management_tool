@@ -3,7 +3,6 @@ package datalayer.spacedao.backlogdao;
 import bussinesslayer.entity.space.Backlog;
 import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.entity.space.Task;
-import bussinesslayer.entity.user.Member;
 import datalayer.MySqlConnection;
 
 import java.sql.*;
@@ -292,7 +291,7 @@ public class BacklogDao implements IBacklogDao {
         } catch (SQLException e) {
             throw new Exception();
         }
-        return null;
+        return list;
     }
 
     @Override
@@ -315,6 +314,6 @@ public class BacklogDao implements IBacklogDao {
         } catch (SQLException e) {
             throw new Exception();
         }
-        return null;
+        return sprint;
     }
 }
