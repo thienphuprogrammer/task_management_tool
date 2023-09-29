@@ -141,10 +141,11 @@ public class SprintDao implements ISprintDao {
                 list.add(sprint);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return list;
     }
+
     @Override
     public List<Sprint> getSprintMemberProject(int projectId, int memberId) {
         List<Sprint> list = new ArrayList<>();
@@ -170,7 +171,7 @@ public class SprintDao implements ISprintDao {
                 list.add(sprint);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         return list;
     }

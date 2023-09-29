@@ -97,11 +97,16 @@ public class ProjectService implements IProjectService {
 
     @Override
     public Project getProjectByMemberId(int projectId, int memberId) {
-        return projectIDao.getMemberByProjectId(projectId, memberId);
+        return projectIDao.getProjectByMemberId(projectId, memberId);
     }
 
     @Override
     public List<Project> getAllProjectsOfMember(int memberId) {
         return projectIDao.getAllProjectMember(memberId);
+    }
+
+    @Override
+    public Member searchMemberInProject(int memberId, int projectId) throws Exception {
+        return projectIDao.searchMemberInProject(projectId, memberId);
     }
 }

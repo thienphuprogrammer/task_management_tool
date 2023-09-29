@@ -28,7 +28,7 @@ public class DocumentDao implements IDocumentDao {
                 doc.setProjectId(resultSet.getInt("project_id"));
             }
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
         return doc;
     }
@@ -51,7 +51,7 @@ public class DocumentDao implements IDocumentDao {
                 list.add(doc);
             }
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
         return list;
     }
@@ -68,7 +68,7 @@ public class DocumentDao implements IDocumentDao {
             statement.setInt(4, space.getProjectId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
     }
 
@@ -85,7 +85,7 @@ public class DocumentDao implements IDocumentDao {
             statement.setInt(5, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
     }
 
@@ -98,9 +98,10 @@ public class DocumentDao implements IDocumentDao {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
     }
+
     @Override
     public List<Document> getAllDocumentsByProjectId(int projectId) throws Exception {
         List<Document> list = new ArrayList<>();
@@ -120,7 +121,7 @@ public class DocumentDao implements IDocumentDao {
                 list.add(doc);
             }
         } catch (Exception e) {
-            throw new Exception();
+            e.printStackTrace();
         }
         return list;
     }
@@ -143,7 +144,7 @@ public class DocumentDao implements IDocumentDao {
                 doc.setProjectId(resultSet.getInt("project_id"));
             }
         } catch (Exception e) {
-            throw new Exception();
+            e.printStackTrace();
         }
         return doc;
     }

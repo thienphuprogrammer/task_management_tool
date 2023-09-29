@@ -18,4 +18,6 @@ public interface IProjectService extends IService<Project> {
     Project getProjectByMemberId(int projectId, int memberId);
 
     List<Project> getAllProjectsOfMember(int memberId);
+
+    Member searchMemberInProject(int memberId, int projectId) throws Exception;
 }

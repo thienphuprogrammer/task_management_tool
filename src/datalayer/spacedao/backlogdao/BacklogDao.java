@@ -84,7 +84,7 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(4, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-          e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -147,10 +147,10 @@ public class BacklogDao implements IBacklogDao {
                     case "Completed" -> task.setStatus(2);
                     case "On Hold" -> task.setStatus(3);
                     case "Cancelled" -> task.setStatus(4);
-                }                list.add(task);
+                }
+                list.add(task);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return list;
@@ -174,7 +174,7 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(7, sprintId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
     }
 
@@ -192,7 +192,7 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(6, task.getBacklogId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
     }
 
@@ -223,7 +223,7 @@ public class BacklogDao implements IBacklogDao {
                 }
             }
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
         return task;
     }
@@ -243,7 +243,7 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(7, task.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
     }
 
@@ -256,7 +256,7 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(1, taskId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
     }
 
@@ -289,7 +289,7 @@ public class BacklogDao implements IBacklogDao {
                 list.add(task);
             }
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
         return list;
     }
@@ -312,7 +312,7 @@ public class BacklogDao implements IBacklogDao {
                 sprint.setProjectId(resultSet.getInt("project_id"));
             }
         } catch (SQLException e) {
-            throw new Exception();
+            e.printStackTrace();
         }
         return sprint;
     }

@@ -175,6 +175,7 @@ public class ProjectManagerMenu {
      * check member managed by manager
      * check project exist
      * check project managed by manager
+     * check member had already been added to this project
      */
     private void addMemberToProject() {
         try {
@@ -182,7 +183,12 @@ public class ProjectManagerMenu {
             Project project = serviceProject.getById(projectId);
             if (project.getManagerId() == managerId) { // check project managed by manager
                 int memberId = readInt("Enter member id: ");
-                serviceProject.addMemberToProject(projectId, memberId, managerId);
+                Member member = serviceProject.searchMemberInProject(memberId, projectId);
+                if (member != null) { // check member had already been added to this project
+                    serviceProject.addMemberToProject(projectId, memberId, managerId);
+                } else {
+                    printValueln("There is no member in this project.");
+                }
             } else {
                 printValueln("You are not manager of this project.");
             }
@@ -199,6 +205,7 @@ public class ProjectManagerMenu {
      * check project managed by manager
      * ask user to confirm this
      */
+
     private void removeMemberFromProject() {
         try {
             int projectId = readInt("Enter project id: ");

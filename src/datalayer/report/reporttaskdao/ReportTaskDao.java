@@ -17,9 +17,10 @@ public class ReportTaskDao implements IReportTaskDao {
         conn = MySqlConnection.getInstance().getConnection();
         return conn;
     }
+
     @Override
     public ReportTask getById(int id) throws Exception {
-        ReportTask reportTask;
+        ReportTask reportTask = null;
         try {
             String sqlStatement = "SELECT * FROM Report_Task WHERE id = ?";
             connection = getConnection();
@@ -32,7 +33,7 @@ public class ReportTaskDao implements IReportTaskDao {
             reportTask.setDescription(resultSet.getString("Description"));
             reportTask.setTaskId(resultSet.getInt("task_id"));
         } catch (SQLException sqlException) {
-            throw new Exception();
+            sqlException.printStackTrace();
         }
         return reportTask;
     }
@@ -54,8 +55,8 @@ public class ReportTaskDao implements IReportTaskDao {
                 reportTask.setTaskId(resultSet.getInt("task_id"));
                 list.add(reportTask);
             }
-        }catch (SQLException exception) {
-            throw new Exception();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
         }
         return list;
     }
@@ -73,7 +74,7 @@ public class ReportTaskDao implements IReportTaskDao {
             statement.setInt(5, space.getTaskId());
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new Exception();
+            exception.printStackTrace();
         }
     }
 
@@ -90,7 +91,7 @@ public class ReportTaskDao implements IReportTaskDao {
             statement.setInt(5, space.getId());
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new Exception();
+            exception.printStackTrace();
         }
     }
 
@@ -103,7 +104,7 @@ public class ReportTaskDao implements IReportTaskDao {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            throw new Exception();
+            exception.printStackTrace();
         }
     }
 
@@ -126,7 +127,7 @@ public class ReportTaskDao implements IReportTaskDao {
                 list.add(reportTask);
             }
         } catch (SQLException exception) {
-            throw new Exception();
+            exception.printStackTrace();
         }
         return list;
     }
@@ -150,7 +151,7 @@ public class ReportTaskDao implements IReportTaskDao {
                 list.add(reportTask);
             }
         } catch (SQLException exception) {
-            throw new Exception();
+            exception.printStackTrace();
         }
         return list;
     }
@@ -177,7 +178,7 @@ public class ReportTaskDao implements IReportTaskDao {
                 list.add(reportTask);
             }
         } catch (SQLException exception) {
-            throw new Exception();
+            exception.printStackTrace();
         }
         return list;
     }
