@@ -81,6 +81,10 @@ public class TaskMangerMenu {
             String description = readString("Enter task description: ");
             LocalDate startDate = readLocalDate("Enter task start date: ");
             LocalDate endDate = readLocalDate("Enter task end date: ");
+            if(startDate.isAfter(endDate)) {
+                printValue("End date cannot be before start date");
+                return;
+            }
             Task task = new Task(name, description, startDate, endDate, sprintId);
             serviceTask.create(task);
         } catch (Exception e) {
@@ -99,12 +103,16 @@ public class TaskMangerMenu {
     private void updateTask() throws Exception {
         try {
             int taskId = readInt("Enter task id: ");
+
             Task task = serviceTask.getById(taskId);
+            if(task == null) {
+                throw new Exception("This task id does not exist");
+            }
             if (task.getSprintId() == sprintId) {
-                task.setName(readString("Enter task name: "));
-                task.setDescription(readString("Enter task description: "));
-                task.setStartDate(readLocalDate("Enter task start date: "));
-                task.setEndDate(readLocalDate("Enter task end date: "));
+                task.setName(readString("Enter task name: ", task.getName()));
+                task.setDescription(readString("Enter task description: ", task.getDescription()));
+                task.setStartDate(readStartDate("Enter task start date: ", task.getStartDate()));
+                task.setEndDate(readEndDate("Enter task end date: ", task.getStartDate(), task.getEndDate()));
             } else {
                 printValueln("You are not manager of this task.");
             }
@@ -124,7 +132,9 @@ public class TaskMangerMenu {
         try {
             int taskId = readInt("Enter task id: ");
             if (serviceTask.getById(taskId).getSprintId() == sprintId) {
-                serviceTask.delete(taskId);
+                if(readConfirm("Do you want to delete? Y/N")) {
+                    serviceTask.delete(taskId);
+                }
             } else {
                 printValueln("You are not manager of this task.");
             }
@@ -157,7 +167,7 @@ public class TaskMangerMenu {
      * assign task to member
      * check task_id exist
      * check task exist in sprint
-     * check member exist
+     * check member exist(hold)
      * check member who is in project
      * check task is assigned to member ? show member : ask user to confirm
      */
@@ -165,6 +175,9 @@ public class TaskMangerMenu {
         try {
             int taskId = readInt("Enter task id: ");
             Task task = serviceTask.getById(taskId);
+            if (task == null) {
+                throw new Exception("This task id does not exist");
+            }
             if (task.getSprintId() == sprintId) {
                 int memberId = readInt("Enter member id: ");
                 task.setMemberId(memberId);

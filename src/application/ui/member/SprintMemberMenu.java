@@ -104,6 +104,10 @@ public class SprintMemberMenu {
     private void processMenuForTaskMember() throws Exception {
         try {
             int sprintId = readInt("Enter sprint id: ");
+            if(sprintService.getById(sprintId) == null) {
+                printValue("This print id does not exist!");
+                return;
+            }
             Sprint sprint = sprintService.getById(sprintId);
             if (sprint != null && sprint.getProjectId() == projectId) {
                 TaskMemberMenu taskMemberMenu = new TaskMemberMenu(sprintId, memberId);
