@@ -41,7 +41,7 @@ public class DocumentMemberMenu {
                 } else {
                     switch (CHOICE_DOCUMENT_MEMBER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
-                        case VIEW_ALL_DOCUMENTS -> this.viewDocument();
+                        case VIEW_ALL_DOCUMENTS -> this.viewAllDocuments();
                         default -> {
                         }
                     }
@@ -56,7 +56,7 @@ public class DocumentMemberMenu {
      * View document
      * check list is null ?
      */
-    private void viewDocument() {
+    private void viewAllDocuments() {
         try {
             List<Document> list = serviceDoc.getAllDocumentsByProjectId(projectId);
             for (Document doc : list) {

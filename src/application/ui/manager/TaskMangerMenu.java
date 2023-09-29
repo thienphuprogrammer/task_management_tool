@@ -2,6 +2,7 @@ package application.ui.manager;
 
 import bussinesslayer.entity.report.ReportTask;
 import bussinesslayer.entity.space.Task;
+import bussinesslayer.entity.submission.SubmissionTask;
 import bussinesslayer.service.report.reporttask.IReportTaskService;
 import bussinesslayer.service.report.reporttask.ReportTaskService;
 import bussinesslayer.service.sapce.task.ITaskService;
@@ -254,6 +255,23 @@ public class TaskMangerMenu {
     }
 
     private void viewSubmissionTask() throws Exception {
-
+        try {
+            int taskId = readInt("Enter task id: ");
+            Task task = serviceTask.getById(taskId);
+            if (task.getSprintId() == sprintId) {
+                List<SubmissionTask> submissionTaskList = serviceTask.getSubmissionTaskByTaskId(taskId);
+                for (SubmissionTask submissionTask : submissionTaskList) {
+                    printValue("Id: " + submissionTask.getId() + " ".repeat(40 - String.valueOf(submissionTask.getId()).length()) + "|");
+                    printValue("time: " + submissionTask.getTime() + " ".repeat(40 - String.valueOf(submissionTask.getTime()).length()) + "|");
+                    printValue("date: " + submissionTask.getDate() + " ".repeat(40 - String.valueOf(submissionTask.getDate()).length()) + "|");
+                    printValue("Content: " + submissionTask.getContent() + " ".repeat(40 - String.valueOf(submissionTask.getContent()).length()) + "|");
+                    printValueln("Task id: " + submissionTask.getTaskId() + " ".repeat(40 - String.valueOf(submissionTask.getTaskId()).length()) + "|");
+                }
+            } else {
+                printValueln("You are not manager of this task.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

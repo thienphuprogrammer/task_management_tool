@@ -205,7 +205,9 @@ public class ProjectManagerMenu {
             Project project = serviceProject.getById(projectId);
             if (project.getManagerId() == managerId) { // check project managed by manager
                 int memberId = readInt("Enter member id: ");
-                serviceProject.removeMemberFromProject(projectId, memberId, managerId);
+                if (readConfirm("Do you want to remove this member? Y/N")) {
+                    serviceProject.removeMemberFromProject(projectId, memberId, managerId);
+                }
             } else {
                 printValueln("You are not manager of this project.");
             }

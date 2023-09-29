@@ -118,11 +118,11 @@ public class ProfileManagerMenu {
     private void changeInformation() {
         try {
             Manager manager = serviceManager.getById(managerId);
-            manager.setName(readString("Name: "));
-            manager.setAge(readInt("Age: "));
-            manager.setPhoneNumber(readString("Phone number: "));
-            manager.setAddress(readString("Address: "));
-            manager.setGender(readString("Gender: "));
+            manager.setName(readString("Name (enter to keep old name): ", manager.getName()));
+            manager.setAge(readInt("Age (enter to keep old age): ", manager.getAge()));
+            manager.setPhoneNumber(readString("Phone number (enter to keep old phone number): ", manager.getPhoneNumber()));
+            manager.setAddress(readString("Address (enter to keep old address): ", manager.getAddress()));
+            manager.setGender(readString("Gender (enter to keep old gender): ", manager.isGender()));
             serviceManager.update(manager);
         } catch (Exception e) {
             e.printStackTrace();
