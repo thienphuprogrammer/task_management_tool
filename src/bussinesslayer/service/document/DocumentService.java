@@ -59,7 +59,7 @@ public class DocumentService implements IDocumentService {
     }
 
     @Override
-    public Document getDocument(int projectId, int documentId) {
-        return null;
+    public Document getDocument(int projectId, int documentId) throws Exception {
+        return docIDao.getDocument(projectId, documentId);
     }
 }

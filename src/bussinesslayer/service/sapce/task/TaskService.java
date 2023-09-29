@@ -80,7 +80,7 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public List<SubmissionTask> getSubmissionTaskByTaskId(int taskId) {
+    public List<SubmissionTask> getSubmissionTaskByTaskId(int taskId) throws Exception {
         return taskIDao.getSubmissionTaskByTaskId(taskId);
     }
 
