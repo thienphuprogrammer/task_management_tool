@@ -28,15 +28,18 @@ public class Menu {
     }
 
     public static void manageAdmin() throws Exception {
-        AccountAdminMenu accountAdminMenu = new AccountAdminMenu();
-        Admin admin = accountAdminMenu.processMenuForAdmin();
-        if (admin != null) {
-            AdminMenu adminMenu = new AdminMenu(admin.getId());
-            adminMenu.processMenuForAdmin();
-        } else {
-            printValueln("login failed");
-        }
-
+//        AccountAdminMenu accountAdminMenu = new AccountAdminMenu();
+//        Admin admin = accountAdminMenu.processMenuForAdmin();
+//        if (admin != null) {
+//            AdminMenu adminMenu = new AdminMenu(admin.getId());
+//            adminMenu.processMenuForAdmin();
+//        } else {
+//            printValueln("login failed");
+//        }
+        Admin admin = new Admin();
+        admin.setId(0);
+        AdminMenu adminMenu = new AdminMenu(admin.getId());
+        adminMenu.processMenuForAdmin();
     }
     public static void manageManager() throws Exception {
         AccountManagerMenu accountManagerMenu = new AccountManagerMenu();

@@ -46,7 +46,10 @@ public class ManagerService implements IManagerService {
     }
 
     @Override
-    public void changePassword(int id, String password) {
+    public void changePassword(int id, String password) throws Exception {
+        if (!isValidPassword(password)) {
+            throw new Exception("Invalid password");
+        }
         managerDao.changePassword(id, password);
     }
 
@@ -55,6 +58,9 @@ public class ManagerService implements IManagerService {
         List<Admin> list = managerDao.getByEmail(email);
         if (list.size() > 0) {
             throw new Exception("Email already exists");
+        }
+        if (!isValidEmail(email)) {
+            throw new Exception("Invalid email");
         }
         managerDao.changeEmail(id, email);
     }
@@ -89,5 +95,4 @@ public class ManagerService implements IManagerService {
         }
         managerDao.addNew(manager);
     }
-
 }
