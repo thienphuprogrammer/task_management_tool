@@ -73,7 +73,10 @@ public class TaskMemberMenu {
         try {
             int taskId = readInt("Enter task id: ");
             Task task = taskService.getById(taskId);
-            if (task != null && task.getSprintId() == this.sprintId) {
+            if(task == null) {
+                throw new Exception("This task id does not exist");
+            }
+            if (task.getSprintId() == this.sprintId) {
                 List<ReportTask> reportTaskList = reportTaskService.getReportsByTaskId(taskId);
                 for (ReportTask reportTask : reportTaskList) {
                     printValue("Report task id: " + reportTask.getId() + " ".repeat(10 - String.valueOf(reportTask.getId()).length()) + "|");
@@ -93,6 +96,9 @@ public class TaskMemberMenu {
     private void viewAllMyTasks() {
         try {
             List<Task> taskList = taskService.getAllTasksOfMember(sprintId, memberId);
+            if(taskList.isEmpty()) {
+                throw new Exception();
+            }
             for (Task task : taskList) {
                 printValue("Task id: " + task.getId() + " ".repeat(10 - String.valueOf(task.getId()).length()) + "|");
                 printValue("Task name: " + task.getName() + " ".repeat(30 - String.valueOf(task.getName()).length()) + "|");
@@ -112,6 +118,9 @@ public class TaskMemberMenu {
     private void viewAllTask() {
         try {
             List<Task> taskList = taskService.getAllTasks(sprintId);
+            if(taskList.isEmpty()) {
+                throw new Exception();
+            }
             for (Task task : taskList) {
                 printValue("Task id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");
                 printValue("Task name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");
@@ -134,7 +143,10 @@ public class TaskMemberMenu {
         try {
             int taskId = readInt("Enter task id: ");
             Task task = taskService.getById(taskId);
-            if (task != null && task.getSprintId() == this.sprintId) {
+            if(task == null) {
+                throw new Exception("This task id does not exist");
+            }
+            if (task.getSprintId() == this.sprintId) {
                 String content = readString("Content of task: ");
                 SubmissionTask SubmissionTask = new SubmissionTask(content, taskId);
                 taskService.submitTask(SubmissionTask, taskId);

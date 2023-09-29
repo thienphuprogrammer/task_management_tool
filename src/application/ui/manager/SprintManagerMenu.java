@@ -71,6 +71,10 @@ public class SprintManagerMenu {
             String description = readString("Description: ");
             LocalDate startDate = readLocalDate("Start date: ");
             LocalDate endDate = readLocalDate("End date: ");
+            if(startDate.isAfter(endDate)) {
+                printValue("End date cannot be before start date!");
+                return;
+            }
             Sprint sprint = new Sprint(name, description, startDate, endDate, projectId);
             sprintService.create(sprint);
         } catch (Exception e) {
@@ -90,10 +94,18 @@ public class SprintManagerMenu {
             int sprintId = readInt("Enter sprint id: ");
             Sprint sprint = sprintService.getById(sprintId);
             if (sprint.getProjectId() == projectId) {
-                sprint.setName(readString("Enter new sprint name: "));
-                sprint.setDescription(readString("Enter new sprint description: "));
-                sprint.setStartDate(readLocalDate("Enter new sprint start date: "));
-                sprint.setEndDate(readLocalDate("Enter new sprint end date: "));
+                sprint.setName(readString("Enter new sprint name: ", sprint.getName()));
+                sprint.setDescription(readString("Enter new sprint description: ", sprint.getDescription()));
+                LocalDate updatedStartDate;
+                LocalDate updatedEndDate;
+                updatedStartDate = readLocalDate("Enter new sprint start date: ", sprint.getStartDate());
+                updatedEndDate = readLocalDate("Enter new sprint end date: ", sprint.getEndDate());
+                if(updatedStartDate.isAfter(updatedEndDate)) {
+                    printValue("End date cannot be before start date!");
+                    return;
+                }
+                sprint.setStartDate(updatedStartDate);
+                sprint.setEndDate(updatedEndDate);
                 sprintService.update(sprint);
             } else {
                 printValueln("Sprint is not in this project.");
@@ -116,8 +128,14 @@ public class SprintManagerMenu {
     private void deleteSprint() {
         try {
             int sprintId = readInt("Enter sprint id: ");
+            // Check if sprintId Exist
+            if(sprintService.getById(sprintId) == null) {
+                throw new Exception("This id does not exist");
+            }
             if (sprintService.getById(sprintId).getProjectId() == projectId) {
-                sprintService.delete(sprintId);
+                if(readConfirm("Do you want to delete this sprint? Y/N")) {
+                    sprintService.delete(sprintId);
+                }
             } else {
                 printValueln("Sprint is not in this project.");
             }
@@ -152,6 +170,9 @@ public class SprintManagerMenu {
      */
     private void processMenuForTaskManager() throws Exception {
         int sprintId = readInt("Enter sprint id: ");
+        if(sprintService.getById(sprintId) == null ) {
+            throw new Exception("This sprint id has not existed before!");
+        }
         TaskMangerMenu taskMangerMenu = new TaskMangerMenu(sprintId);
         taskMangerMenu.processMenuForTaskManager();
     }

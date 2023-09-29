@@ -94,6 +94,9 @@ public class BacklogManagerMenu {
         try {
             int taskId = readInt("Task ID: ");
             Task task = serviceBacklog.getTaskInBacklogByTaskId(taskId);
+
+            if(task == null) throw new Exception("This task id does not exist in this backlog");
+
             if (task.getBacklogId() == backlogId) {
                 task.setName(readString("Name: "));
                 task.setDescription(readString("Description: "));
@@ -117,8 +120,11 @@ public class BacklogManagerMenu {
         try {
             int taskId = readInt("Task ID: ");
             Task task = serviceBacklog.getTaskInBacklogByTaskId(taskId);
+            if(task == null) throw new Exception("This task id does not exist in this backlog");
+
             if (task.getBacklogId() == backlogId) {
                 serviceBacklog.deleteTaskInBacklog(taskId);
+                task.setBacklogId(-1);
             } else {
                 printValueln("Task is not in this backlog.");
             }
@@ -158,6 +164,7 @@ public class BacklogManagerMenu {
         try {
             int taskId = readInt("Task ID: ");
             int sprintId = readInt("Sprint ID: ");
+
             serviceBacklog.addTaskInBacklogToSprint(backlogId, taskId, sprintId);
         } catch (Exception e) {
             printValueln(e.getMessage());
