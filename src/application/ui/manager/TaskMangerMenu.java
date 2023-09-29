@@ -29,6 +29,7 @@ public class TaskMangerMenu {
         REASSIGN_TASK_TO_MEMBER,
         CREATE_REPORT,
         VIEW_ALL_REPORTS,
+        VIEW_SUBMISSION_TASK,
     }
     //  ------------------- Constructor ------------------------
 
@@ -63,6 +64,7 @@ public class TaskMangerMenu {
                         case REASSIGN_TASK_TO_MEMBER -> this.reassignTaskToMember();
                         case CREATE_REPORT -> this.createReport();
                         case VIEW_ALL_REPORTS -> this.viewAllReports();
+                        case VIEW_SUBMISSION_TASK -> this.viewSubmissionTask();
                     }
                 }
             } catch (Exception e) {
@@ -70,6 +72,7 @@ public class TaskMangerMenu {
             }
         }
     }
+
     /*
      * create task
      * check validation
@@ -253,5 +256,14 @@ public class TaskMangerMenu {
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
+    }
+
+    /*
+     * view submission
+     * check task_id exist
+     * check task exist in sprint
+     */
+    private void viewSubmissionTask() {
+
     }
 }
