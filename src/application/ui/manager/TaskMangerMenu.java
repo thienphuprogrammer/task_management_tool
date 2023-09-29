@@ -72,22 +72,17 @@ public class TaskMangerMenu {
             }
         }
     }
-
     /*
      * create task
      * check validation
      * check start date < end date
      */
-    private void createTask() throws Exception {
+    private void createTask() {
         try {
             String name = readString("Enter task name: ");
             String description = readString("Enter task description: ");
-            LocalDate startDate = readLocalDate("Enter task start date: ");
-            LocalDate endDate = readLocalDate("Enter task end date: ");
-            if(startDate.isAfter(endDate)) {
-                printValue("End date cannot be before start date");
-                return;
-            }
+            LocalDate startDate = readStartDate("Enter task start date: ");
+            LocalDate endDate = readEndDate("Enter task end date: ", startDate);
             Task task = new Task(name, description, startDate, endDate, sprintId);
             serviceTask.create(task);
         } catch (Exception e) {
@@ -106,18 +101,18 @@ public class TaskMangerMenu {
     private void updateTask() throws Exception {
         try {
             int taskId = readInt("Enter task id: ");
-
             Task task = serviceTask.getById(taskId);
             if(task == null) {
-                throw new Exception("This task id does not exist");
-            }
-            if (task.getSprintId() == sprintId) {
-                task.setName(readString("Enter task name: ", task.getName()));
-                task.setDescription(readString("Enter task description: ", task.getDescription()));
-                task.setStartDate(readStartDate("Enter task start date: ", task.getStartDate()));
-                task.setEndDate(readEndDate("Enter task end date: ", task.getStartDate(), task.getEndDate()));
+                printValueln("This task id does not exist");
             } else {
-                printValueln("You are not manager of this task.");
+                if (task.getSprintId() == sprintId) {
+                    task.setName(readString("Enter task name: ", task.getName()));
+                    task.setDescription(readString("Enter task description: ", task.getDescription()));
+                    task.setStartDate(readStartDate("Enter task start date: ", task.getStartDate()));
+                    task.setEndDate(readEndDate("Enter task end date: ", task.getStartDate(), task.getEndDate()));
+                } else {
+                    printValueln("You are not manager of this task.");
+                }
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -131,7 +126,7 @@ public class TaskMangerMenu {
      * ask user to confirm
      * delete all report has task_id of this task
      */
-    private void deleteTask() throws Exception {
+    private void deleteTask() {
         try {
             int taskId = readInt("Enter task id: ");
             if (serviceTask.getById(taskId).getSprintId() == sprintId) {
@@ -150,7 +145,7 @@ public class TaskMangerMenu {
      * view all tasks
      * check list is null
      */
-    private void viewAllTasks() throws Exception {
+    private void viewAllTasks() {
         try {
             List <Task> list = serviceTask.getAllTasks(sprintId);
             for (Task task1 : list) {
@@ -258,12 +253,7 @@ public class TaskMangerMenu {
         }
     }
 
-    /*
-     * view submission
-     * check task_id exist
-     * check task exist in sprint
-     */
-    private void viewSubmissionTask() {
+    private void viewSubmissionTask() throws Exception {
 
     }
 }
