@@ -96,8 +96,8 @@ public class ManagerDao implements IManagerDao {
             statement.setString(4, space.getPassword());
             statement.setString(5, space.getPhoneNumber());
             statement.setString(6, space.getAddress());
-            statement.setString(8, space.isGender());
-            statement.setInt(9, space.getId());
+            statement.setString(7, space.isGender());
+            statement.setInt(8, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

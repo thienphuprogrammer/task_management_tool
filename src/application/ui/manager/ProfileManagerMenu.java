@@ -77,7 +77,7 @@ public class ProfileManagerMenu {
             printValueMenu("Phone number: " + manager.getPhoneNumber());
             printValueMenu("Address: " + manager.getAddress());
             printValueMenu("Email: " + manager.getEmail());
-            printValueln("Password: " + manager.getPassword());
+            printValueMenu("Password: " + manager.getPassword());
             printLineSeparate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -89,10 +89,10 @@ public class ProfileManagerMenu {
      */
     private void changePassword() {
         try {
-            String password = readString("Password: ");
+            String password = readString("Password (minimum 8 characters): ");
             serviceManager.changePassword(managerId, password);
         } catch (Exception e) {
-            e.printStackTrace();
+            printValueln(e.getMessage());
         }
     }
     /*
@@ -105,7 +105,7 @@ public class ProfileManagerMenu {
             String email = readString("Email: ");
             serviceManager.changeEmail(managerId, email);
         } catch (Exception e) {
-            e.printStackTrace();
+            printValueln(e.getMessage());
         }
     }
 

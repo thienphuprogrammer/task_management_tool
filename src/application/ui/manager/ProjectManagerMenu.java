@@ -91,14 +91,18 @@ public class ProjectManagerMenu {
         try {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getById(projectId);
-            if (project.getManagerId() == managerId) { // check project managed by manager
-                project.setName(readString("Enter new project name (enter to keep old name): ", project.getName()));
-                project.setDescription(readString("Enter new project description (enter to keep old description): ", project.getDescription()));
-                project.setStartDate(readStartDate("Enter new project start date: ", project.getStartDate()));
-                project.setEndDate(readEndDate("Enter new project end date: ", project.getStartDate() ,project.getEndDate()));
-                serviceProject.update(project);
+            if (project == null) {
+                if (project.getManagerId() == managerId) { // check project managed by manager
+                    project.setName(readString("Enter new project name (enter to keep old name): ", project.getName()));
+                    project.setDescription(readString("Enter new project description (enter to keep old description): ", project.getDescription()));
+                    project.setStartDate(readStartDate("Enter new project start date: ", project.getStartDate()));
+                    project.setEndDate(readEndDate("Enter new project end date: ", project.getStartDate(), project.getEndDate()));
+                    serviceProject.update(project);
+                } else {
+                    printValueln("You are not manager of this project.");
+                }
             } else {
-                printValueln("You are not manager of this project.");
+                printValueln("Project is not exist");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -121,10 +125,15 @@ public class ProjectManagerMenu {
     private void deleteProject()  {
         try {
             int projectId = readInt("Enter project id: ");
-            if (serviceProject.getById(projectId).getManagerId() == managerId) { // check project managed by manager
-                serviceProject.delete(projectId);
+            Project project = serviceProject.getById(projectId);
+            if (project == null) {
+                printValueln("Project is not exist");
             } else {
-                printValueln("You are not manager of this project.");
+                if (serviceProject.getById(projectId).getManagerId() == managerId) { // check project managed by manager
+                    serviceProject.delete(projectId);
+                } else {
+                    printValueln("You are not manager of this project.");
+                }
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
