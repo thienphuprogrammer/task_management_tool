@@ -300,7 +300,6 @@ public class TaskDao implements ITaskDao {
         return list;
     }
 
-    @Override
     public List<Task> getAllTasksMamager(int sprintId) {
         List<Task> list = new ArrayList<>();
         try {
@@ -366,5 +365,10 @@ public class TaskDao implements ITaskDao {
             throw new RuntimeException(e);
         }
         return list;
+    }
+
+    @Override
+    public List<SubmissionTask> getSubmissionTaskByTaskId(int taskId) {
+        return null;
     }
 }

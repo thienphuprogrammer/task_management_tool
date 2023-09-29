@@ -28,7 +28,7 @@ public class DocumentDao implements IDocumentDao {
                 doc.setProjectId(resultSet.getInt("project_id"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception();
         }
         return doc;
     }
@@ -51,7 +51,7 @@ public class DocumentDao implements IDocumentDao {
                 list.add(doc);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception();
         }
         return list;
     }
@@ -68,7 +68,7 @@ public class DocumentDao implements IDocumentDao {
             statement.setInt(4, space.getProjectId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception();
         }
     }
 
@@ -85,7 +85,7 @@ public class DocumentDao implements IDocumentDao {
             statement.setInt(5, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception();
         }
     }
 
@@ -98,11 +98,30 @@ public class DocumentDao implements IDocumentDao {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception();
         }
     }
     @Override
-    public List<Document> getAllDocumentsByProjectId(int projectId) {
-        return null;
+    public List<Document> getAllDocumentsByProjectId(int projectId) throws Exception {
+        List<Document> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Document WHERE project_id = ?";
+            Connection connection = MySqlConnection.getInstance().getConnection();
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, projectId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Document doc = new Document();
+                doc.setId(resultSet.getInt("id"));
+                doc.setTitle(resultSet.getString("title"));
+                doc.setDescription(resultSet.getString("description"));
+                doc.setContent(resultSet.getString("content"));
+                doc.setProjectId(resultSet.getInt("project_id"));
+                list.add(doc);
+            }
+        } catch (Exception e) {
+            throw new Exception();
+        }
+        return list;
     }
 }

@@ -1,6 +1,7 @@
 package application.ui.manager;
 
 import bussinesslayer.entity.space.Backlog;
+import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.entity.space.Task;
 import bussinesslayer.service.sapce.backog.BacklogService;
 import bussinesslayer.service.sapce.backog.IBacklogService;
@@ -179,7 +180,16 @@ public class BacklogManagerMenu {
             } else {
                 if (task.getBacklogId() == backlogId) {
                     int sprintId = readInt("Sprint ID: ");
-                    serviceBacklog.addTaskInBacklogToSprint(backlogId, taskId, sprintId);
+                    Sprint sprint = serviceBacklog.getSprintBySprintId(sprintId);
+                    if (sprint == null) {
+                        printValueln("This sprint id does not exist in this project");
+                    } else {
+                        if (sprint.getProjectId() == projectId) {
+                            serviceBacklog.addTaskInBacklogToSprint(backlogId, taskId, sprintId);
+                        } else {
+                            printValueln("Sprint is not in this project.");
+                        }
+                    }
                 } else {
                     printValueln("Task is not in this backlog.");
                 }

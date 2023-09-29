@@ -1,14 +1,12 @@
 package datalayer.spacedao.backlogdao;
 
 import bussinesslayer.entity.space.Backlog;
+import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.entity.space.Task;
 import bussinesslayer.entity.user.Member;
 import datalayer.MySqlConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -157,5 +155,166 @@ public class BacklogDao implements IBacklogDao {
             e.printStackTrace();
         }
         return list;
+    }
+
+    @Override
+    public void addTaskInBacklogToSprint(int backlogId, int taskId, int sprintId) throws Exception {
+        try {
+            Task task = getTaskInBacklogByTaskId(taskId);
+            task.setBacklogId(backlogId);
+            task.setSprintId(sprintId);
+            String sql = "INSERT INTO Task (name, description, start_date, end_date, member_id, backlog_id, sprint_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, task.getName());
+            statement.setString(2, task.getDescription());
+            statement.setDate(3, Date.valueOf(task.getStartDate()));
+            statement.setDate(4, Date.valueOf(task.getEndDate()));
+            statement.setInt(5, task.getMemberId());
+            statement.setInt(6, backlogId);
+            statement.setInt(7, sprintId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public void createTaskInBacklog(Task task) throws Exception {
+        try {
+            String sql = "INSERT INTO Task (name, description, start_date, end_date, member_id, backlog_id) VALUES (?, ?, ?, ?, ?, ?)";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, task.getName());
+            statement.setString(2, task.getDescription());
+            statement.setDate(3, Date.valueOf(task.getStartDate()));
+            statement.setDate(4, Date.valueOf(task.getEndDate()));
+            statement.setInt(5, task.getMemberId());
+            statement.setInt(6, task.getBacklogId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public Task getTaskInBacklogByTaskId(int taskId) throws Exception {
+        Task task = new Task();
+        try {
+            String sql = "SELECT * FROM Task WHERE id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, taskId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                task.setId(resultSet.getInt("id"));
+                task.setName(resultSet.getString("name"));
+                task.setDescription(resultSet.getString("description"));
+                task.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                task.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                task.setMemberId(resultSet.getInt("member_id"));
+                task.setSprintId(resultSet.getInt("sprint_id"));
+                String status = resultSet.getString("status");
+                switch (status) {
+                    case "Open" -> task.setStatus(0);
+                    case "In Progress" -> task.setStatus(1);
+                    case "Completed" -> task.setStatus(2);
+                    case "On Hold" -> task.setStatus(3);
+                    case "Cancelled" -> task.setStatus(4);
+                }
+            }
+        } catch (SQLException e) {
+            throw new Exception();
+        }
+        return task;
+    }
+
+    @Override
+    public void updateTaskInBacklog(Task task) throws Exception {
+        try {
+            String sql = "UPDATE Task SET name = ?, description = ?, start_date = ?, end_date = ?, member_id = ?, backlog_id = ? WHERE id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, task.getName());
+            statement.setString(2, task.getDescription());
+            statement.setDate(3, Date.valueOf(task.getStartDate()));
+            statement.setDate(4, Date.valueOf(task.getEndDate()));
+            statement.setInt(5, task.getMemberId());
+            statement.setInt(6, task.getBacklogId());
+            statement.setInt(7, task.getId());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public void deleteTaskInBacklog(int taskId) throws Exception {
+        try {
+            String sql = "DELETE FROM Task WHERE id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, taskId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception();
+        }
+    }
+
+    @Override
+    public List<Task> getAllTasksInBacklog(int backlogId) throws Exception {
+        List<Task> list = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM Task WHERE backlog_id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, backlogId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Task task = new Task();
+                task.setId(resultSet.getInt("id"));
+                task.setName(resultSet.getString("name"));
+                task.setDescription(resultSet.getString("description"));
+                task.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                task.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                task.setMemberId(resultSet.getInt("member_id"));
+                task.setSprintId(resultSet.getInt("sprint_id"));
+                String status = resultSet.getString("status");
+                switch (status) {
+                    case "Open" -> task.setStatus(0);
+                    case "In Progress" -> task.setStatus(1);
+                    case "Completed" -> task.setStatus(2);
+                    case "On Hold" -> task.setStatus(3);
+                    case "Cancelled" -> task.setStatus(4);
+                }
+                list.add(task);
+            }
+        } catch (SQLException e) {
+            throw new Exception();
+        }
+        return null;
+    }
+
+    @Override
+    public Sprint getSprintBySprintId(int sprintId) throws Exception {
+        Sprint sprint = new Sprint();
+        try {
+            String sql = "SELECT * FROM Sprint WHERE id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, sprintId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                sprint.setId(resultSet.getInt("id"));
+                sprint.setName(resultSet.getString("name"));
+                sprint.setDescription(resultSet.getString("description"));
+                sprint.setStartDate(resultSet.getDate("start_date").toLocalDate());
+                sprint.setEndDate(resultSet.getDate("end_date").toLocalDate());
+                sprint.setProjectId(resultSet.getInt("project_id"));
+            }
+        } catch (SQLException e) {
+            throw new Exception();
+        }
+        return null;
     }
 }
