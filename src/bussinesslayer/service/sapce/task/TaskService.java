@@ -79,4 +79,9 @@ public class TaskService implements ITaskService {
         return taskIDao.getAllTasks(sprintId);
     }
 
+    @Override
+    public List<SubmissionTask> getSubmissionTaskByTaskId(int taskId) {
+        return taskIDao.getSubmissionTaskByTaskId(taskId);
+    }
+
 }

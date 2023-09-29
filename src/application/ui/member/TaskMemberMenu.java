@@ -25,7 +25,8 @@ public class TaskMemberMenu {
         SUBMIT_TASK,
         VIEW_ALL_MY_TASKS,
         VIEW_ALL_TASKS,
-        VIEW_REPORT_TASKS
+        VIEW_REPORT_TASKS,
+        VIEW_ALL_SUBMISSION_TASK
     }
     // -------------------- Constructor ------------------------
 
@@ -56,6 +57,7 @@ public class TaskMemberMenu {
                         case VIEW_ALL_TASKS -> this.viewAllTask();
                         case SUBMIT_TASK -> this.submitTask();
                         case VIEW_ALL_MY_TASKS -> this.viewAllMyTasks();
+                        case VIEW_ALL_SUBMISSION_TASK -> this.viewAllSubmissionTask();
                     }
                 }
             } catch (Exception e) {
@@ -76,7 +78,7 @@ public class TaskMemberMenu {
             if(task == null) {
                 throw new Exception("This task id does not exist");
             }
-            if (task.getSprintId() == this.sprintId) {
+            if (task.getSprintId() == sprintId) { // check task exist in sprint
                 List<ReportTask> reportTaskList = reportTaskService.getReportsByTaskId(taskId);
                 for (ReportTask reportTask : reportTaskList) {
                     printValue("Report task id: " + reportTask.getId() + " ".repeat(10 - String.valueOf(reportTask.getId()).length()) + "|");
@@ -97,15 +99,16 @@ public class TaskMemberMenu {
         try {
             List<Task> taskList = taskService.getAllTasksOfMember(sprintId, memberId);
             if(taskList.isEmpty()) {
-                throw new Exception();
-            }
-            for (Task task : taskList) {
-                printValue("Task id: " + task.getId() + " ".repeat(10 - String.valueOf(task.getId()).length()) + "|");
-                printValue("Task name: " + task.getName() + " ".repeat(30 - String.valueOf(task.getName()).length()) + "|");
-                printValue("Task description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
-                printValue("Task start date: " + task.getStartDate() + " ".repeat(10 - String.valueOf(task.getStartDate()).length()) + "|");
-                printValue("Task end date: " + task.getEndDate() + " ".repeat(10 - String.valueOf(task.getEndDate()).length()) + "|");
-                printValueln("Task status: " + task.getStatus() + " ".repeat(10 - String.valueOf(task.getStatus()).length()) + "|");
+                printValueln("You don't have any task");
+            } else {
+                for (Task task : taskList) {
+                    printValue("Task id: " + task.getId() + " ".repeat(10 - String.valueOf(task.getId()).length()) + "|");
+                    printValue("Task name: " + task.getName() + " ".repeat(30 - String.valueOf(task.getName()).length()) + "|");
+                    printValue("Task description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
+                    printValue("Task start date: " + task.getStartDate() + " ".repeat(10 - String.valueOf(task.getStartDate()).length()) + "|");
+                    printValue("Task end date: " + task.getEndDate() + " ".repeat(10 - String.valueOf(task.getEndDate()).length()) + "|");
+                    printValueln("Task status: " + task.getStatus() + " ".repeat(10 - String.valueOf(task.getStatus()).length()) + "|");
+                }
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -119,15 +122,16 @@ public class TaskMemberMenu {
         try {
             List<Task> taskList = taskService.getAllTasks(sprintId);
             if(taskList.isEmpty()) {
-                throw new Exception();
-            }
-            for (Task task : taskList) {
-                printValue("Task id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");
-                printValue("Task name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");
-                printValue("Task description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
-                printValue("Task start date: " + task.getStartDate() + " ".repeat(40 - String.valueOf(task.getStartDate()).length()) + "|");
-                printValue("Task end date: " + task.getEndDate() + " ".repeat(40 - String.valueOf(task.getEndDate()).length()) + "|");
-                printValueln("Task status: " + task.getStatus() + " ".repeat(40 - String.valueOf(task.getStatus()).length()) + "|");
+                printValueln("You don't have any task");
+            } else {
+                for (Task task : taskList) {
+                    printValue("Task id: " + task.getId() + " ".repeat(40 - String.valueOf(task.getId()).length()) + "|");
+                    printValue("Task name: " + task.getName() + " ".repeat(40 - String.valueOf(task.getName()).length()) + "|");
+                    printValue("Task description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
+                    printValue("Task start date: " + task.getStartDate() + " ".repeat(40 - String.valueOf(task.getStartDate()).length()) + "|");
+                    printValue("Task end date: " + task.getEndDate() + " ".repeat(40 - String.valueOf(task.getEndDate()).length()) + "|");
+                    printValueln("Task status: " + task.getStatus() + " ".repeat(40 - String.valueOf(task.getStatus()).length()) + "|");
+                }
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -139,19 +143,43 @@ public class TaskMemberMenu {
      * check task exist in sprint
      * check validation
      */
-    private void submitTask() throws Exception {
+    private void submitTask() {
         try {
             int taskId = readInt("Enter task id: ");
             Task task = taskService.getById(taskId);
             if(task == null) {
-                throw new Exception("This task id does not exist");
-            }
-            if (task.getSprintId() == this.sprintId) {
-                String content = readString("Content of task: ");
-                SubmissionTask SubmissionTask = new SubmissionTask(content, taskId);
-                taskService.submitTask(SubmissionTask, taskId);
+                printValueln("This task id does not exist");
             } else {
-                printValueln("Task not found.");
+                if (task.getSprintId() == this.sprintId) {
+                    String content = readString("Content of task: ");
+                    SubmissionTask SubmissionTask = new SubmissionTask(content, taskId);
+                    taskService.submitTask(SubmissionTask, taskId);
+                } else {
+                    printValueln("Task not found.");
+                }
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
+    }
+    private void viewAllSubmissionTask() {
+        try {
+            int taskId = readInt("Enter task id: ");
+            Task task = taskService.getById(taskId);
+            if(task == null) {
+                printValueln("This task id does not exist");
+            } else {
+                if (task.getSprintId() == this.sprintId) {
+                    List<SubmissionTask> submissionTaskList = taskService.getSubmissionTaskByTaskId(taskId);
+                    for (SubmissionTask submissionTask : submissionTaskList) {
+                        printValue("Submission task id: " + submissionTask.getId() + " ".repeat(10 - String.valueOf(submissionTask.getId()).length()) + "|");
+                        printValue("Submission task content: " + submissionTask.getContent() + " ".repeat(40 - String.valueOf(submissionTask.getContent()).length()) + "|");
+                        printValue("Submission task time: " + submissionTask.getTime() + " ".repeat(40 - String.valueOf(submissionTask.getTime()).length()) + "|");
+                        printValueln("Submission task date: " + submissionTask.getDate() + " ".repeat(40 - String.valueOf(submissionTask.getDate()).length()) + "|");
+                    }
+                }else {
+                    printValueln("Task not found.");
+                }
             }
         } catch (Exception e) {
             printValueln(e.getMessage());

@@ -19,24 +19,22 @@ public class ReportTaskDao implements IReportTaskDao {
     }
     @Override
     public ReportTask getById(int id) throws Exception {
+        ReportTask reportTask;
         try {
             String sqlStatement = "SELECT * FROM Report_Task WHERE id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sqlStatement);
             resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                ReportTask reportTask = new ReportTask();
-                reportTask.setId(resultSet.getInt("id"));
-                reportTask.setDate(resultSet.getDate("date").toLocalDate());
-                reportTask.setTime(resultSet.getTime("time").toLocalTime());
-                reportTask.setDescription(resultSet.getString("Description"));
-                reportTask.setTaskId(resultSet.getInt("task_id"));
-                return reportTask;
-            }
+            reportTask = new ReportTask();
+            reportTask.setId(resultSet.getInt("id"));
+            reportTask.setDate(resultSet.getDate("date").toLocalDate());
+            reportTask.setTime(resultSet.getTime("time").toLocalTime());
+            reportTask.setDescription(resultSet.getString("Description"));
+            reportTask.setTaskId(resultSet.getInt("task_id"));
         } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+            throw new Exception();
         }
-        return null;
+        return reportTask;
     }
 
     @Override
@@ -57,7 +55,7 @@ public class ReportTaskDao implements IReportTaskDao {
                 list.add(reportTask);
             }
         }catch (SQLException exception) {
-            exception.printStackTrace();
+            throw new Exception();
         }
         return list;
     }
@@ -75,7 +73,7 @@ public class ReportTaskDao implements IReportTaskDao {
             statement.setInt(5, space.getTaskId());
             statement.executeUpdate();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw new Exception();
         }
     }
 
@@ -92,7 +90,7 @@ public class ReportTaskDao implements IReportTaskDao {
             statement.setInt(5, space.getId());
             statement.executeUpdate();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw new Exception();
         }
     }
 
@@ -105,12 +103,12 @@ public class ReportTaskDao implements IReportTaskDao {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw new Exception();
         }
     }
 
     @Override
-    public List<ReportTask> getTaskProgress(int sprintId) {
+    public List<ReportTask> getTaskProgress(int sprintId) throws Exception {
         List<ReportTask> list = new ArrayList<>();
         try {
             String sqlStatement = "SELECT * FROM Report_Task WHERE task_id = ?";
@@ -128,13 +126,13 @@ public class ReportTaskDao implements IReportTaskDao {
                 list.add(reportTask);
             }
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw new Exception();
         }
-        return null;
+        return list;
     }
 
     @Override
-    public List<ReportTask> getReports(int taskId) {
+    public List<ReportTask> getReportsByTaskId(int taskId) throws Exception {
         List<ReportTask> list = new ArrayList<>();
         try {
             String sqlStatement = "SELECT * FROM Report_Task WHERE task_id = ?";
@@ -146,12 +144,40 @@ public class ReportTaskDao implements IReportTaskDao {
                 ReportTask reportTask = new ReportTask();
                 reportTask.setId(resultSet.getInt("id"));
                 reportTask.setDate(resultSet.getDate("date").toLocalDate());
+                reportTask.setTime(resultSet.getTime("time").toLocalTime());
                 reportTask.setDescription(resultSet.getString("Description"));
                 reportTask.setTaskId(resultSet.getInt("task_id"));
                 list.add(reportTask);
             }
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw new Exception();
+        }
+        return list;
+    }
+
+    @Override
+    public List<ReportTask> getReportsBySprintId(int sprintId) throws Exception {
+        List<ReportTask> list = new ArrayList<>();
+        try {
+            String sqlStatement = "SELECT rt.id, rt.date, rt.time, rt.description, rt.task_id FROM Report_Task as rt " +
+                    " INNER JOIN Task as t ON rt.task_id = t.id " +
+                    " INNER JOIN Sprint as s ON t.sprint_id = s.id" +
+                    " WHERE s.id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sqlStatement);
+            statement.setInt(1, sprintId);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                ReportTask reportTask = new ReportTask();
+                reportTask.setId(resultSet.getInt("id"));
+                reportTask.setDate(resultSet.getDate("date").toLocalDate());
+                reportTask.setTime(resultSet.getTime("time").toLocalTime());
+                reportTask.setDescription(resultSet.getString("Description"));
+                reportTask.setTaskId(resultSet.getInt("task_id"));
+                list.add(reportTask);
+            }
+        } catch (SQLException exception) {
+            throw new Exception();
         }
         return list;
     }

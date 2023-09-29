@@ -10,4 +10,6 @@ public interface ITaskService extends IService<Task> {
     void submitTask(SubmissionTask submissionTask, int taskId);
     List<Task> getAllTasksOfMember(int sprintId, int memberId);
     List<Task> getAllTasks(int sprintId);
+
+    List<SubmissionTask> getSubmissionTaskByTaskId(int taskId);
 }

@@ -69,12 +69,8 @@ public class SprintManagerMenu {
         try {
             String name = readString("Name: ");
             String description = readString("Description: ");
-            LocalDate startDate = readLocalDate("Start date: ");
-            LocalDate endDate = readLocalDate("End date: ");
-            if(startDate.isAfter(endDate)) {
-                printValue("End date cannot be before start date!");
-                return;
-            }
+            LocalDate startDate = readStartDate("Start date: ");
+            LocalDate endDate = readEndDate("End date: ", startDate);
             Sprint sprint = new Sprint(name, description, startDate, endDate, projectId);
             sprintService.create(sprint);
         } catch (Exception e) {
@@ -93,19 +89,11 @@ public class SprintManagerMenu {
         try {
             int sprintId = readInt("Enter sprint id: ");
             Sprint sprint = sprintService.getById(sprintId);
-            if (sprint.getProjectId() == projectId) {
-                sprint.setName(readString("Enter new sprint name: ", sprint.getName()));
-                sprint.setDescription(readString("Enter new sprint description: ", sprint.getDescription()));
-                LocalDate updatedStartDate;
-                LocalDate updatedEndDate;
-                updatedStartDate = readLocalDate("Enter new sprint start date: ", sprint.getStartDate());
-                updatedEndDate = readLocalDate("Enter new sprint end date: ", sprint.getEndDate());
-                if(updatedStartDate.isAfter(updatedEndDate)) {
-                    printValue("End date cannot be before start date!");
-                    return;
-                }
-                sprint.setStartDate(updatedStartDate);
-                sprint.setEndDate(updatedEndDate);
+            if (sprint.getProjectId() == projectId) { // check sprint in project
+                sprint.setName(readString("Enter new sprint name (enter to keep old info): ", sprint.getName()));
+                sprint.setDescription(readString("Enter new sprint description (enter to keep old info): ", sprint.getDescription()));
+                sprint.setStartDate(readStartDate("Enter new sprint start date (enter to keep old info): ", sprint.getStartDate()));
+                sprint.setEndDate(readEndDate("Enter new sprint end date (enter to keep old info): ", sprint.getStartDate(), sprint.getEndDate()));
                 sprintService.update(sprint);
             } else {
                 printValueln("Sprint is not in this project.");
@@ -130,14 +118,15 @@ public class SprintManagerMenu {
             int sprintId = readInt("Enter sprint id: ");
             // Check if sprintId Exist
             if(sprintService.getById(sprintId) == null) {
-                throw new Exception("This id does not exist");
-            }
-            if (sprintService.getById(sprintId).getProjectId() == projectId) {
-                if(readConfirm("Do you want to delete this sprint? Y/N")) {
-                    sprintService.delete(sprintId);
-                }
+                printValueln("This id does not exist");
             } else {
-                printValueln("Sprint is not in this project.");
+                if (sprintService.getById(sprintId).getProjectId() == projectId) {
+                    if (readConfirm("Do you want to delete this sprint? Y/N")) {
+                        sprintService.delete(sprintId);
+                    }
+                } else {
+                    printValueln("Sprint is not in this project.");
+                }
             }
         } catch (Exception e) {
             printValue(e.getMessage());
@@ -170,10 +159,16 @@ public class SprintManagerMenu {
      */
     private void processMenuForTaskManager() throws Exception {
         int sprintId = readInt("Enter sprint id: ");
-        if(sprintService.getById(sprintId) == null ) {
-            throw new Exception("This sprint id has not existed before!");
+        Sprint sprint = sprintService.getById(sprintId);
+        if (sprint == null) {
+            printValueln("This id does not exist");
+        } else {
+            if (sprint.getProjectId() == projectId) {
+                TaskMangerMenu taskMangerMenu = new TaskMangerMenu(sprintId);
+                taskMangerMenu.processMenuForTaskManager();
+            } else {
+                printValueln("Sprint is not in this project.");
+            }
         }
-        TaskMangerMenu taskMangerMenu = new TaskMangerMenu(sprintId);
-        taskMangerMenu.processMenuForTaskManager();
     }
 }

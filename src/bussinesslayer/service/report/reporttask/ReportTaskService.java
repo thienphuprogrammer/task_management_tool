@@ -1,7 +1,6 @@
 package bussinesslayer.service.report.reporttask;
 
 import bussinesslayer.entity.report.ReportTask;
-import bussinesslayer.service.report.IReportService;
 import datalayer.DaoFactory;
 import datalayer.IDaoFactory;
 import datalayer.report.reporttaskdao.IReportTaskDao;
@@ -15,9 +14,7 @@ public class ReportTaskService implements IReportTaskService {
         taskDaoFactory = new DaoFactory();
         reportTaskIDao = taskDaoFactory.getReportTaskDao();
     }
-    public IReportTaskDao getReportTaskIDao() {
-        return reportTaskIDao;
-    }
+
     @Override
     public void update(ReportTask reportTask) throws Exception {
         reportTaskIDao.update(reportTask);
@@ -43,12 +40,12 @@ public class ReportTaskService implements IReportTaskService {
         return reportTaskIDao.getAll();
     }
     @Override
-    public List<ReportTask> getReportsBySprintId(int sprintId) {
-        return reportTaskIDao.getReports(sprintId);
+    public List<ReportTask> getReportsBySprintId(int sprintId) throws Exception {
+        return reportTaskIDao.getReportsBySprintId(sprintId);
     }
 
     @Override
-    public List<ReportTask> getReportsByTaskId(int taskId) {
-        return null;
+    public List<ReportTask> getReportsByTaskId(int taskId) throws Exception {
+        return reportTaskIDao.getReportsByTaskId(taskId);
     }
 }

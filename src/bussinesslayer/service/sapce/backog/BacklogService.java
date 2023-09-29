@@ -1,6 +1,7 @@
 package bussinesslayer.service.sapce.backog;
 
 import bussinesslayer.entity.space.Backlog;
+import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.entity.space.Task;
 import datalayer.DaoFactory;
 import datalayer.IDao;
@@ -64,32 +65,37 @@ public class BacklogService implements IBacklogService {
     }
 
     @Override
-    public void addTaskInBacklogToSprint(int backlogId, int taskId, int sprintId) {
-
+    public void addTaskInBacklogToSprint(int backlogId, int taskId, int sprintId) throws Exception {
+        backlogIDao.addTaskInBacklogToSprint(backlogId, taskId, sprintId);
     }
 
     @Override
-    public void createTaskInBacklog(Task task) {
-
+    public void createTaskInBacklog(Task task) throws Exception {
+        backlogIDao.createTaskInBacklog(task);
     }
 
     @Override
-    public Task getTaskInBacklogByTaskId(int taskId) {
-        return null;
+    public Task getTaskInBacklogByTaskId(int taskId) throws Exception {
+        return backlogIDao.getTaskInBacklogByTaskId(taskId);
     }
 
     @Override
-    public void updateTaskInBacklog(Task task) {
-
+    public void updateTaskInBacklog(Task task) throws Exception {
+        backlogIDao.updateTaskInBacklog(task);
     }
 
     @Override
-    public void deleteTaskInBacklog(int taskId) {
-
+    public void deleteTaskInBacklog(int taskId) throws Exception {
+        backlogIDao.deleteTaskInBacklog(taskId);
     }
 
     @Override
-    public List<Task> getAllTasksInBacklog(int backlogId) {
-        return null;
+    public List<Task> getAllTasksInBacklog(int backlogId) throws Exception {
+        return backlogIDao.getAllTasksInBacklog(backlogId);
+    }
+
+    @Override
+    public Sprint getSprintBySprintId(int sprintId) throws Exception {
+        return backlogIDao.getSprintBySprintId(sprintId);
     }
 }

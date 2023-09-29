@@ -1,6 +1,7 @@
 package application.ui.manager;
 
 import bussinesslayer.entity.space.Backlog;
+import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.entity.space.Task;
 import bussinesslayer.service.sapce.backog.BacklogService;
 import bussinesslayer.service.sapce.backog.IBacklogService;
@@ -94,17 +95,18 @@ public class BacklogManagerMenu {
         try {
             int taskId = readInt("Task ID: ");
             Task task = serviceBacklog.getTaskInBacklogByTaskId(taskId);
-
-            if(task == null) throw new Exception("This task id does not exist in this backlog");
-
-            if (task.getBacklogId() == backlogId) {
-                task.setName(readString("Name: "));
-                task.setDescription(readString("Description: "));
-                task.setStartDate(readLocalDate("Start date: "));
-                task.setEndDate(readLocalDate("End date: "));
-                serviceBacklog.updateTaskInBacklog(task);
+            if(task == null) {
+                printValueln("This task id does not exist in this backlog");
             } else {
-                printValueln("Task is not in this backlog.");
+                if (task.getBacklogId() == backlogId) {
+                    task.setName(readString("Name: "));
+                    task.setDescription(readString("Description: "));
+                    task.setStartDate(readStartDate("Start date: "));
+                    task.setEndDate(readEndDate("End date: ", task.getStartDate()));
+                    serviceBacklog.updateTaskInBacklog(task);
+                } else {
+                    printValueln("Task is not in this backlog.");
+                }
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -120,13 +122,18 @@ public class BacklogManagerMenu {
         try {
             int taskId = readInt("Task ID: ");
             Task task = serviceBacklog.getTaskInBacklogByTaskId(taskId);
-            if(task == null) throw new Exception("This task id does not exist in this backlog");
-
-            if (task.getBacklogId() == backlogId) {
-                serviceBacklog.deleteTaskInBacklog(taskId);
-                task.setBacklogId(-1);
+            if(task == null) { // Check task_id
+                throw new Exception("This task id does not exist in this backlog");
             } else {
-                printValueln("Task is not in this backlog.");
+                if (task.getBacklogId() == backlogId) { // Check task_id
+                    if (task.getSprintId() == -1) { // Check sprint_id
+                        serviceBacklog.deleteTaskInBacklog(taskId);
+                    } else {
+                        printValueln("Task is in sprint.");
+                    }
+                } else {
+                    printValueln("Task is not in this backlog.");
+                }
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -137,17 +144,21 @@ public class BacklogManagerMenu {
     private void viewAllTaskInBacklog() {
         try {
             List<Task> list = serviceBacklog.getAllTasksInBacklog(backlogId);
-            for (Task task : list) {
-                printLineSeparate();
-                printValue(("Task ID: " + task.getId() + " ".repeat(10 - String.valueOf(task.getId()).length()) + "|"));
-                printValue("Name: " + task.getName() + " ".repeat(20 - String.valueOf(task.getName()).length()) + "|");
-                printValue("Description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
-                printValue("Start date: " + task.getStartDate() + " ".repeat(20 - String.valueOf(task.getStartDate()).length()) + "|");
-                printValue("End date: " + task.getEndDate() + " ".repeat(20 - String.valueOf(task.getEndDate()).length()) + "|");
-                printValue("Status: " + task.getStatus() + " ".repeat(10 - String.valueOf(task.getStatus()).length()) + "|");
-                printValue("Member ID: " + task.getMemberId() + " ".repeat(10 - String.valueOf(task.getMemberId()).length()) + "|");
-                printValue("Sprint ID: " + task.getSprintId() + " ".repeat(10 - String.valueOf(task.getSprintId()).length()) + "|");
-                printLineSeparate();
+            if (list.isEmpty()) {
+                printValueln("There is no task in this backlog.");
+            } else {
+                for (Task task : list) {
+                    printLineSeparate();
+                    printValue(("Task ID: " + task.getId() + " ".repeat(10 - String.valueOf(task.getId()).length()) + "|"));
+                    printValue("Name: " + task.getName() + " ".repeat(20 - String.valueOf(task.getName()).length()) + "|");
+                    printValue("Description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
+                    printValue("Start date: " + task.getStartDate() + " ".repeat(20 - String.valueOf(task.getStartDate()).length()) + "|");
+                    printValue("End date: " + task.getEndDate() + " ".repeat(20 - String.valueOf(task.getEndDate()).length()) + "|");
+                    printValue("Status: " + task.getStatus() + " ".repeat(10 - String.valueOf(task.getStatus()).length()) + "|");
+                    printValue("Member ID: " + task.getMemberId() + " ".repeat(10 - String.valueOf(task.getMemberId()).length()) + "|");
+                    printValue("Sprint ID: " + task.getSprintId() + " ".repeat(10 - String.valueOf(task.getSprintId()).length()) + "|");
+                    printLineSeparate();
+                }
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -163,9 +174,26 @@ public class BacklogManagerMenu {
     private void addTaskInBacklogToSprint() {
         try {
             int taskId = readInt("Task ID: ");
-            int sprintId = readInt("Sprint ID: ");
-
-            serviceBacklog.addTaskInBacklogToSprint(backlogId, taskId, sprintId);
+            Task task = serviceBacklog.getTaskInBacklogByTaskId(taskId);
+            if(task == null) {
+                printValueln("This task id does not exist in this backlog");
+            } else {
+                if (task.getBacklogId() == backlogId) {
+                    int sprintId = readInt("Sprint ID: ");
+                    Sprint sprint = serviceBacklog.getSprintBySprintId(sprintId);
+                    if (sprint == null) {
+                        printValueln("This sprint id does not exist in this project");
+                    } else {
+                        if (sprint.getProjectId() == projectId) {
+                            serviceBacklog.addTaskInBacklogToSprint(backlogId, taskId, sprintId);
+                        } else {
+                            printValueln("Sprint is not in this project.");
+                        }
+                    }
+                } else {
+                    printValueln("Task is not in this backlog.");
+                }
+            }
         } catch (Exception e) {
             printValueln(e.getMessage());
         }
