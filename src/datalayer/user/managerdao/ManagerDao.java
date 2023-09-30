@@ -132,14 +132,14 @@ public class ManagerDao implements IManagerDao {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Member member = new Member();
-                member.setId(resultSet.getInt("id"));
-                member.setName(resultSet.getString("name"));
-                member.setAge(resultSet.getInt("age"));
-                member.setGender(resultSet.getString("gender"));
-                member.setEmail(resultSet.getString("email"));
-                member.setPassword(resultSet.getString("password"));
-                member.setPhoneNumber(resultSet.getString("phone_number"));
-                member.setAddress(resultSet.getString("address"));
+                member.setId(resultSet.getInt("m.id"));
+                member.setName(resultSet.getString("m.name"));
+                member.setAge(resultSet.getInt("m.age"));
+                member.setGender(resultSet.getString("m.gender"));
+                member.setEmail(resultSet.getString("m.email"));
+                member.setPassword(resultSet.getString("m.password"));
+                member.setPhoneNumber(resultSet.getString("m.phone_number"));
+                member.setAddress(resultSet.getString("m.address"));
                 list.add(member);
             }
         } catch (SQLException e) {

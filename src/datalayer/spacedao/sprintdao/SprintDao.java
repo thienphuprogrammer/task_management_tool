@@ -162,12 +162,12 @@ public class SprintDao implements ISprintDao {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Sprint sprint = new Sprint();
-                sprint.setId(resultSet.getInt("id"));
-                sprint.setDescription(resultSet.getString("description"));
-                sprint.setName(resultSet.getString("name"));
-                sprint.setStartDate(resultSet.getDate("start_date").toLocalDate());
-                sprint.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                sprint.setProjectId(resultSet.getInt("project_id"));
+                sprint.setId(resultSet.getInt("sp.id"));
+                sprint.setDescription(resultSet.getString("sp.description"));
+                sprint.setName(resultSet.getString("sp.name"));
+                sprint.setStartDate(resultSet.getDate("sp.start_date").toLocalDate());
+                sprint.setEndDate(resultSet.getDate("sp.end_date").toLocalDate());
+                sprint.setProjectId(resultSet.getInt("sp.project_id"));
                 list.add(sprint);
             }
         } catch (SQLException e) {

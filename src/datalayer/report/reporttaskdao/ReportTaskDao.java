@@ -170,11 +170,11 @@ public class ReportTaskDao implements IReportTaskDao {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 ReportTask reportTask = new ReportTask();
-                reportTask.setId(resultSet.getInt("id"));
-                reportTask.setDate(resultSet.getDate("date").toLocalDate());
-                reportTask.setTime(resultSet.getTime("time").toLocalTime());
-                reportTask.setDescription(resultSet.getString("Description"));
-                reportTask.setTaskId(resultSet.getInt("task_id"));
+                reportTask.setId(resultSet.getInt("rt.id"));
+                reportTask.setDate(resultSet.getDate("rt.date").toLocalDate());
+                reportTask.setTime(resultSet.getTime("rt.time").toLocalTime());
+                reportTask.setDescription(resultSet.getString("rt.Description"));
+                reportTask.setTaskId(resultSet.getInt("rt.task_id"));
                 list.add(reportTask);
             }
         } catch (SQLException exception) {

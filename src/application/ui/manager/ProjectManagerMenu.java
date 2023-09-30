@@ -97,8 +97,8 @@ public class ProjectManagerMenu {
                 if (project.getManagerId() == managerId) { // check project managed by manager
                     project.setName(readString("Enter new project name (enter to keep old name): ", project.getName()));
                     project.setDescription(readString("Enter new project description (enter to keep old description): ", project.getDescription()));
-                    project.setStartDate(readStartDate("Enter new project start date: ", project.getStartDate()));
-                    project.setEndDate(readEndDate("Enter new project end date: ", project.getStartDate(), project.getEndDate()));
+                    project.setStartDate(readStartDate("Enter new project start date (enter to keep old start date): ", project.getStartDate()));
+                    project.setEndDate(readEndDate("Enter new project end date (enter to keep old end date): ", project.getStartDate(), project.getEndDate()));
                     serviceProject.update(project);
                 } else {
                     printValueln("You are not manager of this project.");

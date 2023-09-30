@@ -165,13 +165,13 @@ public class ProjectDao implements IProjectDao {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Member member = new Member();
-                member.setId(resultSet.getInt("member_id"));
-                member.setName(resultSet.getString("name"));
-                member.setEmail(resultSet.getString("email"));
-                member.setPhoneNumber(resultSet.getString("phone_number"));
-                member.setAge(resultSet.getInt("age"));
-                member.setAddress(resultSet.getString("address"));
-                member.setGender(resultSet.getString("gender"));
+                member.setId(resultSet.getInt("m.id"));
+                member.setName(resultSet.getString("m.name"));
+                member.setEmail(resultSet.getString("m.email"));
+                member.setPhoneNumber(resultSet.getString("m.phone_number"));
+                member.setAge(resultSet.getInt("m.age"));
+                member.setAddress(resultSet.getString("m.address"));
+                member.setGender(resultSet.getString("m.gender"));
                 list.add(member);
             }
         } catch (SQLException e) {
@@ -220,12 +220,12 @@ public class ProjectDao implements IProjectDao {
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 project = new Project();
-                project.setId(resultSet.getInt("id"));
-                project.setDescription(resultSet.getString("description"));
-                project.setName(resultSet.getString("name"));
-                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
-                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                project.setManagerId(resultSet.getInt("manager_id"));
+                project.setId(resultSet.getInt("pr.id"));
+                project.setDescription(resultSet.getString("pr.description"));
+                project.setName(resultSet.getString("pr.name"));
+                project.setStartDate(resultSet.getDate("pr.start_date").toLocalDate());
+                project.setEndDate(resultSet.getDate("pr.end_date").toLocalDate());
+                project.setManagerId(resultSet.getInt("pr.manager_id"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -247,12 +247,12 @@ public class ProjectDao implements IProjectDao {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Project project = new Project();
-                project.setId(resultSet.getInt("id"));
-                project.setDescription(resultSet.getString("description"));
-                project.setName(resultSet.getString("name"));
-                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
-                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                project.setManagerId(resultSet.getInt("manager_id"));
+                project.setId(resultSet.getInt("pr.id"));
+                project.setDescription(resultSet.getString("pr.description"));
+                project.setName(resultSet.getString("pr.name"));
+                project.setStartDate(resultSet.getDate("pr.start_date").toLocalDate());
+                project.setEndDate(resultSet.getDate("pr.end_date").toLocalDate());
+                project.setManagerId(resultSet.getInt("pr.manager_id"));
                 list.add(project);
             }
         } catch (SQLException e) {
@@ -276,13 +276,13 @@ public class ProjectDao implements IProjectDao {
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 member = new Member();
-                member.setId(resultSet.getInt("member_id"));
-                member.setName(resultSet.getString("name"));
-                member.setEmail(resultSet.getString("email"));
-                member.setPhoneNumber(resultSet.getString("phone_number"));
-                member.setAge(resultSet.getInt("age"));
-                member.setAddress(resultSet.getString("address"));
-                member.setGender(resultSet.getString("gender"));
+                member.setId(resultSet.getInt("m.id"));
+                member.setName(resultSet.getString("m.name"));
+                member.setEmail(resultSet.getString("m.email"));
+                member.setPhoneNumber(resultSet.getString("m.phone_number"));
+                member.setAge(resultSet.getInt("m.age"));
+                member.setAddress(resultSet.getString("m.address"));
+                member.setGender(resultSet.getString("m.gender"));
             }
         } catch (SQLException e) {
             throw new Exception(e);
