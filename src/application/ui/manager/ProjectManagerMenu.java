@@ -175,7 +175,7 @@ public class ProjectManagerMenu {
                 printValue("start date: " + project.getStartDate() + " ".repeat(20 - String.valueOf(project.getStartDate()).length()) + "|");
                 printValue("end date: " + project.getEndDate() + " ".repeat(20 - String.valueOf(project.getEndDate()).length()) + "|");
                 printValue("description: " + project.getDescription() + " ".repeat(40 - String.valueOf(project.getDescription()).length()) + "|");
-                printValueln("Manager id: " + project.getManagerId() + " ".repeat(170 - String.valueOf(project.getManagerId()).length()) + "|");
+                printValueln("Manager id: " + project.getManagerId() + " ".repeat(10 - String.valueOf(project.getManagerId()).length()) + "|");
             }
         } catch (Exception e) {
             printValueln(e.getMessage());
