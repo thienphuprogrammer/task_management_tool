@@ -37,12 +37,20 @@ public class ManagerService implements IManagerService {
 
     @Override
     public Manager getById(int id) throws Exception {
-        return managerDao.getById(id);
+        Manager manager = managerDao.getById(id);
+        if (manager == null) {
+            throw new Exception("Manager is not exist");
+        }
+        return manager;
     }
 
     @Override
     public List<Manager> getAll() throws Exception {
-        return managerDao.getAll();
+        List<Manager> list = managerDao.getAll();
+        if (list == null) {
+            throw new Exception("Manager is not exist");
+        }
+        return list;
     }
 
     @Override
@@ -66,13 +74,21 @@ public class ManagerService implements IManagerService {
     }
 
     @Override
-    public List<Member> getAllMembers(int managerId) {
-        return managerDao.viewAllMember(managerId);
+    public List<Member> getAllMembers(int managerId) throws Exception {
+        List<Member> list = managerDao.getAllMembers(managerId);
+        if (list == null) {
+            throw new Exception("Member is not exist");
+        }
+        return list;
     }
 
     @Override
-    public Manager loginManager(String email, String password) {
-        return managerDao.loginManager(email, password);
+    public Manager loginManager(String email, String password) throws Exception {
+        Manager manager = managerDao.loginManager(email, password);
+        if (manager == null) {
+            throw new Exception("Manager is not exist");
+        }
+        return manager;
     }
 
     @Override

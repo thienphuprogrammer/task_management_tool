@@ -150,7 +150,7 @@ public class TaskDao implements ITaskDao {
     }
 
     @Override
-    public List<Task> getAllMyTaskMember(int sprintId, int memberId) {
+    public List<Task> getAllTasksOfMember(int sprintId, int memberId) {
         List<Task> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Task WHERE sprint_id = ? AND member_id = ?";

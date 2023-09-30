@@ -6,7 +6,7 @@ import bussinesslayer.service.IService;
 import java.util.List;
 
 public interface ISprintService extends IService<Sprint> {
-    List<Sprint> getAllSprintsOfProject(int projectId);
+    List<Sprint> getAllSprintsOfProject(int projectId) throws Exception;
 
-    List<Sprint> getAllSprintsInProjectOfMember(int projectId, int memberId);
+    List<Sprint> getAllSprintsInProjectOfMember(int projectId, int memberId) throws Exception;
 }

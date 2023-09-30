@@ -8,7 +8,7 @@ import datalayer.IDao;
 import java.util.List;
 
 public interface IManagerDao extends IDao<Manager> {
-    List<Member> viewAllMember(int managerId);
+    List<Member> getAllMembers(int managerId);
 
     Manager loginManager(String email, String password);
 

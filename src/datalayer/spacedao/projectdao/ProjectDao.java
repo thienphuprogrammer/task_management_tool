@@ -234,7 +234,7 @@ public class ProjectDao implements IProjectDao {
     }
 
     @Override
-    public List<Project> getAllProjectMember(int memberId) {
+    public List<Project> getAllProjectsOfMember(int memberId) {
         List<Project> list = new ArrayList<>();
         try {
             String sql = "SELECT distinct * FROM Project as pr " +

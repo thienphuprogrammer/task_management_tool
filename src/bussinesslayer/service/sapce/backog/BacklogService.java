@@ -51,17 +51,20 @@ public class BacklogService implements IBacklogService {
 
     @Override
     public Backlog getById(int id) throws Exception {
-        return backlogIDao.getById(id);
+        Backlog backlog = backlogIDao.getById(id);
+        if (backlog == null) {
+            throw new Exception("Backlog is not exist");
+        }
+        return backlog;
     }
 
     @Override
     public List<Backlog> getAll() throws Exception {
-        return backlogIDao.getAll();
-    }
-
-    @Override
-    public void viewById(int id) throws Exception {
-        backlogIDao.getById(id);
+        List<Backlog> list = backlogIDao.getAll();
+        if (list == null) {
+            throw new Exception("Backlog is not exist");
+        }
+        return list;
     }
 
     @Override
@@ -76,7 +79,11 @@ public class BacklogService implements IBacklogService {
 
     @Override
     public Task getTaskInBacklogByTaskId(int taskId) throws Exception {
-        return backlogIDao.getTaskInBacklogByTaskId(taskId);
+        Task task = backlogIDao.getTaskInBacklogByTaskId(taskId);
+        if (task == null) {
+            throw new Exception("Task is not exist");
+        }
+        return task;
     }
 
     @Override
@@ -91,11 +98,19 @@ public class BacklogService implements IBacklogService {
 
     @Override
     public List<Task> getAllTasksInBacklog(int backlogId) throws Exception {
-        return backlogIDao.getAllTasksInBacklog(backlogId);
+        List<Task> list = backlogIDao.getAllTasksInBacklog(backlogId);
+        if (list == null) {
+            throw new Exception("Task is not exist");
+        }
+        return list;
     }
 
     @Override
     public Sprint getSprintBySprintId(int sprintId) throws Exception {
-        return backlogIDao.getSprintBySprintId(sprintId);
+        Sprint sprint = backlogIDao.getSprintBySprintId(sprintId);
+        if (sprint == null) {
+            throw new Exception("Sprint is not exist");
+        }
+        return sprint;
     }
 }

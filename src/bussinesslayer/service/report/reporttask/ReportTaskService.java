@@ -32,20 +32,36 @@ public class ReportTaskService implements IReportTaskService {
 
     @Override
     public ReportTask getById(int id) throws Exception {
-        return reportTaskIDao.getById(id);
+        ReportTask reportTask = reportTaskIDao.getById(id);
+        if (reportTask == null) {
+            throw new Exception("ReportTask is not exist");
+        }
+        return reportTask;
     }
 
     @Override
     public List<ReportTask> getAll() throws Exception {
-        return reportTaskIDao.getAll();
+        List<ReportTask> list = reportTaskIDao.getAll();
+        if (list == null) {
+            throw new Exception("ReportTask is not exist");
+        }
+        return list;
     }
     @Override
     public List<ReportTask> getReportsBySprintId(int sprintId) throws Exception {
-        return reportTaskIDao.getReportsBySprintId(sprintId);
+        List<ReportTask> reportTaskList = reportTaskIDao.getReportsBySprintId(sprintId);
+        if (reportTaskList == null) {
+            throw new Exception("ReportTask is not exist");
+        }
+        return reportTaskList;
     }
 
     @Override
     public List<ReportTask> getReportsByTaskId(int taskId) throws Exception {
-        return reportTaskIDao.getReportsByTaskId(taskId);
+        List<ReportTask> reportTaskList = reportTaskIDao.getReportsByTaskId(taskId);
+        if (reportTaskList == null) {
+            throw new Exception("ReportTask is not exist");
+        }
+        return reportTaskList;
     }
 }

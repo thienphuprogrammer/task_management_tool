@@ -118,7 +118,7 @@ public class ManagerDao implements IManagerDao {
     }
 
     @Override
-    public List<Member> viewAllMember(int managerId) {
+    public List<Member> getAllMembers(int managerId) {
         List<Member> list = new ArrayList<>();
         try {
             String sql = "SELECT distinct m.id, m.name, m.age, m.email, m.gender, m.phone_number, m.role, m.address, m.password FROM Manager as ma " +

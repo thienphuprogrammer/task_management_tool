@@ -8,7 +8,6 @@ import bussinesslayer.service.IService;
 import java.util.List;
 
 public interface IBacklogService extends IService<Backlog> {
-    void viewById(int id) throws Exception;
     void addTaskInBacklogToSprint(int backlogId, int taskId, int sprintId) throws Exception;
 
     void createTaskInBacklog(Task task) throws Exception;

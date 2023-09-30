@@ -39,16 +39,27 @@ public class MemberService implements IMemberService {
 
     @Override
     public Member getById(int id) throws Exception {
-        return memberIDao.getById(id);
+        Member member = memberIDao.getById(id);
+        if (member == null) {
+            throw new Exception("Member is not exist");
+        }
+        return member;
     }
 
     @Override
     public List<Member> getAll() throws Exception {
-        return memberIDao.getAll();
+        List<Member> list = memberIDao.getAll();
+        if (list == null) {
+            throw new Exception("Member is not exist");
+        }
+        return list;
     }
 
     @Override
-    public void changePassword(int id, String password) {
+    public void changePassword(int id, String password) throws Exception {
+        if (!isValidPassword(password)) {
+            throw new Exception("Invalid password");
+        }
         memberIDao.changePassword(id, password);
     }
 
@@ -58,12 +69,20 @@ public class MemberService implements IMemberService {
         if (list.size() > 0) {
             throw new Exception("Email already exists");
         }
+        if (!isValidEmail(email)) {
+            throw new Exception("Invalid email");
+        }
+
         memberIDao.changeEmail(id, email);
     }
 
     @Override
-    public Member loginMember(String email, String password) {
-        return memberIDao.loginMember(email, password);
+    public Member loginMember(String email, String password) throws Exception {
+        Member member = memberIDao.loginMember(email, password);
+        if (member == null) {
+            throw new Exception("Invalid email or password");
+        }
+        return member;
     }
 
     @Override
@@ -75,13 +94,13 @@ public class MemberService implements IMemberService {
         if (list.size() > 0) {
             throw new Exception("Email already exists");
         }
-        if(isValidPassword(member.getPassword())) {
+        if(!isValidPassword(member.getPassword())) {
             throw new Exception("Invalid password");
         }
-        if (isValidName(member.getName())) {
+        if (!isValidName(member.getName())) {
             throw new Exception("Invalid name");
         }
-        if (isValidPhoneNumber(member.getPhoneNumber())) {
+        if (!isValidPhoneNumber(member.getPhoneNumber())) {
             throw new Exception("Invalid phone number");
         }
         memberIDao.addNew(member);

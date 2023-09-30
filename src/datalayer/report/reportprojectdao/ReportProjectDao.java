@@ -110,7 +110,7 @@ public class ReportProjectDao implements IReportProjectDao {
     }
 
     @Override
-    public List<ReportProject> getReport(int projectId) {
+    public List<ReportProject> getReportsByProjectId(int projectId) {
         List<ReportProject> list = new ArrayList<>();
         try {
             String sqlStatement = "SELECT * FROM Report_Project WHERE project_id = ?";

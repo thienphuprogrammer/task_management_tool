@@ -6,7 +6,7 @@ import datalayer.spacedao.ISpaceDao;
 import java.util.List;
 
 public interface ISprintDao extends ISpaceDao<Sprint> {
-    List<Sprint> getAllSprintProject(int projectId);
+    List<Sprint> getAllSprintsOfProject(int projectId);
 
-    List<Sprint> getSprintMemberProject(int projectId, int memberId);
+    List<Sprint> getAllSprintsInProjectOfMember(int projectId, int memberId);
 }

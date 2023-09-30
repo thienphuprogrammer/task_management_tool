@@ -17,7 +17,7 @@ public interface IProjectDao extends ISpaceDao<Project> {
 
     Project getProjectByMemberId(int projectId, int memberId);
 
-    List<Project> getAllProjectMember(int memberId);
+    List<Project> getAllProjectsOfMember(int memberId);
 
     Member searchMemberInProject(int projectId, int memberId) throws Exception;
 }

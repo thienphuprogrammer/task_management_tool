@@ -122,7 +122,7 @@ public class SprintDao implements ISprintDao {
     }
 
     @Override
-    public List<Sprint> getAllSprintProject(int projectId) {
+    public List<Sprint> getAllSprintsOfProject(int projectId) {
         List<Sprint> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Sprint WHERE project_id = ?";
@@ -147,7 +147,7 @@ public class SprintDao implements ISprintDao {
     }
 
     @Override
-    public List<Sprint> getSprintMemberProject(int projectId, int memberId) {
+    public List<Sprint> getAllSprintsInProjectOfMember(int projectId, int memberId) {
         List<Sprint> list = new ArrayList<>();
         try {
             String sql = "SELECT distinct * FROM Sprint as sp " +
