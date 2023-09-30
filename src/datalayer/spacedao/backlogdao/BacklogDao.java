@@ -124,7 +124,7 @@ public class BacklogDao implements IBacklogDao {
     public List<Task> getTasksInBacklog(int backlogId) {
         List<Task> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Backlog as bl " +
+            String sql = "SELECT distinct * FROM Backlog as bl " +
                     "JOIN Task as t on t.backlog_id = bl.id " +
                     "WHERE bl.id = ?";
             connection = getConnection();

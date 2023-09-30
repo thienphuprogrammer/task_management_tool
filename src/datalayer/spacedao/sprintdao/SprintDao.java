@@ -150,7 +150,7 @@ public class SprintDao implements ISprintDao {
     public List<Sprint> getSprintMemberProject(int projectId, int memberId) {
         List<Sprint> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Sprint as sp " +
+            String sql = "SELECT distinct * FROM Sprint as sp " +
                     "JOIN Project as pr ON sp.project_id = pr.id " +
                     "JOIN Member_Project as mp ON pr.id = mp.project_id " +
                     "JOIN Member as me ON me.id = mp.member_id " +

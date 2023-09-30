@@ -68,7 +68,7 @@ public class ManagerDao implements IManagerDao {
     @Override
     public void addNew(Manager space) throws Exception {
         try {
-            String sql = "INSERT INTO Manager (name, age, email, password, phone_number, address, role, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Manager (name, age, email, password, phone_number, address, gender) VALUES (?, ?, ?, ?, ?, ?, ?)";
             Connection connection = MySqlConnection.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, space.getName());

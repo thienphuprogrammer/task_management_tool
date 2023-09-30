@@ -160,7 +160,7 @@ public class ReportTaskDao implements IReportTaskDao {
     public List<ReportTask> getReportsBySprintId(int sprintId) throws Exception {
         List<ReportTask> list = new ArrayList<>();
         try {
-            String sqlStatement = "SELECT rt.id, rt.date, rt.time, rt.description, rt.task_id FROM Report_Task as rt " +
+            String sqlStatement = "SELECT distinct rt.id, rt.date, rt.time, rt.description, rt.task_id FROM Report_Task as rt " +
                     " INNER JOIN Task as t ON rt.task_id = t.id " +
                     " INNER JOIN Sprint as s ON t.sprint_id = s.id" +
                     " WHERE s.id = ?";

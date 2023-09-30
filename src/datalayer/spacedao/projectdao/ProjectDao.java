@@ -154,7 +154,7 @@ public class ProjectDao implements IProjectDao {
     public List<Member> getAllMemberProject(int projectId, int managerId) {
         List<Member> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Member_Project as mp " +
+            String sql = "SELECT distinct * FROM Member_Project as mp " +
                     "JOIN Project as p on p.id = mp.project_id " +
                     "JOIN Member as m on m.id = mp.member_id " +
                     "WHERE p.id = ? AND p.manager_id = ?";
@@ -209,7 +209,7 @@ public class ProjectDao implements IProjectDao {
     public Project getProjectByMemberId(int projectId, int memberId) {
         Project project = null;
         try {
-            String sql = "SELECT * FROM Project as pr " +
+            String sql = "SELECT distinct * FROM Project as pr " +
                     "JOIN Member_Project as mp ON pr.id = mp.project_id " +
                     "JOIN Member as mb ON mp.member_id = mb.id " +
                     "WHERE pr.id = ? AND mb.id = ?";
@@ -237,7 +237,7 @@ public class ProjectDao implements IProjectDao {
     public List<Project> getAllProjectMember(int memberId) {
         List<Project> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Project as pr " +
+            String sql = "SELECT distinct * FROM Project as pr " +
                     "JOIN Member_Project as mp ON pr.id = mp.project_id " +
                     "JOIN Member as mb ON mp.member_id = mb.id " +
                     "WHERE mb.id = ?";
@@ -265,7 +265,7 @@ public class ProjectDao implements IProjectDao {
     public Member searchMemberInProject(int projectId, int memberId) throws Exception {
         Member member = null;
         try {
-            String sql = "SELECT m.id, m.name, m.email, m.phone_number, m.age, m.address, m.gender FROM Member_Project as mp " +
+            String sql = "SELECT distinct m.id, m.name, m.email, m.phone_number, m.age, m.address, m.gender FROM Member_Project as mp " +
                     "JOIN Project as p on p.id = mp.project_id " +
                     "JOIN Member as m on m.id = mp.member_id " +
                     "WHERE p.id = ? AND m.id = ?";

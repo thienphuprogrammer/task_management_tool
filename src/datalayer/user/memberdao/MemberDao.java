@@ -13,7 +13,7 @@ import java.util.List;
 public class MemberDao implements IMemberDao {
     @Override
     public Member getById(int id) throws Exception {
-        Member member = new Member();
+        Member member = null;
         try {
             String sql = "SELECT * FROM Member WHERE id = ?";
             Connection connection = MySqlConnection.getInstance().getConnection();
@@ -21,6 +21,7 @@ public class MemberDao implements IMemberDao {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+                member = new Member();
                 member.setId(resultSet.getInt("id"));
                 member.setName(resultSet.getString("name"));
                 member.setEmail(resultSet.getString("email"));
