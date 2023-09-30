@@ -80,7 +80,7 @@ public class MemberService implements IMemberService {
     public Member loginMember(String email, String password) throws Exception {
         Member member = memberIDao.loginMember(email, password);
         if (member == null) {
-            throw new Exception("Invalid email or password");
+            throw new Exception("Member is not exist");
         }
         return member;
     }

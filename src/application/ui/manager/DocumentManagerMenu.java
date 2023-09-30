@@ -74,17 +74,13 @@ public class DocumentManagerMenu {
         try {
             int documentId = readInt("Enter document id: ");
             Document doc = docsService.getDocument(projectId, documentId);
-            if (doc != null) {
-                if (doc.getProjectId() == projectId) {
-                    doc.setTitle(readString("Title (Enter to keep old info): ", doc.getTitle()));
-                    doc.setDescription(readString("Description (Enter to keep old info): ", doc.getDescription()));
-                    doc.setContent(readString("Content(Enter to keep old info): ", doc.getContent()));
-                    docsService.update(doc);
-                } else {
-                    printValueln("Document not in project.");
-                }
+            if (doc.getProjectId() == projectId) {
+                doc.setTitle(readString("Title (Enter to keep old info): ", doc.getTitle()));
+                doc.setDescription(readString("Description (Enter to keep old info): ", doc.getDescription()));
+                doc.setContent(readString("Content(Enter to keep old info): ", doc.getContent()));
+                docsService.update(doc);
             } else {
-                printValueln("Document not found.");
+                printValueln("Document not in project.");
             }
         } catch (Exception e) {
             printValue(e.getMessage());
@@ -137,7 +133,8 @@ public class DocumentManagerMenu {
     private void deleteDocument() {
         try {
             int documentId = readInt("Enter document id: ");
-            if (docsService.getDocument(projectId, documentId) != null) { // check document exist
+            Document document = docsService.getDocument(projectId, documentId);
+            if (document != null) { // check document exist
                 if(readConfirm("Do you want to delete? Y/N")) {
                     docsService.delete(documentId);
                 }

@@ -82,7 +82,7 @@ public class MemberDao implements IMemberDao {
     @Override
     public void update(Member space) throws Exception {
         try {
-            String sql = "UPDATE Member SET name = ?, email = ?, phone_number = ?, age = ?, address = ?, gender = ?, role = ? WHERE id = ?";
+            String sql = "UPDATE Member SET name = ?, email = ?, phone_number = ?, age = ?, address = ?, gender = ? WHERE id = ?";
             Connection connection = MySqlConnection.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, space.getName());
@@ -91,7 +91,7 @@ public class MemberDao implements IMemberDao {
             statement.setInt(4, space.getAge());
             statement.setString(5, space.getAddress());
             statement.setString(6, space.isGender());
-            statement.setInt(8, space.getId());
+            statement.setInt(7, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
