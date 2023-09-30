@@ -1,6 +1,7 @@
 package application.ui.manager;
 
 import bussinesslayer.entity.document.Document;
+import bussinesslayer.service.document.DocumentService;
 import bussinesslayer.service.document.IDocumentService;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import static application.utilities.OutputUtil.*;
 
 public class DocumentManagerMenu {
     // -------------------- Properties ------------------------
-    private IDocumentService docsService;
+    private IDocumentService docsService = new DocumentService();
     private int projectId;
     public enum CHOICE_DOCUMENT_MANAGER_MENU {
         EXIT,

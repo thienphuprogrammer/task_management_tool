@@ -80,7 +80,7 @@ public class ProfileManagerMenu {
             printValueMenu("Password: " + manager.getPassword());
             printLineSeparate();
         } catch (Exception e) {
-            e.printStackTrace();
+            printValueln(e.getMessage());
         }
     }
     /*
@@ -125,7 +125,7 @@ public class ProfileManagerMenu {
             manager.setGender(readString("Gender (enter to keep old gender): ", manager.isGender()));
             serviceManager.update(manager);
         } catch (Exception e) {
-            e.printStackTrace();
+            printValueln(e.getMessage());
         }
     }
 }

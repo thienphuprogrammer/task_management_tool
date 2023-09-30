@@ -181,7 +181,7 @@ public class BacklogDao implements IBacklogDao {
     @Override
     public void createTaskInBacklog(Task task) throws Exception {
         try {
-            String sql = "INSERT INTO Task (name, description, start_date, end_date, member_id, backlog_id) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Task (name, description, start_date, end_date, member_id, sprint_id, backlog_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
             statement.setString(1, task.getName());
@@ -189,7 +189,8 @@ public class BacklogDao implements IBacklogDao {
             statement.setDate(3, Date.valueOf(task.getStartDate()));
             statement.setDate(4, Date.valueOf(task.getEndDate()));
             statement.setInt(5, task.getMemberId());
-            statement.setInt(6, task.getBacklogId());
+            statement.setInt(6, task.getSprintId());
+            statement.setInt(7, task.getBacklogId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
