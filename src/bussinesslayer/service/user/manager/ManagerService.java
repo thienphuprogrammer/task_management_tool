@@ -86,7 +86,7 @@ public class ManagerService implements IManagerService {
     public Manager loginManager(String email, String password) throws Exception {
         Manager manager = managerDao.loginManager(email, password);
         if (manager == null) {
-            throw new Exception("Manager is not exist");
+            throw new Exception("Invalid email or password");
         }
         return manager;
     }
