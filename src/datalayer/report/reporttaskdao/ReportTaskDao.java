@@ -32,8 +32,8 @@ public class ReportTaskDao implements IReportTaskDao {
             reportTask.setTime(resultSet.getTime("time").toLocalTime());
             reportTask.setDescription(resultSet.getString("Description"));
             reportTask.setTaskId(resultSet.getInt("task_id"));
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
         return reportTask;
     }
@@ -55,8 +55,8 @@ public class ReportTaskDao implements IReportTaskDao {
                 reportTask.setTaskId(resultSet.getInt("task_id"));
                 list.add(reportTask);
             }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
         return list;
     }
@@ -73,8 +73,8 @@ public class ReportTaskDao implements IReportTaskDao {
             statement.setString(4, space.getDescription());
             statement.setInt(5, space.getTaskId());
             statement.executeUpdate();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
     }
 
@@ -90,8 +90,8 @@ public class ReportTaskDao implements IReportTaskDao {
             statement.setInt(4, space.getTaskId());
             statement.setInt(5, space.getId());
             statement.executeUpdate();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
     }
 
@@ -103,8 +103,8 @@ public class ReportTaskDao implements IReportTaskDao {
             statement = connection.prepareStatement(sqlStatement);
             statement.setInt(1, id);
             statement.executeUpdate();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
     }
 
@@ -126,8 +126,8 @@ public class ReportTaskDao implements IReportTaskDao {
                 reportTask.setTaskId(resultSet.getInt("task_id"));
                 list.add(reportTask);
             }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
         return list;
     }
@@ -150,8 +150,8 @@ public class ReportTaskDao implements IReportTaskDao {
                 reportTask.setTaskId(resultSet.getInt("task_id"));
                 list.add(reportTask);
             }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
         return list;
     }
@@ -177,8 +177,8 @@ public class ReportTaskDao implements IReportTaskDao {
                 reportTask.setTaskId(resultSet.getInt("rt.task_id"));
                 list.add(reportTask);
             }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
         return list;
     }

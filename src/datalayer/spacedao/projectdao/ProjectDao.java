@@ -45,7 +45,7 @@ public class ProjectDao implements IProjectDao {
                 project.setManagerId(resultSet.getInt("manager_id"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return project;
     }
@@ -69,7 +69,7 @@ public class ProjectDao implements IProjectDao {
                 list.add(project);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
@@ -87,7 +87,7 @@ public class ProjectDao implements IProjectDao {
             statement.setInt(5, space.getManagerId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -105,7 +105,7 @@ public class ProjectDao implements IProjectDao {
             statement.setInt(6, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -118,12 +118,12 @@ public class ProjectDao implements IProjectDao {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public void addMemberToProject(int projectId, int memberId) {
+    public void addMemberToProject(int projectId, int memberId) throws Exception {
         try {
             String sql = "INSERT INTO Member_Project (project_id, member_id) VALUES (?, ?)";
             connection = getConnection();
@@ -132,12 +132,12 @@ public class ProjectDao implements IProjectDao {
             statement.setInt(2, memberId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public void removeMemberFromProject(int projectId, int memberId) {
+    public void removeMemberFromProject(int projectId, int memberId) throws Exception {
         try {
             String sql = "DELETE FROM Member_Project WHERE project_id = ? AND member_id = ?";
             connection = getConnection();
@@ -146,12 +146,12 @@ public class ProjectDao implements IProjectDao {
             statement.setInt(2, memberId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public List<Member> getAllMemberProject(int projectId, int managerId) {
+    public List<Member> getAllMemberProject(int projectId, int managerId) throws Exception {
         List<Member> list = new ArrayList<>();
         try {
             String sql = "SELECT distinct * FROM Member_Project as mp " +
@@ -175,7 +175,7 @@ public class ProjectDao implements IProjectDao {
                 list.add(member);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
@@ -206,7 +206,7 @@ public class ProjectDao implements IProjectDao {
     }
 
     @Override
-    public Project getProjectByMemberId(int projectId, int memberId) {
+    public Project getProjectByMemberId(int projectId, int memberId) throws Exception {
         Project project = null;
         try {
             String sql = "SELECT distinct * FROM Project as pr " +
@@ -228,13 +228,13 @@ public class ProjectDao implements IProjectDao {
                 project.setManagerId(resultSet.getInt("pr.manager_id"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return project;
     }
 
     @Override
-    public List<Project> getAllProjectsOfMember(int memberId) {
+    public List<Project> getAllProjectsOfMember(int memberId) throws Exception {
         List<Project> list = new ArrayList<>();
         try {
             String sql = "SELECT distinct * FROM Project as pr " +
@@ -256,7 +256,7 @@ public class ProjectDao implements IProjectDao {
                 list.add(project);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }

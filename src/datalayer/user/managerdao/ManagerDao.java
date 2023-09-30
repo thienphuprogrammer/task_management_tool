@@ -34,7 +34,7 @@ public class ManagerDao implements IManagerDao {
                 manager.setGender(resultSet.getString("gender"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return manager;
     }
@@ -60,7 +60,7 @@ public class ManagerDao implements IManagerDao {
                 list.add(manager);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
@@ -80,7 +80,7 @@ public class ManagerDao implements IManagerDao {
             statement.setString(7, space.isGender());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -100,7 +100,7 @@ public class ManagerDao implements IManagerDao {
             statement.setInt(8, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -113,12 +113,12 @@ public class ManagerDao implements IManagerDao {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public List<Member> getAllMembers(int managerId) {
+    public List<Member> getAllMembers(int managerId) throws Exception {
         List<Member> list = new ArrayList<>();
         try {
             String sql = "SELECT distinct m.id, m.name, m.age, m.email, m.gender, m.phone_number, m.role, m.address, m.password FROM Manager as ma " +
@@ -143,13 +143,13 @@ public class ManagerDao implements IManagerDao {
                 list.add(member);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
 
     @Override
-    public Manager loginManager(String email, String password) {
+    public Manager loginManager(String email, String password) throws Exception {
         Manager manager = null;
         try {
             String sql = "SELECT * FROM Manager WHERE email = ? AND password = ?";
@@ -170,13 +170,13 @@ public class ManagerDao implements IManagerDao {
                 manager.setGender(resultSet.getString("gender"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return manager;
     }
 
     @Override
-    public List<Admin> getByEmail(String email) {
+    public List<Admin> getByEmail(String email) throws Exception {
         List<Admin> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Admin WHERE email = ?";
@@ -196,13 +196,13 @@ public class ManagerDao implements IManagerDao {
                 list.add(admin);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
 
     @Override
-    public void changePassword(int id, String password) {
+    public void changePassword(int id, String password) throws Exception {
         try {
             String sql = "UPDATE Manager SET password = ? WHERE id = ?";
             Connection connection = MySqlConnection.getInstance().getConnection();
@@ -211,12 +211,12 @@ public class ManagerDao implements IManagerDao {
             statement.setInt(2, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public void changeEmail(int id, String email) {
+    public void changeEmail(int id, String email) throws Exception {
         try {
             String sql = "UPDATE Manager SET email = ? WHERE id = ?";
             Connection connection = MySqlConnection.getInstance().getConnection();
@@ -225,7 +225,7 @@ public class ManagerDao implements IManagerDao {
             statement.setInt(2, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 

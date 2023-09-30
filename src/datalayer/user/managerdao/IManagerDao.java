@@ -8,13 +8,13 @@ import datalayer.IDao;
 import java.util.List;
 
 public interface IManagerDao extends IDao<Manager> {
-    List<Member> getAllMembers(int managerId);
+    List<Member> getAllMembers(int managerId) throws Exception;
 
-    Manager loginManager(String email, String password);
+    Manager loginManager(String email, String password) throws Exception;
 
-    List<Admin> getByEmail(String email);
+    List<Admin> getByEmail(String email) throws Exception;
 
-    void changePassword(int id, String password);
+    void changePassword(int id, String password) throws Exception;
 
-    void changeEmail(int id, String email);
+    void changeEmail(int id, String email) throws Exception;
 }

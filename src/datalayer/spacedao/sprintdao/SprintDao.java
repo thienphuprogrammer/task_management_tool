@@ -44,7 +44,7 @@ public class SprintDao implements ISprintDao {
                 sprint.setProjectId(resultSet.getInt("project_id"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return sprint;
     }
@@ -68,7 +68,7 @@ public class SprintDao implements ISprintDao {
                 list.add(sprint);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
@@ -86,7 +86,7 @@ public class SprintDao implements ISprintDao {
             statement.setInt(5, space.getProjectId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -104,7 +104,7 @@ public class SprintDao implements ISprintDao {
             statement.setInt(6, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -117,12 +117,12 @@ public class SprintDao implements ISprintDao {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public List<Sprint> getAllSprintsOfProject(int projectId) {
+    public List<Sprint> getAllSprintsOfProject(int projectId) throws Exception {
         List<Sprint> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Sprint WHERE project_id = ?";
@@ -141,13 +141,13 @@ public class SprintDao implements ISprintDao {
                 list.add(sprint);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
 
     @Override
-    public List<Sprint> getAllSprintsInProjectOfMember(int projectId, int memberId) {
+    public List<Sprint> getAllSprintsInProjectOfMember(int projectId, int memberId) throws Exception {
         List<Sprint> list = new ArrayList<>();
         try {
             String sql = "SELECT distinct * FROM Sprint as sp " +
@@ -171,7 +171,7 @@ public class SprintDao implements ISprintDao {
                 list.add(sprint);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }

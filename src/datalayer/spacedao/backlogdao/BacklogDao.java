@@ -38,7 +38,7 @@ public class BacklogDao implements IBacklogDao {
                 return backlog;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return null;
     }
@@ -58,7 +58,7 @@ public class BacklogDao implements IBacklogDao {
                 list.add(backlog);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
@@ -71,7 +71,7 @@ public class BacklogDao implements IBacklogDao {
             statement = connection.prepareStatement(sql);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -84,7 +84,7 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(4, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -97,7 +97,7 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -115,13 +115,13 @@ public class BacklogDao implements IBacklogDao {
                 backlog.setId(resultSet.getInt("id"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return backlog;
     }
 
     @Override
-    public List<Task> getTasksInBacklog(int backlogId) {
+    public List<Task> getTasksInBacklog(int backlogId) throws Exception {
         List<Task> list = new ArrayList<>();
         try {
             String sql = "SELECT distinct * FROM Backlog as bl " +
@@ -151,7 +151,7 @@ public class BacklogDao implements IBacklogDao {
                 list.add(task);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
@@ -174,7 +174,7 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(7, sprintId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -193,7 +193,7 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(7, task.getBacklogId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -224,7 +224,7 @@ public class BacklogDao implements IBacklogDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return task;
     }
@@ -244,7 +244,7 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(7, task.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -257,7 +257,7 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(1, taskId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -290,7 +290,7 @@ public class BacklogDao implements IBacklogDao {
                 list.add(task);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
@@ -313,7 +313,7 @@ public class BacklogDao implements IBacklogDao {
                 sprint.setProjectId(resultSet.getInt("project_id"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return sprint;
     }

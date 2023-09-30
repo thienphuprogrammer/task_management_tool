@@ -34,8 +34,8 @@ public class ReportProjectDao implements IReportProjectDao {
                 reportProject.setProject_id(resultSet.getInt("project_id"));
                 return reportProject;
             }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
         return null;
     }
@@ -56,8 +56,8 @@ public class ReportProjectDao implements IReportProjectDao {
                 reportProject.setProject_id(resultSet.getInt("project_id"));
                 list.add(reportProject);
             }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
         return  list;
     }
@@ -74,8 +74,8 @@ public class ReportProjectDao implements IReportProjectDao {
             statement.setString(3, space.getDescription());
             statement.setInt(4, space.getProject_id());
             statement.executeUpdate();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
     }
 
@@ -91,8 +91,8 @@ public class ReportProjectDao implements IReportProjectDao {
             statement.setInt(4, space.getProject_id());
             statement.setInt(5, space.getId());
             statement.executeUpdate();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
     }
 
@@ -104,13 +104,13 @@ public class ReportProjectDao implements IReportProjectDao {
             statement = connection.prepareStatement(sqlStatement);
             statement.setInt(1, id);
             statement.executeUpdate();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception(e);
         }
     }
 
     @Override
-    public List<ReportProject> getReportsByProjectId(int projectId) {
+    public List<ReportProject> getReportsByProjectId(int projectId) throws Exception {
         List<ReportProject> list = new ArrayList<>();
         try {
             String sqlStatement = "SELECT * FROM Report_Project WHERE project_id = ?";
@@ -126,8 +126,8 @@ public class ReportProjectDao implements IReportProjectDao {
                 reportProject.setProject_id(resultSet.getInt("project_id"));
                 list.add(reportProject);
             }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new Exception (e);
         }
         return  list;
     }

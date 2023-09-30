@@ -84,7 +84,7 @@ public class DocumentManagerMenu {
                 printValueln("Document not in project.");
             }
         } catch (Exception e) {
-            printValue(e.getMessage());
+            printValueln(e.getMessage());
         }
     }
     /*
@@ -103,7 +103,7 @@ public class DocumentManagerMenu {
                 printLineSeparate("");
             }
         } catch (Exception e) {
-            printValue(e.getMessage());
+            printValueln(e.getMessage());
         }
     }
 
@@ -143,7 +143,7 @@ public class DocumentManagerMenu {
                 printValueln("Document not found.");
             }
         } catch (Exception e) {
-            printValue(e.getMessage());
+            printValueln(e.getMessage());
         }
     }
 }

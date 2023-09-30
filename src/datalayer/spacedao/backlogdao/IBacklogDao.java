@@ -9,7 +9,7 @@ import java.util.List;
 public interface IBacklogDao extends ISpaceDao<Backlog> {
     Backlog getBacklogByProjectId(int projectId) throws Exception;
 
-    List<Task> getTasksInBacklog(int backlogId);
+    List<Task> getTasksInBacklog(int backlogId) throws Exception;
 
     void addTaskInBacklogToSprint(int backlogId, int taskId, int sprintId) throws Exception;
 

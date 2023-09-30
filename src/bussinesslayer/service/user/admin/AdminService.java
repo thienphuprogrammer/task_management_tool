@@ -62,7 +62,7 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public Admin loginAdmin(String email, String password) {
+    public Admin loginAdmin(String email, String password) throws Exception {
         return adminDao.login(email, password);
     }
 }
