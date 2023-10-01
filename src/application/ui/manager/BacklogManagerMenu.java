@@ -144,15 +144,13 @@ public class BacklogManagerMenu {
                 printValueln("There is no task in this backlog.");
             } else {
                 for (Task task : list) {
-                    printLineSeparate();
                     printValue(("Task ID: " + task.getId() + " ".repeat(10 - String.valueOf(task.getId()).length()) + "|"));
                     printValue("Name: " + task.getName() + " ".repeat(20 - String.valueOf(task.getName()).length()) + "|");
                     printValue("Description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
                     printValue("Start date: " + task.getStartDate() + " ".repeat(20 - String.valueOf(task.getStartDate()).length()) + "|");
                     printValue("End date: " + task.getEndDate() + " ".repeat(20 - String.valueOf(task.getEndDate()).length()) + "|");
                     printValue("Member ID: " + task.getMemberId() + " ".repeat(10 - String.valueOf(task.getMemberId()).length()) + "|");
-                    printValue("Sprint ID: " + task.getSprintId() + " ".repeat(10 - String.valueOf(task.getSprintId()).length()) + "|");
-                    printLineSeparate();
+                    printValueln("Sprint ID: " + task.getSprintId() + " ".repeat(10 - String.valueOf(task.getSprintId()).length()) + "|");
                 }
             }
         } catch (Exception e) {

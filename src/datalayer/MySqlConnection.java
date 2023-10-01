@@ -8,7 +8,7 @@ public class MySqlConnection implements IConnection {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/task_management_tool";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "Lenguyen1002@";
+    private static final String PASSWORD = "@Thienphu2004";
 
     private static MySqlConnection mySqlConnection = null;
 
