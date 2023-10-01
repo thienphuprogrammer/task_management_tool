@@ -162,7 +162,7 @@ public class BacklogDao implements IBacklogDao {
             Task task = getTaskInBacklogByTaskId(taskId);
             task.setBacklogId(backlogId);
             task.setSprintId(sprintId);
-            String sql = "INSERT INTO Task (name, description, start_date, end_date, member_id, backlog_id, sprint_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Task (name, description, start_date, end_date, member_id, backlog_id, sprint_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
             statement.setString(1, task.getName());
@@ -172,6 +172,14 @@ public class BacklogDao implements IBacklogDao {
             statement.setInt(5, task.getMemberId());
             statement.setInt(6, backlogId);
             statement.setInt(7, sprintId);
+            int status = task.getStatus();
+            switch (status) {
+                case 0 -> statement.setString(8, "Open");
+                case 1 -> statement.setString(8, "In Progress");
+                case 2 -> statement.setString(8, "Completed");
+                case 3 -> statement.setString(8, "On Hold");
+                case 4 -> statement.setString(8, "Cancelled");
+            }
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new Exception(e);
@@ -181,7 +189,7 @@ public class BacklogDao implements IBacklogDao {
     @Override
     public void createTaskInBacklog(Task task) throws Exception {
         try {
-            String sql = "INSERT INTO Task (name, description, start_date, end_date, member_id, sprint_id, backlog_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Task (name, description, start_date, end_date, member_id, sprint_id, backlog_id, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
             statement.setString(1, task.getName());
@@ -236,12 +244,16 @@ public class BacklogDao implements IBacklogDao {
                 }
                 task.setBacklogId(resultSet.getInt("backlog_id"));
                 String status = resultSet.getString("status");
-                switch (status) {
-                    case "Open" -> task.setStatus(0);
-                    case "In Progress" -> task.setStatus(1);
-                    case "Completed" -> task.setStatus(2);
-                    case "On Hold" -> task.setStatus(3);
-                    case "Cancelled" -> task.setStatus(4);
+                if(resultSet.wasNull()) {
+                    task.setStatus(0);
+                } else {
+                    switch (status) {
+                        case "Open" -> task.setStatus(0);
+                        case "In Progress" -> task.setStatus(1);
+                        case "Completed" -> task.setStatus(2);
+                        case "On Hold" -> task.setStatus(3);
+                        case "Cancelled" -> task.setStatus(4);
+                    }
                 }
             }
         } catch (SQLException e) {
@@ -322,13 +334,17 @@ public class BacklogDao implements IBacklogDao {
                 }
                 task.setBacklogId(resultSet.getInt("backlog_id"));
                 String status = resultSet.getString("status");
-                switch (status) {
-                    case "Open" -> task.setStatus(0);
-                    case "In Progress" -> task.setStatus(1);
-                    case "Completed" -> task.setStatus(2);
-                    case "On Hold" -> task.setStatus(3);
-                    case "Cancelled" -> task.setStatus(4);
-                    default -> task.setStatus(-1);
+                if (resultSet.wasNull()) {
+                    task.setStatus(-1);
+                } else {
+                    switch (status) {
+                        case "Open" -> task.setStatus(0);
+                        case "In Progress" -> task.setStatus(1);
+                        case "Completed" -> task.setStatus(2);
+                        case "On Hold" -> task.setStatus(3);
+                        case "Cancelled" -> task.setStatus(4);
+                        default -> task.setStatus(-1);
+                    }
                 }
                 list.add(task);
             }
@@ -350,7 +366,6 @@ public class BacklogDao implements IBacklogDao {
             while (resultSet.next()) {
                 sprint.setId(resultSet.getInt("id"));
                 sprint.setName(resultSet.getString("name"));
-                sprint.setDescription(resultSet.getString("description"));
                 sprint.setStartDate(resultSet.getDate("start_date").toLocalDate());
                 sprint.setEndDate(resultSet.getDate("end_date").toLocalDate());
                 sprint.setProjectId(resultSet.getInt("project_id"));

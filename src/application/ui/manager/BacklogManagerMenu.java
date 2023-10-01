@@ -81,8 +81,8 @@ public class BacklogManagerMenu {
         try {
             String name = readString("Name: ");
             String description = readString("Description: ");
-            LocalDate startDate = readLocalDate("Start date: ");
-            LocalDate endDate = readLocalDate("End date: ");
+            LocalDate startDate = readStartDate("Start date: ");
+            LocalDate endDate = readEndDate("End date: ", startDate);
             int memberId = -1;
             int sprintId = -1;
             Task task = new Task(name, description, startDate, endDate, memberId, sprintId, backlogId);
@@ -99,10 +99,10 @@ public class BacklogManagerMenu {
             Task task = serviceBacklog.getTaskInBacklogByTaskId(taskId);
 
             if (task.getBacklogId() == backlogId) {
-                task.setName(readString("Name: "));
-                task.setDescription(readString("Description: "));
-                task.setStartDate(readStartDate("Start date: "));
-                task.setEndDate(readEndDate("End date: ", task.getStartDate()));
+                task.setName(readString("Name: ", task.getName()));
+                task.setDescription(readString("Description: ", task.getDescription()));
+                task.setStartDate(readStartDate("Start date: ", task.getStartDate()));
+                task.setEndDate(readEndDate("End date: ", task.getStartDate(), task.getEndDate()));
                 serviceBacklog.updateTaskInBacklog(task);
             } else {
                 printValueln("Task is not in this backlog.");
