@@ -87,7 +87,7 @@ public class ManagerDao implements IManagerDao {
     @Override
     public void update(Manager space) throws Exception {
         try {
-            String sql = "UPDATE Manager SET name = ?, age = ?, email = ?, password = ?, phone_number = ?, address = ?, role = ?, gender = ? WHERE id = ?";
+            String sql = "UPDATE Manager SET name = ?, age = ?, email = ?, password = ?, phone_number = ?, address = ?, gender = ? WHERE id = ?";
             Connection connection = MySqlConnection.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, space.getName());

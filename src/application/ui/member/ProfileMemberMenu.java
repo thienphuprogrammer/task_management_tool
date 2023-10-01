@@ -111,11 +111,11 @@ public class ProfileMemberMenu {
     private void changeInformation() throws Exception {
         try {
             Member member = serviceMember.getById(memberId);
-            member.setName(readString("Name: "));
-            member.setAge(readInt("Age: "));
-            member.setPhoneNumber(readString("Phone number: "));
-            member.setGender(readString("Gender: "));
-            member.setAddress(readString("Address: "));
+            member.setName(readString("Name: ", member.getName()));
+            member.setAge(readInt("Age: ", member.getAge()));
+            member.setPhoneNumber(readString("Phone number: ", member.getPhoneNumber()));
+            member.setGender(readString("Gender: ", member.isGender()));
+            member.setAddress(readString("Address: ", member.getAddress()));
             serviceMember.update(member);
         } catch (Exception e) {
             printValueln(e.getMessage());

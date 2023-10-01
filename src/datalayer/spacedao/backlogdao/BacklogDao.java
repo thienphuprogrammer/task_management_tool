@@ -265,7 +265,7 @@ public class BacklogDao implements IBacklogDao {
     @Override
     public void updateTaskInBacklog(Task task) throws Exception {
         try {
-            String sql = "UPDATE Task SET name = ?, description = ?, start_date = ?, end_date = ?, member_id = ?, backlog_id = ? WHERE id = ?";
+            String sql = "UPDATE Task SET name = ?, description = ?, start_date = ?, end_date = ?, member_id = ?, backlog_id = ?, status = ? WHERE id = ?";
             connection = getConnection();
             statement = connection.prepareStatement(sql);
             statement.setString(1, task.getName());
@@ -284,7 +284,17 @@ public class BacklogDao implements IBacklogDao {
             else {
                 statement.setInt(6, task.getSprintId());
             }
-            statement.setInt(7, task.getId());
+
+            int status = task.getStatus();
+            switch (status) {
+                case 0 -> statement.setString(7, "Open");
+                case 1 -> statement.setString(7, "In Progress");
+                case 2 -> statement.setString(7, "Completed");
+                case 3 -> statement.setString(7, "On Hold");
+                case 4 -> statement.setString(7, "Cancelled");
+            }
+
+            statement.setInt(8, task.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new Exception(e);

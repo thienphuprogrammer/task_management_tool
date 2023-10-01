@@ -77,7 +77,6 @@ public class TaskDao implements ITaskDao {
                     case "On Hold" -> task.setStatus(3);
                     case "Cancelled" -> task.setStatus(4);
                 }
-                statement.setString(7, status);
                 list.add(task);
             }
         } catch (SQLException e) {
@@ -359,12 +358,16 @@ public class TaskDao implements ITaskDao {
                 task.setMemberId(resultSet.getInt("member_id"));
                 task.setSprintId(resultSet.getInt("sprint_id"));
                 String status = resultSet.getString("status");
-                switch (status) {
-                    case "Open" -> task.setStatus(0);
-                    case "In Progress" -> task.setStatus(1);
-                    case "Completed" -> task.setStatus(2);
-                    case "On Hold" -> task.setStatus(3);
-                    case "Cancelled" -> task.setStatus(4);
+                if(resultSet.wasNull()) {
+                    continue;
+                } else {
+                    switch (status) {
+                        case "Open" -> task.setStatus(0);
+                        case "In Progress" -> task.setStatus(1);
+                        case "Completed" -> task.setStatus(2);
+                        case "On Hold" -> task.setStatus(3);
+                        case "Cancelled" -> task.setStatus(4);
+                    }
                 }
                 list.add(task);
             }

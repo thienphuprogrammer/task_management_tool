@@ -18,9 +18,22 @@ public abstract class Space {
         this.endDate = endDate;
     }
 
+    public Space(int id, String name, LocalDate startDate, LocalDate endDate) {
+        this.id = id;
+        this.name = name;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
     public Space(String name, String description, LocalDate startDate, LocalDate endDate) {
         this.name = name;
         this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Space(String name, LocalDate startDate, LocalDate endDate) {
+        this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
     }

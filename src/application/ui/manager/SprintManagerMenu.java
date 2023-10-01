@@ -68,10 +68,9 @@ public class SprintManagerMenu {
     private void createSprint() {
         try {
             String name = readString("Name: ");
-            String description = readString("Description: ");
             LocalDate startDate = readLocalDate("Start date: ");
             LocalDate endDate = readLocalDate("End date: ");
-            Sprint sprint = new Sprint(name, description, startDate, endDate, projectId);
+            Sprint sprint = new Sprint(name, startDate, endDate, projectId);
             sprintService.create(sprint);
         } catch (Exception e) {
             printValueln(e.getMessage());

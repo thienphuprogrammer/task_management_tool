@@ -112,7 +112,7 @@ public class ProjectMemberMenu {
         try {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getProjectByMemberId(projectId, memberId);
-            if (project != null && project.getManagerId() == memberId) {
+            if (project != null) {
                 SprintMemberMenu sprintMemberMenu = new SprintMemberMenu(projectId, memberId);
                 sprintMemberMenu.processMenuForSprintMember();
             } else {

@@ -247,7 +247,6 @@ public class TaskMangerMenu {
             for (ReportTask reportTask : reportTaskList) {
                 printValue("Task id: " + reportTask.getTaskId() + " ".repeat(40 - String.valueOf(reportTask.getTaskId()).length()) + "|");
                 printValue("description: " + reportTask.getDescription() + " ".repeat(40 - String.valueOf(reportTask.getDescription()).length()) + "|");
-                printValue("time: " + reportTask.getTime() + " ".repeat(40 - String.valueOf(reportTask.getTime()).length()) + "|");
                 printValueln("date: " + reportTask.getDate() + " ".repeat(40 - String.valueOf(reportTask.getDate()).length()) + "|");
             }
         } catch (Exception e) {
