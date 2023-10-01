@@ -33,12 +33,24 @@ public class ProjectService implements IProjectService {
     // -------------------- Methods -----------------------
     public void assignManager(int projectId, int managerId) throws Exception {
         Project project = projectIDao.getById(projectId);
+        if (project == null) {
+            throw new Exception("Project is not exist");
+        }
+        if (managerId != project.getManagerId()) {
+            throw new Exception("You are not the manager of this project");
+        }
         project.setManagerId(managerId);
         projectIDao.update(project);
     }
 
     public void reassignManager(int projectId, int newManagerId) throws Exception {
         Project project = projectIDao.getById(projectId);
+        if (project == null) {
+            throw new Exception("Project is not exist");
+        }
+        if (newManagerId == project.getManagerId()) {
+            throw new Exception("You are not the manager of this project");
+        }
         project.setManagerId(newManagerId);
     }
 
@@ -60,12 +72,20 @@ public class ProjectService implements IProjectService {
 
     @Override
     public Project getById(int id) throws Exception {
-        return projectIDao.getById(id);
+        Project project = projectIDao.getById(id);
+        if (project == null) {
+            throw new Exception("Project is not exist");
+        }
+        return project;
     }
 
     @Override
-    public List getAll() throws Exception {
-        return projectIDao.getAll();
+    public List<Project> getAll() throws Exception {
+        List<Project> list = projectIDao.getAll();
+        if (list == null) {
+            throw new Exception("Project is not exist");
+        }
+        return list;
     }
 
     @Override
@@ -82,26 +102,45 @@ public class ProjectService implements IProjectService {
     public List<Member> getAllMembersInProject(int projectId, int managerId) throws Exception {
         List<Member> list = new ArrayList<>();
         Project project = projectIDao.getById(projectId);
-        if (project.getManagerId() == managerId) {
-            list = projectIDao.getAllMemberProject(projectId, managerId);
-        } else {
+        if (project == null) {
+            throw new Exception("Project is not exist");
+        }
+        if (project.getManagerId() != managerId) {
             throw new Exception("You are not the manager of this project");
         }
+        list = projectIDao.getAllMemberProject(projectId, managerId);
         return list;
     }
 
     @Override
     public List<Project> getAllProjectsOfManager(int userId) throws Exception {
-        return projectIDao.getAllProject(userId);
+        List<Project> list = projectIDao.getAllProject(userId);
+        if (list == null) {
+            throw new Exception("Project is not exist");
+        }
+        return list;
     }
 
     @Override
-    public Project getProjectByMemberId(int projectId, int memberId) {
-        return projectIDao.getMemberByProjectId(projectId, memberId);
+    public Project getProjectByMemberId(int projectId, int memberId) throws Exception {
+        Project project = projectIDao.getProjectByMemberId(projectId, memberId);
+        if (project == null) {
+            throw new Exception("Project is not exist");
+        }
+        return project;
     }
 
     @Override
-    public List<Project> getAllProjectsOfMember(int memberId) {
-        return projectIDao.getAllProjectMember(memberId);
+    public List<Project> getAllProjectsOfMember(int memberId) throws Exception {
+        List<Project> list = projectIDao.getAllProjectsOfMember(memberId);
+        if (list == null) {
+            throw new Exception("Project is not exist");
+        }
+        return list;
+    }
+
+    @Override
+    public Member searchMemberInProject(int memberId, int projectId) throws Exception {
+        return projectIDao.searchMemberInProject(projectId, memberId);
     }
 }

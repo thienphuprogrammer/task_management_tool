@@ -68,10 +68,9 @@ public class SprintManagerMenu {
     private void createSprint() {
         try {
             String name = readString("Name: ");
-            String description = readString("Description: ");
             LocalDate startDate = readLocalDate("Start date: ");
             LocalDate endDate = readLocalDate("End date: ");
-            Sprint sprint = new Sprint(name, description, startDate, endDate, projectId);
+            Sprint sprint = new Sprint(name, startDate, endDate, projectId);
             sprintService.create(sprint);
         } catch (Exception e) {
             printValueln(e.getMessage());
@@ -90,10 +89,9 @@ public class SprintManagerMenu {
             int sprintId = readInt("Enter sprint id: ");
             Sprint sprint = sprintService.getById(sprintId);
             if (sprint.getProjectId() == projectId) {
-                sprint.setName(readString("Enter new sprint name: "));
-                sprint.setDescription(readString("Enter new sprint description: "));
-                sprint.setStartDate(readLocalDate("Enter new sprint start date: "));
-                sprint.setEndDate(readLocalDate("Enter new sprint end date: "));
+                sprint.setName(readString("Enter new sprint name: ", sprint.getName()));
+                sprint.setStartDate(readStartDate("Enter new sprint start date: ", sprint.getStartDate()));
+                sprint.setEndDate(readEndDate("Enter new sprint end date: ", sprint.getStartDate(), sprint.getEndDate()));
                 sprintService.update(sprint);
             } else {
                 printValueln("Sprint is not in this project.");
@@ -137,8 +135,7 @@ public class SprintManagerMenu {
                 printValue("id: " + sprint.getId() + " ".repeat(10 - String.valueOf(sprint.getId()).length()) + "|");
                 printValue("name: " + sprint.getName() + " ".repeat(20 - String.valueOf(sprint.getName()).length()) + "|");
                 printValue("start date: " + sprint.getStartDate() + " ".repeat(10 - String.valueOf(sprint.getStartDate()).length()) + "|");
-                printValue("end date: " + sprint.getEndDate() + " ".repeat(10 - String.valueOf(sprint.getEndDate()).length()) + "|");
-                printValueln("description: " + sprint.getDescription() + " ".repeat(30 - String.valueOf(sprint.getDescription()).length()) + "|");
+                printValueln("end date: " + sprint.getEndDate() + " ".repeat(10 - String.valueOf(sprint.getEndDate()).length()) + "|");
             }
         } catch (Exception e) {
             printValue(e.getMessage());

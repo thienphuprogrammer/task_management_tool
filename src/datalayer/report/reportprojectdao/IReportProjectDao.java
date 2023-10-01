@@ -6,5 +6,5 @@ import datalayer.IDao;
 import java.util.List;
 
 public interface IReportProjectDao extends IDao<ReportProject> {
-    List<ReportProject> getReport(int projectId);
+    List<ReportProject> getReportsByProjectId(int projectId) throws Exception;
 }

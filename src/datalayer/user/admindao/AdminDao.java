@@ -31,7 +31,7 @@ public class AdminDao implements IAdminDao{
                 admin.setAddress(resultSet.getString("address"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return admin;
     }
@@ -56,7 +56,7 @@ public class AdminDao implements IAdminDao{
                 list.add(admin);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
@@ -75,7 +75,7 @@ public class AdminDao implements IAdminDao{
             statement.setString(6, space.getAddress());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -94,7 +94,7 @@ public class AdminDao implements IAdminDao{
             statement.setInt(7, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -107,12 +107,12 @@ public class AdminDao implements IAdminDao{
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public Admin login(String email, String password) {
+    public Admin login(String email, String password) throws Exception {
         Admin admin = null;
         try {
             String sql = "select * from admin where email = ? and password = ?";
@@ -132,7 +132,7 @@ public class AdminDao implements IAdminDao{
                 admin.setAddress(resultSet.getString("address"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return admin;
     }

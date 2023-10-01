@@ -45,21 +45,37 @@ public class DocumentService implements IDocumentService {
 
     @Override
     public Document getById(int id) throws Exception {
-        return docIDao.getById(id);
+        Document document = docIDao.getById(id);
+        if (document == null) {
+            throw new Exception("Document is not exist");
+        }
+        return document;
     }
 
     @Override
     public List<Document> getAll() throws Exception {
-        return docIDao.getAll();
+        List<Document> list = docIDao.getAll();
+        if (list == null) {
+            throw new Exception("Document is not exist");
+        }
+        return list;
     }
 
     @Override
     public List<Document> getAllDocumentsByProjectId(int projectId) throws Exception {
-        return docIDao.getAllDocumentsByProjectId(projectId);
+        List<Document> docList = docIDao.getAllDocumentsByProjectId(projectId);
+        if (docList == null) {
+            throw new Exception("Document is not exist");
+        }
+        return docList;
     }
 
     @Override
-    public Document getDocument(int projectId, int documentId) {
-        return null;
+    public Document getDocument(int projectId, int documentId) throws Exception {
+        Document doc = docIDao.getDocument(projectId, documentId);
+        if (doc == null) {
+            throw new Exception("Document is not exist");
+        }
+        return doc;
     }
 }

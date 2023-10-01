@@ -1,7 +1,6 @@
 package bussinesslayer.service.report.reporttask;
 
 import bussinesslayer.entity.report.ReportTask;
-import bussinesslayer.service.report.IReportService;
 import datalayer.DaoFactory;
 import datalayer.IDaoFactory;
 import datalayer.report.reporttaskdao.IReportTaskDao;
@@ -15,9 +14,7 @@ public class ReportTaskService implements IReportTaskService {
         taskDaoFactory = new DaoFactory();
         reportTaskIDao = taskDaoFactory.getReportTaskDao();
     }
-    public IReportTaskDao getReportTaskIDao() {
-        return reportTaskIDao;
-    }
+
     @Override
     public void update(ReportTask reportTask) throws Exception {
         reportTaskIDao.update(reportTask);
@@ -35,20 +32,36 @@ public class ReportTaskService implements IReportTaskService {
 
     @Override
     public ReportTask getById(int id) throws Exception {
-        return reportTaskIDao.getById(id);
+        ReportTask reportTask = reportTaskIDao.getById(id);
+        if (reportTask == null) {
+            throw new Exception("ReportTask is not exist");
+        }
+        return reportTask;
     }
 
     @Override
     public List<ReportTask> getAll() throws Exception {
-        return reportTaskIDao.getAll();
+        List<ReportTask> list = reportTaskIDao.getAll();
+        if (list == null) {
+            throw new Exception("ReportTask is not exist");
+        }
+        return list;
     }
     @Override
-    public List<ReportTask> getReportsBySprintId(int sprintId) {
-        return reportTaskIDao.getReports(sprintId);
+    public List<ReportTask> getReportsBySprintId(int sprintId) throws Exception {
+        List<ReportTask> reportTaskList = reportTaskIDao.getReportsBySprintId(sprintId);
+        if (reportTaskList == null) {
+            throw new Exception("ReportTask is not exist");
+        }
+        return reportTaskList;
     }
 
     @Override
-    public List<ReportTask> getReportsByTaskId(int taskId) {
-        return null;
+    public List<ReportTask> getReportsByTaskId(int taskId) throws Exception {
+        List<ReportTask> reportTaskList = reportTaskIDao.getReportsByTaskId(taskId);
+        if (reportTaskList == null) {
+            throw new Exception("ReportTask is not exist");
+        }
+        return reportTaskList;
     }
 }

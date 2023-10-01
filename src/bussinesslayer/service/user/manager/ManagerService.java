@@ -37,16 +37,27 @@ public class ManagerService implements IManagerService {
 
     @Override
     public Manager getById(int id) throws Exception {
-        return managerDao.getById(id);
+        Manager manager = managerDao.getById(id);
+        if (manager == null) {
+            throw new Exception("Manager is not exist");
+        }
+        return manager;
     }
 
     @Override
     public List<Manager> getAll() throws Exception {
-        return managerDao.getAll();
+        List<Manager> list = managerDao.getAll();
+        if (list == null) {
+            throw new Exception("Manager is not exist");
+        }
+        return list;
     }
 
     @Override
-    public void changePassword(int id, String password) {
+    public void changePassword(int id, String password) throws Exception {
+        if (!isValidPassword(password)) {
+            throw new Exception("Invalid password");
+        }
         managerDao.changePassword(id, password);
     }
 
@@ -56,17 +67,28 @@ public class ManagerService implements IManagerService {
         if (list.size() > 0) {
             throw new Exception("Email already exists");
         }
+        if (!isValidEmail(email)) {
+            throw new Exception("Invalid email");
+        }
         managerDao.changeEmail(id, email);
     }
 
     @Override
-    public List<Member> getAllMembers(int managerId) {
-        return managerDao.viewAllMember(managerId);
+    public List<Member> getAllMembers(int managerId) throws Exception {
+        List<Member> list = managerDao.getAllMembers(managerId);
+        if (list == null) {
+            throw new Exception("Member is not exist");
+        }
+        return list;
     }
 
     @Override
-    public Manager loginManager(String email, String password) {
-        return managerDao.loginManager(email, password);
+    public Manager loginManager(String email, String password) throws Exception {
+        Manager manager = managerDao.loginManager(email, password);
+        if (manager == null) {
+            throw new Exception("Invalid email or password");
+        }
+        return manager;
     }
 
     @Override
@@ -89,5 +111,4 @@ public class ManagerService implements IManagerService {
         }
         managerDao.addNew(manager);
     }
-
 }

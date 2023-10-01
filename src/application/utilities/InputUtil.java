@@ -1,7 +1,10 @@
 package application.utilities;
 
+import com.mysql.cj.protocol.Message;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class InputUtil {
@@ -162,6 +165,79 @@ public class InputUtil {
             bool = Boolean.parseBoolean(input);
         }
         return bool;
+    }
+
+    public static boolean readConfirm(String message) throws Exception {
+        System.out.println(message);
+        String input = scanner.nextLine();
+
+        if(!input.matches("[YNyn]")) {
+            throw new Exception("Please input correct given character");
+        }
+
+        return input.equalsIgnoreCase("y");
+    }
+
+    public static LocalDate readStartDate(String message) throws Exception{
+        System.out.print(message);
+        String input = scanner.nextLine();
+        LocalDate date;
+        if (!input.matches("^\\d{4}-\\d{2}-\\d{2}$")) { // YYYY-MM-DD
+            throw new Exception("Data invalid.");
+        }else {
+            date = LocalDate.parse(input);
+        }
+        return date;
+    }
+
+    public static LocalDate readStartDate(String message, LocalDate defaultValue) throws Exception{
+        System.out.print(message);
+        String input = scanner.nextLine();
+        LocalDate date;
+        if (input.isBlank()) {
+            return defaultValue;
+        }
+        if (!input.matches("^\\d{4}-\\d{2}-\\d{2}$")) { // YYYY-MM-DD
+            throw new Exception("Data invalid.");
+        }else {
+            date = LocalDate.parse(input);
+        }
+        return date;
+    }
+
+    public static LocalDate readEndDate(String message, LocalDate startDate) throws Exception {
+        System.out.print(message);
+        String input = scanner.nextLine();
+        LocalDate date;
+        if (!input.matches("^\\d{4}-\\d{2}-\\d{2}$")) { // YYYY-MM-DD
+            throw new Exception("Data invalid.");
+        }else {
+            date = LocalDate.parse(input);
+        }
+
+        if(startDate.isAfter(date)) {
+            throw new Exception("End date cannot be before start date");
+        }
+        return date;
+    }
+
+    public static LocalDate readEndDate(String message, LocalDate startDate, LocalDate defaultValue) throws Exception {
+        System.out.print(message);
+        String input = scanner.nextLine();
+        LocalDate date;
+        if (input.isBlank()) {
+            return defaultValue;
+        }
+        if (!input.matches("^\\d{4}-\\d{2}-\\d{2}$")) { // YYYY-MM-DD
+            throw new Exception("Data invalid.");
+        }else {
+            date = LocalDate.parse(input);
+        }
+
+        if(startDate.isAfter(date)) {
+            throw new Exception("End date cannot be before start date");
+        }
+        return date;
     }
 
     public static void closeScanner() {

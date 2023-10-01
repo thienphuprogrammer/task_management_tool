@@ -62,7 +62,11 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public Admin loginAdmin(String email, String password) {
-        return adminDao.login(email, password);
+    public Admin loginAdmin(String email, String password) throws Exception {
+        Admin admin = adminDao.login(email, password);
+        if (admin == null) {
+            throw new Exception("Invalid email or password");
+        }
+        return admin;
     }
 }

@@ -7,7 +7,7 @@ import datalayer.spacedao.ISpaceDao;
 import java.util.List;
 
 public interface ITaskDao extends ISpaceDao<Task> {
-    List<Task> getAllMyTaskMember(int sprintId, int memberId);
+    List<Task> getAllTasksOfMember(int sprintId, int memberId);
 
     void submitTask(SubmissionTask submissionTask, int taskId);
 
@@ -17,7 +17,8 @@ public interface ITaskDao extends ISpaceDao<Task> {
 
     List<Task> getTaskProgress(int sprintId);
 
-    List<Task> getAllTasksMamager(int sprintId);
 
     List<Task> getAllTasks(int sprintId);
+
+    List<SubmissionTask> getSubmissionTaskByTaskId(int taskId) throws Exception;
 }

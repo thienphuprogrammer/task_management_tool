@@ -47,21 +47,37 @@ public class SprintService implements ISprintService {
 
     @Override
     public Sprint getById(int id) throws Exception {
-        return sprintIDao.getById(id);
+        Sprint sprint = sprintIDao.getById(id);
+        if (sprint == null) {
+            throw new Exception("Sprint is not exist");
+        }
+        return sprint;
     }
 
     @Override
     public List<Sprint> getAll() throws Exception {
-        return sprintIDao.getAll();
+        List<Sprint> list = sprintIDao.getAll();
+        if (list == null) {
+            throw new Exception("Sprint is not exist");
+        }
+        return list;
     }
 
     @Override
-    public List<Sprint> getAllSprintsOfProject(int projectId) {
-        return sprintIDao.getAllSprintProject(projectId);
+    public List<Sprint> getAllSprintsOfProject(int projectId) throws Exception {
+        List<Sprint> sprintList = sprintIDao.getAllSprintsOfProject(projectId);
+        if (sprintList == null) {
+            throw new Exception("Sprint is not exist");
+        }
+        return sprintList;
     }
 
     @Override
-    public List<Sprint> getAllSprintsInProjectOfMember(int projectId, int memberId) {
-        return sprintIDao.getSprintMemberProject(projectId, memberId);
+    public List<Sprint> getAllSprintsInProjectOfMember(int projectId, int memberId) throws Exception {
+        List<Sprint> sprintList = sprintIDao.getAllSprintsInProjectOfMember(projectId, memberId);
+        if (sprintList == null) {
+            throw new Exception("Sprint is not exist");
+        }
+        return sprintList;
     }
 }

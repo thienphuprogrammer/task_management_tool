@@ -45,7 +45,7 @@ public class ProjectDao implements IProjectDao {
                 project.setManagerId(resultSet.getInt("manager_id"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return project;
     }
@@ -69,7 +69,7 @@ public class ProjectDao implements IProjectDao {
                 list.add(project);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
@@ -87,7 +87,7 @@ public class ProjectDao implements IProjectDao {
             statement.setInt(5, space.getManagerId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -105,7 +105,7 @@ public class ProjectDao implements IProjectDao {
             statement.setInt(6, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -118,12 +118,12 @@ public class ProjectDao implements IProjectDao {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public void addMemberToProject(int projectId, int memberId) {
+    public void addMemberToProject(int projectId, int memberId) throws Exception {
         try {
             String sql = "INSERT INTO Member_Project (project_id, member_id) VALUES (?, ?)";
             connection = getConnection();
@@ -132,12 +132,12 @@ public class ProjectDao implements IProjectDao {
             statement.setInt(2, memberId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public void removeMemberFromProject(int projectId, int memberId) {
+    public void removeMemberFromProject(int projectId, int memberId) throws Exception {
         try {
             String sql = "DELETE FROM Member_Project WHERE project_id = ? AND member_id = ?";
             connection = getConnection();
@@ -146,15 +146,15 @@ public class ProjectDao implements IProjectDao {
             statement.setInt(2, memberId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public List<Member> getAllMemberProject(int projectId, int managerId) {
+    public List<Member> getAllMemberProject(int projectId, int managerId) throws Exception {
         List<Member> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Member_Project as mp " +
+            String sql = "SELECT distinct * FROM Member_Project as mp " +
                     "JOIN Project as p on p.id = mp.project_id " +
                     "JOIN Member as m on m.id = mp.member_id " +
                     "WHERE p.id = ? AND p.manager_id = ?";
@@ -165,17 +165,17 @@ public class ProjectDao implements IProjectDao {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Member member = new Member();
-                member.setId(resultSet.getInt("member_id"));
-                member.setName(resultSet.getString("name"));
-                member.setEmail(resultSet.getString("email"));
-                member.setPhoneNumber(resultSet.getString("phone_number"));
-                member.setAge(resultSet.getInt("age"));
-                member.setAddress(resultSet.getString("address"));
-                member.setGender(resultSet.getString("gender"));
+                member.setId(resultSet.getInt("m.id"));
+                member.setName(resultSet.getString("m.name"));
+                member.setEmail(resultSet.getString("m.email"));
+                member.setPhoneNumber(resultSet.getString("m.phone_number"));
+                member.setAge(resultSet.getInt("m.age"));
+                member.setAddress(resultSet.getString("m.address"));
+                member.setGender(resultSet.getString("m.gender"));
                 list.add(member);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
@@ -206,38 +206,10 @@ public class ProjectDao implements IProjectDao {
     }
 
     @Override
-    public List<Project> getProjectMember(int memberId) {
-        List<Project> list = new ArrayList<>();
-        try {
-            String sql = "SELECT * FROM Project as pr " +
-                    "JOIN Member_Project as mp ON pr.id = mp.project_id " +
-                    "JOIN Member as mb ON mp.member_id = mb.id " +
-                    "WHERE mb.id = ?";
-            connection = getConnection();
-            statement = connection.prepareStatement(sql);
-            statement.setInt(1, memberId);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Project project = new Project();
-                project.setId(resultSet.getInt("id"));
-                project.setDescription(resultSet.getString("description"));
-                project.setName(resultSet.getString("name"));
-                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
-                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                project.setManagerId(resultSet.getInt("manager_id"));
-                list.add(project);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return list;
-    }
-
-    @Override
-    public Project getMemberByProjectId(int projectId, int memberId) {
+    public Project getProjectByMemberId(int projectId, int memberId) throws Exception {
         Project project = null;
         try {
-            String sql = "SELECT * FROM Project as pr " +
+            String sql = "SELECT distinct * FROM Project as pr " +
                     "JOIN Member_Project as mp ON pr.id = mp.project_id " +
                     "JOIN Member as mb ON mp.member_id = mb.id " +
                     "WHERE pr.id = ? AND mb.id = ?";
@@ -248,24 +220,24 @@ public class ProjectDao implements IProjectDao {
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 project = new Project();
-                project.setId(resultSet.getInt("id"));
-                project.setDescription(resultSet.getString("description"));
-                project.setName(resultSet.getString("name"));
-                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
-                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                project.setManagerId(resultSet.getInt("manager_id"));
+                project.setId(resultSet.getInt("pr.id"));
+                project.setDescription(resultSet.getString("pr.description"));
+                project.setName(resultSet.getString("pr.name"));
+                project.setStartDate(resultSet.getDate("pr.start_date").toLocalDate());
+                project.setEndDate(resultSet.getDate("pr.end_date").toLocalDate());
+                project.setManagerId(resultSet.getInt("pr.manager_id"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return project;
     }
 
     @Override
-    public List<Project> getAllProjectMember(int memberId) {
+    public List<Project> getAllProjectsOfMember(int memberId) throws Exception {
         List<Project> list = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM Project as pr " +
+            String sql = "SELECT distinct * FROM Project as pr " +
                     "JOIN Member_Project as mp ON pr.id = mp.project_id " +
                     "JOIN Member as mb ON mp.member_id = mb.id " +
                     "WHERE mb.id = ?";
@@ -275,17 +247,46 @@ public class ProjectDao implements IProjectDao {
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Project project = new Project();
-                project.setId(resultSet.getInt("id"));
-                project.setDescription(resultSet.getString("description"));
-                project.setName(resultSet.getString("name"));
-                project.setStartDate(resultSet.getDate("start_date").toLocalDate());
-                project.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                project.setManagerId(resultSet.getInt("manager_id"));
+                project.setId(resultSet.getInt("pr.id"));
+                project.setDescription(resultSet.getString("pr.description"));
+                project.setName(resultSet.getString("pr.name"));
+                project.setStartDate(resultSet.getDate("pr.start_date").toLocalDate());
+                project.setEndDate(resultSet.getDate("pr.end_date").toLocalDate());
+                project.setManagerId(resultSet.getInt("pr.manager_id"));
                 list.add(project);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
+    }
+
+    @Override
+    public Member searchMemberInProject(int projectId, int memberId) throws Exception {
+        Member member = null;
+        try {
+            String sql = "SELECT distinct m.id, m.name, m.email, m.phone_number, m.age, m.address, m.gender FROM Member_Project as mp " +
+                    "JOIN Project as p on p.id = mp.project_id " +
+                    "JOIN Member as m on m.id = mp.member_id " +
+                    "WHERE p.id = ? AND m.id = ?";
+            connection = getConnection();
+            statement = connection.prepareStatement(sql);
+            statement.setInt(1, projectId);
+            statement.setInt(2, memberId);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                member = new Member();
+                member.setId(resultSet.getInt("m.id"));
+                member.setName(resultSet.getString("m.name"));
+                member.setEmail(resultSet.getString("m.email"));
+                member.setPhoneNumber(resultSet.getString("m.phone_number"));
+                member.setAge(resultSet.getInt("m.age"));
+                member.setAddress(resultSet.getString("m.address"));
+                member.setGender(resultSet.getString("m.gender"));
+            }
+        } catch (SQLException e) {
+            throw new Exception(e);
+        }
+        return member;
     }
 }

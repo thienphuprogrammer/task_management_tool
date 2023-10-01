@@ -1,6 +1,7 @@
 package application.ui.manager;
 
 import bussinesslayer.entity.document.Document;
+import bussinesslayer.service.document.DocumentService;
 import bussinesslayer.service.document.IDocumentService;
 
 import java.util.List;
@@ -10,9 +11,8 @@ import static application.utilities.OutputUtil.*;
 
 public class DocumentManagerMenu {
     // -------------------- Properties ------------------------
-    private IDocumentService docsService;
+    private IDocumentService docsService = new DocumentService();
     private int projectId;
-    private int documentId;
     public enum CHOICE_DOCUMENT_MANAGER_MENU {
         EXIT,
         CREATE_DOCUMENT,
@@ -53,7 +53,7 @@ public class DocumentManagerMenu {
                     switch (CHOICE_DOCUMENT_MANAGER_MENU.values()[choice]) {
                         case EXIT -> exit = true;
                         case UPDATE_DOCUMENT -> this.updateDocument();
-                        case VIEW_ALL_DOCUMENT_IN_PROJECT -> this.viewDocument();
+                        case VIEW_ALL_DOCUMENT_IN_PROJECT -> this.viewAllDocuments();
                         case CREATE_DOCUMENT -> this.createDocument();
                         case DELETE_DOCUMENT -> this.deleteDocument();
                     }
@@ -75,23 +75,23 @@ public class DocumentManagerMenu {
         try {
             int documentId = readInt("Enter document id: ");
             Document doc = docsService.getDocument(projectId, documentId);
-            if (doc != null) {
-                doc.setTitle(readString("Title: "));
-                doc.setDescription(readString("Description: "));
-                doc.setContent(readString("Content: "));
+            if (doc.getProjectId() == projectId) {
+                doc.setTitle(readString("Title (Enter to keep old info): ", doc.getTitle()));
+                doc.setDescription(readString("Description (Enter to keep old info): ", doc.getDescription()));
+                doc.setContent(readString("Content(Enter to keep old info): ", doc.getContent()));
                 docsService.update(doc);
             } else {
-                printValueln("Document not found.");
+                printValueln("Document not in project.");
             }
         } catch (Exception e) {
-            printValue(e.getMessage());
+            printValueln(e.getMessage());
         }
     }
     /*
      * view document
      * check
      */
-    private void viewDocument() {
+    private void viewAllDocuments() {
         try {
             List<Document> list = docsService.getAllDocumentsByProjectId(projectId);
             for (Document doc : list) {
@@ -103,7 +103,7 @@ public class DocumentManagerMenu {
                 printLineSeparate("");
             }
         } catch (Exception e) {
-            printValue(e.getMessage());
+            printValueln(e.getMessage());
         }
     }
 
@@ -113,7 +113,16 @@ public class DocumentManagerMenu {
     * check validation
     */
     private void createDocument() {
-
+        try {
+            Document doc = new Document();
+            doc.setTitle(readString("Title: "));
+            doc.setDescription(readString("Description: "));
+            doc.setContent(readString("Content: "));
+            doc.setProjectId(projectId);
+            docsService.create(doc);
+        } catch (Exception e) {
+            printValue(e.getMessage());
+        }
     }
 
     /*
@@ -123,6 +132,18 @@ public class DocumentManagerMenu {
     * Ask user to confirm
     */
     private void deleteDocument() {
-
+        try {
+            int documentId = readInt("Enter document id: ");
+            Document document = docsService.getDocument(projectId, documentId);
+            if (document != null) { // check document exist
+                if(readConfirm("Do you want to delete? Y/N")) {
+                    docsService.delete(documentId);
+                }
+            } else {
+                printValueln("Document not found.");
+            }
+        } catch (Exception e) {
+            printValueln(e.getMessage());
+        }
     }
 }

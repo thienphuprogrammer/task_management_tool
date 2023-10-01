@@ -8,5 +8,5 @@ import java.util.List;
 public interface IDocumentService extends IService<Document> {
     List<Document> getAllDocumentsByProjectId(int projectId) throws Exception;
 
-    Document getDocument(int projectId, int documentId);
+    Document getDocument(int projectId, int documentId) throws Exception;
 }

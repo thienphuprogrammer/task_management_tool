@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface ITaskService extends IService<Task> {
     void submitTask(SubmissionTask submissionTask, int taskId);
-    List<Task> getAllTasksOfMember(int sprintId, int memberId);
-    List<Task> getAllTasks(int sprintId);
+    List<Task> getAllTasksOfMember(int sprintId, int memberId) throws Exception;
+    List<Task> getAllTasks(int sprintId) throws Exception;
+
+    List<SubmissionTask> getSubmissionTaskByTaskId(int taskId) throws Exception;
 }

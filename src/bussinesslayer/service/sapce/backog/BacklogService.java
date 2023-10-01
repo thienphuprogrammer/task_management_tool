@@ -1,6 +1,7 @@
 package bussinesslayer.service.sapce.backog;
 
 import bussinesslayer.entity.space.Backlog;
+import bussinesslayer.entity.space.Sprint;
 import bussinesslayer.entity.space.Task;
 import datalayer.DaoFactory;
 import datalayer.IDao;
@@ -50,46 +51,75 @@ public class BacklogService implements IBacklogService {
 
     @Override
     public Backlog getById(int id) throws Exception {
-        return backlogIDao.getById(id);
+        Backlog backlog = backlogIDao.getById(id);
+        if (backlog == null) {
+            throw new Exception("Backlog is not exist");
+        }
+        return backlog;
     }
 
     @Override
     public List<Backlog> getAll() throws Exception {
-        return backlogIDao.getAll();
+        List<Backlog> list = backlogIDao.getAll();
+        if (list == null) {
+            throw new Exception("Backlog is not exist");
+        }
+        return list;
     }
 
     @Override
-    public void viewById(int id) throws Exception {
-        backlogIDao.getById(id);
+    public void addTaskInBacklogToSprint(int backlogId, int taskId, int sprintId) throws Exception {
+        backlogIDao.addTaskInBacklogToSprint(backlogId, taskId, sprintId);
     }
 
     @Override
-    public void addTaskInBacklogToSprint(int backlogId, int taskId, int sprintId) {
-
+    public void createTaskInBacklog(Task task) throws Exception {
+        backlogIDao.createTaskInBacklog(task);
     }
 
     @Override
-    public void createTaskInBacklog(Task task) {
-
+    public Task getTaskInBacklogByTaskId(int taskId) throws Exception {
+        Task task = backlogIDao.getTaskInBacklogByTaskId(taskId);
+        if (task == null) {
+            throw new Exception("Task is not exist");
+        }
+        return task;
     }
 
     @Override
-    public Task getTaskInBacklogByTaskId(int taskId) {
-        return null;
+    public void updateTaskInBacklog(Task task) throws Exception {
+        backlogIDao.updateTaskInBacklog(task);
     }
 
     @Override
-    public void updateTaskInBacklog(Task task) {
-
+    public void deleteTaskInBacklog(int taskId) throws Exception {
+        backlogIDao.deleteTaskInBacklog(taskId);
     }
 
     @Override
-    public void deleteTaskInBacklog(int taskId) {
-
+    public List<Task> getAllTasksInBacklog(int backlogId) throws Exception {
+        List<Task> list = backlogIDao.getAllTasksInBacklog(backlogId);
+        if (list == null) {
+            throw new Exception("Task is not exist");
+        }
+        return list;
     }
 
     @Override
-    public List<Task> getAllTasksInBacklog(int backlogId) {
-        return null;
+    public Sprint getSprintBySprintId(int sprintId) throws Exception {
+        Sprint sprint = backlogIDao.getSprintBySprintId(sprintId);
+        if (sprint == null) {
+            throw new Exception("Sprint is not exist");
+        }
+        return sprint;
+    }
+
+    @Override
+    public Backlog getBacklogByProjectId(int projectId) throws Exception {
+        Backlog backlog = backlogIDao.getBacklogByProjectId(projectId);
+        if (backlog == null) {
+            throw new Exception("Backlog is not exist");
+        }
+        return backlog;
     }
 }

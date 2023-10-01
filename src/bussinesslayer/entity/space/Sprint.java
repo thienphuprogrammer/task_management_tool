@@ -5,13 +5,13 @@ import java.time.LocalDate;
 public class Sprint extends Space {
     private int projectId;
 
-    public Sprint(int id, String name, String description, LocalDate startDate, LocalDate endDate, int projectId) {
-        super(id, name, description, startDate, endDate);
+    public Sprint(int id, String name, LocalDate startDate, LocalDate endDate, int projectId) {
+        super(id, name, startDate, endDate);
         this.projectId = projectId;
     }
 
-    public Sprint(String name, String description, LocalDate startDate, LocalDate endDate, int projectId) {
-        super(name, description, startDate, endDate);
+    public Sprint(String name, LocalDate startDate, LocalDate endDate, int projectId) {
+        super(name, startDate, endDate);
         this.projectId = projectId;
     }
 

@@ -30,11 +30,17 @@ public class TaskService implements ITaskService {
     // -------------------- Methods ------------------------
     public void assignMember(int taskId, int managerId) throws Exception {
         Task task = taskIDao.getById(taskId);
+        if (task == null) {
+            throw new Exception("Task is not exist");
+        }
         task.setMemberId(managerId);
         taskIDao.update(task);
     }
     public void reassignMember(int taskId, int newMemberId) throws Exception {
         Task task = taskIDao.getById(taskId);
+        if (task == null) {
+            throw new Exception("Task is not exist");
+        }
         task.setMemberId(newMemberId);
         taskIDao.update(task);
     }
@@ -57,12 +63,20 @@ public class TaskService implements ITaskService {
 
     @Override
     public Task getById(int id) throws Exception {
-        return taskIDao.getById(id);
+        Task task = taskIDao.getById(id);
+        if (task == null) {
+            throw new Exception("Task is not exist");
+        }
+        return task;
     }
 
     @Override
     public List<Task> getAll() throws Exception {
-        return taskIDao.getAll();
+        List<Task> list = taskIDao.getAll();
+        if (list == null) {
+            throw new Exception("Task is not exist");
+        }
+        return list;
     }
     @Override
     public void submitTask(SubmissionTask submissionTask, int taskId) {
@@ -70,13 +84,30 @@ public class TaskService implements ITaskService {
     }
 
     @Override
-    public List<Task> getAllTasksOfMember(int sprintId, int memberId) {
-        return taskIDao.getAllMyTaskMember(sprintId, memberId);
+    public List<Task> getAllTasksOfMember(int sprintId, int memberId) throws Exception {
+        List<Task> taskList = taskIDao.getAllTasksOfMember(sprintId, memberId);
+        if (taskList == null) {
+            throw new Exception("Task is not exist");
+        }
+        return taskList;
     }
 
     @Override
-    public List<Task> getAllTasks(int sprintId) {
-        return taskIDao.getAllTasks(sprintId);
+    public List<Task> getAllTasks(int sprintId) throws Exception {
+        List<Task> taskList = taskIDao.getAllTasks(sprintId);
+        if (taskList == null) {
+            throw new Exception("Task is not exist");
+        }
+        return taskList;
+    }
+
+    @Override
+    public List<SubmissionTask> getSubmissionTaskByTaskId(int taskId) throws Exception {
+        List<SubmissionTask> taskList = taskIDao.getSubmissionTaskByTaskId(taskId);
+        if (taskList == null) {
+            throw new Exception("Task is not exist");
+        }
+        return taskList;
     }
 
 }

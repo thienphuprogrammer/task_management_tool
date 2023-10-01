@@ -6,11 +6,11 @@ import datalayer.IDao;
 import java.util.List;
 
 public interface IMemberDao extends IDao<Member> {
-    List<Member> getByEmail(String email);
+    List<Member> getByEmail(String email) throws Exception;
 
-    Member loginMember(String email, String password);
+    Member loginMember(String email, String password) throws Exception;
 
-    void changeEmail(int id, String email);
+    void changeEmail(int id, String email) throws Exception;
 
-    void changePassword(int id, String password);
+    void changePassword(int id, String password) throws Exception;
 }

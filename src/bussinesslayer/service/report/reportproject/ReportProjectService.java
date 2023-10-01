@@ -1,7 +1,6 @@
 package bussinesslayer.service.report.reportproject;
 
 import bussinesslayer.entity.report.ReportProject;
-import bussinesslayer.service.report.IReportService;
 import datalayer.DaoFactory;
 import datalayer.IDaoFactory;
 import datalayer.report.reportprojectdao.IReportProjectDao;
@@ -35,16 +34,28 @@ public class ReportProjectService implements IReportProjectService {
 
     @Override
     public ReportProject getById(int id) throws Exception {
-        return reportProjectIDao.getById(id);
+        ReportProject reportProject = reportProjectIDao.getById(id);
+        if (reportProject == null) {
+            throw new Exception("ReportProject is not exist");
+        }
+        return reportProject;
     }
 
     @Override
     public List<ReportProject> getAll() throws Exception {
-        return reportProjectIDao.getAll();
+        List<ReportProject> list = reportProjectIDao.getAll();
+        if (list == null) {
+            throw new Exception("ReportProject is not exist");
+        }
+        return list;
     }
 
     @Override
-    public List<ReportProject> getReportsByProjectId(int projectId) {
-        return reportProjectIDao.getReport(projectId);
+    public List<ReportProject> getReportsByProjectId(int projectId) throws Exception {
+        List<ReportProject> reportProjectList = reportProjectIDao.getReportsByProjectId(projectId);
+        if (reportProjectList == null) {
+            throw new Exception("ReportProject is not exist");
+        }
+        return reportProjectList;
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class MemberDao implements IMemberDao {
     @Override
     public Member getById(int id) throws Exception {
-        Member member = new Member();
+        Member member = null;
         try {
             String sql = "SELECT * FROM Member WHERE id = ?";
             Connection connection = MySqlConnection.getInstance().getConnection();
@@ -21,6 +21,7 @@ public class MemberDao implements IMemberDao {
             statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+                member = new Member();
                 member.setId(resultSet.getInt("id"));
                 member.setName(resultSet.getString("name"));
                 member.setEmail(resultSet.getString("email"));
@@ -30,7 +31,7 @@ public class MemberDao implements IMemberDao {
                 member.setGender(resultSet.getString("gender"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return member;
     }
@@ -55,7 +56,7 @@ public class MemberDao implements IMemberDao {
                 list.add(member);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return list;
     }
@@ -74,14 +75,14 @@ public class MemberDao implements IMemberDao {
             statement.setString(6, space.isGender());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
     public void update(Member space) throws Exception {
         try {
-            String sql = "UPDATE Member SET name = ?, email = ?, phone_number = ?, age = ?, address = ?, gender = ?, role = ? WHERE id = ?";
+            String sql = "UPDATE Member SET name = ?, email = ?, phone_number = ?, age = ?, address = ?, gender = ? WHERE id = ?";
             Connection connection = MySqlConnection.getInstance().getConnection();
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, space.getName());
@@ -90,10 +91,10 @@ public class MemberDao implements IMemberDao {
             statement.setInt(4, space.getAge());
             statement.setString(5, space.getAddress());
             statement.setString(6, space.isGender());
-            statement.setInt(8, space.getId());
+            statement.setInt(7, space.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
@@ -106,12 +107,12 @@ public class MemberDao implements IMemberDao {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public List<Member> getByEmail(String email) {
+    public List<Member> getByEmail(String email) throws Exception {
         List<Member> list = new ArrayList<>();
         try {
             String sql = "SELECT * FROM Member WHERE email = ?";
@@ -131,13 +132,13 @@ public class MemberDao implements IMemberDao {
                 list.add(member);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new Exception(e);
         }
         return list;
     }
 
     @Override
-    public Member loginMember(String email, String password) {
+    public Member loginMember(String email, String password) throws Exception {
         Member member = null;
         try {
             String sql = "SELECT * FROM Member WHERE email = ? AND password = ?";
@@ -157,13 +158,13 @@ public class MemberDao implements IMemberDao {
                 member.setGender(resultSet.getString("gender"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
         return member;
     }
 
     @Override
-    public void changeEmail(int id, String email) {
+    public void changeEmail(int id, String email) throws Exception {
         try {
             String sql = "UPDATE Member SET email = ? WHERE id = ?";
             Connection connection = MySqlConnection.getInstance().getConnection();
@@ -172,12 +173,12 @@ public class MemberDao implements IMemberDao {
             statement.setInt(2, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 
     @Override
-    public void changePassword(int id, String password) {
+    public void changePassword(int id, String password) throws Exception {
         try {
             String sql = "UPDATE Member SET password = ? WHERE id = ?";
             Connection connection = MySqlConnection.getInstance().getConnection();
@@ -186,7 +187,7 @@ public class MemberDao implements IMemberDao {
             statement.setInt(2, id);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new Exception(e);
         }
     }
 }

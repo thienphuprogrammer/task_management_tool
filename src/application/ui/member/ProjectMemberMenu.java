@@ -91,12 +91,9 @@ public class ProjectMemberMenu {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getProjectByMemberId(projectId, memberId);
             if (project != null) {
-                List<Document> list = serviceDocs.getAllDocumentsByProjectId(projectId);
-                for (Document doc : list) {
-                    printValue("id: " + doc.getId() + " ".repeat(10 - String.valueOf(doc.getId()).length()) + "|");
-                    printValue("Title: " + doc.getTitle() + " ".repeat(20 - String.valueOf(doc.getTitle()).length()) + "|");
-                    printValueln("Description: " + doc.getDescription() + " ".repeat(40 - String.valueOf(doc.getDescription()).length()) + "|");
-                    printValueln("Content: " + doc.getContent());
+                if (project.getManagerId() == memberId) {
+                    DocumentMemberMenu documentMemberMenu = new DocumentMemberMenu(projectId);
+                    documentMemberMenu.processMenuForDocumentMember();
                 }
             } else {
                 printValueln("Project not found.");
@@ -115,7 +112,7 @@ public class ProjectMemberMenu {
         try {
             int projectId = readInt("Enter project id: ");
             Project project = serviceProject.getProjectByMemberId(projectId, memberId);
-            if (project != null && project.getManagerId() == memberId) {
+            if (project != null) {
                 SprintMemberMenu sprintMemberMenu = new SprintMemberMenu(projectId, memberId);
                 sprintMemberMenu.processMenuForSprintMember();
             } else {
