@@ -4,10 +4,7 @@ import bussinesslayer.entity.space.Task;
 import bussinesslayer.entity.submission.SubmissionTask;
 import datalayer.MySqlConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +96,12 @@ public class TaskDao implements ITaskDao {
             statement.setString(2, space.getDescription());
             statement.setDate(3, java.sql.Date.valueOf(space.getStartDate()));
             statement.setDate(4, java.sql.Date.valueOf(space.getEndDate()));
-            statement.setInt(5, space.getMemberId());
+            int memberId = space.getMemberId();
+            if (memberId == -1) {
+                statement.setNull(5, Types.INTEGER);
+            } else {
+                statement.setInt(5, space.getMemberId());
+            }
             statement.setInt(6, space.getSprintId());
             statement.setString(7, "Open");
             statement.executeUpdate();
@@ -166,8 +168,21 @@ public class TaskDao implements ITaskDao {
                 task.setName(resultSet.getString("name"));
                 task.setStartDate(resultSet.getDate("start_date").toLocalDate());
                 task.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                task.setMemberId(resultSet.getInt("member_id"));
-                task.setSprintId(resultSet.getInt("sprint_id"));
+                int memberIdForTask = resultSet.getInt("member_id");
+                if (resultSet.wasNull()) {
+                    task.setMemberId(-1);
+                }
+                else {
+                    task.setMemberId(memberIdForTask);
+                }
+                int sprintIdForTask = resultSet.getInt("sprint_id");
+                if (resultSet.wasNull()) {
+                    task.setSprintId(-1);
+                }
+                else {
+                    task.setSprintId(sprintIdForTask);
+                }
+                task.setBacklogId(resultSet.getInt("backlog_id"));
                 String status = resultSet.getString("status");
                 switch (status) {
                     case "Open" -> task.setStatus(0);
@@ -224,8 +239,22 @@ public class TaskDao implements ITaskDao {
                 task.setName(resultSet.getString("name"));
                 task.setStartDate(resultSet.getDate("start_date").toLocalDate());
                 task.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                task.setMemberId(resultSet.getInt("member_id"));
-                task.setSprintId(resultSet.getInt("sprint_id"));
+                int memberIdForTask = resultSet.getInt("member_id");
+                if (resultSet.wasNull()) {
+                    task.setMemberId(-1);
+                }
+                else {
+                    task.setMemberId(memberIdForTask);
+                }
+                int sprintIdForTask = resultSet.getInt("sprint_id");
+                if (resultSet.wasNull()) {
+                    task.setSprintId(-1);
+                }
+                else {
+                    task.setSprintId(sprintIdForTask);
+                }
+                task.setBacklogId(resultSet.getInt("backlog_id"));
+
                 String status = resultSet.getString("status");
                 switch (status) {
                     case "Open" -> task.setStatus(0);
