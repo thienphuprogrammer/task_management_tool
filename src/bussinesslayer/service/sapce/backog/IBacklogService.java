@@ -21,4 +21,6 @@ public interface IBacklogService extends IService<Backlog> {
     List<Task> getAllTasksInBacklog(int backlogId) throws Exception;
 
     Sprint getSprintBySprintId(int sprintId) throws Exception;
+
+    Backlog getBacklogByProjectId(int projectId) throws Exception;
 }

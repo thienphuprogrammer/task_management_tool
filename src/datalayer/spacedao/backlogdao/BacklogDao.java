@@ -191,6 +191,14 @@ public class BacklogDao implements IBacklogDao {
             statement.setNull(5, Types.INTEGER); // Set the 5th parameter to NULL
             statement.setNull(6, Types.INTEGER); // Set the 6th parameter to NULL
             statement.setInt(7, task.getBacklogId());
+            int status = task.getStatus();
+            switch (status) {
+                case 0 -> statement.setString(8, "Open");
+                case 1 -> statement.setString(8, "In Progress");
+                case 2 -> statement.setString(8, "Completed");
+                case 3 -> statement.setString(8, "On Hold");
+                case 4 -> statement.setString(8, "Cancelled");
+            }
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new Exception(e);
@@ -320,6 +328,7 @@ public class BacklogDao implements IBacklogDao {
                     case "Completed" -> task.setStatus(2);
                     case "On Hold" -> task.setStatus(3);
                     case "Cancelled" -> task.setStatus(4);
+                    default -> task.setStatus(-1);
                 }
                 list.add(task);
             }

@@ -113,4 +113,13 @@ public class BacklogService implements IBacklogService {
         }
         return sprint;
     }
+
+    @Override
+    public Backlog getBacklogByProjectId(int projectId) throws Exception {
+        Backlog backlog = backlogIDao.getBacklogByProjectId(projectId);
+        if (backlog == null) {
+            throw new Exception("Backlog is not exist");
+        }
+        return backlog;
+    }
 }

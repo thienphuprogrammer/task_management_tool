@@ -35,12 +35,13 @@ public class BacklogManagerMenu {
     // -------------------- Methods ------------------------
 
     private void checkBacklogNone() throws Exception {
-        List<Backlog> backlogList = serviceBacklog.getAll();
-        if (backlogList.size() == 0) {
-            printValueln("Backlog is empty.");
+        Backlog backlog = serviceBacklog.getBacklogByProjectId(projectId);
+        if (backlog == null) {
+            printValueln("Backlog is not exist.");
             serviceBacklog.create(new Backlog(projectId));
+        } else {
+            this.backlogId = backlog.getId();
         }
-        this.backlogId = backlogList.get(0).getId();
     }
 
     public void processMenuForBacklogManager() throws Exception {
@@ -149,7 +150,6 @@ public class BacklogManagerMenu {
                     printValue("Description: " + task.getDescription() + " ".repeat(40 - String.valueOf(task.getDescription()).length()) + "|");
                     printValue("Start date: " + task.getStartDate() + " ".repeat(20 - String.valueOf(task.getStartDate()).length()) + "|");
                     printValue("End date: " + task.getEndDate() + " ".repeat(20 - String.valueOf(task.getEndDate()).length()) + "|");
-                    printValue("Status: " + task.getStatus() + " ".repeat(10 - String.valueOf(task.getStatus()).length()) + "|");
                     printValue("Member ID: " + task.getMemberId() + " ".repeat(10 - String.valueOf(task.getMemberId()).length()) + "|");
                     printValue("Sprint ID: " + task.getSprintId() + " ".repeat(10 - String.valueOf(task.getSprintId()).length()) + "|");
                     printLineSeparate();
