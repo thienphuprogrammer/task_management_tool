@@ -111,6 +111,7 @@ public class TaskMangerMenu {
                     task.setDescription(readString("Enter task description: ", task.getDescription()));
                     task.setStartDate(readStartDate("Enter task start date: ", task.getStartDate()));
                     task.setEndDate(readEndDate("Enter task end date: ", task.getStartDate(), task.getEndDate()));
+                    serviceTask.update(task);
                 } else {
                     printValueln("You are not manager of this task.");
                 }

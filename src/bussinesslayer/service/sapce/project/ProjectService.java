@@ -141,10 +141,6 @@ public class ProjectService implements IProjectService {
 
     @Override
     public Member searchMemberInProject(int memberId, int projectId) throws Exception {
-        Member member = projectIDao.searchMemberInProject(projectId, memberId);
-        if (member == null) {
-            throw new Exception("Member is not exist");
-        }
-        return member;
+        return projectIDao.searchMemberInProject(projectId, memberId);
     }
 }

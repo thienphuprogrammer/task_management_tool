@@ -188,8 +188,8 @@ public class BacklogDao implements IBacklogDao {
             statement.setString(2, task.getDescription());
             statement.setDate(3, Date.valueOf(task.getStartDate()));
             statement.setDate(4, Date.valueOf(task.getEndDate()));
-            statement.setInt(5, task.getMemberId());
-            statement.setInt(6, task.getSprintId());
+            statement.setNull(5, Types.INTEGER); // Set the 5th parameter to NULL
+            statement.setNull(6, Types.INTEGER); // Set the 6th parameter to NULL
             statement.setInt(7, task.getBacklogId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -212,8 +212,21 @@ public class BacklogDao implements IBacklogDao {
                 task.setDescription(resultSet.getString("description"));
                 task.setStartDate(resultSet.getDate("start_date").toLocalDate());
                 task.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                task.setMemberId(resultSet.getInt("member_id"));
-                task.setSprintId(resultSet.getInt("sprint_id"));
+                int memberId = resultSet.getInt("member_id");
+                if (resultSet.wasNull()) {
+                    task.setMemberId(-1);
+                }
+                else {
+                    task.setMemberId(memberId);
+                }
+                int sprintId = resultSet.getInt("sprint_id");
+                if (resultSet.wasNull()) {
+                    task.setSprintId(-1);
+                }
+                else {
+                    task.setSprintId(sprintId);
+                }
+                task.setBacklogId(resultSet.getInt("backlog_id"));
                 String status = resultSet.getString("status");
                 switch (status) {
                     case "Open" -> task.setStatus(0);
@@ -239,8 +252,18 @@ public class BacklogDao implements IBacklogDao {
             statement.setString(2, task.getDescription());
             statement.setDate(3, Date.valueOf(task.getStartDate()));
             statement.setDate(4, Date.valueOf(task.getEndDate()));
-            statement.setInt(5, task.getMemberId());
-            statement.setInt(6, task.getBacklogId());
+            if (task.getMemberId() == -1) {
+                statement.setNull(5, Types.INTEGER); // Set the 5th parameter to NULL
+            }
+            else {
+                statement.setInt(5, task.getMemberId());
+            }
+            if (task.getSprintId() == -1) {
+                statement.setNull(6, Types.INTEGER); // Set the 6th parameter to NULL
+            }
+            else {
+                statement.setInt(6, task.getSprintId());
+            }
             statement.setInt(7, task.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -277,8 +300,19 @@ public class BacklogDao implements IBacklogDao {
                 task.setDescription(resultSet.getString("description"));
                 task.setStartDate(resultSet.getDate("start_date").toLocalDate());
                 task.setEndDate(resultSet.getDate("end_date").toLocalDate());
-                task.setMemberId(resultSet.getInt("member_id"));
-                task.setSprintId(resultSet.getInt("sprint_id"));
+                int memberId = resultSet.getInt("member_id");
+                if (resultSet.wasNull()) {
+                    task.setMemberId(-1);
+                } else {
+                    task.setMemberId(memberId);
+                }
+                int sprintId = resultSet.getInt("sprint_id");
+                if (resultSet.wasNull()) {
+                    task.setSprintId(-1);
+                } else {
+                    task.setSprintId(sprintId);
+                }
+                task.setBacklogId(resultSet.getInt("backlog_id"));
                 String status = resultSet.getString("status");
                 switch (status) {
                     case "Open" -> task.setStatus(0);
