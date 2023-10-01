@@ -35,11 +35,12 @@ public class BacklogManagerMenu {
     // -------------------- Methods ------------------------
 
     private void checkBacklogNone() throws Exception {
-        if (serviceBacklog.getAll().size() == 0) {
+        List<Backlog> backlogList = serviceBacklog.getAll();
+        if (backlogList.size() == 0) {
             printValueln("Backlog is empty.");
             serviceBacklog.create(new Backlog(projectId));
-            backlogId = serviceBacklog.getAll().get(0).getId();
         }
+        this.backlogId = backlogList.get(0).getId();
     }
 
     public void processMenuForBacklogManager() throws Exception {
